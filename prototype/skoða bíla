@@ -1,0 +1,55 @@
+
+
+Skoða bíla
+-----------------------------------------------	
+
+	1. Lausir bílar
+	2. Bílar í útleigu
+	3. Allir bílar 
+	4. Skrá nýjan bíl 
+
+------------------------------------------------
+Lausir bílar 
+
+	Tegund 	   |  Undirgerð  |  Flokkur      |  Fjöldi sæta  |  4x4  |  Skipting  |  Fjöldi  | ID 
+      ---------------------------------------------------------------------------------------------------
+	Volksvagen    Polo	   Economy          4	            N       MT           5         4
+	Hyundai       i10          Economy          4               N       MT           3         3
+	Skoda         Octavia      Station Wagon    5               N       AT           8         5 
+	Hyundai       Tucson       SUV              5               Y       AT           7         6  	
+	Toyota 	      Corolla      Intermediate     5               N       AT           3         7 
+	Mercedes      C-Class      Luxury           5               N       AT           2         9
+
+---------------------------------------------------------------------------------------------------------
+Bíla í Útleiga 
+
+	
+	Tegund 	   |  Undirgerð  |  Flokkur      |  Tími leigu(dagar)   |  4x4  |  Skipting  | Númer | ID  | Leigjandi 
+      --------------------------------------------------------------------------------------------------------------------
+	Volksvagen    Polo	   Economy            20 	           N       MT         NHG-44   4    Jón Jónsson 
+	Mercedes      C-Class      Luxury             15                   N       AT         MIT-89   9    Magnús Ólafsson
+
+----------------------------------------------------------------------------------------------------------
+Allir Bílar 
+
+	Tegund 	   |  Undirgerð  |  Flokkur      |  Fjöldi sæta  |  4x4  |  Skipting  |  Fjöldi  | ID |  Staða 
+      ---------------------------------------------------------------------------------------------------------
+	Volksvagen    Polo	    Economy          4	             N       MT           5         4     LAUS
+	Hyundai       i10           Economy          4               N       MT           3         3     Í LEIGU
+	Skoda         Octavia       Station Wagon    5               N       AT           8         5     Í LEIGU  
+	Hyundai       Tucson        SUV              5               Y       AT           7         6  	  LAUS
+	Toyota 	      Corolla       Intermediate     5               N       AT           3         7     LAUS 
+	Mercedes      C-Class       Luxury           5               N       AT           2         9     Í LEIGU 
+
+--------------------------------------------------------------------------------------------------------------------------
+Skrá Bíl 
+	Tegund
+	Undirgerð
+	Flokkur 
+	Fjöldi sæta
+	4x4
+	Skipting
+	Fjöldi
+	ID
+	
+	
