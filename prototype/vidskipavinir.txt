@@ -1,0 +1,49 @@
+  Viðskiptavinur
+	
+	1. Finna viðskiptavin
+	2. Breyta viðskiptavin
+
+------------------------------------
+
+Finna viðskiptavin
+	
+	1. kennitala
+	2. pöntunarnr
+	3. númer bíls
+
+-------------------------------------
+
+Upplýsingar um viðskiptavini
+
+	Kt/Vegabréfsnúmer 
+	Nafn 
+	Land 
+	Heimilisfang 
+	Netfang 
+	Símanúmer 
+	Ökuskirteini (númer) 
+	Aldur (21+)
+
+--------------------------------------
+
+Finna viðskiptavin
+
+	1. kennitala
+	2. pöntunarnr
+	3. númer bíls
+	
+--------------------------------------
+
+Breyta viðskiptavin
+	
+	1. Kt/Vegabréfsnúmer
+	2. Nafn 
+	3. Land 
+	4. Heimilisfang 
+	5. Netfang 
+	6. Símanúmer 
+	7. Ökuskirteini (númer) 
+	8. Aldur (21+)
+
+
+	
