@@ -1,0 +1,38 @@
+Skila bíl
+ 
+	1. kennitala
+	2. pöntunarnr
+	3. númer bíls
+	
+-------------------------------------
+
+Upplýsingar um viðskiptavina
+
+	Kt/Vegabréfsnúmer 
+	Nafn 
+	Land 
+	Heimilisfang 
+	Netfang 
+	Símanúmer 
+	Ökuskirteini (númer) 
+	Aldur (21+)
+
+	
+-------------------------------------
+
+Upplýsingar um bíla í leigu
+
+	Tegund
+	Undirgerð 
+	Fjöldi sæta 
+	4x4 (y/n) 
+	Tegund eldsneytis x
+	Class (luxury, station…) 
+	Verð (per/day) 
+	Transmission 
+	Númeraplata
+
+Skila bíl?
+
+	9. Skila bíl (Y/N)
+		
