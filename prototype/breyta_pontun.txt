@@ -1,0 +1,56 @@
+Pantanir/breyta/bakfæra
+
+	1.Breyta, bakfæra eða eyða pöntun
+
+------------------------------------------
+
+Finna pöntun
+	
+	1. Kennitala
+	2. Pöntunarnr
+	3. Númer bíls
+
+Upplýsingar um bíla í leigu
+
+	Tegund
+	Undirgerð 
+	Fjöldi sæta 
+	4x4 (y/n) 
+	Tegund eldsneytis x
+	Class (luxury, station…) 
+	Verð (per/day) 
+	Transmission 
+	Númeraplata
+	
+	4. Breyta pöntun
+	5. Bakfæra pöntun(Y/N)
+	6. Eyða pöntun(Y/N)
+
+--------------------------------------------
+
+Breyta pöntun
+
+	Upplýsingar um viðskiptavin 
+
+		Kt/Vegabréfsnúmer 
+		Nafn 
+		Land 
+		Heimilisfang 
+		Netfang 
+		Símanúmer 
+		Ökuskirteini (númer) 
+		Aldur (21+)
+
+	Breyta pöntun
+		
+		1. Tegund
+		2. Undirgerð 
+		3. Fjöldi sæta 
+		4. 4x4 (y/n) 
+		5. Tegund eldsneytis x
+		6. Class (luxury, station…) 
+		7. Verð (per/day) 
+		8. Transmission 
+		9. Númeraplata
+		
+	
