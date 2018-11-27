@@ -1,0 +1,25 @@
+
+-------------------------------------------------------------------
+
+		1. Leigja bíl 
+		2. Skila bíl
+		3. Viðskiptavinir ----> Breyta viðskiptavin, Finna leigjanda 
+		4. Pantannir --- > Finna pöntun, Breyta pöntun, bakfæra pöntun
+		5. Skoða bíla  ----> lausir bílar, bílar í útleigu, allir bílar, Skrá nýjan bíl
+
+-----------------------------------------------------------
+	Leigja bíl
+		Búa til viðskiptavin
+				1. Kennitala / vegabréfsnúmer
+				2. Nafn
+				3. Aldur
+				4. Ökuskirteini
+				5. Land
+				6. Heimilisfang
+				7. Netfang
+				8. Símanumer				
+		Tími leigu?
+		Tegund bíls?
+		Lausir bílar(velja bíl)
+		Kostnaður á leigu
+		Auka tryggingu? 
