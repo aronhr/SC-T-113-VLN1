@@ -11,16 +11,16 @@ Skoða bíla
 ------------------------------------------------
 Lausir bílar 
 
-	Tegund 	   |  Undirgerð  |  Flokkur      |  Fjöldi sæta  |  4x4  |  Skipting  |  Fjöldi  | ID 
-      ---------------------------------------------------------------------------------------------------
-	Volksvagen    Polo	   Economy          4	            N       MT           5         4
-	Hyundai       i10          Economy          4               N       MT           3         3
-	Skoda         Octavia      Station Wagon    5               N       AT           8         5 
-	Hyundai       Tucson       SUV              5               Y       AT           7         6  	
-	Toyota 	      Corolla      Intermediate     5               N       AT           3         7 
-	Mercedes      C-Class      Luxury           5               N       AT           2         9
+	Tegund 	   |  Undirgerð  |  Flokkur      |  Fjöldi sæta  |  4x4  |  Skipting  |  Fjöldi  | ID |  Verð á dag
+      -------------------------------------------------------------------------------------------------------------
+	Volksvagen    Polo	   Economy          4	            N       MT           5         4     5,925 ISK 
+	Hyundai       i10          Economy          4               N       MT           3         3     5,925 ISK
+	Skoda         Octavia      Station Wagon    5               N       AT           8         5     10,425 ISK 
+	Hyundai       Tucson       SUV              5               Y       AT           7         6  	 15,755 ISK 
+	Toyota 	      Corolla      Intermediate     5               N       AT           3         7 	 10,425 ISK
+	Mercedes      C-Class      Luxury           5               N       AT           2         9     22,624 ISK
 
----------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
 Bíla í Útleiga 
 
 	
