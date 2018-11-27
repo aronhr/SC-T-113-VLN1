@@ -1,19 +1,14 @@
+      
+       
+-------------------------------------------------------------------
 
-
-
-	1. leigja bíl ------> skrá viðskiptavin ----> velja tímasetningu ----> velja tegund ----> velja lausan bíl  ---> Reikna kostnað
-	2. Skila bíl  ------>  
-	3. Skoða bíla -------> lausir bílar, bílar í útleigu
-	4. Finna leigjanda ----> skrifa kt, eða vegabréfsnúmer
-	5. Skrá bíl ---> setja niður upplýsingar um bíl 
-	6. Finna pöntun ----> 
-	7. Afskrá viðskiptavin ---> finna viðskiptavin
-	8. Bakfræra pöntun ------> finna annaðhvort númer á bíl, upplýsignar um viðskiptavin, eða numer á pöntun
-	9. Uppfæra upplýsingar um viðskiptavin
-       10. Breyta fyrri pöntun 
-
-
-
+	1. Leigja bíl ------> skrá viðskiptavin ----> velja tímasetningu ----> velja tegund ----> velja lausan bíl  ---> Reikna kostnað
+	2. Skila bíl
+	3. Viðskiptavinir ----> Breyta viðskiptavin, Finna leigjanda 
+	4. Pantannir --- > Finna pöntun, Breyta pöntun, bakfæra pöntun
+	5. Skoða bíla  ----> lausir bílar, bílar í útleigu, allir bílar, Skrá nýjan bíl
+	
+-----------------------------------------------------------------------------------------------
 
 ● Birta alla lausa bíla
 ● Birta alla bíla sem eru í útleigu sem stendur
