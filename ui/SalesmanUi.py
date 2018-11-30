@@ -1,5 +1,6 @@
 from services.CarService import CarService
 from modules.car.Car import Car
+import string
 
 
 class SalesmanUi:
@@ -19,16 +20,18 @@ class SalesmanUi:
             action = input("Choose an option: ").lower()
 
             if action == "1":
-                id = input("Id: ")
-                model = input("Model: ")
-                cartype = input("Type: ")
-                carclass = input("Class: ")
-                seats = input("How many seats: ")
-                fwd = input("4x4 (Y/N): ").upper()
-                transmission = input("Transmission: ")
-                new_car = Car(id, model, cartype, carclass, seats, fwd, transmission)
-                self.__car_service.add_car(new_car)
+                try:
+                    model = input("Model: ").replace(string.punctuation, "")
+                    cartype = input("Type: ").replace(string.punctuation, "")
+                    carclass = input("Class: ").replace(string.punctuation, "")
+                    seats = input("How many seats: ").replace(string.punctuation, "")
+                    fwd = input("4x4 (Y/N): ").upper().replace(string.punctuation, "")
+                    transmission = input("Transmission (A/M): ").upper().replace(string.punctuation, "")
+                    new_car = Car(model, cartype, carclass, seats, fwd, transmission)
+                    self.__car_service.add_car(new_car)
+                except Exception:
+                    print("Wow, how did you do that?")
 
             elif action == "2":
-                videos = self.__car_service.get_cars()
-                print(videos)
+                cars = self.__car_service.get_cars()
+                print(cars)

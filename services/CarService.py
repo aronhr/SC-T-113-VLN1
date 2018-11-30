@@ -5,13 +5,13 @@ class CarService:
     def __init__(self):
         self.__car_repo = CarRepository()
 
-    def add_car(self, video):
-        if self.is_valid_car(video):
-            self.__car_repo.add_car(video)
+    def add_car(self, car):
+        if self.is_valid_car(car):
+            self.__car_repo.add_car(car)
 
     def is_valid_car(self, car):
         # here should be some code to
-        # validate the video
+        # validate the car
         return True
 
     def get_cars(self):
