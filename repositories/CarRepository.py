@@ -5,17 +5,20 @@ from modules.car.Car import Car
 
 class CarRepository(object):
     def __init__(self):
-        cars = []
+        pass
 
     def get_car(self):
-        # TODO: Make table
-        with open("./data/car.csv") as file:
-            csv_reader = csv.reader(file)
+        try:
+            with open("./data/car.csv") as file:
+                csv_reader = csv.reader(file)
 
-            next(csv_reader)
-
-            for line in csv_reader:
-                print(line)
+                next(csv_reader)
+                cars = []
+                for line in csv_reader:
+                    cars.append(line)
+                return cars
+        except Exception:
+            return "{}".format("Add some cars to start with")
 
     def add_car(self, car):
         model = car.get_model()
@@ -27,6 +30,23 @@ class CarRepository(object):
 
         with open("./data/car.csv", "a+") as file:
             if os.stat("./data/car.csv").st_size == 0:
-                file.write("{},{},{},{},{},{}".format("Model", "Type", "Class", "Seats", "4x4", "Transmission"))
+                file.write("{},{},{},{},{},{},{}".format("Model", "Type", "Class", "Seats", "4x4", "Transmission", "Status"))
 
-            file.write("\n{},{},{},{},{},{}".format(model, cartype, carclass, seats, fwd, transmission))
+            file.write("\n{},{},{},{},{},{},{}".format(model, cartype, carclass, seats, fwd, transmission, True))
+
+    def get_available_car(self):
+        cars = self.get_car()
+        available = []
+        for x in cars:
+            if x[6]:
+                available.append(x)
+            return available
+
+    def get_not_available_car(self):
+        # TODO: Returns empty list!
+        cars = self.get_car()
+        not_available = []
+        for x in cars:
+            if x[6] == False:
+                not_available.append(x)
+            return not_available

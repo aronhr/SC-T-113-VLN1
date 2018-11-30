@@ -1,6 +1,7 @@
 from services.CarService import CarService
 from modules.car.Car import Car
 import string
+import os
 
 
 class SalesmanUi:
@@ -12,14 +13,24 @@ class SalesmanUi:
 
         action = ""
         while action != "q":
-            print("You can do the following: ")
-            print("1. Add a car")
-            print("2. List all cars")
+            os.system('cls')
+            print("1. Available cars")
+            print("2. Cars in rent")
+            print("3. All cars")
+            print("4. Register new car")
             print("press q to quit")
 
             action = input("Choose an option: ").lower()
-
             if action == "1":
+                cars = self.__car_service.get_available_cars()
+                print(cars)
+            elif action == "2":
+                cars = self.__car_service.get_not_available_cars()
+                print(cars)
+            elif action == "3":
+                cars = self.__car_service.get_cars()
+                print(cars)
+            elif action == "4":
                 try:
                     model = input("Model: ").replace(string.punctuation, "")
                     cartype = input("Type: ").replace(string.punctuation, "")
@@ -31,7 +42,3 @@ class SalesmanUi:
                     self.__car_service.add_car(new_car)
                 except Exception:
                     print("Wow, how did you do that?")
-
-            elif action == "2":
-                cars = self.__car_service.get_cars()
-                print(cars)
