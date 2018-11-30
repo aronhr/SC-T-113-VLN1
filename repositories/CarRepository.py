@@ -3,7 +3,7 @@ import os
 from modules.car.Car import Car
 
 
-class CarRepository:
+class CarRepository(object):
     def __init__(self):
         cars = []
 
@@ -24,7 +24,9 @@ class CarRepository:
         seats = car.get_seats()
         fwd = car.get_4x4()
         transmission = car.get_transmission()
+
         with open("./data/car.csv", "a+") as file:
             if os.stat("./data/car.csv").st_size == 0:
-                file.write("{},{},{},{},{},{},{}\n".format("id", "model", "type", "class", "seats", "4x4", "transmission"))
-            file.write("{},{},{},{},{},{}\n".format(model, cartype, carclass, seats, fwd, transmission))
+                file.write("{},{},{},{},{},{}".format("Model", "Type", "Class", "Seats", "4x4", "Transmission"))
+
+            file.write("\n{},{},{},{},{},{}".format(model, cartype, carclass, seats, fwd, transmission))

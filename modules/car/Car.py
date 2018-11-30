@@ -1,9 +1,16 @@
 class Car(object):
-    def __init__(self, model="", cartype="", carclass="", seats=0, fwd=None, transmission=""):
+    def __init__(self, model="", cartype="", carclass="", seats=0, fwd="", transmission=""):
         if fwd == "Y":
-            self.__4x4 = True
+            fwd = True
         else:
-            self.__4x4 = False
+            fwd = False
+
+        if transmission == "A":
+            transmission = "Automatic"
+        elif transmission == "M":
+            transmission = "Manual"
+        else:
+            transmission = "Something new?"
 
         self.__id = 0
         self.__model = model
@@ -54,5 +61,3 @@ class Car(object):
 
     def set_transmission(self, other):
         self.__transmission = other
-
-
