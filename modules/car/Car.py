@@ -1,12 +1,17 @@
 class Car(object):
-    def __init__(self):
-        self.__id = 0
-        self.__model = ""
-        self.__type = ""
-        self.__class = ""
-        self.__seats = 0
-        self.__4x4 = False
-        self.__transmission = ""
+    def __init__(self, id=0, model="", cartype="", carclass="", seats=0, fwd=None, transmission=""):
+        if fwd == "Y":
+            self.__4x4 = True
+        else:
+            self.__4x4 = False
+
+        self.__id = id
+        self.__model = model
+        self.__type = cartype
+        self.__class = carclass
+        self.__seats = seats
+        self.__4x4 = fwd
+        self.__transmission = transmission
 
     def get_id(self):
         return self.__id
@@ -49,3 +54,5 @@ class Car(object):
 
     def set_transmission(self, other):
         self.__transmission = other
+
+
