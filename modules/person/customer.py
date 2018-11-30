@@ -66,23 +66,3 @@ class Customer(object):
 
     def __repr__(self):
         return self.get_name()
-
-
-def create_customer():
-    costumer_list = []
-    name = input("Enter name: ")
-    kt = input("Enter passport number: ")
-    country = input("Enter country: ")
-    address = input("Enter address: ")
-    mail = input("Enter mail: ")
-    phone = input("Enter phone number: ")
-    license = input("Enter drivers license: ")
-    age = int(input("Enter age: "))
-    id = int(input("Enter id: "))
-    new_customer = Customer(id, name, kt, country, address, mail, phone, license, age)
-    costumer_list.append(new_customer)
-
-    print(costumer_list)
-
-
-create_customer()
