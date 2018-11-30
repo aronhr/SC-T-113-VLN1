@@ -1,14 +1,14 @@
 class Customer(object):
-    def __init__(self):
-        self.__id = 0
-        self.__name = ""
-        self.__kt = ""
-        self.__country = ""
-        self.__address = ""
-        self.__mail = ""
-        self.__phone_number = ""
-        self.__license = ""
-        self.__age = 0
+    def __init__(self, customer_id=0, name='', kt='', country='', address='', mail='', phone='', d_license='', age=0):
+        self.__id = customer_id
+        self.__name = name
+        self.__kt = kt
+        self.__country = country
+        self.__address = address
+        self.__mail = mail
+        self.__phone_number = phone
+        self.__license = d_license
+        self.__age = age
 
     def get_id(self):
         return self.__id
@@ -63,3 +63,26 @@ class Customer(object):
 
     def set_age(self, other):
         self.__age = other
+
+    def __repr__(self):
+        return self.get_name()
+
+
+def create_customer():
+    costumer_list = []
+    name = input("Enter name: ")
+    kt = input("Enter passport number: ")
+    country = input("Enter country: ")
+    address = input("Enter address: ")
+    mail = input("Enter mail: ")
+    phone = input("Enter phone number: ")
+    license = input("Enter drivers license: ")
+    age = int(input("Enter age: "))
+    id = int(input("Enter id: "))
+    new_customer = Customer(id, name, kt, country, address, mail, phone, license, age)
+    costumer_list.append(new_customer)
+
+    print(costumer_list)
+
+
+create_customer()
