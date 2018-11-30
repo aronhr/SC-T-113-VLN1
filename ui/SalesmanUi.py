@@ -19,14 +19,13 @@ class SalesmanUi:
             action = input("Choose an option: ").lower()
 
             if action == "1":
-                id = input("Id: ")
                 model = input("Model: ")
                 cartype = input("Type: ")
                 carclass = input("Class: ")
                 seats = input("How many seats: ")
                 fwd = input("4x4 (Y/N): ").upper()
                 transmission = input("Transmission: ")
-                new_car = Car(id, model, cartype, carclass, seats, fwd, transmission)
+                new_car = Car(model, cartype, carclass, seats, fwd, transmission)
                 self.__car_service.add_car(new_car)
 
             elif action == "2":

@@ -1,11 +1,11 @@
 class Car(object):
-    def __init__(self, id=0, model="", cartype="", carclass="", seats=0, fwd=None, transmission=""):
+    def __init__(self, model="", cartype="", carclass="", seats=0, fwd=None, transmission=""):
         if fwd == "Y":
             self.__4x4 = True
         else:
             self.__4x4 = False
 
-        self.__id = id
+        self.__id = 0
         self.__model = model
         self.__type = cartype
         self.__class = carclass
