@@ -1,4 +1,6 @@
 from ui.SalesmanUi import SalesmanUi
+from ui.customerUi import CustomerUi
+
 
 
 def main():
@@ -6,4 +8,11 @@ def main():
     ui.main_menu()
 
 
-main()
+
+
+
+def c_main():
+    ui = CustomerUi()
+    ui.main_menu()
+
+c_main()
