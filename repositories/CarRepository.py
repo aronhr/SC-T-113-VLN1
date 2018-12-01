@@ -1,13 +1,13 @@
 import csv
 import os
-from modules.car.Car import Car
 
 
 class CarRepository(object):
     def __init__(self):
         pass
 
-    def get_car(self):
+    @staticmethod
+    def get_car():
         try:
             with open("./data/car.csv") as file:
                 csv_reader = csv.reader(file)
@@ -20,7 +20,8 @@ class CarRepository(object):
         except Exception:
             return "{}".format("Add some cars to start with")
 
-    def add_car(self, car):
+    @staticmethod
+    def add_car(car):
         model = car.get_model()
         cartype = car.get_type()
         carclass = car.get_class()
@@ -34,18 +35,10 @@ class CarRepository(object):
 
             file.write("\n{},{},{},{},{},{},{}".format(model, cartype, carclass, seats, fwd, transmission, False))
 
-    def get_available_car(self):
-        cars = self.get_car()
-        available = []
-        for x in cars:
-            if x[6] == "True":
-                available.append(x)
-        return available
-
-    def get_not_available_car(self):
-        cars = self.get_car()
-        not_available = []
-        for x in cars:
-            if x[6] == "False":
-                not_available.append(x)
-        return not_available
+    def get_available_car(self, t):     # t stendur fyrir annaðhvort True eða False
+        car = self.get_car()
+        cars = []
+        for x in car:
+            if x[6] == t:
+                cars.append(x)
+        return cars

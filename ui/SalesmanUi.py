@@ -9,6 +9,14 @@ class SalesmanUi:
     def __init__(self):
         self.__car_service = CarService()
 
+    def print_cars(self, cars):
+        print("{:^5}|{:^12}|{:^10}|{:^10}|{:^7}|{:^7}|{:^14}|{:^11}".format("Id", "Brand", "Type", "Class", "Seats",
+                                                                            "4x4", "Transmission", "Available"))
+        print("-" * 82)
+        for x, car in enumerate(cars):
+            print("{:^5} {:^12} {:^10} {:^10} {:^7} {:^7} {:^14} {:^11}".format(x + 1, car[0], car[1], car[2], car[3],
+                                                                                car[4], car[5], car[6]))
+
     def main_menu(self):
 
         action = ""
@@ -23,13 +31,13 @@ class SalesmanUi:
             action = input("Choose an option: ").lower()
             if action == "1":
                 cars = self.__car_service.get_available_cars()
-                print(cars)
+                self.print_cars(cars)
             elif action == "2":
                 cars = self.__car_service.get_not_available_cars()
-                print(cars)
+                self.print_cars(cars)
             elif action == "3":
                 cars = self.__car_service.get_cars()
-                print(cars)
+                self.print_cars(cars)
             elif action == "4":
                 try:
                     model = input("Model: ").replace(string.punctuation, "")

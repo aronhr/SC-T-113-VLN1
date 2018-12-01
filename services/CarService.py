@@ -21,7 +21,7 @@ class CarService:
         pass
 
     def get_available_cars(self):
-        return self.__car_repo.get_available_car()
+        return self.__car_repo.get_available_car("True")
 
     def get_not_available_cars(self):
-        return self.__car_repo.get_not_available_car()
+        return self.__car_repo.get_available_car("False")
