@@ -32,21 +32,20 @@ class CarRepository(object):
             if os.stat("./data/car.csv").st_size == 0:
                 file.write("{},{},{},{},{},{},{}".format("Model", "Type", "Class", "Seats", "4x4", "Transmission", "Status"))
 
-            file.write("\n{},{},{},{},{},{},{}".format(model, cartype, carclass, seats, fwd, transmission, True))
+            file.write("\n{},{},{},{},{},{},{}".format(model, cartype, carclass, seats, fwd, transmission, False))
 
     def get_available_car(self):
         cars = self.get_car()
         available = []
         for x in cars:
-            if x[6]:
+            if x[6] == "True":
                 available.append(x)
-            return available
+        return available
 
     def get_not_available_car(self):
-        # TODO: Returns empty list!
         cars = self.get_car()
         not_available = []
         for x in cars:
-            if x[6] == False:
+            if x[6] == "False":
                 not_available.append(x)
-            return not_available
+        return not_available

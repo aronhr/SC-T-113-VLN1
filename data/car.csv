@@ -1,3 +1,4 @@
 Model,Type,Class,Seats,4x4,Transmission,Status
 Honda,Jazz,Family,5,True,Automatic,True
 Ford,Focus,Family,5,False,Manual,False
+Vw,Golf,Family,5,True,Automatic,True
