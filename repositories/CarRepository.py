@@ -44,3 +44,12 @@ class CarRepository(object):
             if x[6] == t:
                 cars.append(x)
         return cars
+
+    def get_car_id(self, id):
+        car = self.get_car()
+        return car[id - 1]
+
+    def remove_car_id(self, id):
+        pass
+        # car = self.get_car()
+        # return car[id - 1]

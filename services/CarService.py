@@ -25,3 +25,6 @@ class CarService:
 
     def get_not_available_cars(self):
         return self.__car_repo.get_available_car("False")
+
+    def get_car_by_id(self, id):
+        return self.__car_repo.get_car_id(id)
