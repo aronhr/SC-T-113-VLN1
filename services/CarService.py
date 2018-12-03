@@ -17,5 +17,11 @@ class CarService:
     def get_cars(self):
         return self.__car_repo.get_car()
 
-    def get_videos_by_genre(self, genre):
+    def get_cars_by_type(self, genre):
         pass
+
+    def get_available_cars(self):
+        return self.__car_repo.get_available_car("True")
+
+    def get_not_available_cars(self):
+        return self.__car_repo.get_available_car("False")

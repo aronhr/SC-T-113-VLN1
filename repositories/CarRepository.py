@@ -1,23 +1,27 @@
 import csv
 import os
-from modules.car.Car import Car
 
 
 class CarRepository(object):
     def __init__(self):
-        cars = []
+        pass
 
-    def get_car(self):
-        # TODO: Make table
-        with open("./data/car.csv") as file:
-            csv_reader = csv.reader(file)
+    @staticmethod
+    def get_car():
+        try:
+            with open("./data/car.csv") as file:
+                csv_reader = csv.reader(file)
 
-            next(csv_reader)
+                next(csv_reader)
+                cars = []
+                for line in csv_reader:
+                    cars.append(line)
+                return cars
+        except Exception:
+            return "{}".format("Add some cars to start with")
 
-            for line in csv_reader:
-                print(line)
-
-    def add_car(self, car):
+    @staticmethod
+    def add_car(car):
         model = car.get_model()
         cartype = car.get_type()
         carclass = car.get_class()
@@ -27,6 +31,14 @@ class CarRepository(object):
 
         with open("./data/car.csv", "a+") as file:
             if os.stat("./data/car.csv").st_size == 0:
-                file.write("{},{},{},{},{},{}".format("Model", "Type", "Class", "Seats", "4x4", "Transmission"))
+                file.write("{},{},{},{},{},{},{}".format("Model", "Type", "Class", "Seats", "4x4", "Transmission", "Status"))
 
-            file.write("\n{},{},{},{},{},{}".format(model, cartype, carclass, seats, fwd, transmission))
+            file.write("\n{},{},{},{},{},{},{}".format(model, cartype, carclass, seats, fwd, transmission, True))
+
+    def get_available_car(self, t):     # t stendur fyrir annaðhvort True eða False
+        car = self.get_car()
+        cars = []
+        for x in car:
+            if x[6] == t:
+                cars.append(x)
+        return cars
