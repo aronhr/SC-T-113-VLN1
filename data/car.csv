@@ -1,6 +1,7 @@
 Model,Type,Class,Seats,4x4,Transmission,Status,500
-Honda,Jazz,Family,5,True,Automatic,True,500
-Ford,Focus,Family,5,False,Manual,False,500
-Vw,Golf,Family,5,True,Automatic,True,500
-Jon,Ingi,Luxury,1,True,Manual,False,500
-BMW,x100,Luxury,4,False,Automatic,True,500
+Honda,Jazz,Family,5,Yes,Automatic,True,500
+Ford,Focus,Family,5,No,Manual,False,500
+Vw,Golf,Family,5,Yes,Automatic,True,500
+Jon,Ingi,Luxury,1,Yes,Manual,False,500
+BMW,x100,Luxury,4,No,Automatic,True,500
+Honda,Jazz,Family,5,No,Automatic,True,500
