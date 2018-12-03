@@ -50,8 +50,7 @@ class CarUi:
                     seats = input("How many seats: ").replace(string.punctuation, "")
                     fwd = input("4x4 (Y/N): ").upper().replace(string.punctuation, "")
                     transmission = input("Transmission (A/M): ").upper().replace(string.punctuation, "")
-                    price = input("Price per day (500 for auto-pricing): ").replace(string.punctuation, "")
-                    new_car = Car(model, cartype, carclass, seats, fwd, transmission, price)
+                    new_car = Car(model, cartype, carclass, seats, fwd, transmission)
                     self.__car_service.add_car(new_car)
                 except Exception:
                     print("Wow, how did you do that?")
