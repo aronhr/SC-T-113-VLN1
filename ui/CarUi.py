@@ -10,12 +10,14 @@ class CarUi:
         self.__car_service = CarService()
 
     def print_cars(self, cars):
-        print("{:^5}|{:^12}|{:^10}|{:^10}|{:^7}|{:^7}|{:^14}|{:^11}".format("Id", "Brand", "Type", "Class", "Seats",
-                                                                            "4x4", "Transmission", "Available"))
-        print("-" * 82)
+        print("{:^5}|{:^12}|{:^10}|{:^10}|{:^7}|{:^7}|{:^14}|{:^11}|{:^10}".format("Id", "Brand", "Type", "Class",
+                                                                                   "Seats", "4x4", "Transmission",
+                                                                                   "Available", "Price per day"))
+        print("-" * 97)
         for ix, car in enumerate(cars):
-            print("{:^5} {:^12} {:^10} {:^10} {:^7} {:^7} {:^14} {:^11}".format(ix + 1, car[0], car[1], car[2], car[3],
-                                                                                car[4], car[5], car[6]))
+            print("{:<7}{:<13}{:<12}{:<12}{:<6}{:<9}{:<16}{:<11}{} kr.".format(ix + 1, car[0], car[1], car[2],
+                                                                                       car[3], car[4], car[5], car[6],
+                                                                                       car[7]))
 
     def main_menu(self):
 
@@ -46,7 +48,8 @@ class CarUi:
                     seats = input("How many seats: ").replace(string.punctuation, "")
                     fwd = input("4x4 (Y/N): ").upper().replace(string.punctuation, "")
                     transmission = input("Transmission (A/M): ").upper().replace(string.punctuation, "")
-                    new_car = Car(model, cartype, carclass, seats, fwd, transmission)
+                    price = input("Price per day (500 for auto-pricing): ").replace(string.punctuation, "")
+                    new_car = Car(model, cartype, carclass, seats, fwd, transmission, price)
                     self.__car_service.add_car(new_car)
                 except Exception:
                     print("Wow, how did you do that?")
