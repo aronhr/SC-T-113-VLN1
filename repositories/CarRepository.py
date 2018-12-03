@@ -33,7 +33,7 @@ class CarRepository(object):
             if os.stat("./data/car.csv").st_size == 0:
                 file.write("{},{},{},{},{},{},{}".format("Model", "Type", "Class", "Seats", "4x4", "Transmission", "Status"))
 
-            file.write("\n{},{},{},{},{},{},{}".format(model, cartype, carclass, seats, fwd, transmission, False))
+            file.write("\n{},{},{},{},{},{},{}".format(model, cartype, carclass, seats, fwd, transmission, True))
 
     def get_available_car(self, t):     # t stendur fyrir annaðhvort True eða False
         car = self.get_car()
