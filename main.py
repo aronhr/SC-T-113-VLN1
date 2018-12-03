@@ -1,9 +1,9 @@
-from ui.SalesmanUi import SalesmanUi
+from ui.CarUi import CarUi
 from ui.customerUi import CustomerUi
 
 
 def car_main():
-    ui = SalesmanUi()
+    ui = CarUi()
     ui.main_menu()
 
 

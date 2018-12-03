@@ -4,7 +4,7 @@ import string
 import os
 
 
-class SalesmanUi:
+class CarUi:
 
     def __init__(self):
         self.__car_service = CarService()
@@ -13,8 +13,8 @@ class SalesmanUi:
         print("{:^5}|{:^12}|{:^10}|{:^10}|{:^7}|{:^7}|{:^14}|{:^11}".format("Id", "Brand", "Type", "Class", "Seats",
                                                                             "4x4", "Transmission", "Available"))
         print("-" * 82)
-        for x, car in enumerate(cars):
-            print("{:^5} {:^12} {:^10} {:^10} {:^7} {:^7} {:^14} {:^11}".format(x + 1, car[0], car[1], car[2], car[3],
+        for ix, car in enumerate(cars):
+            print("{:^5} {:^12} {:^10} {:^10} {:^7} {:^7} {:^14} {:^11}".format(ix + 1, car[0], car[1], car[2], car[3],
                                                                                 car[4], car[5], car[6]))
 
     def main_menu(self):
