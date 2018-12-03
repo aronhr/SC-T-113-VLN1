@@ -2,6 +2,8 @@ class Employee:
     __kt = None
     __id = None
     __f_name = None
+    __l_name = None
+    __email = None
     __phone_number = None
 
     def __init__(self, csv=None):
@@ -88,6 +90,7 @@ def print_all_employees(current_employees):
         print(employee.get_email())
         print(employee.get_phone_number())
         print("--------------------")
+
 def create_new_employee(id):
     new_employee = Employee()
     new_name = input("Name: ")
@@ -106,12 +109,10 @@ def create_new_employee(id):
 
     new_employee.save("../../data/employees.csv")
 
-def main():
 
+def main():
     current_employees = read_file("../../data/employees.csv")
     print_all_employees(current_employees)
     create_new_employee(len(current_employees) + 1)
-
-
 
 main()
