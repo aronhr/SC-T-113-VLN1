@@ -1,5 +1,5 @@
 class Car(object):
-    def __init__(self, model="", cartype="", carclass="", seats=0, fwd="", transmission="", price=500):
+    def __init__(self, model="", cartype="", carclass="", seats=0, fwd="", transmission=""):
         if fwd == "Y":
             fwd = "Yes"
         else:
@@ -24,17 +24,16 @@ class Car(object):
         self.__4x4 = fwd
         self.__transmission = transmission
 
-        if price == 500:
-            price += 500*(seats/10)  # Bíll kostar 500 kr. á dag margfaldað með 1,fjöldi_sæta
-            if self.__class == "Luxury":
-                price = price*1.5
-            if self.__4x4 is True:
-                price = price*1.2
-            if self.__transmission == "Automatic":
-                price = price*1.1
+        price = 500
+        price += 500*(seats/10)  # Bíll kostar 500 kr. á dag margfaldað með 1,fjöldi_sæta
+        if self.__class == "Luxury":
+            price = price*1.5
+        if self.__4x4 is True:
+            price = price*1.2
+        if self.__transmission == "Automatic":
+            price = price*1.1
 
         self.__price = price
-
 
     def get_id(self):
         return self.__id
@@ -95,5 +94,9 @@ class Car(object):
             transmission = "Something new?"
         self.__transmission = transmission
 
+    def set_price(self, other):
+        self.__price = other
+
     def __str__(self):
-        return "{} {} {} {} {} {}".format(self.get_model(), self.get_type(), self.get_class(), self.get_seats(), self.get_4x4(), self.get_transmission())
+        return "{} {} {} {} {} {} {}".format(self.get_model(), self.get_type(), self.get_class(), self.get_seats(),
+                                             self.get_4x4(), self.get_transmission(), self.get_price())
