@@ -1,5 +1,5 @@
 from ui.SalesmanUi import SalesmanUi
-from ui.customerUi import CustomerUi
+from ui.CustomerUi import CustomerUi
 
 
 def main():
