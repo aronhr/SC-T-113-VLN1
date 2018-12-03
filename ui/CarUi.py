@@ -25,7 +25,9 @@ class CarUi:
             print("1. Available cars")
             print("2. Cars in rent")
             print("3. All cars")
-            print("4. Register new car")
+            print("4. Create new car")
+            print("5. Edit car")
+            print("6. Remove car")
             print("press q to quit")
 
             action = input("Choose an option: ").lower()
@@ -50,3 +52,32 @@ class CarUi:
                     self.__car_service.add_car(new_car)
                 except Exception:
                     print("Wow, how did you do that?")
+
+            elif action == "5":
+                os.system('cls')
+                cars = self.__car_service.get_cars()
+                self.print_cars(cars)
+                id = int(input("Select car by Id: "))
+                car = self.__car_service.get_car_by_id(id)
+                self.print_cars([car])
+                car = Car(car[0], car[1], car[2], car[3], car[4], car[5])
+
+                choice = ""
+                while choice != "q":
+                    print("\n1. Edit Brand\n2. Edit Type\n3. Edit Class\n4. Edit Seats\n5. Edit 4x4\n"
+                          "6. Edit Transmission\n7. Edit Availability\npress q to quit")
+                    choice = input("Enter your choice: ").lower()
+                    if choice == "1":
+                        car.set_model(input("Enter new Brand: "))
+                    elif choice == "2":
+                        car.set_type(input("Enter new Type: "))
+                    elif choice == "3":
+                        car.set_class(input("Enter new Class: "))
+                    elif choice == "4":
+                        car.set_seats(input("Enter new Seat number: "))
+                    elif choice == "5":
+                        car.set_4x4(input("Enter new 4x4 (Y / N): ").upper())
+                    elif choice == "6":
+                        car.set_transmission(input("Enter new Transmission (A/M): "))
+                print(car)
+                self.__car_service.add_car(car)

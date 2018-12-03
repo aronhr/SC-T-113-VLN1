@@ -9,6 +9,10 @@ class Car(object):
             transmission = "Automatic"
         elif transmission == "M":
             transmission = "Manual"
+        elif transmission == "Automatic":
+            pass
+        elif transmission == "Manual":
+            pass
         else:
             transmission = "Something new?"
 
@@ -57,7 +61,24 @@ class Car(object):
         self.__seats = other
 
     def set_4x4(self, other):
+        if other == "Y":
+            other = True
+        else:
+            other = False
         self.__4x4 = other
 
-    def set_transmission(self, other):
-        self.__transmission = other
+    def set_transmission(self, transmission):
+        if transmission == "A":
+            transmission = "Automatic"
+        elif transmission == "M":
+            transmission = "Manual"
+        elif transmission == "Automatic":
+            pass
+        elif transmission == "Manual":
+            pass
+        else:
+            transmission = "Something new?"
+        self.__transmission = transmission
+
+    def __str__(self):
+        return "{} {} {} {} {} {}".format(self.get_model(), self.get_type(), self.get_class(), self.get_seats(), self.get_4x4(), self.get_transmission())
