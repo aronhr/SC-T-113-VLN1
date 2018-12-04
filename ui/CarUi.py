@@ -57,8 +57,8 @@ class CarUi:
                 os.system('cls')
                 cars = self.__car_service.get_cars()
                 self.print_cars(cars)
-                id = int(input("Select car by Id: "))
-                car = self.__car_service.get_car_by_id(id)
+                c_id = int(input("Select car by Id: "))
+                car = self.__car_service.get_car_by_id(c_id)
                 self.print_cars([car])
                 car = Car(car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"])
 
@@ -80,7 +80,10 @@ class CarUi:
                     elif choice == "6":
                         car.set_transmission(input("Enter new Transmission (A/M): "))
                 print(car)
+                self.__car_service.remove_car(c_id)
                 self.__car_service.add_car(car)
+                # remove old car
+
 
             elif action == "6":
                 os.system('cls')
