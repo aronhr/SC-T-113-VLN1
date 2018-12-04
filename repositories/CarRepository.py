@@ -1,5 +1,6 @@
 import csv
 import os
+from modules.car.Car import Car
 
 
 class CarRepository(object):
@@ -12,7 +13,7 @@ class CarRepository(object):
             with open("./data/car.csv") as file:
                 csv_reader = csv.DictReader(file)
 
-                next(csv_reader)
+                # next(csv_reader)
                 cars = []
                 for line in csv_reader:
                     cars.append(line)
@@ -33,7 +34,7 @@ class CarRepository(object):
         with open("./data/car.csv", "a+") as file:
             if os.stat("./data/car.csv").st_size == 0:
                 file.write("{},{},{},{},{},{},{},{}".format("Model", "Type", "Class", "Seats", "4x4", "Transmission",
-                                                            "Status", "Price per day"))
+                                                            "Status", "Price"))
             file.write("\n{},{},{},{},{},{},{},{}".format(model, cartype, carclass, seats, fwd, transmission, True, price))
 
     def get_available_car(self, t):     # t stendur fyrir annaðhvort True eða False
@@ -50,5 +51,13 @@ class CarRepository(object):
 
     def remove_car_id(self, id):
         car = self.get_car()
-        pass
+        selected_car = car[id-1]
+        os.remove("./data/car.csv")
+        for x in car:
+            if x == selected_car:
+                pass
+            else:
+                new_car = Car(x["Model"], x["Type"], x["Class"], x["Seats"], x["4x4"], x["Transmission"], int(x["Price"]))
+                self.add_car(new_car)
+
 
