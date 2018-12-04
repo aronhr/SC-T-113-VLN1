@@ -15,7 +15,7 @@ class CarUi:
                                                                                    "Available", "Price per day"))
         print("-" * 97)
         for ix, car in enumerate(cars):
-            print("{:<7}{:<13}{:<12}{:<12}{:<6}{:<9}{:<14}{:<11}{} kr.".format(ix + 1, car[0], car[1], car[2], car[3], car[4], car[5], car[6], car[7]))
+            print("{:<7}{:<13}{:<12}{:<12}{:<6}{:<9}{:<14}{:<11}{} kr.".format(ix + 1, car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"], car["Status"], car["Price"]))
 
     def main_menu(self):
 
@@ -61,7 +61,7 @@ class CarUi:
                 id = int(input("Select car by Id: "))
                 car = self.__car_service.get_car_by_id(id)
                 self.print_cars([car])
-                car = Car(car[0], car[1], car[2], car[3], car[4], car[5])
+                car = Car(car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"])
 
                 choice = ""
                 while choice != "q":
