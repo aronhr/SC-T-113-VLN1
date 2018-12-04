@@ -1,0 +1,5 @@
+Model,Type,Class,Seats,4x4,Transmission,Status,Price
+Aron,Polo,Family,5,No,Manual,True,750
+VW,Polo,Family,5,No,Manual,True,750
+Hyundai,Tucson,Family,5,No,Automatic,False,825
+Tesla,X,Luxury,5,Yes,Automatic,True,1485
