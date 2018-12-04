@@ -83,3 +83,8 @@ class CarUi:
                         car.set_transmission(input("Enter new Transmission (A/M): "))
                 print(car)
                 self.__car_service.add_car(car)
+
+            elif action == "6":
+                os.system('cls')
+                id = int(input("Select car by Id: "))
+                self.__car_service.remo
