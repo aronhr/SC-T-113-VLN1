@@ -76,7 +76,7 @@ class CarUi:
                     elif choice == "3":
                         car.set_class(input("Enter new Class: "))
                     elif choice == "4":
-                        car.set_seats(input("Enter new Seat number: "))
+                        car.set_seats(input("Enter Seats: "))
                     elif choice == "5":
                         car.set_4x4(input("Enter new 4x4 (Y / N): ").upper())
                     elif choice == "6":

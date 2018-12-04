@@ -79,7 +79,7 @@ class Car(object):
     def set_class(self, other):
         self.__class = other
         self.set_price()
-        
+
     def set_seats(self, other):
         self.__seats = other
         self.set_price()
@@ -90,7 +90,7 @@ class Car(object):
         else:
             other = "No"
         self.__4x4 = other
-        Car.set_price()
+        self.set_price()
 
     def set_transmission(self, transmission):
         if transmission == "A":

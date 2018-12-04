@@ -47,7 +47,7 @@ class CarRepository(object):
 
     def get_car_id(self, id):
         car = self.get_car()
-        return car[id - 1]
+        return car[id]
 
     def remove_car_id(self, id):
         car = self.get_car()
