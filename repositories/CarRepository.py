@@ -10,7 +10,7 @@ class CarRepository(object):
     def get_car():
         try:
             with open("./data/car.csv") as file:
-                csv_reader = csv.reader(file)
+                csv_reader = csv.DictReader(file)
 
                 next(csv_reader)
                 cars = []
@@ -40,7 +40,7 @@ class CarRepository(object):
         car = self.get_car()
         cars = []
         for x in car:
-            if x[6] == t:
+            if x["Status"] == t:
                 cars.append(x)
         return cars
 
