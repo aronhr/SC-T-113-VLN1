@@ -27,14 +27,6 @@ class Car(object):
         else:
             status = "True"
 
-        price = 500 + (500 * (int(seats) / 10))   # Bíll kostar 500 kr. á dag margfaldað með 1,fjöldi_sæta
-        if carclass == "Luxury":
-            price = price * 1.5
-        if fwd == "Yes":
-            price = price * 1.2
-        if transmission == "Automatic":
-            price = price * 1.1
-
         self.__id = 0
         self.__model = model
         self.__type = cartype
@@ -42,7 +34,8 @@ class Car(object):
         self.__seats = seats
         self.__4x4 = fwd
         self.__transmission = transmission
-        self.__price = round(price)
+
+        self.__price = self.set_price()
         self.__status = status
 
     def get_id(self):
@@ -81,6 +74,7 @@ class Car(object):
         if self.__transmission == "Automatic":
             price = price * 1.1
         self.__price = round(price)
+        return self.__price
 
     def set_id(self, other):
         self.__id = other
