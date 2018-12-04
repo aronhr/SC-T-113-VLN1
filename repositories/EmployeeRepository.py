@@ -22,14 +22,13 @@ class EmployeeRepository(object):
     @staticmethod
     def add_employee(employees):
         kennitala = employees.get_kt()
-        id = employees.get_id()
         fname = employees.get_fname()
         lname = employees.get_lname()
         email = employees.get_email()
         phone = employees.get_phone_number()
         with open("./data/employees.csv", "a+") as file:
             if os.stat("./data/employees.csv").st_size == 0:
-                file.write("{},{},{},{},{},{}".format("Kt", "id", "First name", "Last name", "Mail", "Phone_number"))
-            file.write("\n{},{},{},{},{},{}".format(kennitala, id, fname, lname, email, phone))
+                file.write("{},{},{},{},{}".format("Kt", "First name", "Last name", "Mail", "Phone_number"))
+            file.write("\n{},{},{},{},{}".format(kennitala, fname, lname, email, phone))
 
 

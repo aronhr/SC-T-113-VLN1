@@ -19,12 +19,11 @@ class EmployeeUI:
 
             if action == "1":
                 kt = input("Enter kt: ")
-                id = input("Enter an id: ")
                 fname = input("Enter first name: ")
                 lname = input("Enter last name: ")
                 email = input("Enter mail: ")
                 phone = input("Enter phone number: ")
-                new_employee = Employee(kt, id, fname, lname, email, phone)
+                new_employee = Employee(kt, fname, lname, email, phone)
                 self.__employee_service.add_employee(new_employee)
 
             if action == '2':
