@@ -4,10 +4,10 @@ from ui.RentcarUi import RentcarUi
 from ui.EmployeeUI import EmployeeUI
 
 
-
 def car_main():
     ui = CarUi()
     ui.main_menu()
+
 
 def employee_main():
     ui = EmployeeUI()
