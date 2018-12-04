@@ -40,5 +40,6 @@ class RentcarUi:
         self.__car_ui.print_cars(cars_type)
         id = int(input("\tSelect car by Id: "))
         # TODO: IndexError: string index out of range
-        self.__car_ui.print_cars(cars_type[id])
+        # self.__car_ui.print_cars(cars_type[id])
+        print(cars_type[id-1])
 
