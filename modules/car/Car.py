@@ -1,5 +1,5 @@
 class Car(object):
-    def __init__(self, model="", cartype="", carclass="", seats=0, fwd="", transmission="", price=500):
+    def __init__(self, model="", cartype="", carclass="", seats=0, fwd="", transmission="", price=500, status="True"):
         if fwd == "Y":
             fwd = "Yes"
         else:
@@ -15,6 +15,17 @@ class Car(object):
             pass
         else:
             transmission = "Something new?"
+
+        if status == "T":
+            status = "True"
+        elif status == "F":
+            status = "False"
+        elif status == "True":
+            pass
+        elif status == "False":
+            pass
+        else:
+            status = "True"
 
         price += (500 * (int(seats) / 10))   # Bíll kostar 500 kr. á dag margfaldað með 1,fjöldi_sæta
         if carclass == "Luxury":
@@ -32,6 +43,7 @@ class Car(object):
         self.__4x4 = fwd
         self.__transmission = transmission
         self.__price = round(price)
+        self.__status = status
 
     def get_id(self):
         return self.__id
@@ -56,6 +68,9 @@ class Car(object):
 
     def get_price(self):
         return self.__price
+
+    def get_status(self):
+        return self.__status
 
     def set_price(self):
         price = 500 + (500 * (int(self.__seats) / 10))  # Bíll kostar 500 kr. á dag margfaldað með 1,fjöldi_sæta
@@ -101,6 +116,19 @@ class Car(object):
             transmission = "Something new?"
         self.__transmission = transmission
         self.set_price()
+
+    def set_status(self, status):
+        if status == "T":
+            status = "True"
+        elif status == "F":
+            status = "False"
+        elif status == "True":
+            pass
+        elif status == "False":
+            pass
+        else:
+            status = "True"
+        self.__status = status
 
     def __str__(self):
         return "{} {} {} {} {} {} {}".format(self.get_model(), self.get_type(), self.get_class(), self.get_seats(),

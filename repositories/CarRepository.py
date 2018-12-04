@@ -30,12 +30,13 @@ class CarRepository(object):
         fwd = car.get_4x4()
         transmission = car.get_transmission()
         price = car.get_price()
+        status = car.get_status()
 
         with open("./data/car.csv", "a+") as file:
             if os.stat("./data/car.csv").st_size == 0:
                 file.write("{},{},{},{},{},{},{},{}".format("Model", "Type", "Class", "Seats", "4x4", "Transmission",
                                                             "Status", "Price"))
-            file.write("\n{},{},{},{},{},{},{},{}".format(model, cartype, carclass, seats, fwd, transmission, True, price))
+            file.write("\n{},{},{},{},{},{},{},{}".format(model, cartype, carclass, seats, fwd, transmission, status, price))
 
     def get_available_car(self, t):     # t stendur fyrir annaðhvort True eða False
         car = self.get_car()
@@ -57,7 +58,7 @@ class CarRepository(object):
             if x == selected_car:
                 pass
             else:
-                new_car = Car(x["Model"], x["Type"], x["Class"], x["Seats"], x["4x4"], x["Transmission"], int(x["Price"]))
+                new_car = Car(x["Model"], x["Type"], x["Class"], x["Seats"], x["4x4"], x["Transmission"], int(x["Price"]), x["Status"])
                 self.add_car(new_car)
 
 

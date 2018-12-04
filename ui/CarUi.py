@@ -34,12 +34,15 @@ class CarUi:
             if action == "1":
                 cars = self.__car_service.get_available_cars()
                 self.print_cars(cars)
+                input("Press any key to continue")
             elif action == "2":
                 cars = self.__car_service.get_not_available_cars()
                 self.print_cars(cars)
+                input("Press any key to continue")
             elif action == "3":
                 cars = self.__car_service.get_cars()
                 self.print_cars(cars)
+                input("Press any key to continue")
             elif action == "4":
                 try:
                     model = input("Model: ").replace(string.punctuation, "")
@@ -50,22 +53,23 @@ class CarUi:
                     transmission = input("Transmission (A/M): ").upper().replace(string.punctuation, "")
                     new_car = Car(model, cartype, carclass, seats, fwd, transmission)
                     self.__car_service.add_car(new_car)
+                    print(new_car)
+                    input("Press any key to continue")
                 except Exception:
                     print("Wow, how did you do that?")
 
             elif action == "5":
-                os.system('cls')
                 cars = self.__car_service.get_cars()
                 self.print_cars(cars)
                 c_id = int(input("Select car by Id: "))
                 car = self.__car_service.get_car_by_id(c_id)
                 self.print_cars([car])
-                car = Car(car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"])
+                car = Car(car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"], int(car["Price"]), car["Status"])
 
                 choice = ""
                 while choice != "q":
                     print("\n1. Edit Brand\n2. Edit Type\n3. Edit Class\n4. Edit Seats\n5. Edit 4x4\n"
-                          "6. Edit Transmission\n7. Edit Availability\npress q to quit")
+                          "6. Edit Transmission\n7. Edit Status\npress q to quit")
                     choice = input("Enter your choice: ").lower()
                     if choice == "1":
                         car.set_model(input("Enter new Brand: "))
@@ -78,14 +82,19 @@ class CarUi:
                     elif choice == "5":
                         car.set_4x4(input("Enter new 4x4 (Y / N): ").upper())
                     elif choice == "6":
-                        car.set_transmission(input("Enter new Transmission (A/M): "))
-                print(car)
+                        car.set_transmission(input("Enter new Transmission (A / M): "))
+                    elif choice == "7":
+                        car.set_status(input("Enter new status: (T / F): "))
                 self.__car_service.remove_car(c_id)
                 self.__car_service.add_car(car)
-                # remove old car
-
+                print(car)
+                input("Press any key to continue")
 
             elif action == "6":
-                os.system('cls')
-                id = int(input("Select car by Id: "))
-                self.__car_service.remove_car(id)
+                cars = self.__car_service.get_cars()
+                self.print_cars(cars)
+                c_id = int(input("Select car by Id: "))
+                car = self.__car_service.get_car_by_id(c_id)
+                self.print_cars([car])
+                self.__car_service.remove_car(c_id)
+                input("Press any key to continue")
