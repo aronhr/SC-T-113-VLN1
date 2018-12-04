@@ -21,7 +21,7 @@ class CarService:
         cars = self.get_available_cars()
         arr = []
         for x in cars:
-            if x[2] == genre:
+            if x["Class"] == genre:
                 arr.append(x)
         return arr
 
