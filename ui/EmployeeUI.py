@@ -16,7 +16,7 @@ class EmployeeUI:
             print("press q to quit")
 
             action = input("Choose an option: ").lower()
-
+#4
             if action == "1":
                 kt = input("Enter kt: ")
                 fname = input("Enter first name: ")
