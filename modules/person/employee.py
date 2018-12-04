@@ -1,12 +1,12 @@
 class Employee:
 
-    def __init__(self):
-        self.__kt = ""
-        self.__id = 0
-        self.__f_name = ""
-        self.__l_name = ""
-        self.__email = ""
-        self.__phone_number = ""
+    def __init__(self, kt="", id=0, fname="",lname="",email="",phonenumber=0):
+        self.__kt = kt
+        self.__id = id
+        self.__f_name = fname
+        self.__l_name = lname
+        self.__email = email
+        self.__phone_number = phonenumber
 
     def get_kt(self):
         return self.__kt
