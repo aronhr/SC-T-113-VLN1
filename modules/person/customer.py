@@ -1,6 +1,5 @@
 class Customer(object):
-    def __init__(self, customer_id=0, name='', kt='', country='', address='', mail='', phone='', d_license='', age=0):
-        self.__id = customer_id
+    def __init__(self, name='', kt='', country='', address='', mail='', phone='', d_license='', age=0):
         self.__name = name
         self.__kt = kt
         self.__country = country

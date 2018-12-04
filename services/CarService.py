@@ -18,7 +18,12 @@ class CarService:
         return self.__car_repo.get_car()
 
     def get_cars_by_type(self, genre):
-        pass
+        cars = self.get_available_cars()
+        arr = []
+        for x in cars:
+            if x[2] == genre:
+                arr.append(x)
+        return arr
 
     def get_available_cars(self):
         return self.__car_repo.get_available_car("True")
