@@ -10,12 +10,12 @@ class CarUi:
         self.__car_service = CarService()
 
     def print_cars(self, cars):
-        print("{:^5}|{:^12}|{:^10}|{:^10}|{:^7}|{:^7}|{:^14}|{:^11}|{:^15}".format("Id", "Brand", "Type", "Class",
+        print("{:^5}|{:^12}|{:^12}|{:^10}|{:^7}|{:^7}|{:^14}|{:^11}|{:^15}".format("Id", "Brand", "Type", "Class",
                                                                                    "Seats", "4x4", "Transmission",
                                                                                    "Available", "Price per day"))
         print("-" * 97)
         for ix, car in enumerate(cars):
-            print("{:<7}{:<13}{:<12}{:<12}{:<6}{:<9}{:<14}{:<11}{} kr.".format(ix + 1, car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"], car["Status"], car["Price"]))
+            print("{:<7}{:<13}{:<14}{:<12}{:<6}{:<9}{:<14}{:<11}{} kr.".format(ix + 1, car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"], car["Status"], car["Price"]))
 
     def main_menu(self):
 
@@ -50,6 +50,9 @@ class CarUi:
                     transmission = input("Transmission (A/M): ").upper().replace(string.punctuation, "")
                     new_car = Car(model, cartype, carclass, seats, fwd, transmission)
                     self.__car_service.add_car(new_car)
+                    cars = self.__car_service.get_cars()
+                    self.print_cars(cars)
+                    print("CREATED")
                 except Exception:
                     print("Wow, how did you do that?")
 
@@ -84,8 +87,12 @@ class CarUi:
                 self.__car_service.add_car(car)
                 # remove old car
 
-
             elif action == "6":
                 os.system('cls')
+                cars = self.__car_service.get_cars()
+                self.print_cars(cars)
                 id = int(input("Select car by Id: "))
+                car = self.__car_service.get_car_by_id(id)
+                self.print_cars([car])
+                print("REMOVED")
                 self.__car_service.remove_car(id)
