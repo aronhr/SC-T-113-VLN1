@@ -48,8 +48,7 @@ class CarUi:
                     seats = input("How many seats: ").replace(string.punctuation, "")
                     fwd = input("4x4 (Y/N): ").upper().replace(string.punctuation, "")
                     transmission = input("Transmission (A/M): ").upper().replace(string.punctuation, "")
-                    price = input("Price per day (500 for auto-pricing): ").replace(string.punctuation, "")
-                    new_car = Car(model, cartype, carclass, seats, fwd, transmission, price)
+                    new_car = Car(model, cartype, carclass, seats, fwd, transmission)
                     self.__car_service.add_car(new_car)
                 except Exception:
                     print("Wow, how did you do that?")
@@ -75,10 +74,15 @@ class CarUi:
                     elif choice == "3":
                         car.set_class(input("Enter new Class: "))
                     elif choice == "4":
-                        car.set_seats(input("Enter new Seat number: "))
+                        car.set_seats(input("Enter Seats: "))
                     elif choice == "5":
                         car.set_4x4(input("Enter new 4x4 (Y / N): ").upper())
                     elif choice == "6":
                         car.set_transmission(input("Enter new Transmission (A/M): "))
                 print(car)
                 self.__car_service.add_car(car)
+
+            elif action == "6":
+                os.system('cls')
+                id = int(input("Select car by Id: "))
+                self.__car_service.remove_car(id)
