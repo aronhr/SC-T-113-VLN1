@@ -16,14 +16,13 @@ class Car(object):
         else:
             transmission = "Something new?"
 
-        if price == 500:
-            price += (500 * (seats / 10))   # Bíll kostar 500 kr. á dag margfaldað með 1,fjöldi_sæta
-            if self.__class == "Luxury":
-                price = price * 1.5
-            if self.__4x4 is True:
-                price = price * 1.2
-            if self.__transmission == "Automatic":
-                price = price * 1.1
+        price += (500 * (int(seats) / 10))   # Bíll kostar 500 kr. á dag margfaldað með 1,fjöldi_sæta
+        if carclass == "Luxury":
+            price = price * 1.5
+        if fwd == "Yes":
+            price = price * 1.2
+        if transmission == "Automatic":
+            price = price * 1.1
 
         self.__id = 0
         self.__model = model
@@ -32,7 +31,7 @@ class Car(object):
         self.__seats = seats
         self.__4x4 = fwd
         self.__transmission = transmission
-        self.__price = price
+        self.__price = round(price)
 
     def get_id(self):
         return self.__id
@@ -58,6 +57,16 @@ class Car(object):
     def get_price(self):
         return self.__price
 
+    def set_price(self):
+        price = 500 + (500 * (int(self.__seats) / 10))  # Bíll kostar 500 kr. á dag margfaldað með 1,fjöldi_sæta
+        if self.__class == "Luxury":
+            price = price * 1.5
+        if self.__4x4 == "Yes":
+            price = price * 1.2
+        if self.__transmission == "Automatic":
+            price = price * 1.1
+        self.__price = round(price)
+
     def set_id(self, other):
         self.__id = other
 
@@ -69,9 +78,11 @@ class Car(object):
 
     def set_class(self, other):
         self.__class = other
-        
+        self.set_price()
+
     def set_seats(self, other):
         self.__seats = other
+        self.set_price()
 
     def set_4x4(self, other):
         if other == "Y":
@@ -79,22 +90,18 @@ class Car(object):
         else:
             other = "No"
         self.__4x4 = other
+        self.set_price()
 
     def set_transmission(self, transmission):
         if transmission == "A":
             transmission = "Automatic"
         elif transmission == "M":
             transmission = "Manual"
-        elif transmission == "Automatic":
-            pass
-        elif transmission == "Manual":
-            pass
         else:
             transmission = "Something new?"
         self.__transmission = transmission
-
-    def set_price(self, other):
-        self.__price = other
+        self.set_price()
 
     def __str__(self):
-        return "{} {} {} {} {} {}".format(self.get_model(), self.get_type(), self.get_class(), self.get_seats(), self.get_4x4(), self.get_transmission())
+        return "{} {} {} {} {} {} {}".format(self.get_model(), self.get_type(), self.get_class(), self.get_seats(),
+                                             self.get_4x4(), self.get_transmission(), self.get_price())
