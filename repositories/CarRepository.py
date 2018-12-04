@@ -46,6 +46,15 @@ class CarRepository(object):
                 cars.append(x)
         return cars
 
+    def get_available_date_car(self, from_date, to_date):
+        # TODO: Import date class edit headers and rows in car.csv to match with date format then use this function to check for any cars available on specific time
+        car = self.get_car()
+        cars = []
+        for x in car:
+            if x["Fdate"] >= from_date and x["Ldate"] <= to_date:
+                cars.append(x)
+            return cars
+
     def get_car_id(self, id):
         car = self.get_car()
         return car[id]
