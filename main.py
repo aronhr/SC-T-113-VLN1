@@ -1,5 +1,6 @@
 from ui.CarUi import CarUi
 from ui.customerUi import CustomerUi
+from ui.RentcarUi import RentcarUi
 
 
 def car_main():
@@ -12,6 +13,11 @@ def customer_main():
     ui.main_menu()
 
 
+def rent_main():
+    ui = RentcarUi()
+    ui.main_menu()
+
+
 def main():
 
     val = ""
@@ -19,7 +25,7 @@ def main():
         print("1. Rent car\n2. Return car\n3. Customers\n4. Orders\n5. Cars\nPress q to quit")
         val = input()
         if val == "1":
-            pass
+            rent_main()
         elif val == "2":
             pass
         elif val == "3":
