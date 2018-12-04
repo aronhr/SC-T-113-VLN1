@@ -87,4 +87,4 @@ class CarUi:
             elif action == "6":
                 os.system('cls')
                 id = int(input("Select car by Id: "))
-                self.__car_service.remo
+                self.__car_service.remove_car(id)

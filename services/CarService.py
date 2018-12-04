@@ -28,3 +28,6 @@ class CarService:
 
     def get_car_by_id(self, id):
         return self.__car_repo.get_car_id(id)
+
+    def remove_car(self, id):
+        return self.__car_repo.remove_car_id(id)

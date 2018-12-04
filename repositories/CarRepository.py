@@ -50,6 +50,6 @@ class CarRepository(object):
         return car[id - 1]
 
     def remove_car_id(self, id):
+        car = self.get_car()
         pass
-        # car = self.get_car()
-        # return car[id - 1]
+
