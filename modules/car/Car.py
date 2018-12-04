@@ -27,13 +27,14 @@ class Car(object):
         else:
             status = "True"
 
-        price += (500 * (int(seats) / 10))   # Bíll kostar 500 kr. á dag margfaldað með 1,fjöldi_sæta
-        if carclass == "Luxury":
-            price = price * 1.5
-        if fwd == "Yes":
-            price = price * 1.2
-        if transmission == "Automatic":
-            price = price * 1.1
+        if price == 500:
+            price += (500 * (int(seats) / 10))   # Bíll kostar 500 kr. á dag margfaldað með 1,fjöldi_sæta
+            if carclass == "Luxury":
+                price = price * 1.5
+            if fwd == "Yes":
+                price = price * 1.2
+            if transmission == "Automatic":
+                price = price * 1.1
 
         self.__id = 0
         self.__model = model
