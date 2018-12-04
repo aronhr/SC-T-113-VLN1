@@ -1,4 +1,4 @@
-Model,Type,Class,Seats,4x4,Transmission,Status,500
+Model,Type,Class,Seats,4x4,Transmission,Status,Price
 Honda,Jazz,Family,5,Yes,Automatic,True,500
 Ford,Focus,Family,5,No,Manual,False,500
 Vw,Golf,Family,5,Yes,Automatic,True,500
