@@ -4,17 +4,29 @@ from ui.CarUi import CarUi
 from services.RentService import RentService
 from modules.person.customer import Customer
 from services.customerService import CustomerService
+from repositories.CustomerRepository import CustomerRepository
 import string
 import os
 
 
 class RentcarUi:
-
     def __init__(self):
         self.__car_service = CarService()
         self.__car_ui = CarUi()
         self.__rent_service = RentService()
         self.__customer_service = CustomerService()
+        self.__customer_repo = CustomerRepository()
+
+    def print_customer(self, customer):
+        print("\n\tPassport number: {}".format(customer["Passport number"]))
+        print("\tName: {}".format(customer["Name"]))
+        print("\tCountry: {}".format(customer["Country"]))
+        print("\tAddress: {}".format(customer["Address"]))
+        print("\tPhone number: {}".format(customer["Phone number"]))
+        print("\tE-mail: {}".format(customer["Mail"]))
+        print("\tDriver´s license: {}".format(customer["license"]))
+        print("\tAge: {}".format(customer["Age"]))
+        print("-" * 35)
 
     def main_menu(self):
         os.system('cls')
@@ -22,7 +34,7 @@ class RentcarUi:
         kt = input("\tEnter Kt/Passport number: ")
         customer = self.__rent_service.check_kt(kt)
         if customer:
-            print(customer)
+            self.print_customer(customer)
         else:
             name = input("\tEnter name: ")
             country = input("\tEnter country: ")
