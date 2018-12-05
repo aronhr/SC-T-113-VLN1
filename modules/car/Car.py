@@ -1,5 +1,5 @@
 class Car(object):
-    def __init__(self, model="", cartype="", carclass="", seats=0, fwd="", transmission="", price=500, status="True"):
+    def __init__(self, model="", cartype="", carclass="", seats=0, fwd="", transmission="", price=500, status="True", FromDate="00/00/00", ToDate="00/00/00"):
         if fwd == "Y":
             fwd = "Yes"
         else:
@@ -34,9 +34,10 @@ class Car(object):
         self.__seats = seats
         self.__4x4 = fwd
         self.__transmission = transmission
-
         self.__price = self.set_price()
         self.__status = status
+        self.__from_date = FromDate
+        self.__to_date = ToDate
 
     def get_id(self):
         return self.__id
@@ -64,6 +65,18 @@ class Car(object):
 
     def get_status(self):
         return self.__status
+
+    def get_from_date(self):
+        return self.__from_date
+
+    def get_to_date(self):
+        return self.__to_date
+
+    def set_from_date(self, other):
+        self.__from_date = other
+
+    def set_to_date(self, other):
+        self.__to_date = other
 
     def set_price(self):
         price = 500 + (500 * (int(self.__seats) / 10))  # Bíll kostar 500 kr. á dag margfaldað með 1,fjöldi_sæta
@@ -125,5 +138,5 @@ class Car(object):
         self.__status = status
 
     def __str__(self):
-        return "{} {} {} {} {} {} {}".format(self.get_model(), self.get_type(), self.get_class(), self.get_seats(),
-                                             self.get_4x4(), self.get_transmission(), self.get_price())
+        return "{} {} {} {} {} {} {} {} {}".format(self.get_model(), self.get_type(), self.get_class(), self.get_seats(),
+                                             self.get_4x4(), self.get_transmission(), self.get_price(), self.get_from_date(), self.get_to_date())

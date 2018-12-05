@@ -10,12 +10,12 @@ class CarUi:
         self.__car_service = CarService()
 
     def print_cars(self, cars):
-        print("{:^5}|{:^12}|{:^12}|{:^10}|{:^7}|{:^7}|{:^14}|{:^11}|{:^15}".format("Id", "Brand", "Type", "Class",
+        print("{:^5}|{:^12}|{:^12}|{:^10}|{:^7}|{:^7}|{:^14}|{:^11}|{:^15}|{:^14}|{:^14}".format("Id", "Brand", "Type", "Class",
                                                                                    "Seats", "4x4", "Transmission",
-                                                                                   "Available", "Price per day"))
-        print("-" * 97)
+                                                                                   "Available", "Price per day", "In rent from", "In rent to"))
+        print("-" * 130)
         for ix, car in enumerate(cars):
-            print("{:<7}{:<13}{:<14}{:<12}{:<6}{:<9}{:<14}{:<11}{} kr.".format(ix + 1, car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"], car["Status"], car["Price"]))
+            print("{:<7}{:<13}{:<14}{:<12}{:<6}{:<9}{:<14}{:<11}{:<17}{:<14}{:<14}".format(ix + 1, car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"], car["Status"], car["Price"] + " kr.", car["FromDate"], car["ToDate"]))
 
     def main_menu(self):
 
@@ -24,10 +24,11 @@ class CarUi:
             os.system('cls')
             print("1. Available cars")
             print("2. Cars in rent")
-            print("3. All cars")
-            print("4. Create new car")
-            print("5. Edit car")
-            print("6. Remove car")
+            print("3. Available cars within date")
+            print("4. All cars")
+            print("5. Create new car")
+            print("6. Edit car")
+            print("7. Remove car")
             print("press q to quit")
 
             action = input("Choose an option: ").lower()
@@ -35,9 +36,9 @@ class CarUi:
                 try:
                     cars = self.__car_service.get_available_cars()
                     self.print_cars(cars)
-                    input("No available car exists")
+                    input("Press enter to continue")
                 except Exception:
-                    print("Something went wrong, please try again")
+                    print("No available car exists")
             elif action == "2":
                 try:
                     cars = self.__car_service.get_not_available_cars()
@@ -47,12 +48,21 @@ class CarUi:
                     print("No unavailable car exists")
             elif action == "3":
                 try:
+                    from_date = self.__car_service.user_date("Enter date from (dd/mm/yy): ")
+                    to_date = self.__car_service.user_date("Enter date to (dd/mm/yy): ")
+                    cars = self.__car_service.get_available_date_cars(from_date, to_date)
+                    self.print_cars(cars)
+                    input("Press enter to continue")
+                except Exception:
+                    print("No available car exists at that time")
+            elif action == "4":
+                try:
                     cars = self.__car_service.get_cars()
                     self.print_cars(cars)
                     input("Press enter to continue")
                 except Exception:
                     print("No cars exists")
-            elif action == "4":
+            elif action == "5":
                 try:
                     model = input("Model: ").replace(string.punctuation, "")
                     cartype = input("Type: ").replace(string.punctuation, "")
@@ -67,14 +77,14 @@ class CarUi:
                 except Exception:
                     print("Wow, how did you do that?")
 
-            elif action == "5":
+            elif action == "6":
                 try:
                     cars = self.__car_service.get_cars()
                     self.print_cars(cars)
                     c_id = int(input("Select car by Id: "))
                     car = self.__car_service.get_car_by_id(c_id)
                     self.print_cars([car])
-                    car = Car(car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"], int(car["Price"]), car["Status"])
+                    car = Car(car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"], int(car["Price"]), car["Status"], car["FromDate"], car["ToDate"])
 
                     choice = ""
                     while choice != "q":
@@ -102,7 +112,7 @@ class CarUi:
                 except Exception:
                     print("Something went wrong, please try again")
 
-            elif action == "6":
+            elif action == "7":
                 try:
                     cars = self.__car_service.get_cars()
                     self.print_cars(cars)

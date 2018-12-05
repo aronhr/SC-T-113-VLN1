@@ -20,6 +20,14 @@ class CustomerRepository:
         except Exception:
             return "{}".format("No customers")
 
+    def check_if_kt_exist(self, kt):
+        data = self.get_customer()
+        for x in data:
+            if x["Passport number"] == kt:
+                return x
+        else:
+            return False
+
     @staticmethod
     def add_customer(customer):
         name = customer.get_name()
