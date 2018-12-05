@@ -1,10 +1,10 @@
-from repositories.RentRepository import RentRepository
+from repositories.OrderRepository import OrderRepository
 from repositories.CustomerRepository import CustomerRepository
 
 
-class RentService:
+class OrderService:
     def __init__(self):
-        self.__rent_repo = RentRepository()
+        self.__rent_repo = OrderRepository()
         self.__customer_repo = CustomerRepository()
 
     def check_kt(self, kt):

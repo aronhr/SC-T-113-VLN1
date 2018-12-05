@@ -1,6 +1,6 @@
 from ui.CarUi import CarUi
 from ui.customerUi import CustomerUi
-from ui.RentcarUi import RentcarUi
+from ui.OrdercarUi import OrdercarUi
 from ui.EmployeeUI import EmployeeUI
 
 
@@ -19,8 +19,8 @@ def customer_main():
     ui.main_menu()
 
 
-def rent_main():
-    ui = RentcarUi()
+def order_main():
+    ui = OrdercarUi()
     ui.main_menu()
 
 
@@ -31,7 +31,7 @@ def main():
         print("1. Rent car\n2. Return car\n3. Customers\n4. Orders\n5. Cars\n6. Employee\nPress q to quit")
         val = input()
         if val == "1":
-            rent_main()
+            order_main()
         elif val == "2":
             pass
         elif val == "3":

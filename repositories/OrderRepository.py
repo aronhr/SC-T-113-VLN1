@@ -2,13 +2,13 @@ import csv
 import os
 
 
-class RentRepository(object):
+class OrderRepository(object):
     def __init__(self):
         pass
 
     def get_rent(self):
         try:
-            with open("./data/rent.csv") as file:
+            with open("./data/order.csv") as file:
                 csv_reader = csv.reader(file)
 
                 next(csv_reader)

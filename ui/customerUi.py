@@ -1,5 +1,5 @@
 from services.customerService import CustomerService
-from modules.person.customer import Customer
+from modules.person.Customer import Customer
 import os
 import string
 

@@ -1,5 +1,5 @@
 from services.EmployeeService import EmployeeService
-from modules.person.employee import Employee
+from modules.person.Employee import Employee
 
 
 class EmployeeUI:

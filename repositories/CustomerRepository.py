@@ -1,6 +1,6 @@
 import csv
 import os
-from modules.person.customer import Customer
+from modules.person.Customer import Customer
 import os
 
 
