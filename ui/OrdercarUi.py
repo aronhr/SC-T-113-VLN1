@@ -46,6 +46,7 @@ class OrdercarUi:
     def main_menu(self):
         action = ''
         while action != 'q':
+            os.system('cls')
             print("1. Rent a car")
             print("2. Return car")
             print("3. All orders")
@@ -53,7 +54,6 @@ class OrdercarUi:
 
             action = input()
             if action == '1':
-                os.system('cls')
                 print("Rent car")
                 kt = input("\tEnter Kt/Passport number: ")
                 customer = self.__order_service.check_kt(kt)
@@ -117,3 +117,4 @@ class OrdercarUi:
             elif action == '3':
                 orders = self.__order_service.get_orders()
                 self.print_orders(orders)
+                input("Press enter to continue")
