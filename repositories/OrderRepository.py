@@ -35,3 +35,21 @@ class OrderRepository(object):
                 file.write("\n{},{},{},{}".format(name, car, from_date, to_date))
             except Exception as e:
                 print(e)
+
+    def get_order_id(self, o_id):
+        order = self.get_orders()
+        return order[o_id]
+
+    def remove_order_id(self, o_id):
+        try:
+            orders = self.get_orders()
+            selected_order = orders[o_id-1]
+            os.remove("./data/order.csv")
+            for x in orders:
+                if x == selected_order:
+                    pass
+                else:
+                    new_order = Order(x["Name"], x["License"], datetime.datetime.strptime(x["From date"], "%d/%m/%y"), datetime.datetime.strptime(x["To date"], "%d/%m/%y"))
+                    self.add_order(new_order)
+        except Exception as e:
+            print(e)
