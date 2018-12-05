@@ -33,7 +33,7 @@ class OrdercarUi:
     def main_menu(self):
         os.system('cls')
         print("Rent car")
-        kt = input("\tEnter Kt/Passport number: ")
+        kt = input("\tEnter Kt/Passport number: ").replace("-", "").replace(" ","")
         customer = self.__order_service.check_kt(kt)
         if customer:
             self.print_customer(customer)

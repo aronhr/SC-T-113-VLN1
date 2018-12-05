@@ -1,7 +1,7 @@
 class Employee:
 
     def __init__(self, kt="", id=0, fname="",lname="",email="",phonenumber=0):
-        self.__kt = kt
+        self.__kt = kt.replace("-", "").replace(" ", "")
         self.__id = id
         self.__f_name = fname
         self.__l_name = lname
