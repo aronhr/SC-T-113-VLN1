@@ -1,5 +1,5 @@
 class Order(object):
-    def __init__(self, car='', renter='', FromDate="01/01/00", ToDate="01/01/00"):
+    def __init__(self, renter='', car='', FromDate="", ToDate=""):
         self.car = car
         self.renter = renter
         self.From_date = FromDate

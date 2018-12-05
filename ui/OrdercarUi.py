@@ -19,7 +19,20 @@ class OrdercarUi:
         self.__customer_service = CustomerService()
         self.__customer_repo = CustomerRepository()
 
-    def print_customer(self, customer):
+    def print_orders(self, orders):
+        if self.__order_service.get_orders() == "No orders":
+            print("No orders")
+        else:
+            print(
+                "{:^6}|{:^12}|{:^17}|{:^21}|{:^21}|".format("ID", "Name", "Car-license", "From date", "To date"))
+
+            print("-" * 82)
+
+            for ix, order in enumerate(orders):
+                print("{:^6}{:^12}{:^19}{:^24}{:^18}".format(ix + 1, order["Name"], order["License"], order["From date"], order["To date"]))
+
+    @staticmethod
+    def print_customer(customer):
         print("\tPassport number: {}".format(customer["Passport number"]))
         print("\tName: {}".format(customer["Name"]))
         print("\tCountry: {}".format(customer["Country"]))
@@ -30,39 +43,55 @@ class OrdercarUi:
         print("\tAge: {}".format(customer["Age"]))
 
     def main_menu(self):
-        os.system('cls')
-        print("Rent car")
-        kt = input("\tEnter Kt/Passport number: ")
-        customer = self.__order_service.check_kt(kt)
-        if customer:
-            self.print_customer(customer)
-        else:
-            name = input("\tEnter name: ")
-            country = input("\tEnter country: ")
-            address = input("\tEnter address: ")
-            mail = input("\tEnter mail: ")
-            phone = input("\tEnter phone number: ")
-            customer_license = input("\tEnter drivers license: ")
-            age = int(input("\tEnter age: "))
-            new_customer = Customer(name, kt, country, address, mail, phone, customer_license, age)
-            self.__customer_service.add_customer(new_customer)
+        action = ''
+        while action != 'q':
+            print("1. Rent a car")
+            print("2. Return car")
+            print("3. All orders")
+            print("q. Go back")
 
-        from_date = self.__car_service.user_date("\tEnter start date for rent (dd/mm/yy): ")
-        to_date = self.__car_service.user_date("\tEnter end date for rent (dd/mm/yy): ")
+            action = input()
+            if action == '1':
+                os.system('cls')
+                print("Rent car")
+                kt = input("\tEnter Kt/Passport number: ")
+                customer = self.__order_service.check_kt(kt)
+                if customer:
+                    self.print_customer(customer)
+                else:
+                    name = input("\tEnter name: ")
+                    country = input("\tEnter country: ")
+                    address = input("\tEnter address: ")
+                    mail = input("\tEnter mail: ")
+                    phone = input("\tEnter phone number: ")
+                    customer_license = input("\tEnter drivers license: ")
+                    age = int(input("\tEnter age: "))
+                    new_customer = Customer(name, kt, country, address, mail, phone, customer_license, age)
+                    self.__customer_service.add_customer(new_customer)
 
-        cartype = input("\tEnter type of car: ")
-        print("Available cars\n")
+                from_date = self.__car_service.user_date("\tEnter start date for rent (dd/mm/yy): ")
+                to_date = self.__car_service.user_date("\tEnter end date for rent (dd/mm/yy): ")
 
-        available_cars_type = self.__car_service.get_available_date_type(cartype, from_date, to_date)
-        self.__car_ui.print_cars(available_cars_type)
+                cartype = input("\tEnter type of car: ")
+                print("Available cars\n")
 
-        c_id = int(input("\tSelect car by Id: "))
-        self.__car_ui.print_cars([available_cars_type[c_id-1]])
+                available_cars_type = self.__car_service.get_available_date_type(cartype, from_date, to_date)
+                self.__car_ui.print_cars(available_cars_type)
 
-        chosen_car = available_cars_type[c_id - 1]["License"]
+                c_id = int(input("\tSelect car by Id: "))
+                self.__car_ui.print_cars([available_cars_type[c_id - 1]])
 
-        new_order = Order(chosen_car, customer["Name"], from_date, to_date)
-        self.__order_service.add_order(new_order)
+                chosen_car = available_cars_type[c_id - 1]["License"]
+                try:
+                    new_order = Order(customer["Name"], chosen_car, from_date, to_date)
+                    self.__order_service.add_order(new_order)
+                    # Edit car and edit loan time in car.csv
+                except Exception as e:
+                    print(e)
 
+            elif action == '2':
+                pass
 
-
+            elif action == '3':
+                orders = self.__order_service.get_orders()
+                self.print_orders(orders)

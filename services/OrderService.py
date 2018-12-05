@@ -12,3 +12,6 @@ class OrderService:
 
     def add_order(self, new_order):
         return self.__order_repo.add_order(new_order)
+
+    def get_orders(self):
+        return self.__order_repo.get_orders()
