@@ -2,6 +2,7 @@ from ui.CarUi import CarUi
 from ui.customerUi import CustomerUi
 from ui.OrdercarUi import OrdercarUi
 from ui.EmployeeUI import EmployeeUI
+from repositories.OrderRepository import OrderRepository
 
 
 def car_main():
@@ -25,25 +26,19 @@ def order_main():
 
 
 def main():
-
     val = ""
     while val != "q":
-        print("1. Rent car\n2. Return car\n3. Customers\n4. Orders\n5. Cars\n6. Employee\nPress q to quit")
+        print("1. Orders\n2. Customers\n3. Cars\n4. Employee\nPress q to quit")
         val = input()
         if val == "1":
             order_main()
         elif val == "2":
-            pass
-        elif val == "3":
             customer_main()
-        elif val == "4":
-            pass
-        elif val == "5":
+        elif val == "3":
             car_main()
-        elif val == "6":
+        elif val == "4":
             employee_main()
-        elif val == "q":
-            exit(0)
+
 
 
 main()
