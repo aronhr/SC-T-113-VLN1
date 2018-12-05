@@ -1,3 +1,4 @@
 Model,Type,Class,Seats,4x4,Transmission,Status,Price,FromDate,ToDate,License
-VW,Golf,Family,5,No,Automatic,True,825,10/10/19,10/12/19,ME245
-Tesla,Model x,Luxury,7,Yes,Automatic,True,1683,01/01/00,01/01/00,BU123
+VW,Golf,Family,5,No,Automatic,True,825,01/01/00,01/01/00,ME245
+Honda,Jazz,Family,5,No,Manual,True,750,01/01/00,01/01/00,AH345
+VW,Golf,Family,5,No,Automatic,False,825,06/12/18,10/12/18,ME245
