@@ -78,7 +78,7 @@ class CustomerUi:
                     print("\n1. Passport number/kt\n2. Name\n3. Country\n4. Address\n5. Phone number\n6. E-mail"
                           "\n7. Driver´s license\n8. Age\nq. Go back")
 
-                    e_action = input("What to you want to edit: ?").lower()
+                    e_action = input("What to you want to edit?: ").lower()
 
                     if e_action == '1':
                         new_customer.set_kt(input("Enter passport number/kt: "))
