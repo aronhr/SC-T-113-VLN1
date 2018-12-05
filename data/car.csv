@@ -1,4 +1,2 @@
-Model,Type,Class,Seats,4x4,Transmission,Status,Price,FromDate,ToDate
-VW,Polo,Family,5,No,Manual,True,750,01/01/01,15/01/01
-Hyundai,Tucson,Family,5,No,Automatic,False,825,01/01/01,10/01/01
-Tesla,X,Luxury,5,No,Automatic,True,1238,01/01/01,20/01/01
+Model,Type,Class,Seats,4x4,Transmission,Status,Price,FromDate,ToDate,License
+VW,Golf,family,7,No,Automatic,True,935,00/00/00,00/00/00,ME245
