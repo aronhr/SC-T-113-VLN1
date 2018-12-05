@@ -1,13 +1,31 @@
 from services.EmployeeService import EmployeeService
-from modules.person.employee import Employee
-
+from modules.person.Employee import Employee
+import string
 
 class EmployeeUI:
     def __init__(self):
         self.__employee_service = EmployeeService()
 
-    def main_menu(self):
+    def print_employees(self):
+        if self.__employee_service.get_employees() == "No customers":
+            print("No customers")
+        else:
+            print(
+                "{:^6}|{:^12}|{:^17}|{:^11}|{:^17}|{:^22}|{:^14}|{:^18}|{:^5}|".format("ID", "Name", "Passport number",
+                                                                                       "Country", "Address", "E-mail",
+                                                                                       "Phone number",
+                                                                                       "Driver´s license",
+                                                                                       "Age"))
+            print("-" * 131)
+            for ix, customer in enumerate(self.__employee_service.get_employees()):
+                print("{:^8}{:<13}{:<18}{:<12}{:<18}{:<23}{:<15}{:<19}{:<7}".format(ix + 1, customer["Name"], customer[
+                    "Passport number"], customer["Country"], customer["Address"], customer["Mail"],
+                                                                                    customer["Phone number"],
+                                                                                    customer["license"],
+                                                                                    customer["Age"]))
+        print()
 
+    def main_menu(self):
         action = ""
         while action != 'q':
             print("You can do the following: ")
@@ -16,16 +34,24 @@ class EmployeeUI:
             print("press q to quit")
 
             action = input("Choose an option: ").lower()
-#4
+
             if action == "1":
-                kt = input("Enter kt: ")
-                fname = input("Enter first name: ")
-                lname = input("Enter last name: ")
-                email = input("Enter mail: ")
-                phone = input("Enter phone number: ")
-                new_employee = Employee(kt, fname, lname, email, phone)
-                self.__employee_service.add_employee(new_employee)
+                try:
+                    name = input("Enter name: ").replace(string.punctuation, "")
+                    kt = input("Enter passport number: ").replace(string.punctuation, "")
+                    country = input("Enter country: ").replace(string.punctuation, "")
+                    address = input("Enter address: ").replace(string.punctuation, "")
+                    mail = input("Enter mail: ").replace(string.punctuation, "")
+                    phone = input("Enter phone number: ").replace(string.punctuation, "")
+                    customer_license = input("Enter drivers license: ").replace(string.punctuation, "")
+                    age = int(input("Enter age: "))
+                    new_employee = Employee(name, kt, country, address, mail, phone, customer_license, age)
+                    self.__employee_service.add_employee(new_employee)
+                except Exception:
+                    print("Hlep")
 
             if action == '2':
-                employee = self.__employee_service.get_employees()
-                print(employee)
+                if len(self.__employee_service.get_employees()) == 0:
+                    print("{}".format("No employees\n"))
+                else:
+                    self.print_employees()
