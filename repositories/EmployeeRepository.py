@@ -10,7 +10,7 @@ class EmployeeRepository(object):
     @staticmethod
     def get_employee():
         try:
-            with open("./data/employees.csv") as file:
+            with open("./data/employees.csv", encoding="utf-8") as file:
                 csv_reader = csv.DictReader(file)
 
                 # next(csv_reader)
