@@ -1,5 +1,5 @@
 class Order(object):
-    def __init__(self, car='', renter='', FromDate="00/00/00", ToDate="00/00/00"):
+    def __init__(self, car='', renter='', FromDate="01/01/00", ToDate="01/01/00"):
         self.car = car
         self.renter = renter
         self.From_date = FromDate
@@ -29,6 +29,8 @@ class Order(object):
     def set_to_date(self, other):
         self.To_date = other
 
+    def __repr__(self):
+        return "{},{},{},{}".format(self.car, self.renter, self.From_date, self.To_date)
 
 
 

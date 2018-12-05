@@ -1,5 +1,5 @@
 class Car(object):
-    def __init__(self, model="", cartype="", carclass="", seats=0, fwd="", transmission="", license="", price=500, status="True", FromDate="00/00/00", ToDate="00/00/00"):
+    def __init__(self, model="", cartype="", carclass="", seats=0, fwd="", transmission="", license="", price=500, status="True", FromDate="01/01/00", ToDate="01/01/00"):
         if fwd == "Y":
             fwd = "Yes"
         else:

@@ -5,6 +5,7 @@ from services.OrderService import OrderService
 from modules.person.Customer import Customer
 from services.customerService import CustomerService
 from repositories.CustomerRepository import CustomerRepository
+from modules.order.order import Order
 import datetime
 import string
 import os
@@ -14,7 +15,7 @@ class OrdercarUi:
     def __init__(self):
         self.__car_service = CarService()
         self.__car_ui = CarUi()
-        self.__rent_service = OrderService()
+        self.__order_service = OrderService()
         self.__customer_service = CustomerService()
         self.__customer_repo = CustomerRepository()
 
@@ -32,7 +33,7 @@ class OrdercarUi:
         os.system('cls')
         print("Rent car")
         kt = input("\tEnter Kt/Passport number: ")
-        customer = self.__rent_service.check_kt(kt)
+        customer = self.__order_service.check_kt(kt)
         if customer:
             self.print_customer(customer)
         else:
@@ -58,7 +59,10 @@ class OrdercarUi:
         c_id = int(input("\tSelect car by Id: "))
         self.__car_ui.print_cars([available_cars_type[c_id-1]])
 
-        chosen_car = available_cars_type[c_id - 1]["Numberplate"]
-        print(chosen_car)
+        chosen_car = available_cars_type[c_id - 1]["License"]
 
-        
+        new_order = Order(chosen_car, customer["Name"], from_date, to_date)
+        self.__order_service.add_order(new_order)
+
+
+

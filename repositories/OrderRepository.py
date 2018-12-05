@@ -18,3 +18,6 @@ class OrderRepository(object):
                 return rent
         except Exception:
             return "{}".format("Add some rents to start with")
+
+    def add_order(self, new_order):
+        print(new_order)
