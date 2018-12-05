@@ -41,20 +41,24 @@ class EmployeeRepository(object):
                 file.write("\n{},{},{},{},{},{},{},{}".format(name, kt, country, address, mail, phone_number,
                                                               d_license, age))
             except Exception:
-                print("lol")
+                print("Somthing is wrong")
 
     def get_employee_id(self, id):
         car = self.get_employee()
         return car[id]
 
     def remove_employee_id(self, id):
-        emp = self.get_employee()
-        selected_emp = emp[id - 1]
-        os.remove("./data/employees.csv")
-        for x in emp:
-            if x == selected_emp:
-                pass
-            else:
-                new_employee = Employee(x["Name"], x["Passport number"], x["Country"], x["Address"], x["Mail"], x["Phone number"],
-                              int(x["license"]), x["Age"])
-                self.add_employee(new_employee)
+        try:
+            emp = self.get_employee()
+            selected_emp = emp[id - 1]
+            os.remove("./data/employees.csv")
+
+            for x in emp:
+                if x == selected_emp:
+                    pass
+                else:
+                    new_employee = Employee(x["Name"], x["Passport number"], x["Country"], x["Address"], x["Mail"], x["Phone number"],
+                                  int(x["license"]), x["Age"])
+                    self.add_employee(new_employee)
+        except Exception:
+            print("Something went wrong")

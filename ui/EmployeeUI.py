@@ -49,7 +49,7 @@ class EmployeeUI:
                     new_employee = Employee(name, kt, country, address, mail, phone, customer_license, age)
                     self.__employee_service.add_employee(new_employee)
                 except Exception:
-                    print("Help")
+                    print("Check your inputs")
 
             elif action == '2':
                 if len(self.__employee_service.get_employees()) == 0:
