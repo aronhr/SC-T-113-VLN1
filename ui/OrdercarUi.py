@@ -117,10 +117,12 @@ class OrdercarUi:
         action = ''
         while action != 'q':
             os.system('cls')
+            print("Orders:")
+            print("You can do the following: ")
             print("1. Rent a car")
             print("2. Return car")
             print("3. All orders")
-            print("q. Go back")
+            print("Press q to quit\n")
 
             action = input()
             if action == '1':

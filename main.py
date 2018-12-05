@@ -28,7 +28,7 @@ def order_main():
 def main():
     val = ""
     while val != "q":
-        print("1. Orders\n2. Customers\n3. Cars\n4. Employee\nPress q to quit")
+        print("Main menu\n1. Orders\n2. Customers\n3. Cars\n4. Employee\nPress q to quit")
         val = input()
         if val == "1":
             order_main()
@@ -38,7 +38,6 @@ def main():
             car_main()
         elif val == "4":
             employee_main()
-
 
 
 main()

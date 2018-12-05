@@ -22,6 +22,8 @@ class CarUi:
         action = ""
         while action != "q":
             os.system('cls')
+            print("Cars:")
+            print("You can do the following: ")
             print("1. Available cars")
             print("2. Cars in rent")
             print("3. Available cars within date")
@@ -29,7 +31,7 @@ class CarUi:
             print("5. Create new car")
             print("6. Edit car")
             print("7. Remove car")
-            print("press q to quit")
+            print("Press q to quit")
 
             action = input("Choose an option: ").lower()
             if action == "1":

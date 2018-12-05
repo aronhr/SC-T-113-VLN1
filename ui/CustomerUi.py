@@ -34,12 +34,13 @@ class CustomerUi:
         remove_punct_map = dict.fromkeys(map(ord, string.punctuation))
         while action != 'q':
             os.system('cls')
+            print("Costumers:")
             print("You can do the following: ")
             print("1. Add a customer")
             print("2. List all customers")
             print("3. Edit customer")
             print("4. Delete customer")
-            print("press q to quit\n")
+            print("Press q to quit")
 
             action = input("Choose an option: ").lower()
             print()
