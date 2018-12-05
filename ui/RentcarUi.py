@@ -34,18 +34,22 @@ class RentcarUi:
         print("Rent car")
         kt = input("\tEnter Kt/Passport number: ")
         customer = self.__rent_service.check_kt(kt)
+        remove_punct_map = dict.fromkeys(map(ord, string.punctuation))
         if customer:
             self.print_customer(customer)
         else:
-            name = input("\tEnter name: ")
-            country = input("\tEnter country: ")
-            address = input("\tEnter address: ")
-            mail = input("\tEnter mail: ")
-            phone = input("\tEnter phone number: ")
-            customer_license = input("\tEnter drivers license: ")
-            age = int(input("\tEnter age: "))
-            new_customer = Customer(name, kt, country, address, mail, phone, customer_license, age)
-            self.__customer_service.add_customer(new_customer)
+            try:
+                name = input("\tEnter name: ").translate(remove_punct_map)
+                country = input("\tEnter country: ").translate(remove_punct_map)
+                address = input("\tEnter address: ").translate(remove_punct_map)
+                mail = input("\tEnter mail: ").strip()
+                phone = input("\tEnter phone number: ").translate(remove_punct_map)
+                customer_license = input("\tEnter drivers license: ").translate(remove_punct_map)
+                age = int(input("\tEnter age: ").translate(remove_punct_map))
+                new_customer = Customer(name, kt, country, address, mail, phone, customer_license, age)
+                self.__customer_service.add_customer(new_customer)
+            except Exception:
+                print("Check your inputs")
 
         from_date = self.__car_service.user_date("\tEnter start date for rent (dd/mm/yy): ")
         to_date = self.__car_service.user_date("\tEnter end date for rent (dd/mm/yy): ")
