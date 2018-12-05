@@ -1,6 +1,6 @@
 import csv
 import os
-from modules.person.customer import Customer
+from modules.person.Customer import Customer
 import os
 
 
@@ -48,7 +48,7 @@ class CustomerRepository:
                 file.write("\n{},{},{},{},{},{},{},{}".format(name, kt, country, address, mail, phone_number,
                                                               d_license, age))
             except Exception:
-                print("lol")
+                print("Error")
 
     def get_customer_id(self, c_id):
         customer = self.get_customer()

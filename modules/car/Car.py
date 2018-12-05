@@ -1,5 +1,5 @@
 class Car(object):
-    def __init__(self, model="", cartype="", carclass="", seats=0, fwd="", transmission="", price=500, status="True", FromDate="00/00/00", ToDate="00/00/00"):
+    def __init__(self, model="", cartype="", carclass="", seats=0, fwd="", transmission="", license="", price=500, status="True", FromDate="01/01/00", ToDate="01/01/00"):
         if fwd == "Y":
             fwd = "Yes"
         else:
@@ -38,6 +38,7 @@ class Car(object):
         self.__status = status
         self.__from_date = FromDate
         self.__to_date = ToDate
+        self.__license = license
 
     def get_id(self):
         return self.__id
@@ -71,6 +72,12 @@ class Car(object):
 
     def get_to_date(self):
         return self.__to_date
+
+    def get_license(self):
+        return self.__license
+
+    def set_license(self, other):
+        self.__license = other
 
     def set_from_date(self, other):
         self.__from_date = other

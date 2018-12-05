@@ -10,12 +10,12 @@ class CarUi:
         self.__car_service = CarService()
 
     def print_cars(self, cars):
-        print("{:^5}|{:^12}|{:^12}|{:^10}|{:^7}|{:^7}|{:^14}|{:^11}|{:^15}|{:^14}|{:^14}".format("Id", "Brand", "Type", "Class",
+        print("{:^5}|{:^12}|{:^12}|{:^10}|{:^7}|{:^7}|{:^14}|{:^11}|{:^15}|{:^14}|{:^14}|{:^9}".format("Id", "Brand", "Type", "Class",
                                                                                    "Seats", "4x4", "Transmission",
-                                                                                   "Available", "Price per day", "In rent from", "In rent to"))
-        print("-" * 130)
+                                                                                   "Available", "Price per day", "In rent from", "In rent to", "License"))
+        print("-" * 140)
         for ix, car in enumerate(cars):
-            print("{:<7}{:<13}{:<14}{:<12}{:<6}{:<9}{:<14}{:<11}{:<17}{:<14}{:<14}".format(ix + 1, car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"], car["Status"], car["Price"] + " kr.", car["FromDate"], car["ToDate"]))
+            print("{:<7}{:<13}{:<14}{:<12}{:<6}{:<9}{:<14}{:<11}{:<17}{:<14}{:<14}{:<9}".format(ix + 1, car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"], car["Status"], car["Price"] + " kr.", car["FromDate"], car["ToDate"], car["License"]))
 
     def main_menu(self):
 
@@ -70,7 +70,8 @@ class CarUi:
                     seats = input("How many seats: ").replace(string.punctuation, "")
                     fwd = input("4x4 (Y/N): ").upper().replace(string.punctuation, "")
                     transmission = input("Transmission (A/M): ").upper().replace(string.punctuation, "")
-                    new_car = Car(model, cartype, carclass, seats, fwd, transmission)
+                    license = input("License plate: ").upper().replace(string.punctuation, "")
+                    new_car = Car(model, cartype, carclass, seats, fwd, transmission, license)
                     self.__car_service.add_car(new_car)
                     print(new_car)
                     input("Press enter to continue")
@@ -84,7 +85,7 @@ class CarUi:
                     c_id = int(input("Select car by Id: "))
                     car = self.__car_service.get_car_by_id(c_id)
                     self.print_cars([car])
-                    car = Car(car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"], int(car["Price"]), car["Status"], car["FromDate"], car["ToDate"])
+                    car = Car(car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"], car["License"], int(car["Price"]), car["Status"], car["FromDate"], car["ToDate"])
 
                     choice = ""
                     while choice != "q":

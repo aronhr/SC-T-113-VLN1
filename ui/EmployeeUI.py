@@ -70,5 +70,3 @@ class EmployeeUI:
                     input("Press enter to continue")
                 except Exception:
                     print("Something went wrong, please try again")
-
-
