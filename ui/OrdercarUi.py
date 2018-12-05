@@ -69,26 +69,47 @@ class OrdercarUi:
                     age = int(input("\tEnter age: "))
                     new_customer = Customer(name, kt, country, address, mail, phone, customer_license, age)
                     self.__customer_service.add_customer(new_customer)
+                approved = False
 
-                from_date = self.__car_service.user_date("\tEnter start date for rent (dd/mm/yy): ")
-                to_date = self.__car_service.user_date("\tEnter end date for rent (dd/mm/yy): ")
+                while not approved:
 
-                cartype = input("\tEnter type of car: ")
-                print("Available cars\n")
+                    from_date = self.__car_service.user_date("\tEnter start date for rent (dd/mm/yy): ")
+                    to_date = self.__car_service.user_date("\tEnter end date for rent (dd/mm/yy): ")
 
-                available_cars_type = self.__car_service.get_available_date_type(cartype, from_date, to_date)
-                self.__car_ui.print_cars(available_cars_type)
+                    cartype = input("\tEnter type of car: ")
+                    print("Available cars\n")
 
-                c_id = int(input("\tSelect car by Id: "))
-                self.__car_ui.print_cars([available_cars_type[c_id - 1]])
+                    available_cars_type = self.__car_service.get_available_date_type(cartype, from_date, to_date)
+                    if len(available_cars_type) == 0:
+                        i = input("No cars avilable,(press q to quit, enter to select another date)")
+                        if i == "q":
+                            break
+                    else:
+                        self.__car_ui.print_cars(available_cars_type)
 
-                chosen_car = available_cars_type[c_id - 1]["License"]
-                try:
-                    new_order = Order(customer["Name"], chosen_car, from_date, to_date)
-                    self.__order_service.add_order(new_order)
-                    # Edit car and edit loan time in car.csv
-                except Exception as e:
-                    print(e)
+                        c_id = int(input("\tSelect car by Id: "))
+                        self.__car_ui.print_cars([available_cars_type[c_id - 1]])
+                        car = available_cars_type[c_id - 1]
+                        chosen_car_plate = available_cars_type[c_id - 1]["License"]
+
+                        chosen_car = Car(car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"],
+                                  car["License"], int(car["Price"]), car["Status"], car["FromDate"], car["ToDate"])
+
+                        try:
+                            new_order = Order(customer["Name"], chosen_car_plate, from_date, to_date)
+                            self.__order_service.add_order(new_order)
+                            from_date = datetime.datetime.strftime(from_date, "%d/%m/%y")
+                            to_date = datetime.datetime.strftime(to_date, "%d/%m/%y")
+                            chosen_car.set_from_date(from_date)
+                            chosen_car.set_to_date(to_date)
+                            chosen_car.set_status("F")
+                            self.__car_service.remove_car(c_id)
+                            self.__car_service.add_car(chosen_car)
+                            print(chosen_car)
+                            approved = True
+                            input("Press enter to continue")
+                        except Exception as e:
+                            print(e)
 
             elif action == '2':
                 pass
