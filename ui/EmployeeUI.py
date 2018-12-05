@@ -60,7 +60,6 @@ class EmployeeUI:
                     emp = self.__employee_service.get_employees()
                     self.print_employees(emp)
 
-
             elif action == "3":
                 try:
                     emp = self.__employee_service.get_employees()
@@ -90,22 +89,21 @@ class EmployeeUI:
                               "6. Edit Phone number\n7. Edit license\n8. Edit Age\npress q to quit")
                         choice = input("Enter your choice: ").lower()
                         if choice == "1":
-                            employee.set_name(input("Enter new Name: ").replace(string.punctuation, ""))
+                            employee.set_name(input("Enter new Name: ").translate(remove_punct_map))
                         elif choice == "2":
-                            employee.set_kt(input("Enter new Passport: ").replace(string.punctuation, ""))
+                            employee.set_kt(input("Enter new Passport: ").translate(remove_punct_map))
                         elif choice == "3":
-                            employee.set_country(input("Enter new Country: ").replace(string.punctuation, ""))
+                            employee.set_country(input("Enter new Country: ").translate(remove_punct_map))
                         elif choice == "4":
-                            employee.set_address(input("Enter Address: ").replace(string.punctuation, ""))
+                            employee.set_address(input("Enter Address: ").translate(remove_punct_map))
                         elif choice == "5":
-                            employee.set_mail(input("Enter new Mail: ").upper().replace(string.punctuation, ""))
+                            employee.set_mail(input("Enter new Mail: "))
                         elif choice == "6":
-                            employee.set_phone_number(input("Enter new Phone number: ").upper().replace(string.punctuation, ""))
+                            employee.set_phone_number(input("Enter new Phone number: ").translate(remove_punct_map))
                         elif choice == "7":
-                            employee.set_license(input("Enter new License: ").upper().replace(string.punctuation, ""))
+                            employee.set_license(input("Enter new License: ").translate(remove_punct_map))
                         elif choice == "8":
-                            employee.set_age(
-                                input("Enter new Age: ").upper().replace(string.punctuation, ""))
+                            employee.set_age(input("Enter new Age: ").replace(string.punctuation, ""))
 
                     self.__employee_service.remove_employee(c_id)
                     self.__employee_service.add_employee(employee)
