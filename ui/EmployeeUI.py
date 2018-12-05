@@ -1,6 +1,8 @@
 from services.EmployeeService import EmployeeService
 from modules.person.Employee import Employee
 import string
+import os
+
 
 class EmployeeUI:
     def __init__(self):
@@ -28,6 +30,7 @@ class EmployeeUI:
     def main_menu(self):
         action = ""
         while action != 'q':
+            os.system('cls')
             print("You can do the following: ")
             print("1. Add a employee")
             print("2. List all employees")
@@ -50,6 +53,7 @@ class EmployeeUI:
                     age = int(input("Enter age: "))
                     new_employee = Employee(name, kt, country, address, mail, phone, customer_license, age)
                     self.__employee_service.add_employee(new_employee)
+                    input("Press enter to continue")
                 except Exception:
                     print("Check your inputs")
 
@@ -59,7 +63,7 @@ class EmployeeUI:
                 else:
                     emp = self.__employee_service.get_employees()
                     self.print_employees(emp)
-
+                input("Press enter to continue")
 
             elif action == "3":
                 try:
@@ -72,6 +76,7 @@ class EmployeeUI:
                     input("Press enter to continue")
                 except Exception:
                     print("Something went wrong, please try again")
+                input("Press enter to continue")
 
             elif action == "4":
                 try:

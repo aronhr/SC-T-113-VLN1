@@ -56,14 +56,16 @@ class CustomerUi:
                     age = int(input("Enter age: ").translate(remove_punct_map))
                     new_customer = Customer(name, kt, country, address, mail, phone, customer_license, age)
                     self.__customer_service.add_customer(new_customer)
+                    input("Press enter to continue")
                 except Exception:
-                    print("Hlep")
+                    print("Something went wrong, please try again")
 
             elif action == "2":
                 if len(self.__customer_service.get_customers()) == 0:
                     print("{}".format("No customers\n"))
                 else:
                     self.print_customers()
+                input("Press enter to continue")
 
             elif action == "3":
                 e_action = ''
@@ -101,8 +103,9 @@ class CustomerUi:
 
                 self.__customer_service.add_customer(new_customer)
                 self.__customer_service.remove_customer(customer_id)
-
+                input("Press enter to continue")
             elif action == "4":
                 self.print_customers()
                 customer_to_delete = int(input("What customer would you like to delete? "))
                 self.__customer_service.remove_customer(customer_to_delete)
+                input("Press enter to continue")
