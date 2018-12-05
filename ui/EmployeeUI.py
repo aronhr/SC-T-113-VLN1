@@ -1,6 +1,6 @@
 from services.EmployeeService import EmployeeService
 from modules.person.Employee import Employee
-
+import string
 
 class EmployeeUI:
     def __init__(self):
@@ -19,8 +19,8 @@ class EmployeeUI:
 #4
             if action == "1":
                 kt = input("Enter kt: ")
-                fname = input("Enter first name: ")
-                lname = input("Enter last name: ")
+                fname = input("Enter first name: ").replace(string.punctuation, "")
+                lname = input("Enter last name: ").replace(string.punctuation, "")
                 email = input("Enter mail: ")
                 phone = input("Enter phone number: ")
                 new_employee = Employee(kt, fname, lname, email, phone)

@@ -83,11 +83,11 @@ class CustomerUi:
                     if e_action == '1':
                         new_customer.set_kt(input("Enter passport number/kt: "))
                     elif e_action == '2':
-                        new_customer.set_name(input("Enter name: "))
+                        new_customer.set_name(input("Enter name: ")).replace(string.punctuation, "")
                     elif e_action == '3':
-                        new_customer.set_country(input("Enter country: "))
+                        new_customer.set_country(input("Enter country: ")).replace(string.punctuation, "")
                     elif e_action == '4':
-                        new_customer.set_address(input("Enter address: "))
+                        new_customer.set_address(input("Enter address: ")).replace(string.punctuation, "")
                     elif e_action == '5':
                         new_customer.set_phone_number(input("Enter phone number: "))
                     elif e_action == '6':

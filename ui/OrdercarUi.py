@@ -9,6 +9,7 @@ from modules.order.order import Order
 import datetime
 import string
 import os
+import string
 
 
 class OrdercarUi:
@@ -37,8 +38,8 @@ class OrdercarUi:
         if customer:
             self.print_customer(customer)
         else:
-            name = input("\tEnter name: ")
-            country = input("\tEnter country: ")
+            name = input("\tEnter name: ").replace(string.punctuation, "")
+            country = input("\tEnter country: ").replace(string.punctuation, "")
             address = input("\tEnter address: ")
             mail = input("\tEnter mail: ")
             phone = input("\tEnter phone number: ")
@@ -50,7 +51,7 @@ class OrdercarUi:
         from_date = self.__car_service.user_date("\tEnter start date for rent (dd/mm/yy): ")
         to_date = self.__car_service.user_date("\tEnter end date for rent (dd/mm/yy): ")
 
-        cartype = input("\tEnter type of car: ")
+        cartype = input("\tEnter type of car: ").replace(string.punctuation, "")
         print("Available cars\n")
 
         available_cars_type = self.__car_service.get_available_date_type(cartype, from_date, to_date)
