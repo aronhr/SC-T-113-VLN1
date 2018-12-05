@@ -32,6 +32,7 @@ class EmployeeUI:
             print("1. Add a employee")
             print("2. List all employees")
             print("3. Remove employee")
+            print("4. Edit employee ")
             print("press q to quit")
 
             action = input("Choose an option: ").lower()
@@ -70,5 +71,43 @@ class EmployeeUI:
                     input("Press enter to continue")
                 except Exception:
                     print("Something went wrong, please try again")
+
+            elif action == "4":
+
+                employee = self.__employee_service.get_employees()
+                self.print_employees(employee)
+                c_id = int(input("Select employee by Id: "))
+                employee = self.__employee_service.get_employee_by_id(c_id)
+                self.print_employees([employee])
+                employee = Employee(employee["Name"], employee["Passport number"], employee["Country"], employee["Address"], employee["Mail"], employee["Phone number"],
+                          int(employee["license"]), employee["Age"])
+
+                choice = ""
+                while choice != "q":
+                    print("\n1. Edit Name\n2. Edit Passport\n3. Edit country\n4. Edit Address\n5. Edit mail\n"
+                          "6. Edit Phone number\n7. Edit license\n8. Edit Age\npress q to quit")
+                    choice = input("Enter your choice: ").lower()
+                    if choice == "1":
+                        employee.set_name(input("Enter new Name: ").replace(string.punctuation, ""))
+                    elif choice == "2":
+                        employee.set_kt(input("Enter new Passport: ").replace(string.punctuation, ""))
+                    elif choice == "3":
+                        employee.set_country(input("Enter new Country: ").replace(string.punctuation, ""))
+                    elif choice == "4":
+                        employee.set_address(input("Enter Address: ").replace(string.punctuation, ""))
+                    elif choice == "5":
+                        employee.set_mail(input("Enter new Mail: ").upper().replace(string.punctuation, ""))
+                    elif choice == "6":
+                        employee.set_phone_number(input("Enter new Phone number: ").upper().replace(string.punctuation, ""))
+                    elif choice == "7":
+                        employee.set_license(input("Enter new License: ").upper().replace(string.punctuation, ""))
+                    elif choice == "8":
+                        employee.set_age(
+                            input("Enter new Age: ").upper().replace(string.punctuation, ""))
+
+                self.__employee_service.remove_employee(c_id)
+                self.__employee_service.add_employee(employee)
+                print(employee)
+                input("Press enter to continue")
 
 
