@@ -84,7 +84,7 @@ class CarUi:
                     c_id = int(input("Select car by Id: "))
                     car = self.__car_service.get_car_by_id(c_id)
                     self.print_cars([car])
-                    car = Car(car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"], int(car["Price"]), car["Status"])
+                    car = Car(car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"], int(car["Price"]), car["Status"], car["FromDate"], car["ToDate"])
 
                     choice = ""
                     while choice != "q":
