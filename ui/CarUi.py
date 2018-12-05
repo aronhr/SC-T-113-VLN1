@@ -18,7 +18,7 @@ class CarUi:
             print("{:<7}{:<13}{:<14}{:<12}{:<6}{:<9}{:<14}{:<11}{:<17}{:<14}{:<14}{:<9}".format(ix + 1, car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"], car["Status"], car["Price"] + " kr.", car["FromDate"], car["ToDate"], car["License"]))
 
     def main_menu(self):
-
+        remove_punct_map = dict.fromkeys(map(ord, string.punctuation))
         action = ""
         while action != "q":
             os.system('cls')
@@ -64,14 +64,13 @@ class CarUi:
                     print("No cars exists")
             elif action == "5":
                 try:
-                    model = input("Model: ").replace(string.punctuation, "")
-                    cartype = input("Type: ").replace(string.punctuation, "")
-                    carclass = input("Class: ").replace(string.punctuation, "")
-                    seats = input("How many seats: ").replace(string.punctuation, "")
-                    fwd = input("4x4 (Y/N): ").upper().replace(string.punctuation, "")
-                    transmission = input("Transmission (A/M): ").upper().replace(string.punctuation, "")
-                    license = input("License plate: ").upper().replace(string.punctuation, "")
-                    new_car = Car(model, cartype, carclass, seats, fwd, transmission, license)
+                    model = input("Model: ").translate(remove_punct_map)
+                    cartype = input("Type: ").translate(remove_punct_map)
+                    carclass = input("Class: ").translate(remove_punct_map)
+                    seats = input("How many seats: ").translate(remove_punct_map)
+                    fwd = input("4x4 (Y/N): ").upper().translate(remove_punct_map)
+                    transmission = input("Transmission (A/M): ").upper().translate(remove_punct_map)
+                    new_car = Car(model, cartype, carclass, seats, fwd, transmission)
                     self.__car_service.add_car(new_car)
                     print(new_car)
                     input("Press enter to continue")
@@ -93,19 +92,19 @@ class CarUi:
                               "6. Edit Transmission\n7. Edit Status\npress q to quit")
                         choice = input("Enter your choice: ").lower()
                         if choice == "1":
-                            car.set_model(input("Enter new Brand: ").replace(string.punctuation, ""))
+                            car.set_model(input("Enter new Brand: ").translate(remove_punct_map))
                         elif choice == "2":
-                            car.set_type(input("Enter new Type: ").replace(string.punctuation, ""))
+                            car.set_type(input("Enter new Type: ").translate(remove_punct_map))
                         elif choice == "3":
-                            car.set_class(input("Enter new Class: ").replace(string.punctuation, ""))
+                            car.set_class(input("Enter new Class: ").translate(remove_punct_map))
                         elif choice == "4":
-                            car.set_seats(input("Enter Seats: ").replace(string.punctuation, ""))
+                            car.set_seats(input("Enter Seats: ").translate(remove_punct_map))
                         elif choice == "5":
-                            car.set_4x4(input("Enter new 4x4 (Y / N): ").upper().replace(string.punctuation, ""))
+                            car.set_4x4(input("Enter new 4x4 (Y / N): ").upper().translate(remove_punct_map))
                         elif choice == "6":
-                            car.set_transmission(input("Enter new Transmission (A / M): ").upper().replace(string.punctuation, ""))
+                            car.set_transmission(input("Enter new Transmission (A / M): ").upper().translate(remove_punct_map))
                         elif choice == "7":
-                            car.set_status(input("Enter new status: (T / F): ").upper().replace(string.punctuation, ""))
+                            car.set_status(input("Enter new status: (T / F): ").upper().translate(remove_punct_map))
                     self.__car_service.remove_car(c_id)
                     self.__car_service.add_car(car)
                     print(car)

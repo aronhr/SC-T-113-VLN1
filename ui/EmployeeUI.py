@@ -32,19 +32,21 @@ class EmployeeUI:
             print("1. Add a employee")
             print("2. List all employees")
             print("3. Remove employee")
+            print("4. Edit employee ")
             print("press q to quit")
 
             action = input("Choose an option: ").lower()
 
             if action == "1":
                 try:
-                    name = input("Enter name: ").replace(string.punctuation, "")
-                    kt = input("Enter passport number: ").replace(string.punctuation, "")
-                    country = input("Enter country: ").replace(string.punctuation, "")
-                    address = input("Enter address: ").replace(string.punctuation, "")
-                    mail = input("Enter mail: ").replace(string.punctuation, "")
-                    phone = input("Enter phone number: ").replace(string.punctuation, "")
-                    customer_license = input("Enter drivers license: ").replace(string.punctuation, "")
+                    remove_punct_map = dict.fromkeys(map(ord, string.punctuation))
+                    name = input("Enter name: ").translate(remove_punct_map)
+                    kt = input("Enter passport number: ").translate(remove_punct_map)
+                    country = input("Enter country: ").translate(remove_punct_map)
+                    address = input("Enter address: ").translate(remove_punct_map)
+                    mail = input("Enter mail: ").strip()
+                    phone = input("Enter phone number: ").translate(remove_punct_map)
+                    customer_license = input("Enter drivers license: ").translate(remove_punct_map)
                     age = int(input("Enter age: "))
                     new_employee = Employee(name, kt, country, address, mail, phone, customer_license, age)
                     self.__employee_service.add_employee(new_employee)
@@ -70,3 +72,44 @@ class EmployeeUI:
                     input("Press enter to continue")
                 except Exception:
                     print("Something went wrong, please try again")
+
+            elif action == "4":
+                try:
+
+                    employee = self.__employee_service.get_employees()
+                    self.print_employees(employee)
+                    c_id = int(input("Select employee by Id: "))
+                    employee = self.__employee_service.get_employee_by_id(c_id)
+                    self.print_employees([employee])
+                    employee = Employee(employee["Name"], employee["Passport number"], employee["Country"], employee["Address"], employee["Mail"], employee["Phone number"],
+                              int(employee["license"]), employee["Age"])
+
+                    choice = ""
+                    while choice != "q":
+                        print("\n1. Edit Name\n2. Edit Passport\n3. Edit country\n4. Edit Address\n5. Edit mail\n"
+                              "6. Edit Phone number\n7. Edit license\n8. Edit Age\npress q to quit")
+                        choice = input("Enter your choice: ").lower()
+                        if choice == "1":
+                            employee.set_name(input("Enter new Name: ").replace(string.punctuation, ""))
+                        elif choice == "2":
+                            employee.set_kt(input("Enter new Passport: ").replace(string.punctuation, ""))
+                        elif choice == "3":
+                            employee.set_country(input("Enter new Country: ").replace(string.punctuation, ""))
+                        elif choice == "4":
+                            employee.set_address(input("Enter Address: ").replace(string.punctuation, ""))
+                        elif choice == "5":
+                            employee.set_mail(input("Enter new Mail: ").upper().replace(string.punctuation, ""))
+                        elif choice == "6":
+                            employee.set_phone_number(input("Enter new Phone number: ").upper().replace(string.punctuation, ""))
+                        elif choice == "7":
+                            employee.set_license(input("Enter new License: ").upper().replace(string.punctuation, ""))
+                        elif choice == "8":
+                            employee.set_age(
+                                input("Enter new Age: ").upper().replace(string.punctuation, ""))
+
+                    self.__employee_service.remove_employee(c_id)
+                    self.__employee_service.add_employee(employee)
+                    print(employee)
+                    input("Press enter to continue")
+                except Exception:
+                    print("Something went wrong, please try again.")

@@ -28,8 +28,10 @@ class CustomerUi:
                                                                                     customer["Age"]))
         print()
 
+
     def main_menu(self):
         action = ""
+        remove_punct_map = dict.fromkeys(map(ord, string.punctuation))
         while action != 'q':
             os.system('cls')
             print("You can do the following: ")
@@ -44,14 +46,14 @@ class CustomerUi:
 
             if action == "1":
                 try:
-                    name = input("Enter name: ").replace(string.punctuation, "")
-                    kt = input("Enter passport number: ").replace(string.punctuation, "")
-                    country = input("Enter country: ").replace(string.punctuation, "")
-                    address = input("Enter address: ").replace(string.punctuation, "")
-                    mail = input("Enter mail: ").replace(string.punctuation, "")
-                    phone = input("Enter phone number: ").replace(string.punctuation, "")
-                    customer_license = input("Enter drivers license: ").replace(string.punctuation, "")
-                    age = int(input("Enter age: "))
+                    name = input("Enter name: ").translate(remove_punct_map)
+                    kt = input("Enter passport number: ").translate(remove_punct_map)
+                    country = input("Enter country: ").translate(remove_punct_map)
+                    address = input("Enter address: ").translate(remove_punct_map)
+                    mail = input("Enter mail: ").strip()
+                    phone = input("Enter phone number: ").translate(remove_punct_map)
+                    customer_license = input("Enter drivers license: ").translate(remove_punct_map)
+                    age = int(input("Enter age: ").translate(remove_punct_map))
                     new_customer = Customer(name, kt, country, address, mail, phone, customer_license, age)
                     self.__customer_service.add_customer(new_customer)
                 except Exception:
@@ -81,21 +83,21 @@ class CustomerUi:
                     e_action = input("What to you want to edit?: ").lower()
 
                     if e_action == '1':
-                        new_customer.set_kt(input("Enter passport number/kt: "))
+                        new_customer.set_kt(input("Enter passport number/kt: ").translate(remove_punct_map))
                     elif e_action == '2':
-                        new_customer.set_name(input("Enter name: ")).replace(string.punctuation, "")
+                        new_customer.set_name(input("Enter name: ").translate(remove_punct_map))
                     elif e_action == '3':
-                        new_customer.set_country(input("Enter country: ")).replace(string.punctuation, "")
+                        new_customer.set_country(input("Enter country: ").translate(remove_punct_map))
                     elif e_action == '4':
-                        new_customer.set_address(input("Enter address: ")).replace(string.punctuation, "")
+                        new_customer.set_address(input("Enter address: ").translate(remove_punct_map))
                     elif e_action == '5':
-                        new_customer.set_phone_number(input("Enter phone number: "))
+                        new_customer.set_phone_number(input("Enter phone number: ").translate(remove_punct_map))
                     elif e_action == '6':
-                        new_customer.set_mail(input("Enter mail: "))
+                        new_customer.set_mail(input("Enter mail: ").strip())
                     elif e_action == '7':
-                        new_customer.set_license(input("Enter driver´s license: "))
+                        new_customer.set_license(input("Enter driver´s license: ").translate(remove_punct_map))
                     elif e_action == '8':
-                        new_customer.set_age(input("Enter age: "))
+                        new_customer.set_age(input("Enter age: ").translate(remove_punct_map))
 
                 self.__customer_service.add_customer(new_customer)
                 self.__customer_service.remove_customer(customer_id)
