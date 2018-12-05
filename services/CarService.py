@@ -1,5 +1,6 @@
 from repositories.CarRepository import CarRepository
 import datetime
+import string
 
 class CarService:
     def __init__(self):
@@ -35,7 +36,7 @@ class CarService:
     def user_date(self, i):
         is_valid = False
         while not is_valid:
-            user_in = input(i)
+            user_in = input(i).replace(string.punctuation, "")
             try:
                 d = datetime.datetime.strptime(user_in, "%d/%m/%y")
                 is_valid = True
