@@ -62,3 +62,4 @@ class EmployeeRepository(object):
                     self.add_employee(new_employee)
         except Exception:
             print("Something went wrong")
+
