@@ -1,5 +1,5 @@
 from repositories.CarRepository import CarRepository
-
+import datetime
 
 class CarService:
     def __init__(self):
@@ -32,8 +32,27 @@ class CarService:
     def get_not_available_cars(self):
         return self.__car_repo.get_available_car("False")
 
+    def user_date(self, i):
+        is_valid = False
+        while not is_valid:
+            user_in = input(i)
+            try:
+                d = datetime.datetime.strptime(user_in, "%d/%m/%y")
+                is_valid = True
+            except Exception:
+                print("Wrong date, try again")
+        return d
+
     def get_available_date_cars(self, from_date, to_date):
         return self.__car_repo.get_available_date_car(from_date, to_date)
+
+    def get_available_date_type(self, genre, from_date, to_date):
+        cars = self.get_available_date_cars(from_date, to_date)
+        arr = []
+        for x in cars:
+            if x["Class"] == genre:
+                arr.append(x)
+        return arr
 
     def get_car_by_id(self, id):
         return self.__car_repo.get_car_id(id-1)

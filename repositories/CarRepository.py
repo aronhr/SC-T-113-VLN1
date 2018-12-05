@@ -1,6 +1,7 @@
 import csv
 import os
 from modules.car.Car import Car
+import datetime
 
 
 class CarRepository(object):
@@ -31,12 +32,14 @@ class CarRepository(object):
         transmission = car.get_transmission()
         price = car.get_price()
         status = car.get_status()
+        from_date = car.get_from_date()
+        to_date = car.get_to_date()
 
         with open("./data/car.csv", "a+") as file:
             if os.stat("./data/car.csv").st_size == 0:
                 file.write("{},{},{},{},{},{},{},{}".format("Model", "Type", "Class", "Seats", "4x4", "Transmission",
-                                                            "Status", "Price"))
-            file.write("\n{},{},{},{},{},{},{},{}".format(model, cartype, carclass, seats, fwd, transmission, status, price))
+                                                            "Status", "Price", "FromDate", "ToDate"))
+            file.write("\n{},{},{},{},{},{},{},{}".format(model, cartype, carclass, seats, fwd, transmission, status, price, from_date, to_date))
 
     def get_available_car(self, t):     # t stendur fyrir annaðhvort True eða False
         car = self.get_car()
@@ -47,13 +50,12 @@ class CarRepository(object):
         return cars
 
     def get_available_date_car(self, from_date, to_date):
-        # TODO: Import date class edit headers and rows in car.csv to match with date format then use this function to check for any cars available on specific time
         car = self.get_car()
         cars = []
         for x in car:
-            if x["Fdate"] >= from_date and x["Ldate"] <= to_date:
+            if datetime.datetime.strptime(x["FromDate"], "%d/%m/%y") < from_date and datetime.datetime.strptime(x["ToDate"], "%d/%m/%y") < to_date:
                 cars.append(x)
-            return cars
+        return cars
 
     def get_car_id(self, id):
         car = self.get_car()
@@ -67,7 +69,7 @@ class CarRepository(object):
             if x == selected_car:
                 pass
             else:
-                new_car = Car(x["Model"], x["Type"], x["Class"], x["Seats"], x["4x4"], x["Transmission"], int(x["Price"]), x["Status"])
+                new_car = Car(x["Model"], x["Type"], x["Class"], x["Seats"], x["4x4"], x["Transmission"], int(x["Price"]), x["Status"], x["FromDate"], x["ToDate"])
                 self.add_car(new_car)
 
 

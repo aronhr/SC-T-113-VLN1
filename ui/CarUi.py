@@ -10,12 +10,12 @@ class CarUi:
         self.__car_service = CarService()
 
     def print_cars(self, cars):
-        print("{:^5}|{:^12}|{:^12}|{:^10}|{:^7}|{:^7}|{:^14}|{:^11}|{:^15}".format("Id", "Brand", "Type", "Class",
+        print("{:^5}|{:^12}|{:^12}|{:^10}|{:^7}|{:^7}|{:^14}|{:^11}|{:^15}|{:^14}|{:^14}".format("Id", "Brand", "Type", "Class",
                                                                                    "Seats", "4x4", "Transmission",
-                                                                                   "Available", "Price per day"))
-        print("-" * 97)
+                                                                                   "Available", "Price per day", "In rent from", "In rent to"))
+        print("-" * 130)
         for ix, car in enumerate(cars):
-            print("{:<7}{:<13}{:<14}{:<12}{:<6}{:<9}{:<14}{:<11}{} kr.".format(ix + 1, car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"], car["Status"], car["Price"]))
+            print("{:<7}{:<13}{:<14}{:<12}{:<6}{:<9}{:<14}{:<11}{:<17}{:<14}{:<14}".format(ix + 1, car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"], car["Status"], car["Price"] + " kr.", car["FromDate"], car["ToDate"]))
 
     def main_menu(self):
 
@@ -48,8 +48,8 @@ class CarUi:
                     print("No unavailable car exists")
             elif action == "3":
                 try:
-                    from_date = input("Enter date from: ")
-                    to_date = input("Enter date to: ")
+                    from_date = self.__car_service.user_date("Enter date from (dd/mm/yy): ")
+                    to_date = self.__car_service.user_date("Enter date to (dd/mm/yy): ")
                     cars = self.__car_service.get_available_date_cars(from_date, to_date)
                     self.print_cars(cars)
                     input("Press enter to continue")

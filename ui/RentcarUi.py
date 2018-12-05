@@ -5,6 +5,7 @@ from services.RentService import RentService
 from modules.person.customer import Customer
 from services.customerService import CustomerService
 from repositories.CustomerRepository import CustomerRepository
+import datetime
 import string
 import os
 
@@ -18,7 +19,7 @@ class RentcarUi:
         self.__customer_repo = CustomerRepository()
 
     def print_customer(self, customer):
-        print("\n\tPassport number: {}".format(customer["Passport number"]))
+        print("\tPassport number: {}".format(customer["Passport number"]))
         print("\tName: {}".format(customer["Name"]))
         print("\tCountry: {}".format(customer["Country"]))
         print("\tAddress: {}".format(customer["Address"]))
@@ -26,7 +27,7 @@ class RentcarUi:
         print("\tE-mail: {}".format(customer["Mail"]))
         print("\tDriver´s license: {}".format(customer["license"]))
         print("\tAge: {}".format(customer["Age"]))
-        print("-" * 35)
+
 
     def main_menu(self):
         os.system('cls')
@@ -45,13 +46,16 @@ class RentcarUi:
             age = int(input("\tEnter age: "))
             new_customer = Customer(name, kt, country, address, mail, phone, customer_license, age)
             self.__customer_service.add_customer(new_customer)
-        time = input("\tEnter time (dd-mm-yy dd-mm-yy)")
+
+        from_date = self.__car_service.user_date("\tEnter start date for rent (dd/mm/yy): ")
+        to_date = self.__car_service.user_date("\tEnter end date for rent (dd/mm/yy): ")
+
         cartype = input("\tEnter type of car: ")
         print("Available cars\n")
-        cars_type = self.__car_service.get_cars_by_type(cartype)
-        self.__car_ui.print_cars(cars_type)
-        id = int(input("\tSelect car by Id: "))
-        # TODO: IndexError: string index out of range
-        # self.__car_ui.print_cars(cars_type[id])
-        print(cars_type[id-1])
+
+        available_cars_type = self.__car_service.get_available_date_type(cartype, from_date, to_date)
+        self.__car_ui.print_cars(available_cars_type)
+
+        c_id = int(input("\tSelect car by Id: "))
+        self.__car_ui.print_cars([available_cars_type[c_id-1]])
 
