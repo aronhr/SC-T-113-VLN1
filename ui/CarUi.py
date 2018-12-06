@@ -2,7 +2,7 @@ from services.CarService import CarService
 from modules.car.Car import Car
 import string
 import os
-
+remove_punct_map = dict.fromkeys(map(ord, string.punctuation))
 
 class CarUi:
 
@@ -10,15 +10,15 @@ class CarUi:
         self.__car_service = CarService()
 
     def print_cars(self, cars):
-        print("{:^5}|{:^12}|{:^12}|{:^10}|{:^7}|{:^7}|{:^14}|{:^11}|{:^15}|{:^14}|{:^14}|{:^9}".format("Id", "Brand", "Type", "Class",
-                                                                                   "Seats", "4x4", "Transmission",
-                                                                                   "Available", "Price per day", "In rent from", "In rent to", "License"))
+        print("{:^5}|{:^12}|{:^12}|{:^10}|{:^7}|{:^7}|{:^14}|{:^11}|{:^15}|{:^14}|{:^14}|{:^9}".format
+              ("Id", "Brand", "Type", "Class", "Seats", "4x4", "Transmission", "Available", "Price per day", "In rent from", "In rent to", "License"))
         print("-" * 140)
         for ix, car in enumerate(cars):
-            print("{:<7}{:<13}{:<14}{:<12}{:<6}{:<9}{:<14}{:<11}{:<17}{:<14}{:<14}{:<9}".format(ix + 1, car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"], car["Status"], car["Price"] + " kr.", car["FromDate"], car["ToDate"], car["License"]))
+            print("{:<7}{:<13}{:<14}{:<12}{:<6}{:<9}{:<14}{:<11}{:<17}{:<14}{:<14}{:<9}".format
+                  (ix + 1, car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"],
+                   car["Status"], car["Price"] + " kr.", car["FromDate"], car["ToDate"], car["License"]))
 
     def main_menu(self):
-        remove_punct_map = dict.fromkeys(map(ord, string.punctuation))
         action = ""
         while action != "q":
             os.system('cls')
@@ -76,6 +76,7 @@ class CarUi:
                     new_car = Car(model, cartype, carclass, seats, fwd, transmission, license)
                     self.__car_service.add_car(new_car)
                     print(new_car)
+                    print("Car created!")
                     input("Press enter to continue")
                 except Exception:
                     print("Wow, how did you do that?")
