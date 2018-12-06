@@ -13,8 +13,6 @@ class CarRepository(object):
         try:
             with open("./data/car.csv") as file:
                 csv_reader = csv.DictReader(file)
-
-                # next(csv_reader)
                 cars = []
                 for line in csv_reader:
                     cars.append(line)
@@ -32,15 +30,13 @@ class CarRepository(object):
         transmission = car.get_transmission()
         price = car.get_price()
         status = car.get_status()
-        from_date = car.get_from_date()
-        to_date = car.get_to_date()
         license = car.get_license()
 
         with open("./data/car.csv", "a+") as file:
             if os.stat("./data/car.csv").st_size == 0:
-                file.write("{},{},{},{},{},{},{},{},{},{},{}".format("Model", "Type", "Class", "Seats", "4x4", "Transmission",
-                                                            "Status", "Price", "FromDate", "ToDate", "License"))
-            file.write("\n{},{},{},{},{},{},{},{},{},{},{}".format(model, cartype, carclass, seats, fwd, transmission, status, price, from_date, to_date, license))
+                file.write("{},{},{},{},{},{},{},{},{}".format("Model", "Type", "Class", "Seats", "4x4", "Transmission",
+                                                            "Status", "Price", "License"))
+            file.write("\n{},{},{},{},{},{},{},{},{}".format(model, cartype, carclass, seats, fwd, transmission, status, price, license))
 
     def get_available_car(self, t):     # t stendur fyrir annaðhvort True eða False
         car = self.get_car()
@@ -51,12 +47,13 @@ class CarRepository(object):
         return cars
 
     def get_available_date_car(self, from_date, to_date):
-        car = self.get_car()
-        cars = []
-        for x in car:
-            if datetime.datetime.strptime(x["FromDate"], "%d/%m/%y") < from_date and datetime.datetime.strptime(x["ToDate"], "%d/%m/%y") < to_date:
-                cars.append(x)
-        return cars
+        with open("./data/order.csv") as file:
+            csv_reader = csv.DictReader(file)
+            cars = []
+            for line in csv_reader:
+                if datetime.datetime.strptime(line["From date"], "%d/%m/%y") <= from_date <= datetime.datetime.strptime(line["To date"], "%d/%m/%y") or datetime.datetime.strptime(line["From date"], "%d/%m/%y") <= to_date <= datetime.datetime.strptime(line["To date"], "%d/%m/%y"):
+                    cars.append(line)
+            return cars
 
     def get_car_id(self, id):
         car = self.get_car()
@@ -70,7 +67,7 @@ class CarRepository(object):
             if x == selected_car:
                 pass
             else:
-                new_car = Car(x["Model"], x["Type"], x["Class"], x["Seats"], x["4x4"], x["Transmission"], x["License"], int(x["Price"]), x["Status"], x["FromDate"], x["ToDate"])
+                new_car = Car(x["Model"], x["Type"], x["Class"], x["Seats"], x["4x4"], x["Transmission"], x["License"], int(x["Price"]), x["Status"])
                 self.add_car(new_car)
 
 

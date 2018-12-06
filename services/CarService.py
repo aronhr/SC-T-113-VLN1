@@ -2,6 +2,7 @@ from repositories.CarRepository import CarRepository
 import datetime
 import string
 
+
 class CarService:
     def __init__(self):
         self.__car_repo = CarRepository()
@@ -45,7 +46,22 @@ class CarService:
         return d
 
     def get_available_date_cars(self, from_date, to_date):
-        return self.__car_repo.get_available_date_car(from_date, to_date)
+        available_cars = self.__car_repo.get_available_date_car(from_date, to_date)
+        car = self.__car_repo.get_car()
+        unavailable_cars = []
+        cars = []
+        # Cars that are unavailable
+        for x in car:
+            for y in available_cars:
+                if x["License"] == y["License"]:
+                    unavailable_cars.append(x)
+                else:
+                    cars.append(x)
+
+        if not cars:
+            for x in car:
+                cars.append(x)
+        return cars
 
     def get_available_date_type(self, genre, from_date, to_date):
         cars = self.get_available_date_cars(from_date, to_date)

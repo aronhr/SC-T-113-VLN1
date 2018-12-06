@@ -10,13 +10,12 @@ class CarUi:
         self.__car_service = CarService()
 
     def print_cars(self, cars):
-        print("{:^5}|{:^12}|{:^12}|{:^10}|{:^7}|{:^7}|{:^14}|{:^11}|{:^15}|{:^14}|{:^14}|{:^9}".format
-              ("Id", "Brand", "Type", "Class", "Seats", "4x4", "Transmission", "Available", "Price per day", "In rent from", "In rent to", "License"))
+        print("{:^5}|{:^12}|{:^12}|{:^10}|{:^7}|{:^7}|{:^14}|{:^11}|{:^15}|{:^9}".format("Id", "Brand", "Type", "Class",
+                                                                                   "Seats", "4x4", "Transmission",
+                                                                                   "Available", "Price per day", "License"))
         print("-" * 140)
         for ix, car in enumerate(cars):
-            print("{:<7}{:<13}{:<14}{:<12}{:<6}{:<9}{:<14}{:<11}{:<17}{:<14}{:<14}{:<9}".format
-                  (ix + 1, car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"],
-                   car["Status"], car["Price"] + " kr.", car["FromDate"], car["ToDate"], car["License"]))
+            print("{:<7}{:<13}{:<14}{:<12}{:<6}{:<9}{:<14}{:<11}{:<17}{:<9}".format(ix + 1, car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"], car["Status"], car["Price"] + " kr.", car["License"]))
 
     def main_menu(self):
         action = ""
@@ -55,8 +54,9 @@ class CarUi:
                     cars = self.__car_service.get_available_date_cars(from_date, to_date)
                     self.print_cars(cars)
                     input("Press enter to continue")
-                except Exception:
+                except Exception as e:
                     print("No available car exists at that time")
+                    print(e)
             elif action == "4":
                 try:
                     cars = self.__car_service.get_cars()
@@ -88,7 +88,7 @@ class CarUi:
                     c_id = int(input("Select car by Id: "))
                     car = self.__car_service.get_car_by_id(c_id)
                     self.print_cars([car])
-                    car = Car(car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"], car["License"], int(car["Price"]), car["Status"], car["FromDate"], car["ToDate"])
+                    car = Car(car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"], car["License"], int(car["Price"]), car["Status"])
 
                     choice = ""
                     while choice != "q":
