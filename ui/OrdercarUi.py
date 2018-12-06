@@ -36,7 +36,7 @@ class OrdercarUi:
                                                            order["To date"]))
 
     def print_completed_orders(self, completed_orders):
-        if len(self.__order_service.get_completed_orders()) == 0:
+        if len(completed_orders) == 0:
             print("No orders")
         else:
             print(
@@ -45,16 +45,8 @@ class OrdercarUi:
                                                                          "Payment method"))
 
             print("-" * 102)
-
             for ix, order in enumerate(completed_orders):
-                print(order)
-                print(
-                    "{:^6}{:^12}{:^19}{:^24}{:^18}|{:^20}|{:^21}".format(ix + 1, completed_orders["Name"],
-                                                                         completed_orders["License"],
-                                                                         completed_orders["From date"],
-                                                                         completed_orders["To date"],
-                                                                         completed_orders["Price"],
-                                                                         completed_orders["Payment method"]))
+                print("{:^6}{:^12}{:^19}{:^24}{:^18}|{:^20}|{:^21}".format(ix + 1, order["Name"], order["License"], order["From date"], order["To date"], order["Price"], order["Payment method"]))
 
     @staticmethod
     def print_customer(customer):
@@ -127,7 +119,7 @@ class OrdercarUi:
                 self.print_current_orders([order])
                 price = self.__order_service.get_order_price(order)
                 self.__order_service.pay_order(price, order)
-                # self.__order_service.remove_order(o_id)
+                self.__order_service.remove_order(o_id)
                 print("Car Returned!")
         except Exception as e:
             # print("Something went wrong, please try again")
