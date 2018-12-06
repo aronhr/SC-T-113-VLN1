@@ -2,7 +2,7 @@ from services.CarService import CarService
 from modules.car.Car import Car
 import string
 import os
-
+remove_punct_map = dict.fromkeys(map(ord, string.punctuation))
 
 class CarUi:
 
@@ -18,7 +18,6 @@ class CarUi:
             print("{:<7}{:<13}{:<14}{:<12}{:<6}{:<9}{:<14}{:<11}{:<17}{:<9}".format(ix + 1, car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"], car["Status"], car["Price"] + " kr.", car["License"]))
 
     def main_menu(self):
-        remove_punct_map = dict.fromkeys(map(ord, string.punctuation))
         action = ""
         while action != "q":
             os.system('cls')
@@ -77,6 +76,7 @@ class CarUi:
                     new_car = Car(model, cartype, carclass, seats, fwd, transmission, license)
                     self.__car_service.add_car(new_car)
                     print(new_car)
+                    print("Car created!")
                     input("Press enter to continue")
                 except Exception:
                     print("Wow, how did you do that?")

@@ -1,11 +1,13 @@
 """
-Það á að vera stór stafur í clasa!!
+Það á að vera stór stafur í clasa!! 
+Þetta fer að verða pirrandi!
 """
 
 from services.customerService import CustomerService
 from modules.person.Customer import Customer
 import os
 import string
+remove_punct_map = dict.fromkeys(map(ord, string.punctuation))
 
 
 class CustomerUi:
@@ -17,24 +19,17 @@ class CustomerUi:
         if self.__customer_service.get_customers() == "No customers":
             print("No customers")
         else:
-            print(
-                "{:^6}|{:^12}|{:^17}|{:^11}|{:^17}|{:^22}|{:^14}|{:^18}|{:^5}|".format("ID", "Name", "Passport number",
-                                                                                       "Country", "Address", "E-mail",
-                                                                                       "Phone number",
-                                                                                       "Driver´s license",
-                                                                                       "Age"))
+            print("{:^6}|{:^12}|{:^17}|{:^11}|{:^17}|{:^22}|{:^14}|{:^18}|{:^5}|".format
+                  ("ID", "Name", "Passport number", "Country", "Address", "E-mail", "Phone number", "Driver´s license", "Age"))
             print("-" * 131)
             for ix, customer in enumerate(self.__customer_service.get_customers()):
                 print("{:^8}{:<13}{:<18}{:<12}{:<18}{:<23}{:<15}{:<19}{:<7}".format(ix + 1, customer["Name"], customer[
                     "Passport number"], customer["Country"], customer["Address"], customer["Mail"],
-                                                                                    customer["Phone number"],
-                                                                                    customer["license"],
-                                                                                    customer["Age"]))
+                     customer["Phone number"], customer["license"], customer["Age"]))
         print()
 
     def main_menu(self):
         action = ""
-        remove_punct_map = dict.fromkeys(map(ord, string.punctuation))
         while action != 'q':
             os.system('cls')
             print("Costumers:")
@@ -60,6 +55,7 @@ class CustomerUi:
                     age = int(input("Enter age: ").translate(remove_punct_map))
                     new_customer = Customer(name, kt, country, address, mail, phone, customer_license, age)
                     self.__customer_service.add_customer(new_customer)
+                    print("Customer created!")
                     input("Press enter to continue")
                 except Exception:
                     print("Something went wrong, please try again")

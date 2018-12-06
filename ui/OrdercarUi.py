@@ -7,9 +7,9 @@ from services.customerService import CustomerService
 from repositories.CustomerRepository import CustomerRepository
 from modules.order.order import Order
 import datetime
-import string
 import os
 import string
+remove_punct_map = dict.fromkeys(map(ord, string.punctuation))
 
 
 class OrdercarUi:
@@ -50,13 +50,13 @@ class OrdercarUi:
         if customer:
             self.print_customer(customer)
         else:
-            name = input("\tEnter name: ")
-            country = input("\tEnter country: ")
-            address = input("\tEnter address: ")
-            mail = input("\tEnter mail: ")
-            phone = input("\tEnter phone number: ")
-            customer_license = input("\tEnter drivers license: ")
-            age = int(input("\tEnter age: "))
+            name = input("\tEnter name: ").translate(remove_punct_map)
+            country = input("\tEnter country: ").translate(remove_punct_map)
+            address = input("\tEnter address: ").translate(remove_punct_map)
+            mail = input("\tEnter mail: ").strip()
+            phone = input("\tEnter phone number: ").translate(remove_punct_map)
+            customer_license = input("\tEnter drivers license: ").translate(remove_punct_map)
+            age = int(input("\tEnter age: ")).translate(remove_punct_map)
             new_customer = Customer(name, kt, country, address, mail, phone, customer_license, age)
             self.__customer_service.add_customer(new_customer)
         approved = False
@@ -66,24 +66,25 @@ class OrdercarUi:
             from_date = self.__car_service.user_date("\tEnter start date for rent (dd/mm/yy): ")
             to_date = self.__car_service.user_date("\tEnter end date for rent (dd/mm/yy): ")
 
-            cartype = input("\tEnter type of car: ")
+            cartype = input("\tEnter type of car: ").translate(remove_punct_map)
             print("Available cars\n")
 
             available_cars_type = self.__car_service.get_available_date_type(cartype, from_date, to_date)
             if len(available_cars_type) == 0:
-                i = input("No cars avilable,(press q to quit, enter to select another date)")
+                i = input("No cars available,(Press q to quit, enter to select another date)")
                 if i == "q":
                     break
             else:
                 self.__car_ui.print_cars(available_cars_type)
 
-                c_id = int(input("\tSelect car by Id: "))
+                c_id = int(input("\nSelect car by Id: "))
                 self.__car_ui.print_cars([available_cars_type[c_id - 1]])
                 chosen_car_plate = available_cars_type[c_id - 1]["License"]
 
                 try:
                     new_order = Order(customer["Name"], chosen_car_plate, from_date, to_date)
                     self.__order_service.add_order(new_order)
+                    print("Order successful!")
                     approved = True
                 except Exception as e:
                     print(e)
@@ -96,6 +97,7 @@ class OrdercarUi:
             order = self.__order_service.get_order_by_id(o_id)
             self.print_orders([order])
             self.__order_service.remove_order(o_id)
+            print("Car Returned!")
             input("Press enter to continue")
         except Exception as e:
             # print("Something went wrong, please try again")
