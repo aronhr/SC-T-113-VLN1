@@ -75,19 +75,19 @@ class OrdercarUi:
                 if i == "q":
                     break
             else:
-                self.__car_ui.print_cars(available_cars_type)
+                while not approved:
+                    self.__car_ui.print_cars(available_cars_type)
+                    try:
+                        c_id = int(input("\nSelect car by Id: "))
+                        self.__car_ui.print_cars([available_cars_type[c_id - 1]])
+                        chosen_car_plate = available_cars_type[c_id - 1]["License"]
 
-                c_id = int(input("\nSelect car by Id: "))
-                self.__car_ui.print_cars([available_cars_type[c_id - 1]])
-                chosen_car_plate = available_cars_type[c_id - 1]["License"]
-
-                try:
-                    new_order = Order(customer["Name"], chosen_car_plate, from_date, to_date)
-                    self.__order_service.add_order(new_order)
-                    print("Order successful!")
-                    approved = True
-                except Exception as e:
-                    print(e)
+                        new_order = Order(customer["Name"], chosen_car_plate, from_date, to_date)
+                        self.__order_service.add_order(new_order)
+                        print("Order successful!")
+                        approved = True
+                    except IndexError:
+                        print("ID not available")
 
     def return_car(self):
         try:
