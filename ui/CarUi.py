@@ -74,12 +74,15 @@ class CarUi:
                     transmission = input("Transmission (A/M): ").upper().translate(remove_punct_map)
                     license = input("License: ").upper().translate(remove_punct_map)
                     new_car = Car(model, cartype, carclass, seats, fwd, transmission, license)
-                    self.__car_service.add_car(new_car)
                     print(new_car)
-                    print("Car created!")
-                    input("Press enter to continue")
+                    if input("Do you want to create this car?(Y/N)").upper() == "Y":
+                        self.__car_service.add_car(new_car)
+                        print("Car created!")
+                        input("Press enter to continue")
+                    else:
+                        print("No car created.")
                 except Exception:
-                    print("Wow, how did you do that?")
+                    print("Something went wrong, no car created.")
 
             elif action == "6":
                 try:
@@ -104,11 +107,11 @@ class CarUi:
                         elif choice == "4":
                             car.set_seats(input("Enter Seats: ").translate(remove_punct_map))
                         elif choice == "5":
-                            car.set_4x4(input("Enter new 4x4 (Y / N): ").upper().translate(remove_punct_map))
+                            car.set_4x4(input("Enter new 4x4 (Y/N): ").upper().translate(remove_punct_map))
                         elif choice == "6":
-                            car.set_transmission(input("Enter new Transmission (A / M): ").upper().translate(remove_punct_map))
+                            car.set_transmission(input("Enter new Transmission (A/M): ").upper().translate(remove_punct_map))
                         elif choice == "7":
-                            car.set_status(input("Enter new status: (T / F): ").upper().translate(remove_punct_map))
+                            car.set_status(input("Enter new status: (T/F): ").upper().translate(remove_punct_map))
                     self.__car_service.remove_car(c_id)
                     self.__car_service.add_car(car)
                     print(car)
