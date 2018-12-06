@@ -2,7 +2,7 @@ from services.EmployeeService import EmployeeService
 from modules.person.Employee import Employee
 import string
 import os
-
+remove_punct_map = dict.fromkeys(map(ord, string.punctuation))
 
 class EmployeeUI:
     def __init__(self):
@@ -43,7 +43,6 @@ class EmployeeUI:
 
             if action == "1":
                 try:
-                    remove_punct_map = dict.fromkeys(map(ord, string.punctuation))
                     name = input("Enter name: ").translate(remove_punct_map)
                     kt = input("Enter passport number: ").translate(remove_punct_map)
                     country = input("Enter country: ").translate(remove_punct_map)

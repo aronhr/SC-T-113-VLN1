@@ -7,6 +7,7 @@ from services.customerService import CustomerService
 from modules.person.Customer import Customer
 import os
 import string
+remove_punct_map = dict.fromkeys(map(ord, string.punctuation))
 
 
 class CustomerUi:
@@ -28,15 +29,11 @@ class CustomerUi:
             for ix, customer in enumerate(self.__customer_service.get_customers()):
                 print("{:^8}{:<13}{:<18}{:<12}{:<18}{:<23}{:<15}{:<19}{:<7}".format(ix + 1, customer["Name"], customer[
                     "Passport number"], customer["Country"], customer["Address"], customer["Mail"],
-                                                                                    customer["Phone number"],
-                                                                                    customer["license"],
-                                                                                    customer["Age"]))
+                     customer["Phone number"], customer["license"], customer["Age"]))
         print()
-
 
     def main_menu(self):
         action = ""
-        remove_punct_map = dict.fromkeys(map(ord, string.punctuation))
         while action != 'q':
             os.system('cls')
             print("Costumers:")
