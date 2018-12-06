@@ -1,5 +1,5 @@
 from ui.CarUi import CarUi
-from ui.CustomerUi import CustomerUi
+from ui.customerUi import CustomerUi
 from ui.OrdercarUi import OrdercarUi
 from ui.EmployeeUI import EmployeeUI
 from repositories.OrderRepository import OrderRepository
