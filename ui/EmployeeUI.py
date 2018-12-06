@@ -31,12 +31,13 @@ class EmployeeUI:
         action = ""
         while action != 'q':
             os.system('cls')
+            print("Employees:")
             print("You can do the following: ")
             print("1. Add a employee")
             print("2. List all employees")
             print("3. Remove employee")
             print("4. Edit employee ")
-            print("press q to quit")
+            print("Press q to quit")
 
             action = input("Choose an option: ").lower()
 
