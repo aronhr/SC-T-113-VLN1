@@ -78,9 +78,9 @@ class CarUi:
                     if input("Do you want to create this car?(Y/N)").upper() == "Y":
                         self.__car_service.add_car(new_car)
                         print("Car created!")
-                        input("Press enter to continue")
                     else:
                         print("No car created.")
+                    input("Press enter to continue")
                 except Exception:
                     print("Something went wrong, no car created.")
 
