@@ -1,3 +1,7 @@
+"""
+Það á að vera stór stafur í clasa!!
+"""
+
 from services.customerService import CustomerService
 from modules.person.Customer import Customer
 import os
