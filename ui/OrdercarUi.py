@@ -95,7 +95,7 @@ class OrdercarUi:
                     chosen_car.set_status("F")
                     self.__car_service.remove_car(c_id)
                     self.__car_service.add_car(chosen_car)
-                    print(chosen_car)
+                    print("Order successful!")
                     approved = True
                 except Exception as e:
                     print(e)
