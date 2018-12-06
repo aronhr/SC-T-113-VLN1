@@ -51,12 +51,13 @@ class CarRepository(object):
         return cars
 
     def get_available_date_car(self, from_date, to_date):
-        car = self.get_car()
-        cars = []
-        for x in car:
-            if datetime.datetime.strptime(x["FromDate"], "%d/%m/%y") < from_date and datetime.datetime.strptime(x["ToDate"], "%d/%m/%y") < to_date:
-                cars.append(x)
-        return cars
+        with open("./data/order.csv") as file:
+            csv_reader = csv.DictReader(file)
+            cars = []
+            for line in csv_reader:
+                if datetime.datetime.strptime(line["From date"], "%d/%m/%y") <= from_date <= datetime.datetime.strptime(line["To date"], "%d/%m/%y") and datetime.datetime.strptime(line["From date"], "%d/%m/%y") <= to_date <= datetime.datetime.strptime(line["To date"], "%d/%m/%y"):
+                    cars.append(line)
+            return cars
 
     def get_car_id(self, id):
         car = self.get_car()

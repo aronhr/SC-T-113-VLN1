@@ -55,8 +55,9 @@ class CarUi:
                     cars = self.__car_service.get_available_date_cars(from_date, to_date)
                     self.print_cars(cars)
                     input("Press enter to continue")
-                except Exception:
+                except Exception as e:
                     print("No available car exists at that time")
+                    print(e)
             elif action == "4":
                 try:
                     cars = self.__car_service.get_cars()

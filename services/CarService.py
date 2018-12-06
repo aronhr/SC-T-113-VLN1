@@ -45,7 +45,18 @@ class CarService:
         return d
 
     def get_available_date_cars(self, from_date, to_date):
-        return self.__car_repo.get_available_date_car(from_date, to_date)
+        available_cars = self.__car_repo.get_available_date_car(from_date, to_date)
+        car = self.__car_repo.get_car()
+        cars = []
+        for x in car:
+            for y in available_cars:
+                if x["License"] != y["License"]:
+                    cars.append(x)
+
+        if not cars:
+            for x in car:
+                cars.append(x)
+        return cars
 
     def get_available_date_type(self, genre, from_date, to_date):
         cars = self.get_available_date_cars(from_date, to_date)

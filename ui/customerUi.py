@@ -32,7 +32,6 @@ class CustomerUi:
                                                                                     customer["Age"]))
         print()
 
-
     def main_menu(self):
         action = ""
         remove_punct_map = dict.fromkeys(map(ord, string.punctuation))
