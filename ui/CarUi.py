@@ -66,13 +66,14 @@ class CarUi:
                     print("No cars exists")
             elif action == "5":
                 try:
-                    model = input("Model: ").translate(remove_punct_map)
-                    cartype = input("Type: ").translate(remove_punct_map)
-                    carclass = input("Class: ").translate(remove_punct_map)
-                    seats = input("How many seats: ").translate(remove_punct_map)
-                    fwd = input("4x4 (Y/N): ").upper().translate(remove_punct_map)
-                    transmission = input("Transmission (A/M): ").upper().translate(remove_punct_map)
-                    license = input("License: ").upper().translate(remove_punct_map)
+                    print("Creating car:")
+                    model = input("\tModel: ").translate(remove_punct_map)
+                    cartype = input("\tType: ").translate(remove_punct_map)
+                    carclass = input("\tClass: ").translate(remove_punct_map)
+                    seats = input("\tHow many seats: ").translate(remove_punct_map)
+                    fwd = input("\t4x4 (Y/N): ").upper().translate(remove_punct_map)
+                    transmission = input("\tTransmission (A/M): ").upper().translate(remove_punct_map)
+                    license = input("\tLicense: ").upper().translate(remove_punct_map)
                     new_car = Car(model, cartype, carclass, seats, fwd, transmission, license)
                     print(new_car)
                     if input("Do you want to create this car?(Y/N)").upper() == "Y":
@@ -80,9 +81,9 @@ class CarUi:
                         print("Car created!")
                     else:
                         print("No car created.")
-                    input("Press enter to continue")
                 except Exception:
                     print("Something went wrong, no car created.")
+                input("Press enter to continue")
 
             elif action == "6":
                 try:

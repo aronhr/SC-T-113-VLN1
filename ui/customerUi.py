@@ -45,20 +45,25 @@ class CustomerUi:
 
             if action == "1":
                 try:
-                    name = input("Enter name: ").translate(remove_punct_map)
-                    kt = input("Enter passport number: ").translate(remove_punct_map)
-                    country = input("Enter country: ").translate(remove_punct_map)
-                    address = input("Enter address: ").translate(remove_punct_map)
-                    mail = input("Enter mail: ").strip()
-                    phone = input("Enter phone number: ").translate(remove_punct_map)
-                    customer_license = input("Enter drivers license: ").translate(remove_punct_map)
-                    age = int(input("Enter age: ").translate(remove_punct_map))
+                    print("Creating costumer:")
+                    name = input("\tEnter name: ").translate(remove_punct_map)
+                    kt = input("\tEnter passport number: ").translate(remove_punct_map)
+                    country = input("\tEnter country: ").translate(remove_punct_map)
+                    address = input("\tEnter address: ").translate(remove_punct_map)
+                    mail = input("\tEnter mail: ").strip()
+                    phone = input("\tEnter phone number: ").translate(remove_punct_map)
+                    customer_license = input("\tEnter drivers license: ").translate(remove_punct_map)
+                    age = int(input("\tEnter age: ").translate(remove_punct_map))
                     new_customer = Customer(name, kt, country, address, mail, phone, customer_license, age)
-                    self.__customer_service.add_customer(new_customer)
-                    print("Customer created!")
-                    input("Press enter to continue")
+                    print(new_customer)
+                    if input("Do you want create this costumer?(Y/N)").upper() == "Y":
+                        self.__customer_service.add_customer(new_customer)
+                        print("Customer created!")
+                    else:
+                        print("No costumer created.")
                 except Exception:
-                    print("Something went wrong, please try again")
+                    print("Something went wrong, no costumer created.")
+                input("Press enter to continue")
 
             elif action == "2":
                 if len(self.__customer_service.get_customers()) == 0:
