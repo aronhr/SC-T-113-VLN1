@@ -2,7 +2,21 @@ from ui.CarUi import CarUi
 from ui.customerUi import CustomerUi
 from ui.OrdercarUi import OrdercarUi
 from ui.EmployeeUI import EmployeeUI
-from repositories.OrderRepository import OrderRepository
+
+
+def car():
+    print("\t\t\t        __-------__")
+    print("\t\t\t      / _---------_ \ ")
+    print("\t\t\t     / /           \ \ ")
+    print("\t\t\t     | |           | |")
+    print("\t\t\t     |_|___________|_|")
+    print("\t\t\t  /-\|               |/-\ ")
+    print("\t\t\t | _ |\      0      /| _ |")
+    print("\t\t\t |(_)| \     !     / |(_)|")
+    print("\t\t\t |___|__\____!____/__|___|")
+    print("\t\t\t [________|JABAN|________]")
+    print("\t\t\t ||||    ~~~~~~~~~    ||||")
+    print("\t\t\t `--'                 `--'")
 
 
 def car_main():
@@ -28,6 +42,10 @@ def order_main():
 def main():
     val = ""
     while val != "q":
+        car()
+        print("-"*50)
+        print("|{:^48}|".format("Bílasala Guðfinns"))
+        print("-"*50)
         print("Main menu\n1. Orders\n2. Customers\n3. Cars\n4. Employee\nPress q to quit")
         val = input()
         if val == "1":
