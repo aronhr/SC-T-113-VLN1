@@ -25,7 +25,7 @@ class OrdercarUi:
             print("No orders")
         else:
             print(
-                "{:^6}|{:^12}|{:^17}|{:^21}|{:^21}|".format("ID", "Name", "Car-license", "From date", "To date"))
+                "{:^6}|{:^12}|{:^17}|{:^21}|{:^21}".format("ID", "Name", "Car-license", "From date", "To date"))
 
             print("-" * 82)
 
@@ -112,7 +112,7 @@ class OrdercarUi:
             print("1. Rent a car")
             print("2. Return car")
             print("3. All orders")
-            print("Press q to quit\n")
+            print("Press q to quit")
 
             action = input()
             if action == '1':
