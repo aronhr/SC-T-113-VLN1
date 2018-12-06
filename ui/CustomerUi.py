@@ -1,5 +1,6 @@
 """
-Það á að vera stór stafur í clasa!!
+Það á að vera stór stafur í clasa!! 
+Þetta fer að verða pirrandi!
 """
 
 from services.customerService import CustomerService
