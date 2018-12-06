@@ -11,7 +11,7 @@ class OrderRepository(object):
     @staticmethod
     def get_orders():
         try:
-            with open("./data/order.csv") as file:
+            with open("./data/order.csv", encoding='utf-8') as file:
                 csv_reader = csv.DictReader(file)
                 rent = []
                 for line in csv_reader:
@@ -37,8 +37,11 @@ class OrderRepository(object):
                 print(e)
 
     def get_order_id(self, o_id):
-        order = self.get_orders()
-        return order[o_id]
+        try:
+            order = self.get_orders()
+            return order[o_id]
+        except IndexError:
+            print("ID not available!")
 
     def remove_order_id(self, o_id):
         try:
