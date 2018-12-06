@@ -53,6 +53,7 @@ class EmployeeUI:
                     age = int(input("Enter age: "))
                     new_employee = Employee(name, kt, country, address, mail, phone, customer_license, age)
                     self.__employee_service.add_employee(new_employee)
+                    print("Employee created!")
                     input("Press enter to continue")
                 except Exception:
                     print("Check your inputs")

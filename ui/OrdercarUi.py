@@ -108,6 +108,7 @@ class OrdercarUi:
             order = self.__order_service.get_order_by_id(o_id)
             self.print_orders([order])
             self.__order_service.remove_order(o_id)
+            print("Car Returned!")
             input("Press enter to continue")
         except Exception as e:
             # print("Something went wrong, please try again")

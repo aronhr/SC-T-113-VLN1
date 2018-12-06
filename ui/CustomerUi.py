@@ -19,12 +19,8 @@ class CustomerUi:
         if self.__customer_service.get_customers() == "No customers":
             print("No customers")
         else:
-            print(
-                "{:^6}|{:^12}|{:^17}|{:^11}|{:^17}|{:^22}|{:^14}|{:^18}|{:^5}|".format("ID", "Name", "Passport number",
-                                                                                       "Country", "Address", "E-mail",
-                                                                                       "Phone number",
-                                                                                       "Driver´s license",
-                                                                                       "Age"))
+            print("{:^6}|{:^12}|{:^17}|{:^11}|{:^17}|{:^22}|{:^14}|{:^18}|{:^5}|".format
+                  ("ID", "Name", "Passport number", "Country", "Address", "E-mail", "Phone number", "Driver´s license", "Age"))
             print("-" * 131)
             for ix, customer in enumerate(self.__customer_service.get_customers()):
                 print("{:^8}{:<13}{:<18}{:<12}{:<18}{:<23}{:<15}{:<19}{:<7}".format(ix + 1, customer["Name"], customer[
@@ -59,6 +55,7 @@ class CustomerUi:
                     age = int(input("Enter age: ").translate(remove_punct_map))
                     new_customer = Customer(name, kt, country, address, mail, phone, customer_license, age)
                     self.__customer_service.add_customer(new_customer)
+                    print("Customer created!")
                     input("Press enter to continue")
                 except Exception:
                     print("Something went wrong, please try again")

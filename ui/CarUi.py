@@ -76,6 +76,7 @@ class CarUi:
                     new_car = Car(model, cartype, carclass, seats, fwd, transmission, license)
                     self.__car_service.add_car(new_car)
                     print(new_car)
+                    print("Car created!")
                     input("Press enter to continue")
                 except Exception:
                     print("Wow, how did you do that?")
