@@ -79,23 +79,11 @@ class OrdercarUi:
 
                 c_id = int(input("\tSelect car by Id: "))
                 self.__car_ui.print_cars([available_cars_type[c_id - 1]])
-                car = available_cars_type[c_id - 1]
                 chosen_car_plate = available_cars_type[c_id - 1]["License"]
-
-                chosen_car = Car(car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"],
-                                 car["License"], int(car["Price"]), car["Status"], car["FromDate"], car["ToDate"])
 
                 try:
                     new_order = Order(customer["Name"], chosen_car_plate, from_date, to_date)
                     self.__order_service.add_order(new_order)
-                    from_date = datetime.datetime.strftime(from_date, "%d/%m/%y")
-                    to_date = datetime.datetime.strftime(to_date, "%d/%m/%y")
-                    chosen_car.set_from_date(from_date)
-                    chosen_car.set_to_date(to_date)
-                    chosen_car.set_status("F")
-                    self.__car_service.remove_car(c_id)
-                    self.__car_service.add_car(chosen_car)
-                    print(chosen_car)
                     approved = True
                 except Exception as e:
                     print(e)
