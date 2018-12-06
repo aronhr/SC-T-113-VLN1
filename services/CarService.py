@@ -28,6 +28,14 @@ class CarService:
                 arr.append(x)
         return arr
 
+    def get_car_class(self):
+        cars = self.get_available_cars()
+        arr = []
+        for x in cars:
+            if x["Class"] not in arr:
+                arr.append(x["Class"])
+        return arr
+
     def get_available_cars(self):
         return self.__car_repo.get_available_car("True")
 

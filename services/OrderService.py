@@ -21,3 +21,12 @@ class OrderService:
 
     def remove_order(self, o_id):
         return self.__order_repo.remove_order_id(o_id)
+
+    def get_order_price(self, order):
+        return self.__order_repo.get_order_price(order)
+
+    def pay_order(self, price, order):
+        return self.__order_repo.pay_order(price, order)
+
+    def get_completed_orders(self):
+        return self.__order_repo.get_completed_orders()
