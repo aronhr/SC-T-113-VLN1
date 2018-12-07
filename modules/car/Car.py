@@ -72,14 +72,16 @@ class Car(object):
         self.__license = other
 
     def set_price(self):
-        price = 500 + (500 * (int(self.__seats) / 10))  # Bíll kostar 500 kr. á dag margfaldað með 1,fjöldi_sæta
         if self.__class == "Luxury":
-            price = price * 1.5
-        if self.__4x4 == "Yes":
-            price = price * 1.2
-        if self.__transmission == "Automatic":
-            price = price * 1.1
-        self.__price = round(price)
+            self.__price = 8500
+        elif self.__class == "Jeep":
+            self.__price = 8000
+        elif self.__class == "Family":
+            self.__price = 5000
+        elif self.__class == "Small car":
+            self.__price = 4000
+        else:
+            self.__price = 5000
         return self.__price
 
     def set_id(self, other):
