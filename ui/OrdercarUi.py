@@ -23,19 +23,22 @@ class OrdercarUi:
 
     def print_current_orders(self, orders):
         if len(self.__order_service.get_orders()) == 0:
-            print("No orders")
+            print("No orders\n")
         else:
             print(
-                "{:^6}|{:^12}|{:^17}|{:^21}|{:^21}".format("ID", "Name", "Car-license", "From date", "To date"))
+                "{:^6}|{:^12}|{:^17}|{:^21}|{:^21}|{:^12}".format("ID", "Name", "Car-license", "From date", "To date",
+                                                                  "Price"))
 
-            print("-" * 82)
+            print("-" * 102)
 
             for ix, order in enumerate(orders):
                 print(
-                    "{:^6}{:^12}{:^19}{:^24}{:^18}".format(ix + 1, order["Name"], order["License"], order["From date"],
-                                                           order["To date"]))
+                    "{:^6}{:^12}{:^19}{:^24}{:^18}|{:^12}".format(ix + 1, order["Name"], order["License"],
+                                                                  order["From date"],
+                                                                  order["To date"], order["Price"]))
 
-    def print_completed_orders(self, completed_orders):
+    @staticmethod
+    def print_completed_orders(completed_orders):
         if len(completed_orders) == 0:
             print("No orders")
         else:
@@ -44,9 +47,11 @@ class OrdercarUi:
                                                                          "To date", "Price",
                                                                          "Payment method"))
 
-            print("-" * 102)
+            print("-" * 122)
             for ix, order in enumerate(completed_orders):
-                print("{:^6}{:^12}{:^19}{:^24}{:^18}|{:^20}|{:^21}".format(ix + 1, order["Name"], order["License"], order["From date"], order["To date"], order["Price"], order["Payment method"]))
+                print("{:^6}{:^12}{:^19}{:^24}{:^18}{:^20}{:^21}".format(ix + 1, order["Name"], order["License"],
+                                                                         order["From date"], order["To date"],
+                                                                         order["Price"], order["Payment method"]))
 
     @staticmethod
     def print_customer(customer):
@@ -99,11 +104,27 @@ class OrdercarUi:
                         c_id = int(input("\nSelect car by Id: "))
                         self.__car_ui.print_cars([available_cars_type[c_id - 1]])
                         chosen_car_plate = available_cars_type[c_id - 1]["License"]
-
-                        new_order = Order(customer["Name"], chosen_car_plate, from_date, to_date)
-                        self.__order_service.add_order(new_order)
-                        print("Order successful!")
-                        approved = True
+                        price_of_order = int(available_cars_type[c_id - 1]["Price"])
+                        from_date = datetime.datetime.date(from_date)
+                        to_date = datetime.datetime.date(to_date)
+                        delta = to_date - from_date
+                        days = delta.days
+                        print("Price of order: {} ISK".format(price_of_order * days))
+                        insurance = input("Would you like extra insurance for {} ISK per day? Y/N: ".format(
+                            int(price_of_order) * 0.75)).upper()
+                        price_of_order *= days
+                        if insurance == 'Y':
+                            price_of_order *= 1.75
+                            print("Price of order: {} ISK".format(price_of_order))
+                            print("Your deposit of the order is {} ISK".format(price_of_order * 0.10))
+                        book = input("Order car? Y/N: ").upper()
+                        if book == 'Y':
+                            new_order = Order(customer["Name"], chosen_car_plate, from_date, to_date, price_of_order)
+                            self.__order_service.add_order(new_order)
+                            print("\nOrder successful!\n")
+                            approved = True
+                        elif book == 'N':
+                            continue
                     except IndexError:
                         print("ID not available")
 
@@ -117,13 +138,29 @@ class OrdercarUi:
                 o_id = int(input("Select order by Id: "))
                 order = self.__order_service.get_order_by_id(o_id)
                 self.print_current_orders([order])
-                price = self.__order_service.get_order_price(order)
+                price = order["Price"]
                 self.__order_service.pay_order(price, order)
                 self.__order_service.remove_order(o_id)
                 print("Car Returned!")
         except Exception as e:
             # print("Something went wrong, please try again")
             print(e)
+
+    def revoke_order(self):
+        try:
+            orders = self.__order_service.get_orders()
+            if len(orders) == 0:
+                print("\nNo orders")
+            else:
+                self.print_current_orders(orders)
+                o_id = int(input("Select order by Id: "))
+                order = self.__order_service.get_order_by_id(o_id)
+                self.print_current_orders([order])
+                print("Your deposit was {} ISK".format(orders["Price"] * 0.10))
+                self.__order_service.remove_order(o_id)
+                print("Order revoked and deposit returned")
+        except Exception:
+            pass
 
     def main_menu(self):
         action = ''
@@ -136,6 +173,7 @@ class OrdercarUi:
             print("3. Current orders")
             print("4. Completed orders")
             print("5. All orders")
+            print("6. Revoke order")
             print("Press q to quit\n")
 
             action = input()
@@ -154,3 +192,6 @@ class OrdercarUi:
                 completed_orders = self.__order_service.get_completed_orders()
                 self.print_completed_orders(completed_orders)
                 input("Press enter to continue")
+
+            elif action == '6':
+                self.revoke_order()
