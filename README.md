@@ -8,7 +8,7 @@ Verklegt námskeið 1
 | :----: | :--------------------------------------------------------------------------------------------------------------------------------------: | :---:|
 | 1 	 | Leigan býður upp á allavega þrjá mismunandi flokka af bílum til leigu 																	|	   |
 | 2 	 | Hægt er að fá frekari tryggingu gegn auknu gjaldi 																						|	   |
-| 3 	 | Lágmarksleiga er einn dagur 																												|	   |
+| 3 	 | Lágmarksleiga er einn dagur 																												|	x  |
 | 4 	 | Greiða má með korti (kredit eða debit) eða reiðufé 																						|	x  |
 | 5 	 | Notandinn verður að geta birt alla lausa bíla 																							|	 x |
 | 6 	 | Notandinn verður að geta birt alla útleigða bíla 																						|	 x |
