@@ -1,9 +1,10 @@
 class Order(object):
-    def __init__(self, renter='', car='', FromDate="", ToDate=""):
+    def __init__(self, renter='', car='', FromDate="", ToDate="", price=0):
         self.car = car
         self.renter = renter
         self.From_date = FromDate
         self.To_date = ToDate
+        self.price = price
 
     def get_car(self):
         return self.car
@@ -16,6 +17,9 @@ class Order(object):
 
     def get_to_date(self):
         return self.To_date
+
+    def get_price(self):
+        return self.price
 
     def set_car(self, other):
         self.car = other
@@ -30,7 +34,7 @@ class Order(object):
         self.To_date = other
 
     def __repr__(self):
-        return "{},{},{},{}".format(self.car, self.renter, self.From_date, self.To_date)
+        return "{},{},{},{},{}".format(self.car, self.renter, self.From_date, self.To_date, self.price)
 
 
 

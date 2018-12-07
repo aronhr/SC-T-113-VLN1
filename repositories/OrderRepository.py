@@ -19,7 +19,7 @@ class OrderRepository(object):
                     orders.append(line)
                 return orders
         except Exception:
-            return "{}".format("No orders")
+            return ""
 
     @staticmethod
     def add_order(new_order):
@@ -29,12 +29,13 @@ class OrderRepository(object):
         from_date = datetime.datetime.strftime(from_date, "%d/%m/%y")
         to_date = new_order.get_to_date()
         to_date = datetime.datetime.strftime(to_date, "%d/%m/%y")
+        price = new_order.get_price()
         with open("./data/order.csv", "a+", encoding='utf-8') as file:
             try:
                 if os.stat("./data/order.csv").st_size == 0:
-                    file.write("{},{},{},{}".format("Name", "License", "From date", "To date"))
+                    file.write("{},{},{},{},{}".format("Name", "License", "From date", "To date", "Price"))
 
-                file.write("\n{},{},{},{}".format(name, car, from_date, to_date))
+                file.write("\n{},{},{},{},{}".format(name, car, from_date, to_date, price))
             except Exception as e:
                 print(e)
 
@@ -61,17 +62,6 @@ class OrderRepository(object):
         except Exception as e:
             print(e)
 
-    # noinspection PyTypeChecker
-    def get_order_price(self, order):
-        cars = self.__car_repo.get_car()
-        from_date = datetime.datetime.strptime(order["From date"], "%d/%m/%y")
-        to_date = datetime.datetime.strptime(order["To date"], "%d/%m/%y")
-        delta = to_date - from_date
-        days = int(delta.days)
-        for x in cars:
-            if x["License"] == order["License"]:
-                return int(x["Price"]) * days
-
     def pay_order(self, price, order):
         action = ''
         while action != 'q':
@@ -79,18 +69,16 @@ class OrderRepository(object):
             print("1. Card")
             print("2. Cash")
             print("Press q to quit\n")
-
+            print("Total Price: {}".format(price))
             action = input("Choose an option: ")
 
             if action == '1':
                 payment_method = input('Debit or credit? ')
-                print("Total Price: {}".format(price))
                 self.add_complete_order_to_file(order, price, payment_method)
                 break
 
             elif action == '2':
                 payment_method = "Cash"
-                print("Total Price: {}".format(price))
                 self.add_complete_order_to_file(order, price, payment_method)
                 break
 
