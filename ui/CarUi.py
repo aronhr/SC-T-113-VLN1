@@ -17,6 +17,14 @@ class CarUi:
         for ix, car in enumerate(cars):
             print("{:<7}{:<13}{:<14}{:<12}{:<6}{:<9}{:<14}{:<11}{:<17}{:<9}".format(ix + 1, car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"], car["Status"], car["Price"] + " kr.", car["License"]))
 
+    def print_price(self, cars):
+        print("{:^7}|{:^7}|{:^17}|{:^13}".format("Class", "Price", "Extra Insurance", "Total price"))
+        arr = []
+        for car in cars:
+            if car["Class"] not in arr:
+                print("{:<8} {:<8} {:<17} {:<13}".format(car["Class"], car["Price"], (int(car["Price"]) * 0.75), (int(car["Price"]) * 1.75)))
+                arr.append(car["Class"])
+
     def main_menu(self):
         action = ""
         while action != "q":
@@ -27,9 +35,10 @@ class CarUi:
             print("2. Cars in rent")
             print("3. Available cars within date")
             print("4. All cars")
-            print("5. Create new car")
-            print("6. Edit car")
-            print("7. Remove car")
+            print("5. Price list")
+            print("6. Create new car")
+            print("7. Edit car")
+            print("8. Remove car")
             print("Press q to quit")
 
             action = input("Choose an option: ").lower()
@@ -65,6 +74,14 @@ class CarUi:
                 except Exception:
                     print("No cars exists")
             elif action == "5":
+                # Price list
+                try:
+                    cars = self.__car_service.get_cars()
+                    self.print_price(cars)
+                    input("Press enter to continue")
+                except Exception:
+                    print("Some thing went wrong")
+            elif action == "6":
                 try:
                     print("Creating car:")
                     model = input("\tModel: ").translate(remove_punct_map)
@@ -85,7 +102,7 @@ class CarUi:
                     print("Something went wrong, no car created.")
                 input("Press enter to continue")
 
-            elif action == "6":
+            elif action == "7":
                 try:
                     cars = self.__car_service.get_cars()
                     self.print_cars(cars)
@@ -120,7 +137,7 @@ class CarUi:
                 except Exception:
                     print("Something went wrong, please try again")
 
-            elif action == "7":
+            elif action == "8":
                 try:
                     cars = self.__car_service.get_cars()
                     self.print_cars(cars)
