@@ -10,8 +10,8 @@ class OrderService:
     def check_kt(self, kt):
         return self.__customer_repo.check_if_kt_exist(kt)
 
-    def add_order(self, new_order):
-        return self.__order_repo.add_order(new_order)
+    def add_order(self, new_order, edit):
+        return self.__order_repo.add_order(new_order, edit)
 
     def get_orders(self):
         return self.__order_repo.get_orders()
@@ -27,6 +27,3 @@ class OrderService:
 
     def get_completed_orders(self):
         return self.__order_repo.get_completed_orders()
-
-    def edit_order(self, e_action, order):
-        return self.__order_repo.edit_order(order, e_action)

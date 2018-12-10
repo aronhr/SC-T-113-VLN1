@@ -120,7 +120,7 @@ class OrdercarUi:
                         book = input("Order car? Y/N: ").upper()
                         if book == 'Y':
                             new_order = Order(customer["Name"], chosen_car_plate, from_date, to_date, price_of_order)
-                            self.__order_service.add_order(new_order)
+                            self.__order_service.add_order(new_order, False)
                             print("\nOrder successful!\n")
                             approved = True
                         elif book == 'N':
@@ -156,7 +156,7 @@ class OrdercarUi:
                 o_id = int(input("Select order by Id: "))
                 order = self.__order_service.get_order_by_id(o_id)
                 self.print_current_orders([order])
-                print("Your deposit was {} ISK".format(orders["Price"] * 0.10))
+                print("Your deposit was {} ISK".format(order["Price"] * 0.10))
                 self.__order_service.remove_order(o_id)
                 print("Order revoked and deposit returned")
         except Exception:
@@ -226,16 +226,14 @@ class OrdercarUi:
                 edited_order.set_price(input("Enter new price: ").translate(remove_punct_map))
         print(edited_order)
         self.__order_service.remove_order(o_id)
-        self.__order_service.add_order(edited_order)
+        self.__order_service.add_order(edited_order, True)
 
     def edit_completed_order(self):
         orders = self.__order_service.get_completed_orders()
         self.print_completed_orders(orders)
         o_id = int(input("Select order by Id: "))
         order = self.__order_service.get_order_by_id(o_id)
-        edited_order = Order(order["Name"], order["License"], order["From date"], order["To date"],
-                             order["Price"],
-                             order["Payment method"])
+        edited_order = Order(order["Name"], order["License"], order["From date"], order["To date"], order["Price"], order["Payment method"])
         b_choice = ''
         while b_choice != 'q':
             b_choice = input(
@@ -255,5 +253,5 @@ class OrdercarUi:
             elif b_choice == '6':
                 edited_order.set_payment_method(input("Enter new payment method: ").translate(remove_punct_map))
         self.__order_service.remove_order(o_id)
-        self.__order_service.add_order(edited_order)
+        # self.__order_service.add_order(edited_order)
         input("Press enter to continue")

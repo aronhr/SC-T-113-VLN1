@@ -24,13 +24,17 @@ class OrderRepository(object):
             return ""
 
     @staticmethod
-    def add_order(new_order):
+    def add_order(new_order, edit=False):
         name = new_order.get_renter()
         car = new_order.get_car()
         from_date = new_order.get_from_date()
-        from_date = datetime.datetime.strftime(from_date, "%d/%m/%y")
         to_date = new_order.get_to_date()
-        to_date = datetime.datetime.strftime(to_date, "%d/%m/%y")
+        if edit:
+            from_date = datetime.datetime.strptime(from_date, "%d/%m/%y")
+            to_date = datetime.datetime.strptime(to_date, "%d/%m/%y")
+        else:
+            from_date = datetime.datetime.strftime(from_date, "%d/%m/%y")
+            to_date = datetime.datetime.strftime(to_date, "%d/%m/%y")
         price = new_order.get_price()
         with open("./data/order.csv", "a+", encoding='utf-8') as file:
             try:
