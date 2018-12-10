@@ -20,6 +20,7 @@ class CarUi:
 
     def print_price(self, cars):
         print("{:^7}|{:^7}|{:^17}|{:^13}".format("Class", "Price", "Extra Insurance", "Total price"))
+        print("-"*46)
         arr = []
         for car in cars:
             if car["Class"] not in arr:
