@@ -2,6 +2,8 @@ from services.CarService import CarService
 from modules.car.Car import Car
 import string
 import os
+import requests
+
 remove_punct_map = dict.fromkeys(map(ord, string.punctuation))
 
 class CarUi:
@@ -86,14 +88,19 @@ class CarUi:
             elif action == "6":
                 try:
                     print("Creating car:")
-                    model = input("\tModel: ").translate(remove_punct_map)
-                    cartype = input("\tType: ").translate(remove_punct_map)
+                    license_plate = input("Enter license plate: ")
+                    # model = input("\tModel: ").translate(remove_punct_map)
+                    # cartype = input("\tType: ").translate(remove_punct_map)
                     carclass = input("\tClass: ").translate(remove_punct_map)
                     seats = input("\tHow many seats: ").translate(remove_punct_map)
                     fwd = input("\t4x4 (Y/N): ").upper().translate(remove_punct_map)
                     transmission = input("\tTransmission (A/M): ").upper().translate(remove_punct_map)
-                    license = input("\tLicense: ").upper().translate(remove_punct_map)
-                    new_car = Car(model, cartype, carclass, seats, fwd, transmission, license)
+                    # license = input("\tLicense: ").upper().translate(remove_punct_map)
+                    r = requests.get(url='http://apis.is/car?number=' + license_plate)
+                    car = r.json()
+                    car = car["results"][0]
+                    new_car = Car(car["type"], car["subType"], carclass, seats, fwd, transmission, car["number"])
+                    # new_car = Car(model, cartype, carclass, seats, fwd, transmission, license)
                     print(new_car)
                     if input("Do you want to create this car?(Y/N)").upper() == "Y":
                         self.__car_service.add_car(new_car)
