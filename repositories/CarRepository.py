@@ -35,10 +35,13 @@ class CarRepository(object):
         with open("./data/car.csv", "a+") as file:
             if os.stat("./data/car.csv").st_size == 0:
                 file.write("{},{},{},{},{},{},{},{},{}".format("Model", "Type", "Class", "Seats", "4x4", "Transmission",
-                                                            "Status", "Price", "License"))
-            file.write("\n{},{},{},{},{},{},{},{},{}".format(model, cartype, carclass, seats, fwd, transmission, status, price, license))
+                                                               "Status", "Price", "License"))
+            file.write(
+                "\n{},{},{},{},{},{},{},{},{}".format(model, cartype, carclass, seats, fwd, transmission, status, price,
+                                                      license))
 
-    def get_available_car(self, t):     # t stendur fyrir annaðhvort True eða False
+    # noinspection PyTypeChecker
+    def get_available_car(self, t):  # t stendur fyrir annaðhvort True eða False
         car = self.get_car()
         cars = []
         for x in car:
@@ -47,27 +50,33 @@ class CarRepository(object):
         return cars
 
     def get_available_date_car(self, from_date, to_date):
-        with open("./data/order.csv") as file:
-            csv_reader = csv.DictReader(file)
-            cars = []
-            for line in csv_reader:
-                if datetime.datetime.strptime(line["From date"], "%d/%m/%y") <= from_date <= datetime.datetime.strptime(line["To date"], "%d/%m/%y") or datetime.datetime.strptime(line["From date"], "%d/%m/%y") <= to_date <= datetime.datetime.strptime(line["To date"], "%d/%m/%y"):
-                    cars.append(line)
-            return cars
+        try:
+            with open("./data/order.csv") as file:
+                csv_reader = csv.DictReader(file)
+                cars = []
+                for line in csv_reader:
+                    if datetime.datetime.strptime(line["From date"], "%d/%m/%y") <= from_date <= datetime.datetime.strptime(
+                            line["To date"], "%d/%m/%y") or datetime.datetime.strptime(line["From date"],
+                                                                                       "%d/%m/%y") <= to_date <= datetime.datetime.strptime(
+                            line["To date"], "%d/%m/%y"):
+                        cars.append(line)
+                return cars
+        except FileNotFoundError:
+            self.get_car()
 
     def get_car_id(self, id):
         car = self.get_car()
         return car[id]
 
+    # noinspection PyTypeChecker
     def remove_car_id(self, id):
         car = self.get_car()
-        selected_car = car[id-1]
+        selected_car = car[id - 1]
         os.remove("./data/car.csv")
         for x in car:
             if x == selected_car:
                 pass
             else:
-                new_car = Car(x["Model"], x["Type"], x["Class"], x["Seats"], x["4x4"], x["Transmission"], x["License"], int(x["Price"]), x["Status"])
+                new_car = Car(x["Model"], x["Type"], x["Class"], x["Seats"], x["4x4"], x["Transmission"], x["License"],
+                              int(x["Price"]), x["Status"])
                 self.add_car(new_car)
-
-

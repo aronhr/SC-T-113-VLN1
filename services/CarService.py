@@ -58,17 +58,19 @@ class CarService:
         car = self.__car_repo.get_car()
         cars = []
         # Cars that are unavailable
-        for x in car:
-            for y in available_cars:
-                if x["License"] == y["License"]:
-                    pass
-                else:
-                    cars.append(x)
-
-        if not cars:
+        try:
             for x in car:
-                cars.append(x)
-        return cars
+                for y in available_cars:
+                    if x["License"] == y["License"]:
+                        pass
+                    else:
+                        cars.append(x)
+            if not cars:
+                for x in car:
+                    cars.append(x)
+            return cars
+        except Exception:
+            return car
 
     def get_available_date_type(self, genre, from_date, to_date):
         cars = self.get_available_date_cars(from_date, to_date)
