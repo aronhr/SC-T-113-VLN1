@@ -166,7 +166,9 @@ class OrdercarUi:
             print("3. Current orders")
             print("4. Completed orders")
             print("5. Revoke order")
-            print("Press q to quit\n")
+            print("6. Revoke order")
+            print("7. List order history of car")
+            print("Press q to quit")
 
             action = input()
             if action == '1':
@@ -187,3 +189,11 @@ class OrdercarUi:
 
             elif action == '5':
                 self.revoke_order()
+
+            elif action == "7":
+                license = input("Enter car license plate (q to quit): ").upper()
+                if license != "Q":
+                    orders = self.__order_service.get_available_orders(license)
+                    self.print_completed_orders(orders)
+                input("Press enter to continue")
+
