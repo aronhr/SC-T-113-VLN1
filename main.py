@@ -2,6 +2,7 @@ from ui.CarUi import CarUi
 from ui.customerUi import CustomerUi
 from ui.OrdercarUi import OrdercarUi
 from ui.EmployeeUI import EmployeeUI
+import os
 
 
 def car():
@@ -42,6 +43,7 @@ def order_main():
 def main():
     val = ""
     while val != "q":
+        os.system('cls')
         car()
         print("-"*50)
         print("|{:^48}|".format("Bílasala Guðfinns"))

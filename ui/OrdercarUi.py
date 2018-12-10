@@ -199,59 +199,61 @@ class OrdercarUi:
             elif action == '6':
                 print("1. Edit current orders\n2. Edit completed orders")
                 e_action = input()
-                self.edit_order(e_action)
+                if e_action == '1':
+                    self.edit_current_order()
+                elif e_action == '2':
+                    pass
 
-    def edit_order(self, e_action):
-        choice = ''
-        while choice != 'q':
-            if e_action == '1':
-                orders = self.__order_service.get_orders()
-                self.print_current_orders(orders)
-                o_id = int(input("Select order by Id: "))
-                order = self.__order_service.get_order_by_id(o_id)
-                edited_order = Order(order["Name"], order["License"], order["From date"], order["To date"],
-                                     order["Price"])
-                a_choice = ''
-                while a_choice != 'q':
-                    a_choice = input(
-                        "1. Edit name\n2. License\n3. From date\n4. To date\n5. Price\nPress q to go back").lower()
-                    if a_choice == '1':
-                        edited_order.set_renter(input("Enter new name: ").translate(remove_punct_map))
-                    elif a_choice == '2':
-                        edited_order.set_car(input("Enter new license: ").translate(remove_punct_map))
-                    elif a_choice == '3':
-                        edited_order.set_from_date(input("Enter new from date: ").translate(remove_punct_map))
-                    elif a_choice == '4':
-                        edited_order.set_to_date(input("Enter new to date: ").translate(remove_punct_map))
-                    elif a_choice == '5':
-                        edited_order.set_price(input("Enter new price: ").translate(remove_punct_map))
+    def edit_current_order(self):
+        orders = self.__order_service.get_orders()
+        self.print_current_orders(orders)
+        o_id = int(input("Select order by Id: "))
+        order = self.__order_service.get_order_by_id(o_id)
+        edited_order = Order(order["Name"], order["License"], order["From date"], order["To date"], order["Price"])
+        a_choice = ''
+        while a_choice != 'q':
+            a_choice = input(
+                "1. Edit name\n2. License\n3. From date\n4. To date\n5. Price\nPress q to go back").lower()
+            if a_choice == '1':
+                edited_order.set_renter(input("Enter new name: ").translate(remove_punct_map))
+            elif a_choice == '2':
+                edited_order.set_car(input("Enter new license: ").translate(remove_punct_map))
+            elif a_choice == '3':
+                edited_order.set_from_date(input("Enter new from date: ").translate(remove_punct_map))
+            elif a_choice == '4':
+                edited_order.set_to_date(input("Enter new to date: ").translate(remove_punct_map))
+            elif a_choice == '5':
+                edited_order.set_price(input("Enter new price: ").translate(remove_punct_map))
+        print(edited_order)
+        self.__order_service.remove_order(o_id)
+        self.__order_service.add_order(edited_order)
 
-            if e_action == '2':
-                orders = self.__order_service.get_completed_orders()
-                self.print_completed_orders(orders)
-                o_id = int(input("Select order by Id: "))
-                order = self.__order_service.get_order_by_id(o_id)
-                edited_order = Order(order["Name"], order["License"], order["From date"], order["To date"],
-                                     order["Price"],
-                                     order["Payment method"])
-                b_choice = ''
-                while b_choice != 'q':
-                    b_choice = input(
-                        "What do you want to order?\n1. Name\n2. License\n3. From Date\n4. To date\n5. Price\n6. "
-                        "Payment "
-                        "method\n Press q to go back").lower()
-                    if b_choice == '1':
-                        edited_order.set_renter(input("Enter new name: ").translate(remove_punct_map))
-                    elif b_choice == '2':
-                        edited_order.set_car(input("Enter new license: ").translate(remove_punct_map))
-                    elif b_choice == '3':
-                        edited_order.set_from_date(input("Enter new from date: "))
-                    elif b_choice == '4':
-                        edited_order.set_to_date(input("Enter new to date: "))
-                    elif b_choice == '5':
-                        edited_order.set_price(input("Enter new price: ").translate(remove_punct_map))
-                    elif b_choice == '6':
-                        edited_order.set_payment_method(input("Enter new payment method: ").translate(remove_punct_map))
-            # self.__order_service.remove_order(o_id)
-            # self.__order_service.add_order(edited_order)
+    def edit_completed_order(self):
+        orders = self.__order_service.get_completed_orders()
+        self.print_completed_orders(orders)
+        o_id = int(input("Select order by Id: "))
+        order = self.__order_service.get_order_by_id(o_id)
+        edited_order = Order(order["Name"], order["License"], order["From date"], order["To date"],
+                             order["Price"],
+                             order["Payment method"])
+        b_choice = ''
+        while b_choice != 'q':
+            b_choice = input(
+                "What do you want to order?\n1. Name\n2. License\n3. From Date\n4. To date\n5. Price\n6. "
+                "Payment "
+                "method\n Press q to go back").lower()
+            if b_choice == '1':
+                edited_order.set_renter(input("Enter new name: ").translate(remove_punct_map))
+            elif b_choice == '2':
+                edited_order.set_car(input("Enter new license: ").translate(remove_punct_map))
+            elif b_choice == '3':
+                edited_order.set_from_date(input("Enter new from date: "))
+            elif b_choice == '4':
+                edited_order.set_to_date(input("Enter new to date: "))
+            elif b_choice == '5':
+                edited_order.set_price(input("Enter new price: ").translate(remove_punct_map))
+            elif b_choice == '6':
+                edited_order.set_payment_method(input("Enter new payment method: ").translate(remove_punct_map))
+        self.__order_service.remove_order(o_id)
+        self.__order_service.add_order(edited_order)
         input("Press enter to continue")

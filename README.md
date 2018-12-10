@@ -19,14 +19,14 @@ Verklegt námskeið 1
 | 11 	 | Reikna hvað leiga kostar án breytilegs kostnaðar (svo sem tryggingu) 																	|	   |
 | 12 	 | Skila bíl í lok leigutímabils 																											|	x  |	
 | 13 	 | Afskrá viðskiptavin 																														|	 x |
-| 14 	 | Bakfæra pöntun (afpanta bíl) 																											|	   |
+| 14 	 | Bakfæra pöntun (afpanta bíl) 																											|	 x |
 | 15 	 | Breyta/uppfæra skráningu um viðskiptavin 																								|	x  |
 | 16 	 | Breyta/uppfæra fyrri pöntun 																												|	   |
 | 17 	 | Villumeðhöndlun á innslætti á kennitölu, dagsetningum og öðrum lykilgildum 																|	x  |
 | 18 	 | Birta notkunarsögu einstaks bíls 																										|	   |
 | 19 	 | Birta notkunarsögu einstaks viðskiptavinar 																								|	   |	
 | 20 	 | Birta leigusamning / pöntunarstaðfestingu / reikning 																					|	   |	
-| 21 	 | Birta verðlista 																															|	   |	
+| 21 	 | Birta verðlista 																															|	x  |	
 | 22 	 | Birta skjáyfirlit yfir alla bíla í kerfinu. 																								|	x  |
 | 23 	 | Hafa breytilega verðskrá t.d. fast gjald og 100 km innifaldir per dag, gjald fyrir hvern umfram kílómetra er 1% af daggjaldi 			|	   |
 | 24 	 | Viðskiptavinur getur leigt bíl 																											|	x  |
