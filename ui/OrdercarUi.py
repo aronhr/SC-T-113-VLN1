@@ -172,8 +172,7 @@ class OrdercarUi:
             print("2. Return car")
             print("3. Current orders")
             print("4. Completed orders")
-            print("5. All orders")
-            print("6. Revoke order")
+            print("5. Revoke order")
             print("Press q to quit\n")
 
             action = input()
@@ -193,5 +192,5 @@ class OrdercarUi:
                 self.print_completed_orders(completed_orders)
                 input("Press enter to continue")
 
-            elif action == '6':
+            elif action == '5':
                 self.revoke_order()
