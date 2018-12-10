@@ -9,6 +9,9 @@ from modules.order.order import Order
 import datetime
 import os
 import string
+import sys
+import platform
+from subprocess import Popen
 
 remove_punct_map = dict.fromkeys(map(ord, string.punctuation))
 
@@ -191,6 +194,10 @@ class OrdercarUi:
             elif action == '4':
                 completed_orders = self.__order_service.get_completed_orders()
                 self.print_completed_orders(completed_orders)
+                select_id = input("Select the order you want to view (q to quit): ")
+                if select_id == "q":
+                    break
+
                 input("Press enter to continue")
 
             elif action == '6':
