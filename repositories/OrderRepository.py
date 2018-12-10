@@ -3,6 +3,8 @@ import os
 import datetime
 from modules.order.order import Order
 from repositories.CarRepository import CarRepository
+import string
+remove_punct_map = dict.fromkeys(map(ord, string.punctuation))
 
 
 class OrderRepository(object):
@@ -22,13 +24,15 @@ class OrderRepository(object):
             return ""
 
     @staticmethod
-    def add_order(new_order):
+    def add_order(new_order, edit=False):
         name = new_order.get_renter()
         car = new_order.get_car()
         from_date = new_order.get_from_date()
-        from_date = datetime.datetime.strftime(from_date, "%d/%m/%y")
         to_date = new_order.get_to_date()
-        to_date = datetime.datetime.strftime(to_date, "%d/%m/%y")
+        if not edit:
+            from_date = datetime.datetime.strftime(from_date, "%d/%m/%y")
+            to_date = datetime.datetime.strftime(to_date, "%d/%m/%y")
+
         price = new_order.get_price()
         with open("./data/order.csv", "a+", encoding='utf-8') as file:
             try:
@@ -57,7 +61,7 @@ class OrderRepository(object):
                     pass
                 else:
                     new_order = Order(x["Name"], x["License"], datetime.datetime.strptime(x["From date"], "%d/%m/%y"),
-                                      datetime.datetime.strptime(x["To date"], "%d/%m/%y"))
+                                      datetime.datetime.strptime(x["To date"], "%d/%m/%y"), x["Price"])
                     self.add_order(new_order)
         except Exception as e:
             print(e)
