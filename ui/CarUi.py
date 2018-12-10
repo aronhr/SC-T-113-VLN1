@@ -2,9 +2,12 @@ from services.CarService import CarService
 from modules.car.Car import Car
 import string
 import os
-import requests
+import urllib.request
+import json
+
 
 remove_punct_map = dict.fromkeys(map(ord, string.punctuation))
+
 
 class CarUi:
 
@@ -14,19 +17,19 @@ class CarUi:
     def print_cars(self, cars):
         print("{:^6}|{:^12}|{:^12}|{:^10}|{:^7}|{:^7}|{:^14}|{:^11}|{:^15}|{:^9}".format
               ("Id", "Brand", "Type", "Class", "Seats", "4x4", "Transmission", "Available", "Price per day", "License"))
-        print("-" * 140)
+        print("-" * 112)
         for ix, car in enumerate(cars):
             print("{:^8}{:<13}{:<14}{:<12}{:<6}{:<9}{:<14}{:<11}{:<17}{:<9}".format
                   (ix + 1, car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"],
                    car["Status"], car["Price"] + " kr.", car["License"]))
 
     def print_price(self, cars):
-        print("{:^7}|{:^7}|{:^17}|{:^13}".format("Class", "Price", "Extra Insurance", "Total price"))
-        print("-"*46)
+        print("{:^10}|{:^10}|{:^17}|{:^13}".format("Class", "Price", "Extra Insurance", "Total price"))
+        print("-"*53)
         arr = []
         for car in cars:
             if car["Class"] not in arr:
-                print("{:<8} {:<8} {:<17} {:<13}".format(car["Class"], car["Price"], (int(car["Price"]) * 0.75), (int(car["Price"]) * 1.75)))
+                print("{:<10} {:>4} {:<3} {:>14} {:<3} {:>10} {:<3}".format(car["Class"], car["Price"], "kr.", (int(car["Price"]) * 0.75), "kr.", (int(car["Price"]) * 1.75), "kr."))
                 arr.append(car["Class"])
 
     def main_menu(self):
@@ -88,27 +91,33 @@ class CarUi:
             elif action == "6":
                 try:
                     print("Creating car:")
-                    license_plate = input("Enter license plate: ")
-                    # model = input("\tModel: ").translate(remove_punct_map)
-                    # cartype = input("\tType: ").translate(remove_punct_map)
-                    carclass = input("\tClass: ").translate(remove_punct_map)
-                    seats = input("\tHow many seats: ").translate(remove_punct_map)
-                    fwd = input("\t4x4 (Y/N): ").upper().translate(remove_punct_map)
-                    transmission = input("\tTransmission (A/M): ").upper().translate(remove_punct_map)
-                    # license = input("\tLicense: ").upper().translate(remove_punct_map)
-                    r = requests.get(url='http://apis.is/car?number=' + license_plate)
-                    car = r.json()
-                    car = car["results"][0]
-                    new_car = Car(car["type"], car["subType"], carclass, seats, fwd, transmission, car["number"])
-                    # new_car = Car(model, cartype, carclass, seats, fwd, transmission, license)
-                    print(new_car)
-                    if input("Do you want to create this car?(Y/N)").upper() == "Y":
-                        self.__car_service.add_car(new_car)
-                        print("Car created!")
+                    license_plate = input("Enter license plate (q to quit): ").lower()
+                    if license_plate == "q":
+                        continue
                     else:
-                        print("No car created.")
+                        with urllib.request.urlopen("http://apis.is/car?number=" + license_plate) as url:
+                            car = json.loads(url.read())
+                            car = car["results"][0]
+                            model = car["type"].split()[0].capitalize()
+                            subtype = car["subType"].capitalize()
+                            print("{}\tSelected car Type: {}, SubType: {}{}".format("\33[;92m", model, subtype, "\33[;0m"))
+                            if input("Do you want to select another car(Y/N): ").upper() == "Y":
+                                continue
+                        carclass = input("\tClass: ").translate(remove_punct_map)
+                        seats = input("\tHow many seats: ").translate(remove_punct_map)
+                        fwd = input("\t4x4 (Y/N): ").upper().translate(remove_punct_map)
+                        transmission = input("\tTransmission (A/M): ").upper().translate(remove_punct_map)
+
+                        new_car = Car(model, subtype, carclass, seats, fwd, transmission, car["number"])
+                        # new_car = Car(model, cartype, carclass, seats, fwd, transmission, license)
+                        print(new_car)
+                        if input("Do you want to create this car? (Y/N): ").upper() == "Y":
+                            self.__car_service.add_car(new_car)
+                            print("Car created!")
+                        else:
+                            print("No car created.")
                 except Exception:
-                    print("Something went wrong, no car created.")
+                    print("No car with that license plate!")
                 input("Press enter to continue")
 
             elif action == "7":
