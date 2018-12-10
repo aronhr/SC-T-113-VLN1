@@ -3,6 +3,8 @@ import os
 import datetime
 from modules.order.order import Order
 from repositories.CarRepository import CarRepository
+import string
+remove_punct_map = dict.fromkeys(map(ord, string.punctuation))
 
 
 class OrderRepository(object):

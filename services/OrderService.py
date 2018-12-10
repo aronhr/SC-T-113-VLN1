@@ -27,3 +27,6 @@ class OrderService:
 
     def get_completed_orders(self):
         return self.__order_repo.get_completed_orders()
+
+    def edit_order(self, e_action, order):
+        return self.__order_repo.edit_order(order, e_action)
