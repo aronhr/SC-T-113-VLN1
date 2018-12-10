@@ -25,33 +25,26 @@ class OrdercarUi:
         if len(self.__order_service.get_orders()) == 0:
             print("No orders\n")
         else:
-            print(
-                "{:^6}|{:^12}|{:^17}|{:^21}|{:^21}|{:^12}".format("ID", "Name", "Car-license", "From date", "To date",
-                                                                  "Price"))
-
+            print("{:^6}|{:^12}|{:^17}|{:^21}|{:^21}|{:^12}".format
+                  ("ID", "Name", "Car-license", "From date", "To date", "Price"))
             print("-" * 102)
-
             for ix, order in enumerate(orders):
-                print(
-                    "{:^6}{:^12}{:^19}{:^24}{:^18}|{:^12}".format(ix + 1, order["Name"], order["License"],
-                                                                  order["From date"],
-                                                                  order["To date"], order["Price"]))
+                print("{:^8}{:^12}{:^19}{:^24}{:^18}|{:^12}".format
+                      (ix + 1, order["Name"], order["License"], order["From date"], order["To date"], order["Price"]))
 
     @staticmethod
     def print_completed_orders(completed_orders):
         if len(completed_orders) == 0:
             print("No orders")
         else:
-            print(
-                "{:^6}|{:^12}|{:^17}|{:^21}|{:^21}|{:^20}|{:^21}".format("ID", "Name", "License", "From date",
-                                                                         "To date", "Price",
-                                                                         "Payment method"))
+            print("{:^6}|{:^12}|{:^17}|{:^21}|{:^21}|{:^20}|{:^21}".format
+                  ("ID", "Name", "License", "From date", "To date", "Price", "Payment method"))
 
             print("-" * 122)
             for ix, order in enumerate(completed_orders):
-                print("{:^6}{:^12}{:^19}{:^24}{:^18}{:^20}{:^21}".format(ix + 1, order["Name"], order["License"],
-                                                                         order["From date"], order["To date"],
-                                                                         order["Price"], order["Payment method"]))
+                print("{:^8}{:^12}{:^19}{:^24}{:^18}{:^20}{:^21}".format
+                      (ix + 1, order["Name"], order["License"], order["From date"], order["To date"], order["Price"],
+                       order["Payment method"]))
 
     @staticmethod
     def print_customer(customer):
@@ -226,7 +219,9 @@ class OrdercarUi:
             print("4. Completed orders")
             print("5. Revoke order")
             print("6. Edit order")
-            print("Press q to quit\n")
+            print("6. Revoke order")
+            print("7. List order history of car")
+            print("Press q to quit")
 
             action = input()
             if action == '1':
@@ -247,11 +242,19 @@ class OrdercarUi:
 
             elif action == '5':
                 self.revoke_order()
-
+                
             elif action == '6':
                 print("1. Edit current orders\n2. Edit completed orders")
                 e_action = input()
                 if e_action == '1':
                     self.edit_current_order()
                 elif e_action == '2':
-                    pass
+                    pass # Afh er pass hérna?? @Jón Ingi
+                  
+            elif action == "7":
+                license = input("Enter car license plate (q to quit): ").upper()
+                if license != "Q":
+                    orders = self.__order_service.get_available_orders(license)
+                    self.print_completed_orders(orders)
+                input("Press enter to continue")
+

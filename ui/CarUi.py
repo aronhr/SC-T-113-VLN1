@@ -10,12 +10,13 @@ class CarUi:
         self.__car_service = CarService()
 
     def print_cars(self, cars):
-        print("{:^5}|{:^12}|{:^12}|{:^10}|{:^7}|{:^7}|{:^14}|{:^11}|{:^15}|{:^9}".format("Id", "Brand", "Type", "Class",
-                                                                                   "Seats", "4x4", "Transmission",
-                                                                                   "Available", "Price per day", "License"))
+        print("{:^6}|{:^12}|{:^12}|{:^10}|{:^7}|{:^7}|{:^14}|{:^11}|{:^15}|{:^9}".format
+              ("Id", "Brand", "Type", "Class", "Seats", "4x4", "Transmission", "Available", "Price per day", "License"))
         print("-" * 140)
         for ix, car in enumerate(cars):
-            print("{:<7}{:<13}{:<14}{:<12}{:<6}{:<9}{:<14}{:<11}{:<17}{:<9}".format(ix + 1, car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"], car["Status"], car["Price"] + " kr.", car["License"]))
+            print("{:^8}{:<13}{:<14}{:<12}{:<6}{:<9}{:<14}{:<11}{:<17}{:<9}".format
+                  (ix + 1, car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"],
+                   car["Status"], car["Price"] + " kr.", car["License"]))
 
     def print_price(self, cars):
         print("{:^7}|{:^7}|{:^17}|{:^13}".format("Class", "Price", "Extra Insurance", "Total price"))
