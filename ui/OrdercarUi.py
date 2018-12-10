@@ -275,4 +275,3 @@ class OrdercarUi:
                     orders = self.__order_service.get_available_orders(license)
                     self.print_completed_orders(orders)
                 input("Press enter to continue")
-
