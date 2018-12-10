@@ -162,48 +162,6 @@ class OrdercarUi:
         except Exception:
             pass
 
-    def main_menu(self):
-        action = ''
-        while action != 'q':
-            os.system('cls')
-            print("Orders:")
-            print("You can do the following: ")
-            print("1. Rent a car")
-            print("2. Return car")
-            print("3. Current orders")
-            print("4. Completed orders")
-            print("5. Revoke order")
-            print("6. Edit order")
-            print("Press q to quit\n")
-
-            action = input()
-            if action == '1':
-                self.rent_car()
-                input("Press enter to continue")
-            elif action == '2':
-                self.return_car()
-                input("Press enter to continue")
-            elif action == '3':
-                orders = self.__order_service.get_orders()
-                self.print_current_orders(orders)
-                input("Press enter to continue")
-
-            elif action == '4':
-                completed_orders = self.__order_service.get_completed_orders()
-                self.print_completed_orders(completed_orders)
-                input("Press enter to continue")
-
-            elif action == '5':
-                self.revoke_order()
-
-            elif action == '6':
-                print("1. Edit current orders\n2. Edit completed orders")
-                e_action = input()
-                if e_action == '1':
-                    self.edit_current_order()
-                elif e_action == '2':
-                    pass
-
     def edit_current_order(self):
         orders = self.__order_service.get_orders()
         self.print_current_orders(orders)
@@ -255,3 +213,45 @@ class OrdercarUi:
         self.__order_service.remove_order(o_id)
         # self.__order_service.add_order(edited_order)
         input("Press enter to continue")
+
+    def main_menu(self):
+        action = ''
+        while action != 'q':
+            os.system('cls')
+            print("Orders:")
+            print("You can do the following: ")
+            print("1. Rent a car")
+            print("2. Return car")
+            print("3. Current orders")
+            print("4. Completed orders")
+            print("5. Revoke order")
+            print("6. Edit order")
+            print("Press q to quit\n")
+
+            action = input()
+            if action == '1':
+                self.rent_car()
+                input("Press enter to continue")
+            elif action == '2':
+                self.return_car()
+                input("Press enter to continue")
+            elif action == '3':
+                orders = self.__order_service.get_orders()
+                self.print_current_orders(orders)
+                input("Press enter to continue")
+
+            elif action == '4':
+                completed_orders = self.__order_service.get_completed_orders()
+                self.print_completed_orders(completed_orders)
+                input("Press enter to continue")
+
+            elif action == '5':
+                self.revoke_order()
+
+            elif action == '6':
+                print("1. Edit current orders\n2. Edit completed orders")
+                e_action = input()
+                if e_action == '1':
+                    self.edit_current_order()
+                elif e_action == '2':
+                    pass

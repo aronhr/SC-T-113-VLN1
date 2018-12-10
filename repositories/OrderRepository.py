@@ -29,12 +29,10 @@ class OrderRepository(object):
         car = new_order.get_car()
         from_date = new_order.get_from_date()
         to_date = new_order.get_to_date()
-        if edit:
-            from_date = datetime.datetime.strptime(from_date, "%d/%m/%y")
-            to_date = datetime.datetime.strptime(to_date, "%d/%m/%y")
-        else:
+        if not edit:
             from_date = datetime.datetime.strftime(from_date, "%d/%m/%y")
             to_date = datetime.datetime.strftime(to_date, "%d/%m/%y")
+
         price = new_order.get_price()
         with open("./data/order.csv", "a+", encoding='utf-8') as file:
             try:
@@ -63,7 +61,7 @@ class OrderRepository(object):
                     pass
                 else:
                     new_order = Order(x["Name"], x["License"], datetime.datetime.strptime(x["From date"], "%d/%m/%y"),
-                                      datetime.datetime.strptime(x["To date"], "%d/%m/%y"))
+                                      datetime.datetime.strptime(x["To date"], "%d/%m/%y"), x["Price"])
                     self.add_order(new_order)
         except Exception as e:
             print(e)
