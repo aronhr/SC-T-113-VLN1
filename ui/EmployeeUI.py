@@ -33,9 +33,9 @@ class EmployeeUI:
             print("2. List all employees")
             print("3. Remove employee")
             print("4. Edit employee ")
-            print("Press q to quit")
+            print("Press q to go back")
 
-            action = input("Choose an option: ").lower()
+            action = input("\nChoose an option: ").lower()
 
             if action == "1":
                 try:
@@ -60,7 +60,9 @@ class EmployeeUI:
                 input("Press enter to continue")
 
             elif action == '2':
-                if len(self.__employee_service.get_employees()) == 0:
+                if self.__employee_service.get_employees() == "Add some employee":
+                    print("\nNo employees\n")
+                elif len(self.__employee_service.get_employees()) == 0:
                     print("{}".format("No employees\n"))
                 else:
                     emp = self.__employee_service.get_employees()
@@ -68,55 +70,60 @@ class EmployeeUI:
                 input("Press enter to continue")
 
             elif action == "3":
-                try:
-                    emp = self.__employee_service.get_employees()
-                    self.print_employees(emp)
-                    c_id = int(input("Select employee by Id (q to quit): "))
-                    emp = self.__employee_service.get_employee_by_id(c_id)
-                    self.print_employees([emp])
-                    self.__employee_service.remove_employee(c_id)
-                except Exception:
-                    print("Canceled")
+                if self.__employee_service.get_employees() == "Add some employee":
+                    print("\nNo employee to delete\n")
+                else:
+                    try:
+                        emp = self.__employee_service.get_employees()
+                        self.print_employees(emp)
+                        c_id = int(input("Select employee by Id (q to quit): "))
+                        emp = self.__employee_service.get_employee_by_id(c_id)
+                        self.print_employees([emp])
+                        self.__employee_service.remove_employee(c_id)
+                    except Exception:
+                        print("Canceled")
                 input("Press enter to continue")
 
             elif action == "4":
-                try:
+                if self.__employee_service.get_employees() == "Add some employee":
+                    print("\nNo employee to edit\n")
+                else:
+                    try:
+                        employee = self.__employee_service.get_employees()
+                        self.print_employees(employee)
+                        c_id = int(input("Select employee by Id (q to quit): "))
 
-                    employee = self.__employee_service.get_employees()
-                    self.print_employees(employee)
-                    c_id = int(input("Select employee by Id (q to quit): "))
+                        employee = self.__employee_service.get_employee_by_id(c_id)
+                        self.print_employees([employee])
+                        employee = Employee(employee["Name"], employee["Passport number"], employee["Country"], employee["Address"], employee["Mail"], employee["Phone number"],
+                                  int(employee["license"]), employee["Age"])
 
-                    employee = self.__employee_service.get_employee_by_id(c_id)
-                    self.print_employees([employee])
-                    employee = Employee(employee["Name"], employee["Passport number"], employee["Country"], employee["Address"], employee["Mail"], employee["Phone number"],
-                              int(employee["license"]), employee["Age"])
+                        choice = ""
+                        while choice != "q":
+                            print("\n1. Edit Name\n2. Edit Passport\n3. Edit country\n4. Edit Address\n5. Edit mail\n"
+                                  "6. Edit Phone number\n7. Edit license\n8. Edit Age\npress q to quit")
+                            choice = input("Enter your choice: ").lower()
+                            if choice == "1":
+                                employee.set_name(input("Enter new Name: ").translate(remove_punct_map))
+                            elif choice == "2":
+                                employee.set_kt(input("Enter new Passport: ").translate(remove_punct_map))
+                            elif choice == "3":
+                                employee.set_country(input("Enter new Country: ").translate(remove_punct_map))
+                            elif choice == "4":
+                                employee.set_address(input("Enter Address: ").translate(remove_punct_map))
+                            elif choice == "5":
+                                employee.set_mail(input("Enter new Mail: "))
+                            elif choice == "6":
+                                employee.set_phone_number(input("Enter new Phone number: ").translate(remove_punct_map))
+                            elif choice == "7":
+                                employee.set_license(input("Enter new License: ").translate(remove_punct_map))
+                            elif choice == "8":
+                                employee.set_age(input("Enter new Age: ").replace(string.punctuation, ""))
 
-                    choice = ""
-                    while choice != "q":
-                        print("\n1. Edit Name\n2. Edit Passport\n3. Edit country\n4. Edit Address\n5. Edit mail\n"
-                              "6. Edit Phone number\n7. Edit license\n8. Edit Age\npress q to quit")
-                        choice = input("Enter your choice: ").lower()
-                        if choice == "1":
-                            employee.set_name(input("Enter new Name: ").translate(remove_punct_map))
-                        elif choice == "2":
-                            employee.set_kt(input("Enter new Passport: ").translate(remove_punct_map))
-                        elif choice == "3":
-                            employee.set_country(input("Enter new Country: ").translate(remove_punct_map))
-                        elif choice == "4":
-                            employee.set_address(input("Enter Address: ").translate(remove_punct_map))
-                        elif choice == "5":
-                            employee.set_mail(input("Enter new Mail: "))
-                        elif choice == "6":
-                            employee.set_phone_number(input("Enter new Phone number: ").translate(remove_punct_map))
-                        elif choice == "7":
-                            employee.set_license(input("Enter new License: ").translate(remove_punct_map))
-                        elif choice == "8":
-                            employee.set_age(input("Enter new Age: ").replace(string.punctuation, ""))
-
-                    self.__employee_service.remove_employee(c_id)
-                    self.__employee_service.add_employee(employee)
-                    print(employee)
-                except Exception:
-                    print("Canceled")
+                        self.__employee_service.remove_employee(c_id)
+                        self.__employee_service.add_employee(employee)
+                        print(employee)
+                    except Exception:
+                        print("Canceled")
                 input("Press enter to continue")
 

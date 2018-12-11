@@ -61,7 +61,7 @@ class CarRepository(object):
                             line["To date"], "%d/%m/%y"):
                         cars.append(line)
                 return cars
-        except FileNotFoundError:
+        except Exception:
             self.get_car()
 
     def get_car_id(self, id):
