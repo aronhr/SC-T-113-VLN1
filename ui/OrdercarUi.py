@@ -165,10 +165,14 @@ class OrdercarUi:
                 o_id = int(input("Select order by Id (q to quit): "))
                 order = self.__order_service.get_order_by_id(o_id)
                 self.print_current_orders([order])
-                print("Your deposit was {} ISK".format(order["Price"] * 0.10))
-                self.__order_service.remove_order(o_id)
-                print("Order revoked and deposit returned")
-
+                price = float(order["Price"])
+                print("Your deposit was {} ISK".format(price * 0.10))
+                choice = input("Are you sure you want to revoke the order? Y/N: ").lower()
+                if choice == 'y':
+                    self.__order_service.remove_order(o_id)
+                    print("Order revoked and deposit returned")
+                elif choice == 'n':
+                    print("Revoke canceled")
         except Exception:
             print("Canceled")
 
