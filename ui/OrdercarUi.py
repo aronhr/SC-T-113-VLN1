@@ -63,7 +63,7 @@ class OrdercarUi:
                                            Country: {country} 
                                            Address: {address}
 
-                                 Car                                      Days
+                                 Car                                      Per day               Days                    Total
                                      License plate: {car_license}
                                              Model: {car_model}
                                               Type: {car_type}
@@ -71,11 +71,18 @@ class OrdercarUi:
                                              Seats: {car_seats}
                                                4x4: {car_fwd}
                                       Transmission: {car_transmission}
-                                      Price of car: {car_price}                  {order_days}
-                                         Insurance: {order_insurance}                    {order_days}
-                                       Total price: ------------------------------------ {order_price} kr.
+                                      Price of car:                         {car_price} kr.                  {order_days}          {car_order_price} kr.
+                                         Insurance: {order_insurance}       {insurance_price} kr.                            {order_days}           {insurance_order_price} kr.
+                                       Total price: ---------------------------------------------------------------------------------- {order_price} kr.
 
                                         """
+        if order["Insurance"] == "No":
+            i_price = 0
+            t_price = 0
+        else:
+            i_price = int(car["Price"]) * 0.75
+            t_price = (int(car["Price"]) * 0.75) * int(order["Days"])
+
         output = receipt.format(i=customer["Passport number"], name=customer["Name"], mail=customer["Mail"],
                                 address=customer["Address"], country=customer["Country"],
                                 license=customer["license"],
@@ -83,8 +90,10 @@ class OrdercarUi:
                                 car_model=car["Model"], car_type=car["Type"], car_class=car["Class"],
                                 car_seats=car["Seats"], car_fwd=car["4x4"], car_transmission=car["Transmission"],
                                 car_price=car["Price"], price=order["Price"], order_insurance=order["Insurance"],
-                                order_days=order["Days"], order_price=order["Total price"])
-
+                                order_days=order["Days"], order_price=order["Total price"],
+                                car_order_price=(int(car["Price"]) * int(order["Days"])),
+                                insurance_order_price=t_price,
+                                insurance_price=i_price)
         print(output)
 
     @staticmethod
