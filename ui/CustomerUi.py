@@ -19,11 +19,11 @@ class CustomerUi:
         if self.__customer_service.get_customers() == "No customers":
             print("No customers")
         else:
-            print("{:^6}|{:^12}|{:^17}|{:^11}|{:^17}|{:^22}|{:^14}|{:^18}|{:^5}|".format
+            print("{:^6}|{:^18}|{:^17}|{:^11}|{:^17}|{:^22}|{:^14}|{:^18}|{:^5}|".format
                   ("ID", "Name", "Passport number", "Country", "Address", "E-mail", "Phone number", "Driver´s license", "Age"))
             print("-" * 131)
             for ix, customer in enumerate(self.__customer_service.get_customers()):
-                print("{:^8}{:<13}{:<18}{:<12}{:<18}{:<23}{:<15}{:<19}{:<7}".format(ix + 1, customer["Name"], customer[
+                print("{:^8}{:<19}{:<18}{:<12}{:<18}{:<23}{:<15}{:<19}{:<7}".format(ix + 1, customer["Name"], customer[
                     "Passport number"], customer["Country"], customer["Address"], customer["Mail"],
                      customer["Phone number"], customer["license"], customer["Age"]))
         print()
@@ -75,13 +75,17 @@ class CustomerUi:
             elif action == "3":
                 e_action = ''
                 self.print_customers()
-                customer_id = int(input("Chose which customer do you want to edit?: "))
-                customer = self.__customer_service.get_customer_by_id(customer_id)
-                self.__customer_service.print_customer(customer_id)
-                new_customer = Customer(customer["Name"], customer["Passport number"], customer["Country"],
-                                        customer["Address"],
-                                        customer["Mail"], customer["Phone number"], customer["license"],
-                                        customer["Age"])
+                customer_id = input("Chose which customer do you want to edit? (q to quit): ")
+                if customer_id.upper() == "Q":
+                    continue
+                else:
+                    customer_id = int(customer_id)
+                    customer = self.__customer_service.get_customer_by_id(customer_id)
+                    self.__customer_service.print_customer(customer_id)
+                    new_customer = Customer(customer["Name"], customer["Passport number"], customer["Country"],
+                                            customer["Address"],
+                                            customer["Mail"], customer["Phone number"], customer["license"],
+                                            customer["Age"])
 
                 while e_action != 'q':
                     print("\n1. Passport number/kt\n2. Name\n3. Country\n4. Address\n5. Phone number\n6. E-mail"
@@ -111,6 +115,10 @@ class CustomerUi:
                 input("Press enter to continue")
             elif action == "4":
                 self.print_customers()
-                customer_to_delete = int(input("What customer would you like to delete? "))
-                self.__customer_service.remove_customer(customer_to_delete)
+                customer_to_delete = input("What customer would you like to delete? (q to quit) ")
+                if customer_to_delete.upper() == "Q":
+                    continue
+                else:
+                    customer_to_delete = int(customer_to_delete)
+                    self.__customer_service.remove_customer(customer_to_delete)
                 input("Press enter to continue")

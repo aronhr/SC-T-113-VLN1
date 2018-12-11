@@ -6,6 +6,7 @@ import os
 
 
 def car():
+    print("\33[;34m")
     print("\t\t\t        __-------__")
     print("\t\t\t      / _---------_ \ ")
     print("\t\t\t     / /           \ \ ")
@@ -18,6 +19,7 @@ def car():
     print("\t\t\t [________|JABAN|________]")
     print("\t\t\t ||||    ~~~~~~~~~    ||||")
     print("\t\t\t `--'                 `--'")
+    print("\33[;0m")
 
 
 def car_main():
