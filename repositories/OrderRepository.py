@@ -122,7 +122,7 @@ class OrderRepository(object):
                 for line in csv_reader:
                     orders.append(line)
                 return orders
-        except Exception:
+        except FileNotFoundError:
             return "{}".format("No orders")
 
     def get_completed_order_id(self, o_id):
