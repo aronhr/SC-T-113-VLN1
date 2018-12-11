@@ -50,8 +50,9 @@ def main():
         print("-"*50)
         print("|{:^48}|".format("Bílaleiga Guðfinns"))
         print("-"*50)
-        print("Main menu\n1. Orders\n2. Customers\n3. Cars\n4. Employee\nPress q to quit")
-        val = input()
+        print("Main menu\n1. Orders\n2. Customers\n3. Cars\n4. Employee\nPress q to quit\n")
+        val = input("Choose an option: ").lower()
+        print()
         if val == "1":
             order_main()
         elif val == "2":

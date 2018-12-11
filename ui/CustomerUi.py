@@ -40,9 +40,8 @@ class CustomerUi:
             print("You can do the following: ")
             print("1. Add a customer")
             print("2. List all customers")
-            print("3. List order history of customer")
-            print("4. Edit customer")
-            print("5. Delete customer")
+            print("3. Edit customer")
+            print("4. Delete customer")
             print("Press q to go back\n")
 
             action = input("Choose an option: ").lower()
@@ -77,13 +76,7 @@ class CustomerUi:
                     self.print_customers()
                 input("Press enter to continue")
 
-            elif action == '3':
-                kt = input("Enter passport number of the customer (q to go back): ").upper()
-                if kt != "Q":
-                    orders = self.__order_service.get_available_order_customer(kt)
-                    self.__orderUi.print_completed_orders(orders)
-                input("Press enter to continue")
-            elif action == "4":
+            elif action == "3":
                 if self.__customer_service.get_customers() != "No customers":
                     e_action = ''
                     self.print_customers()
@@ -128,7 +121,7 @@ class CustomerUi:
                     print("No customers to edit\n")
                 input("Press enter to continue")
 
-            elif action == "5":
+            elif action == "4":
                 if self.__customer_service.get_customers() != "No customers":
                     self.print_customers()
                     customer_to_delete = input("What customer would you like to delete? (q to quit) ")
