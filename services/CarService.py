@@ -8,17 +8,16 @@ class CarService:
         self.__car_repo = CarRepository()
 
     def add_car(self, car):
-        if self.is_valid_car(car):
-            self.__car_repo.add_car(car)
-
-    @staticmethod
-    def is_valid_car(car):
-        # here should be some code to
-        # validate the car
-        return True
+        self.__car_repo.add_car(car)
 
     def get_cars(self):
         return self.__car_repo.get_car()
+
+    def get_car_by_license(self, license):
+        car = self.get_cars()
+        for x in car:
+            if x["License"] == license:
+                return x
 
     def get_cars_by_type(self, genre):
         cars = self.get_available_cars()
