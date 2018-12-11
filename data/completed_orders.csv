@@ -1,5 +1,4 @@
-Name,License,From date,To date,Price,Payment method
-Jón Ingi,ME245,07/12/18,16/12/18,7425,Cash
-
-Aron,ME245,07/12/98,01/01/19,6047250,Debit
-Aron Hrafnsson,YUF89,09/12/18,20/12/18,88000,Debit
+Kt,Name,License,From date,To date,Price,Payment method,Insurance,Total price,Days
+0712982139,Aron Hrafnsson,ME245,12/12/18,13/12/18,5000,Cash,Yes,8750.0,1
+0712982139,Aron Hrafnsson,SL883,01/01/19,09/01/19,40000,Cash,No,0,8
+0712982139,Aron Hrafnsson,SL883,01/01/19,10/01/19,45000,Credit,No,45000,9
