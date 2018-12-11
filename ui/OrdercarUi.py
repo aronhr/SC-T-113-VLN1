@@ -8,9 +8,6 @@ from modules.order.order import Order
 import datetime
 import os
 import string
-import sys
-import platform
-from subprocess import Popen
 
 remove_punct_map = dict.fromkeys(map(ord, string.punctuation))
 
@@ -87,19 +84,8 @@ class OrdercarUi:
                                 car_seats=car["Seats"], car_fwd=car["4x4"], car_transmission=car["Transmission"],
                                 car_price=car["Price"], price=order["Price"], order_insurance=order["Insurance"],
                                 order_days=order["Days"], order_price=order["Total price"])
-        if platform.system() == "Windows":
-            new_window_command = "cmd.exe /c start".split()
-        else:  #XXX this can be made more portable
-            new_window_command = "x-terminal-emulator -e".split()
 
-        # open new consoles, display messages
-        echo = [sys.executable, "-c",
-                "import sys; print(sys.argv[1]); input('Press Enter..')"]
-        processes = [Popen(new_window_command + echo + [msg]) for msg in [output]]
-
-        # wait for the windows to be closed
-        for proc in processes:
-            proc.wait()
+        print(output)
 
     @staticmethod
     def print_customer(customer):
@@ -323,6 +309,7 @@ class OrdercarUi:
                 o_id = input("Select the order you want to view (q to quit): ")
                 if o_id == "q":
                     break
+                os.system('cls')
                 order = self.__order_service.get_completed_order_id(int(o_id))
                 self.print_receipt(order)
 

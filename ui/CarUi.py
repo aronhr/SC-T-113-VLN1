@@ -109,7 +109,6 @@ class CarUi:
                         transmission = input("\tTransmission (A/M): ").upper().translate(remove_punct_map)
 
                         new_car = Car(model, subtype, carclass, seats, fwd, transmission, car["number"])
-                        # new_car = Car(model, cartype, carclass, seats, fwd, transmission, license)
                         print(new_car)
                         if input("Do you want to create this car? (Y/N): ").upper() == "Y":
                             self.__car_service.add_car(new_car)
