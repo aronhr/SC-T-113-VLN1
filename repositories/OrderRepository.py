@@ -39,15 +39,16 @@ class OrderRepository(object):
         insurance = new_order.get_insurance()
         total_price = new_order.get_price_insurance()
         days = new_order.get_days()
+        penalty = new_order.get_penalty()
         with open("./data/order.csv", "a+", encoding='utf-8') as file:
             try:
                 if os.stat("./data/order.csv").st_size == 0:
                     file.write(
-                        "{},{},{},{},{},{},{},{},{}".format("Kt", "Name", "License", "From date", "To date", "Price",
-                                                            "Insurance", "Total price", "Days"))
+                        "{},{},{},{},{},{},{},{},{},{}".format("Kt", "Name", "License", "From date", "To date", "Price",
+                                                            "Insurance", "Total price", "Days", "Penalty"))
 
-                file.write("\n{},{},{},{},{},{},{},{},{}".format(kt, name, car, from_date, to_date, price, insurance,
-                                                                 total_price, days))
+                file.write("\n{},{},{},{},{},{},{},{},{},{}".format(kt, name, car, from_date, to_date, price, insurance,
+                                                                 total_price, days, penalty))
             except Exception as e:
                 print(e)
 
@@ -62,7 +63,7 @@ class OrderRepository(object):
     def remove_order_id(self, o_id):
         try:
             orders = self.get_orders()
-            selected_order = orders[o_id - 1]
+            selected_order = orders[int(o_id)-1]
             os.remove("./data/order.csv")
             for x in orders:
                 if x == selected_order:
@@ -71,10 +72,10 @@ class OrderRepository(object):
                     new_order = Order(x["Kt"], x["Name"], x["License"],
                                       datetime.datetime.strptime(x["From date"], "%d/%m/%y"),
                                       datetime.datetime.strptime(x["To date"], "%d/%m/%y"), x["Price"], x["Insurance"],
-                                      x["Total price"], x["Days"])
+                                      x["Total price"], x["Days"], x["Penalty"])
                     self.add_order(new_order)
         except Exception as e:
-            print(e)
+            print("Error:", e)
 
     def pay_order(self, price, order):
         action = ''
@@ -83,18 +84,14 @@ class OrderRepository(object):
             print("1. Card")
             print("2. Cash")
             print("Press q to quit\n")
-            print("Total Price: {}".format(price))
             action = input("Choose an option: ")
 
             if action == '1':
                 payment_method = input('Debit or credit? ')
-                self.add_complete_order_to_file(order, price, payment_method)
-                return payment_method, price
-
-            elif action == '2':
+            else:
                 payment_method = "Cash"
-                self.add_complete_order_to_file(order, price, payment_method)
-                return payment_method, price
+            self.add_complete_order_to_file(order, price, payment_method)
+            return payment_method
 
     @staticmethod
     def add_complete_order_to_file(order, price, payment_method):
@@ -102,14 +99,14 @@ class OrderRepository(object):
             try:
                 if os.stat("./data/completed_orders.csv").st_size == 0:
                     file.write(
-                        "{},{},{},{},{},{},{},{},{},{}".format("Kt", "Name", "License", "From date", "To date", "Price",
-                                                               "Payment method", "Insurance", "Total price", "Days"))
+                        "{},{},{},{},{},{},{},{},{},{},{}".format("Kt", "Name", "License", "From date", "To date", "Price",
+                                                               "Payment method", "Insurance", "Total price", "Days", "Penalty"))
 
                 file.write(
-                    "\n{},{},{},{},{},{},{},{},{},{}".format(order["Kt"], order["Name"], order["License"],
+                    "\n{},{},{},{},{},{},{},{},{},{},{}".format(order["Kt"], order["Name"], order["License"],
                                                              order["From date"], order["To date"],
                                                              price, payment_method, order["Insurance"],
-                                                             order["Total price"], order["Days"]))
+                                                             order["Total price"], order["Days"], order["Penalty"]))
             except Exception as e:
                 print(e)
 

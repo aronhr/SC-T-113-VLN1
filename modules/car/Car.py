@@ -2,6 +2,8 @@ class Car(object):
     def __init__(self, model="", cartype="", carclass="", seats=0, fwd="", transmission="", license="", price=500, status="True"):
         if fwd == "Y":
             fwd = "Yes"
+        elif fwd == "Yes":
+            pass
         else:
             fwd = "No"
 

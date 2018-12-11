@@ -66,7 +66,7 @@ Customer
                                                                 From day: {from_day:<8} 
                                                                   To day: {to_day:<8}
                                                                                             
-     Car                                |     Per day     |   Days   |     Total   
+     Car                                |     Per day     |   Quantity   |     Total   
   -----------------------------------------------------------------------------------   
       
          License plate: {car_license:<20}
@@ -76,8 +76,9 @@ Customer
                  Seats: {car_seats:<20}
                    4x4: {car_fwd:<20}
           Transmission: {car_transmission:<20}
-          Price of car: {car_price:<20}{car_price:>6} kr.{order_days:^20}{car_order_price} kr.
-             Insurance: {order_insurance:<20}{insurance_price:>6} kr.{order_days:^20}{insurance_order_price} kr.
+          Price of car: {car_price:<20}{car_price:>6} kr.{order_days:^20}{car_order_price:>7} kr.
+             Insurance: {order_insurance:<20}{insurance_price:>6} kr.{order_days:^20}{insurance_order_price:>7} kr.
+               Penalty: {order_penalty:<20}{order_penalty:>6} kr.
              
            Total price: ------------------------------------------------- {order_price} kr.
 
@@ -99,7 +100,8 @@ Customer
                                 order_days=order["Days"], order_price=order["Total price"],
                                 car_order_price=(int(car["Price"]) * int(order["Days"])),
                                 insurance_order_price=t_price,
-                                insurance_price=i_price, from_day=order["From date"], to_day=order["To date"])
+                                insurance_price=i_price, from_day=order["From date"], to_day=order["To date"],
+                                order_penalty=order["Penalty"])
         print(output)
 
     @staticmethod
@@ -213,21 +215,26 @@ Customer
                 self.print_current_orders(orders)
                 o_id = input("Select order by Id: ")
                 order = self.__order_service.get_order_by_id(int(o_id))
+                current_order = Order(order["Kt"], order["Name"], order["License"], order["From date"], order["To date"], order["Price"], order["Insurance"], order["Total price"], order["Days"])
                 self.print_current_orders([order])
                 price = float(order["Total price"])
                 km_length = int(input("Enter the km driven: "))
-                days = order["Days"]
-                max_km = 100 * int(days)
+                max_km = 100 * int(order["Days"])
+                penalty = 0
                 if km_length > max_km:
                     for x in range(km_length - max_km):
-                        price *= 1.01
-                print(price)
+                        penalty += price * 0.01
+                current_order.set_price_insurance(price+penalty)
+                current_order.set_penalty(penalty)
+                self.__order_service.remove_order(o_id)
+                self.__order_service.add_order(current_order, True)
+                order = self.__order_service.get_order_by_id(int(o_id))
                 self.print_receipt(order)
                 self.__order_service.pay_order(round(price), order)
                 self.__order_service.remove_order(int(o_id))
                 print("Car Returned!")
-        except Exception as e:
-            print("Something went wrong, please try again", e)
+        except Exception:
+            print("Something went wrong, please try again")
 
     def revoke_order(self):
         try:
@@ -367,11 +374,8 @@ Customer
                 input("Press enter to continue")
 
             elif action == "7":
-                if self.__order_service.get_orders() != '':
-                    license = input("Enter car license plate (q to quit): ").upper()
-                    if license != "Q":
-                        orders = self.__order_service.get_available_orders(license)
-                        self.print_completed_orders(orders)
-                else:
-                    print("\nNo orders\n")
+                license = input("Enter car license plate (q to quit): ").upper()
+                if license != "Q":
+                    orders = self.__order_service.get_available_orders(license)
+                    self.print_completed_orders(orders)
                 input("Press enter to continue")
