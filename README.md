@@ -6,7 +6,7 @@ Verklegt námskeið 1
 # Kröfulisti
 | Number | Name (and possibly a short description)                                                                                                  | Done |
 | :----: | :--------------------------------------------------------------------------------------------------------------------------------------: | :---:|
-| 1 	 | Leigan býður upp á allavega þrjá mismunandi flokka af bílum til leigu 																	|	   |
+| 1 	 | Leigan býður upp á allavega þrjá mismunandi flokka af bílum til leigu 																	|	 x  |
 | 2 	 | Hægt er að fá frekari tryggingu gegn auknu gjaldi 																						|	 X  |
 | 3 	 | Lágmarksleiga er einn dagur 																												|	x  |
 | 4 	 | Greiða má með korti (kredit eða debit) eða reiðufé 																						|	x  |
@@ -15,16 +15,16 @@ Verklegt námskeið 1
 | 7 	 | Skrá viðskiptavin með öllum nauðsynlegum upplýsingum 																					|	 x |
 | 8 	 | Fletta viðskiptavini upp í kerfinu þegar þörf er á 																						|	 x |
 | 9 	 | Skrá pöntun fyrir ákveðna bílategund á ákveðnum degi í ákveðinn tíma 																	|	 x |
-| 10 	 | Fletta upp pöntun aftur þegar þörf er á 																									|	   |
-| 11 	 | Reikna hvað leiga kostar án breytilegs kostnaðar (svo sem tryggingu) 																	|	   |
+| 10 	 | Fletta upp pöntun aftur þegar þörf er á 																									|	 x  |
+| 11 	 | Reikna hvað leiga kostar án breytilegs kostnaðar (svo sem tryggingu) 																	|	 x  |
 | 12 	 | Skila bíl í lok leigutímabils 																											|	x  |	
 | 13 	 | Afskrá viðskiptavin 																														|	 x |
 | 14 	 | Bakfæra pöntun (afpanta bíl) 																											|	 x |
 | 15 	 | Breyta/uppfæra skráningu um viðskiptavin 																								|	x  |
-| 16 	 | Breyta/uppfæra fyrri pöntun 																												|	   |
+| 16 	 | Breyta/uppfæra fyrri pöntun 																												|	 x  |
 | 17 	 | Villumeðhöndlun á innslætti á kennitölu, dagsetningum og öðrum lykilgildum 																|	x  |
-| 18 	 | Birta notkunarsögu einstaks bíls 																										|	   |
-| 19 	 | Birta notkunarsögu einstaks viðskiptavinar 																								|	   |	
+| 18 	 | Birta notkunarsögu einstaks bíls 																										|	x  |
+| 19 	 | Birta notkunarsögu einstaks viðskiptavinar 																								|	 x  |	
 | 20 	 | Birta leigusamning / pöntunarstaðfestingu / reikning 																					|	   |	
 | 21 	 | Birta verðlista 																															|	x  |	
 | 22 	 | Birta skjáyfirlit yfir alla bíla í kerfinu. 																								|	x  |
