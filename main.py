@@ -48,7 +48,7 @@ def main():
         os.system('cls')
         car()
         print("-"*50)
-        print("|{:^48}|".format("Bílasala Guðfinns"))
+        print("|{:^48}|".format("Bílaleiga Guðfinns"))
         print("-"*50)
         print("Main menu\n1. Orders\n2. Customers\n3. Cars\n4. Employee\nPress q to quit")
         val = input()

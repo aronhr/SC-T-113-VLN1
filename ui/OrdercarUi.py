@@ -63,17 +63,17 @@ class OrdercarUi:
                                            Country: {country} 
                                            Address: {address}
 
-                            Car                                      Days
-                                    License plate: {car_license}
-                                            Model: {car_model}
-                                             Type: {car_type}
-                                            Class: {car_class}
-                                            Seats: {car_seats}
-                                              4x4: {car_fwd}
-                                     Transmission: {car_transmission}
-                                     Price of car: {car_price}                  {order_days}
-                                        Insurance: {order_insurance}                   {order_days}
-                                      Total price: ------------------------------------ {order_price} kr.
+                                 Car                                      Days
+                                     License plate: {car_license}
+                                             Model: {car_model}
+                                              Type: {car_type}
+                                             Class: {car_class}
+                                             Seats: {car_seats}
+                                               4x4: {car_fwd}
+                                      Transmission: {car_transmission}
+                                      Price of car: {car_price}                  {order_days}
+                                         Insurance: {order_insurance}                    {order_days}
+                                       Total price: ------------------------------------ {order_price} kr.
 
                                         """
         output = receipt.format(i=customer["Passport number"], name=customer["Name"], mail=customer["Mail"],
