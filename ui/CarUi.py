@@ -19,9 +19,13 @@ class CarUi:
               ("Id", "Brand", "Type", "Class", "Seats", "4x4", "Transmission", "Available", "Price per day", "License"))
         print("-" * 112)
         for ix, car in enumerate(cars):
+            if car["Status"] == "True":
+                status = "\33[;32m" + car["Status"] + "\33[;0m"
+            else:
+                status = "\33[;31m" + car["Status"] + "\33[;0m"
             print("{:^8}{:<13}{:<14}{:<12}{:<6}{:<9}{:<14}{:<11}{:<17}{:<9}".format
                   (ix + 1, car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"],
-                   car["Status"], car["Price"] + " kr.", car["License"]))
+                   status, car["Price"] + " kr.", car["License"]))
 
     def print_price(self, cars):
         print("{:^10}|{:^10}|{:^17}|{:^13}".format("Class", "Price", "Extra Insurance", "Total price"))

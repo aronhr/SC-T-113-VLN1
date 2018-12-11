@@ -41,7 +41,7 @@ class CarRepository(object):
                                                       license))
 
     # noinspection PyTypeChecker
-    def get_available_car(self, t):  # t stendur fyrir annaðhvort True eða False
+    def get_available_car(self, t):  # t stendur fyrir annað hvort True eða False
         car = self.get_car()
         cars = []
         for x in car:
