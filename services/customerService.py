@@ -11,6 +11,13 @@ class CustomerService:
     def get_customers(self):
         return self.__customer_repo.get_customer()
 
+    def get_customer_by_kt(self, kt):
+        customers = self.get_customers()
+        for x in customers:
+            if x["Passport number"] == kt:
+                return x
+        return 0
+
     def edit_customer(self, customer_id, action):
         pass
        # return self.__customer_repo.edit_customer(customer_id, action)

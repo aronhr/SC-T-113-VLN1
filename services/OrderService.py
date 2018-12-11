@@ -19,6 +19,9 @@ class OrderService:
     def get_order_by_id(self, o_id):
         return self.__order_repo.get_order_id(o_id - 1)
 
+    def get_completed_order_id(self, o_id):
+        return self.__order_repo.get_completed_order_id(o_id - 1)
+
     def remove_order(self, o_id):
         return self.__order_repo.remove_order_id(o_id)
 

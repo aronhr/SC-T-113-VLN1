@@ -25,26 +25,67 @@ class OrdercarUi:
         if len(orders) == 0:
             print("No orders\n")
         else:
-            print("{:^6}|{:^20}|{:^17}|{:^21}|{:^21}|{:^12}".format
-                  ("ID", "Name", "Car-license", "From date", "To date", "Price"))
-            print("-" * 102)
+            print("{:^6}|{:^12}|{:^20}|{:^17}|{:^21}|{:^21}|{:^12}|{:^11}|{:^13}|{:^6}".format
+                  ("ID", "Kt", "Name", "Car-license", "From date", "To date", "Price", "Insurance", "Total price", "Days"))
+            print("-" * 149)
             for ix, order in enumerate(orders):
-                print("{:^8} {:<20} {:<19} {:<24} {:<18} {:<12}".format
-                      (ix + 1, order["Name"], order["License"], order["From date"], order["To date"], order["Price"]))
+                print("{:^8} {:^12} {:<20} {:<19} {:<24} {:<18} {:<12} {:<11} {:<13} {:<6}".format
+                      (ix + 1, order["Kt"], order["Name"], order["License"], order["From date"], order["To date"],
+                       order["Price"], order["Insurance"], order["Total price"], order["Days"]))
 
     @staticmethod
     def print_completed_orders(completed_orders):
         if len(completed_orders) == 0:
             print("No orders")
         else:
-            print("{:^6}|{:^20}|{:^17}|{:^21}|{:^21}|{:^20}|{:^21}".format
-                  ("ID", "Name", "License", "From date", "To date", "Price", "Payment method"))
+            print("{:^6}|{:^12}|{:^20}|{:^17}|{:^21}|{:^21}|{:^20}|{:^21}|{:^11}|{:^13}|{:^6}".format
+                  ("ID", "Kt", "Name", "License", "From date", "To date", "Price", "Payment method", "Insurance",
+                   "Total price", "Days"))
 
-            print("-" * 130)
+            print("-" * 180)
             for ix, order in enumerate(completed_orders):
-                print("{:^6}  {:<20}  {:<17}  {:<21}  {:<21}  {:<20}  {:<21}".format
-                      (ix + 1, order["Name"], order["License"], order["From date"], order["To date"], order["Price"],
-                       order["Payment method"]))
+                print("{:^6}  {:<12}  {:<20}  {:<17}  {:<21}  {:<21}  {:<20}  {:<21} {:<11} {:<13} {:<6}".format
+                      (ix + 1, order["Kt"], order["Name"], order["License"], order["From date"], order["To date"],
+                       order["Price"], order["Payment method"], order["Insurance"], order["Total price"], order["Days"]))
+
+    def print_receipt(self, order):
+        car = self.__car_service.get_car_by_license(order["License"])
+        customer = self.__customer_service.get_customer_by_kt(order["Kt"])
+
+        receipt = """
+                            Customer
+                                Kt/Passport number: {i}
+                                              Name: {name} 
+                                            E-Mail: {mail}
+                                      Phone number: {phone} 
+                                   Driving license: {license} 
+                                               Age: {age}
+                                           Country: {country} 
+                                           Address: {address}
+
+                            Car                                      Days
+                                    License plate: {car_license}
+                                            Model: {car_model}
+                                             Type: {car_type}
+                                            Class: {car_class}
+                                            Seats: {car_seats}
+                                              4x4: {car_fwd}
+                                     Transmission: {car_transmission}
+                                     Price of car: {car_price}                  {order_days}
+                                        Insurance: {order_insurance}                   {order_days}
+                                      Total price: ------------------------------------ {order_price} kr.
+
+                                        """
+        output = receipt.format(i=customer["Passport number"], name=customer["Name"], mail=customer["Mail"],
+                                address=customer["Address"], country=customer["Country"],
+                                license=customer["license"],
+                                age=customer["Age"], phone=customer["Phone number"], car_license=car["License"],
+                                car_model=car["Model"], car_type=car["Type"], car_class=car["Class"],
+                                car_seats=car["Seats"], car_fwd=car["4x4"], car_transmission=car["Transmission"],
+                                car_price=car["Price"], price=order["Price"], order_insurance=order["Insurance"],
+                                order_days=order["Days"], order_price=order["Total price"])
+
+        print(output)
 
     @staticmethod
     def print_customer(customer):
@@ -61,7 +102,7 @@ class OrdercarUi:
         print("-" * 50)
         print("|{:^48}|".format("Rent car"))
         print("-" * 50)
-        kt = input("\tEnter Kt/Passport number: ")
+        kt = input("\tEnter Kt/Passport number: ").translate(remove_punct_map)
         customer = self.__order_service.check_kt(kt)
         if customer:
             self.print_customer(customer)
@@ -112,24 +153,29 @@ class OrdercarUi:
                         from_date = datetime.datetime.date(from_date)
                         to_date = datetime.datetime.date(to_date)
                         delta = to_date - from_date
-                        days = delta.days
+                        days = delta.days   # how many days the rental is
 
-                        print("Price of order: {} ISK".format(price_of_order * days))
+                        price_of_order_days = price_of_order * days     # Price for car multiplied with days
+                        print("Price of order: {} ISK".format(price_of_order_days))
                         insurance = input("Would you like extra insurance for {} ISK per day? Y/N: ".format(
-                            int(price_of_order) * 0.75)).upper()
-
-                        price_of_order *= days
+                            int(price_of_order) * 0.75)).upper()    # Insurance (Yes or No)
+                        price_of_order_days_insurance = price_of_order_days
                         if insurance == 'Y':
-                            price_of_order *= 1.75
-                            print("Price of order: {} ISK".format(price_of_order))
-                            print("Your deposit of the order is {} ISK".format(price_of_order * 0.10))
+                            price_of_order_days_insurance = price_of_order_days * 1.75  # Price of order with extra insurance
+                            print("Price of order: {} ISK".format(price_of_order_days_insurance))
+                            deposit = price_of_order_days_insurance * 0.10
+                            print("Your deposit of the order is {} ISK".format(deposit))
+                        else:
+                            deposit = price_of_order_days * 0.10
+                            print("Your deposit of the order is {} ISK".format(deposit))
 
                         book = input("Order car? Y/N: ").upper()
                         if book == 'Y':
                             if customer:
                                 name = customer["Name"]
 
-                            new_order = Order(name, chosen_car_plate, from_date, to_date, price_of_order)
+                            new_order = Order(kt, name, chosen_car_plate, from_date, to_date, price_of_order_days,
+                                              insurance, price_of_order_days_insurance, days)
                             self.__order_service.add_order(new_order, False)
                             print("\nOrder successful!\n")
                             approved = True
@@ -148,12 +194,12 @@ class OrdercarUi:
                 o_id = int(input("Select order by Id: "))
                 order = self.__order_service.get_order_by_id(o_id)
                 self.print_current_orders([order])
-                price = order["Price"]
-                self.__order_service.pay_order(price, order)
+                self.print_receipt(order)
+                self.__order_service.pay_order(order["Price"], order)
                 self.__order_service.remove_order(o_id)
                 print("Car Returned!")
-        except Exception:
-            print("Something went wrong, please try again")
+        except Exception as e:
+            print("Something went wrong, please try again", e)
 
     def revoke_order(self):
         try:
@@ -177,7 +223,8 @@ class OrdercarUi:
         self.print_current_orders(orders)
         o_id = int(input("Select order by Id: "))
         order = self.__order_service.get_order_by_id(o_id)
-        edited_order = Order(order["Name"], order["License"], order["From date"], order["To date"], order["Price"])
+        edited_order = Order(order["Kt"], order["Name"], order["License"], order["From date"], order["To date"],
+                             order["Price"], order["Insurance"], order["Total price"], order["Days"])
         a_choice = ''
         while a_choice != 'q':
             a_choice = input(
@@ -187,9 +234,11 @@ class OrdercarUi:
             elif a_choice == '2':
                 edited_order.set_car(input("Enter new license: ").translate(remove_punct_map))
             elif a_choice == '3':
-                edited_order.set_from_date(datetime.datetime.strftime(self.__car_service.user_date("Enter new from date: "), "%d/%m/%y"))
+                edited_order.set_from_date(
+                    datetime.datetime.strftime(self.__car_service.user_date("Enter new from date: "), "%d/%m/%y"))
             elif a_choice == '4':
-                edited_order.set_to_date(datetime.datetime.strftime(self.__car_service.user_date("Enter new to date: "), "%d/%m/%y"))
+                edited_order.set_to_date(
+                    datetime.datetime.strftime(self.__car_service.user_date("Enter new to date: "), "%d/%m/%y"))
             elif a_choice == '5':
                 edited_order.set_price(input("Enter new price: ").translate(remove_punct_map))
         print(edited_order)
@@ -201,7 +250,8 @@ class OrdercarUi:
         self.print_completed_orders(orders)
         o_id = int(input("Select order by Id: "))
         order = self.__order_service.get_order_by_id(o_id)
-        edited_order = Order(order["Name"], order["License"], order["From date"], order["To date"], order["Price"], order["Payment method"])
+        edited_order = Order(order["Kt"], order["Name"], order["License"], order["From date"], order["To date"],
+                             order["Price"], order["Insurance"], order["Total price"], order["Days"], order["Payment method"])
         b_choice = ''
         while b_choice != 'q':
             b_choice = input(
@@ -213,9 +263,11 @@ class OrdercarUi:
             elif b_choice == '2':
                 edited_order.set_car(input("Enter new license: ").translate(remove_punct_map))
             elif b_choice == '3':
-                edited_order.set_from_date(datetime.datetime.strftime(self.__car_service.user_date("Enter new from date: "), "%d/%m/%y"))
+                edited_order.set_from_date(
+                    datetime.datetime.strftime(self.__car_service.user_date("Enter new from date: "), "%d/%m/%y"))
             elif b_choice == '4':
-                edited_order.set_to_date(datetime.datetime.strftime(self.__car_service.user_date("Enter new to date: "), "%d/%m/%y"))
+                edited_order.set_to_date(
+                    datetime.datetime.strftime(self.__car_service.user_date("Enter new to date: "), "%d/%m/%y"))
             elif b_choice == '5':
                 edited_order.set_price(input("Enter new price: ").translate(remove_punct_map))
             elif b_choice == '6':
@@ -254,6 +306,13 @@ class OrdercarUi:
             elif action == '4':
                 completed_orders = self.__order_service.get_completed_orders()
                 self.print_completed_orders(completed_orders)
+                o_id = input("Select the order you want to view (q to quit): ")
+                if o_id == "q":
+                    break
+                os.system('cls')
+                order = self.__order_service.get_completed_order_id(int(o_id))
+                self.print_receipt(order)
+
                 input("Press enter to continue")
 
             elif action == '5':
