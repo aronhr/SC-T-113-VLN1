@@ -47,7 +47,10 @@ class CarService:
             user_in = input(i).replace(string.punctuation, "")
             try:
                 d = datetime.datetime.strptime(user_in, "%d/%m/%y")
-                is_valid = True
+                if d >= datetime.datetime.today():
+                    is_valid = True
+                else:
+                    print("Time traveling?")
             except Exception:
                 print("Wrong date, try again")
         return d

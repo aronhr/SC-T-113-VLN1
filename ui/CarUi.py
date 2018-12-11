@@ -177,7 +177,7 @@ class CarUi:
             print("Cars:")
             print("You can do the following: ")
             print("1. Available cars")
-            print("2. Cars in rent")
+            print("2. Unavailable cars")
             print("3. Available cars within date")
             print("4. All cars")
             print("5. Price list")

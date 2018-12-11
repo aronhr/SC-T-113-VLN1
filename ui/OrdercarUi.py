@@ -78,7 +78,7 @@ Customer
           Transmission: {car_transmission:<20}
           Price of car: {car_price:<20}{car_price:>6} kr.{order_days:^20}{car_order_price:>7} kr.
              Insurance: {order_insurance:<20}{insurance_price:>6} kr.{order_days:^20}{insurance_order_price:>7} kr.
-               Penalty: {order_penalty:<20}{order_penalty:>6} kr.
+               Penalty: {order_penalty:>57} kr.
              
            Total price: ------------------------------------------------- {order_price} kr.
 
