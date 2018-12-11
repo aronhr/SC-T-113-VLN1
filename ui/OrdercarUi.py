@@ -63,19 +63,26 @@ class OrdercarUi:
                                            Country: {country} 
                                            Address: {address}
 
-                            Car                                      Days
-                                    License plate: {car_license}
-                                            Model: {car_model}
-                                             Type: {car_type}
-                                            Class: {car_class}
-                                            Seats: {car_seats}
-                                              4x4: {car_fwd}
-                                     Transmission: {car_transmission}
-                                     Price of car: {car_price}                  {order_days}
-                                        Insurance: {order_insurance}                   {order_days}
-                                      Total price: ------------------------------------ {order_price} kr.
+                                 Car                                      Per day               Days                    Total
+                                     License plate: {car_license}
+                                             Model: {car_model}
+                                              Type: {car_type}
+                                             Class: {car_class}
+                                             Seats: {car_seats}
+                                               4x4: {car_fwd}
+                                      Transmission: {car_transmission}
+                                      Price of car:                         {car_price} kr.                  {order_days}          {car_order_price} kr.
+                                         Insurance: {order_insurance}       {insurance_price} kr.                            {order_days}           {insurance_order_price} kr.
+                                       Total price: ---------------------------------------------------------------------------------- {order_price} kr.
 
                                         """
+        if order["Insurance"] == "No":
+            i_price = 0
+            t_price = 0
+        else:
+            i_price = int(car["Price"]) * 0.75
+            t_price = (int(car["Price"]) * 0.75) * int(order["Days"])
+
         output = receipt.format(i=customer["Passport number"], name=customer["Name"], mail=customer["Mail"],
                                 address=customer["Address"], country=customer["Country"],
                                 license=customer["license"],
@@ -83,8 +90,10 @@ class OrdercarUi:
                                 car_model=car["Model"], car_type=car["Type"], car_class=car["Class"],
                                 car_seats=car["Seats"], car_fwd=car["4x4"], car_transmission=car["Transmission"],
                                 car_price=car["Price"], price=order["Price"], order_insurance=order["Insurance"],
-                                order_days=order["Days"], order_price=order["Total price"])
-
+                                order_days=order["Days"], order_price=order["Total price"],
+                                car_order_price=(int(car["Price"]) * int(order["Days"])),
+                                insurance_order_price=t_price,
+                                insurance_price=i_price)
         print(output)
 
     @staticmethod
@@ -195,12 +204,20 @@ class OrdercarUi:
                 print("\nNo orders\n")
             else:
                 self.print_current_orders(orders)
-                o_id = int(input("Select order by Id: "))
-                order = self.__order_service.get_order_by_id(o_id)
+                o_id = input("Select order by Id: ")
+                order = self.__order_service.get_order_by_id(int(o_id))
                 self.print_current_orders([order])
+                price = float(order["Total price"])
+                km_length = int(input("Enter the km driven: "))
+                days = order["Days"]
+                max_km = 100 * int(days)
+                if km_length > max_km:
+                    for x in range(km_length - max_km):
+                        price *= 1.01
+                print(price)
                 self.print_receipt(order)
-                self.__order_service.pay_order(order["Price"], order)
-                self.__order_service.remove_order(o_id)
+                self.__order_service.pay_order(round(price), order)
+                self.__order_service.remove_order(int(o_id))
                 print("Car Returned!")
         except Exception as e:
             print("Something went wrong, please try again", e)
