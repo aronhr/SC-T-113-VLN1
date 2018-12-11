@@ -50,21 +50,21 @@ class CarUi:
             print("6. Create new car")
             print("7. Edit car")
             print("8. Remove car")
-            print("Press q to quit")
+            print("\33[;31m" + "press q to quit" + "\33[;0m")
 
             action = input("Choose an option: ").lower()
             if action == "1":
                 try:
                     cars = self.__car_service.get_available_cars()
                     self.print_cars(cars)
-                    input("Press enter to continue")
+                    input("\33[;32m" + "press enter to continue" + "\33[;0m")
                 except Exception:
                     print("No available car exists")
             elif action == "2":
                 try:
                     cars = self.__car_service.get_not_available_cars()
                     self.print_cars(cars)
-                    input("Press enter to continue")
+                    input("\33[;32m" + "Press enter to continue " + "\33[;0m")
                 except Exception:
                     print("No unavailable car exists")
             elif action == "3":
@@ -73,7 +73,7 @@ class CarUi:
                     to_date = self.__car_service.user_date("Enter date to (dd/mm/yy): ")
                     cars = self.__car_service.get_available_date_cars(from_date, to_date)
                     self.print_cars(cars)
-                    input("Press enter to continue")
+                    input("\33[;32m" + "Press enter to continue " + "\33[;0m")
                 except Exception as e:
                     print("No available car exists at that time")
                     print(e)
@@ -81,7 +81,7 @@ class CarUi:
                 try:
                     cars = self.__car_service.get_cars()
                     self.print_cars(cars)
-                    input("Press enter to continue")
+                    input("\33[;32m" + "Press enter to continue " + "\33[;0m")
                 except Exception:
                     print("No cars exists")
             elif action == "5":
@@ -89,13 +89,13 @@ class CarUi:
                 try:
                     cars = self.__car_service.get_cars()
                     self.print_price(cars)
-                    input("Press enter to continue")
+                    input("\33[;32m" + "Press enter to continue " + "\33[;0m")
                 except Exception:
                     print("Some thing went wrong")
             elif action == "6":
                 try:
                     print("Creating car:")
-                    license_plate = input("Enter license plate (q to quit): ").lower()
+                    license_plate = input("Enter license plate (""\33[;31m" + " q to quit" + "\33[;0m""):").lower()
                     if license_plate == "q":
                         continue
                     else:
@@ -121,7 +121,7 @@ class CarUi:
                             print("No car created.")
                 except Exception:
                     print("No car with that license plate!")
-                input("Press enter to continue")
+                input("\33[;32m" + "Press enter to continue " + "\33[;0m")
 
             elif action == "7":
                 try:
@@ -135,7 +135,7 @@ class CarUi:
                     choice = ""
                     while choice != "q":
                         print("\n1. Edit Brand\n2. Edit Type\n3. Edit Class\n4. Edit Seats\n5. Edit 4x4\n"
-                              "6. Edit Transmission\n7. Edit Status\npress q to quit")
+                              "6. Edit Transmission\n7. Edit Status\n""\33[;31m" + "press q to quit" + "\33[;0m")
                         choice = input("Enter your choice: ").lower()
                         if choice == "1":
                             car.set_model(input("Enter new Brand: ").translate(remove_punct_map))
@@ -154,7 +154,7 @@ class CarUi:
                     self.__car_service.remove_car(c_id)
                     self.__car_service.add_car(car)
                     print(car)
-                    input("Press enter to continue")
+                    input("\33[;32m" + "Press enter to continue " + "\33[;0m")
                 except Exception:
                     print("Something went wrong, please try again")
 
@@ -166,6 +166,7 @@ class CarUi:
                     car = self.__car_service.get_car_by_id(c_id)
                     self.print_cars([car])
                     self.__car_service.remove_car(c_id)
-                    input("Press enter to continue")
+                    input("\33[;32m" + "Press enter to continue " + "\33[;0m")
                 except Exception:
                     print("Something went wrong, please try again")
+

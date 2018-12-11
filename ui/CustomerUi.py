@@ -43,7 +43,7 @@ class CustomerUi:
             print("3. List order history of customer")
             print("4. Edit customer")
             print("5. Delete customer")
-            print("Press q to quit")
+            print("\33[;31m" + "press q to quit" + "\33[;0m")
 
             action = input("Choose an option: ").lower()
             print()
@@ -68,14 +68,14 @@ class CustomerUi:
                         print("No costumer created.")
                 except Exception:
                     print("Something went wrong, no costumer created.")
-                input("Press enter to continue")
+                input("\33[;32m" + "Press enter to continue " + "\33[;0m")
 
             elif action == "2":
                 if len(self.__customer_service.get_customers()) == 0:
                     print("{}".format("No customers\n"))
                 else:
                     self.print_customers()
-                input("Press enter to continue")
+                input("\33[;32m" + "Press enter to continue " + "\33[;0m")
 
             elif action == '3':
                 kt = input("Enter passport number of the customer (q to go back): ").upper()
@@ -123,7 +123,7 @@ class CustomerUi:
 
                 self.__customer_service.add_customer(new_customer)
                 self.__customer_service.remove_customer(customer_id)
-                input("Press enter to continue")
+                input("\33[;32m" + "Press enter to continue " + "\33[;0m")
             elif action == "5":
                 self.print_customers()
                 customer_to_delete = input("What customer would you like to delete? (q to quit) ")
@@ -132,4 +132,4 @@ class CustomerUi:
                 else:
                     customer_to_delete = int(customer_to_delete)
                     self.__customer_service.remove_customer(customer_to_delete)
-                input("Press enter to continue")
+                input("\33[;32m" + "Press enter to continue " + "\33[;0m")

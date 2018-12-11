@@ -36,7 +36,7 @@ class OrdercarUi:
     @staticmethod
     def print_completed_orders(completed_orders):
         if len(completed_orders) == 0:
-            print("No orders")
+            print("\33[;32m" + "No orders " + "\33[;0m")
         else:
             print("{:^6}|{:^12}|{:^20}|{:^17}|{:^21}|{:^21}|{:^20}|{:^21}|{:^11}|{:^13}|{:^6}".format
                   ("ID", "Kt", "Name", "License", "From date", "To date", "Price", "Payment method", "Insurance",
@@ -133,22 +133,22 @@ class OrdercarUi:
             for x in self.__car_service.get_car_class():
                 print(str(x), end=' ')
             print()
-            car_type = input("\tEnter type of car (q to quit): ").translate(remove_punct_map)
+            car_type = input("\tEnter type of car (""\33[;32m" + " q to quit" + "\33[;0m""):").translate(remove_punct_map)
             if car_type.upper() == "Q":
                 break
-            print("Available cars\n")
+            print("\33[;32m" + "Available cars " + "\33[;0m\n")
 
             available_cars_type = self.__car_service.get_available_date_type(car_type, from_date, to_date)
 
             if len(available_cars_type) == 0:
-                i = input("No cars available,(Press q to quit, enter to select another date)")
+                i = input("No cars available,(""\33[;32m" + "Press q to quit " + "\33[;0m" + "\33[;32m" + "enter to select another date " + "\33[;0m" + ")")
                 if i == "q":
                     break
             else:
                 while not approved:
                     self.__car_ui.print_cars(available_cars_type)
                     try:
-                        c_id = input("\nSelect car by Id (q to quit): ").upper()
+                        c_id = input("\nSelect car by Id (""\33[;32m" + " q to quit" + "\33[;0m""):").upper()
                         if c_id == "Q":
                             approved = True
                             break
@@ -327,7 +327,7 @@ class OrdercarUi:
             elif action == '4':
                 completed_orders = self.__order_service.get_completed_orders()
                 self.print_completed_orders(completed_orders)
-                o_id = input("Select the order you want to view (q to quit): ")
+                o_id = input("Select the order you want to view (""\33[;31m" + " q to quit" + "\33[;0m""):")
                 if o_id == "q":
                     break
                 os.system('cls')
@@ -341,7 +341,7 @@ class OrdercarUi:
                 input("Press enter to continue")
 
             elif action == '6':
-                print("1. Edit current orders\n2. Edit completed orders\nq to quit")
+                print("1. Edit current orders\n2. Edit completed orders\n""\33[;31m" + "press q to quit" + "\33[;0m")
                 e_action = input().upper()
                 if action != "Q":
                     if e_action == '1':
@@ -350,8 +350,9 @@ class OrdercarUi:
                         self.edit_completed_order()
 
             elif action == "7":
-                license = input("Enter car license plate (q to quit): ").upper()
+                license = input("Enter car license plate (""\33[;32m" + " q to quit" + "\33[;0m""):").upper()
                 if license != "Q":
                     orders = self.__order_service.get_available_orders(license)
                     self.print_completed_orders(orders)
-                input("Press enter to continue")
+                input("\33[;32m" + "Press enter to continue " + "\33[;0m")
+

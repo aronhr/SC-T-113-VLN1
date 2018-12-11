@@ -33,7 +33,7 @@ class EmployeeUI:
             print("2. List all employees")
             print("3. Remove employee")
             print("4. Edit employee ")
-            print("Press q to quit")
+            print("\33[;31m" + "press q to quit" + "\33[;0m")
 
             action = input("Choose an option: ").lower()
 
@@ -57,7 +57,7 @@ class EmployeeUI:
                         print("No employee created.")
                 except Exception:
                     print("Something went wrong, no employee created.")
-                input("Press enter to continue")
+                input("\33[;32m" + "Press enter to continue " + "\33[;0m")
 
             elif action == '2':
                 if len(self.__employee_service.get_employees()) == 0:
@@ -65,26 +65,26 @@ class EmployeeUI:
                 else:
                     emp = self.__employee_service.get_employees()
                     self.print_employees(emp)
-                input("Press enter to continue")
+                input("\33[;32m" + "Press enter to continue " + "\33[;0m")
 
             elif action == "3":
                 try:
                     emp = self.__employee_service.get_employees()
                     self.print_employees(emp)
-                    c_id = int(input("Select employee by Id (q to quit): "))
+                    c_id = int(input("Select employee by Id (""\33[;32m" + " q to quit" + "\33[;0m""):"))
                     emp = self.__employee_service.get_employee_by_id(c_id)
                     self.print_employees([emp])
                     self.__employee_service.remove_employee(c_id)
                 except Exception:
                     print("Canceled")
-                input("Press enter to continue")
+                input("\33[;32m" + "Press enter to continue " + "\33[;0m")
 
             elif action == "4":
                 try:
 
                     employee = self.__employee_service.get_employees()
                     self.print_employees(employee)
-                    c_id = int(input("Select employee by Id (q to quit): "))
+                    c_id = int(input("Select employee by Id (""\33[;32m" + " q to quit" + "\33[;0m""):"))
 
                     employee = self.__employee_service.get_employee_by_id(c_id)
                     self.print_employees([employee])
@@ -94,7 +94,7 @@ class EmployeeUI:
                     choice = ""
                     while choice != "q":
                         print("\n1. Edit Name\n2. Edit Passport\n3. Edit country\n4. Edit Address\n5. Edit mail\n"
-                              "6. Edit Phone number\n7. Edit license\n8. Edit Age\npress q to quit")
+                              "6. Edit Phone number\n7. Edit license\n8. Edit Age\n""\33[;31m" + "press q to quit" + "\33[;0m")
                         choice = input("Enter your choice: ").lower()
                         if choice == "1":
                             employee.set_name(input("Enter new Name: ").translate(remove_punct_map))
@@ -117,6 +117,6 @@ class EmployeeUI:
                     self.__employee_service.add_employee(employee)
                     print(employee)
                 except Exception:
-                    print("Canceled")
-                input("Press enter to continue")
+                    print("\33[;32m" + "Canceled " + "\33[;0m")
+                input("\33[;32m" + "Press enter to continue " + "\33[;0m")
 

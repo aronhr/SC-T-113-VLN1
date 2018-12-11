@@ -50,7 +50,7 @@ def main():
         print("-"*50)
         print("|{:^48}|".format("Bílaleiga Guðfinns"))
         print("-"*50)
-        print("Main menu\n1. Orders\n2. Customers\n3. Cars\n4. Employee\nPress q to quit")
+        print("Main menu\n1. Orders\n2. Customers\n3. Cars\n4. Employee\n""\33[;31m" + "press q to quit" + "\33[;0m")
         val = input()
         if val == "1":
             order_main()
