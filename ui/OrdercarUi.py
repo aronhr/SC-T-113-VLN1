@@ -53,27 +53,33 @@ class OrdercarUi:
         customer = self.__customer_service.get_customer_by_kt(order["Kt"])
 
         receipt = """
-                            Customer
-                                Kt/Passport number: {i}
-                                              Name: {name} 
-                                            E-Mail: {mail}
-                                      Phone number: {phone} 
-                                   Driving license: {license} 
-                                               Age: {age}
-                                           Country: {country} 
-                                           Address: {address}
+Customer
 
-                                 Car                                      Per day               Days                    Total
-                                     License plate: {car_license}
-                                             Model: {car_model}
-                                              Type: {car_type}
-                                             Class: {car_class}
-                                             Seats: {car_seats}
-                                               4x4: {car_fwd}
-                                      Transmission: {car_transmission}
-                                      Price of car:                         {car_price} kr.                  {order_days}          {car_order_price} kr.
-                                         Insurance: {order_insurance}       {insurance_price} kr.                            {order_days}           {insurance_order_price} kr.
-                                       Total price: ---------------------------------------------------------------------------------- {order_price} kr.
+    Kt/Passport number: {i:<30}
+                  Name: {name:<30} 
+                E-Mail: {mail:<30}
+          Phone number: {phone:<30} 
+       Driving license: {license:<30} 
+                   Age: {age:<30}
+               Country: {country:<30} 
+               Address: {address:<30}
+                                                                From day: {from_day:<8} 
+                                                                  To day: {to_day:<8}
+                                                                                            
+     Car                                |     Per day     |   Days   |     Total   
+  -----------------------------------------------------------------------------------   
+      
+         License plate: {car_license:<20}
+                 Model: {car_model:<20}
+                  Type: {car_type:<20}
+                 Class: {car_class:<20}
+                 Seats: {car_seats:<20}
+                   4x4: {car_fwd:<20}
+          Transmission: {car_transmission:<20}
+          Price of car: {car_price:<20}{car_price:>6} kr.{order_days:^20}{car_order_price} kr.
+             Insurance: {order_insurance:<20}{insurance_price:>6} kr.{order_days:^20}{insurance_order_price} kr.
+             
+           Total price: ------------------------------------------------- {order_price} kr.
 
                                         """
         if order["Insurance"] == "No":
@@ -93,7 +99,7 @@ class OrdercarUi:
                                 order_days=order["Days"], order_price=order["Total price"],
                                 car_order_price=(int(car["Price"]) * int(order["Days"])),
                                 insurance_order_price=t_price,
-                                insurance_price=i_price)
+                                insurance_price=i_price, from_day=order["From date"], to_day=order["To date"])
         print(output)
 
     @staticmethod
@@ -183,8 +189,8 @@ class OrdercarUi:
                             if customer:
                                 name = customer["Name"]
 
-                            new_order = Order(kt, name, chosen_car_plate, from_date, to_date, price_of_order_days,
-                                              insurance, price_of_order_days_insurance, days)
+                            new_order = Order(kt, name, chosen_car_plate, from_date, to_date, round(price_of_order_days),
+                                              insurance, round(price_of_order_days_insurance), days)
                             self.__order_service.add_order(new_order, False)
                             print("\nOrder successful!\n")
                             approved = True

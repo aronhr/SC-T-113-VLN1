@@ -82,7 +82,7 @@ class CustomerUi:
                 if kt != "Q":
                     orders = self.__order_service.get_available_order_customer(kt)
                     self.__orderUi.print_completed_orders(orders)
-
+                input("Press enter to continue")
             elif action == "4":
                 e_action = ''
                 self.print_customers()
