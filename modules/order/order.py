@@ -1,5 +1,5 @@
 class Order(object):
-    def __init__(self, kt='', renter='', car='', FromDate="", ToDate="", price=0, insurance="N", price_insurance=0, days=0, payment_method=''):
+    def __init__(self, kt='', renter='', car='', FromDate="", ToDate="", price=0, insurance="N", price_insurance=0, days=0, penalty=0, payment_method=''):
         if insurance == "N":
             insurance = "No"
         elif insurance == "No":
@@ -19,6 +19,10 @@ class Order(object):
         self.__insurance = insurance
         self.__price_insurance = price_insurance
         self.__days = days
+        self.__penalty = penalty
+
+    def get_penalty(self):
+        return self.__penalty
 
     def get_insurance(self):
         return self.__insurance
@@ -49,6 +53,9 @@ class Order(object):
 
     def get_payment_method(self):
         return self.__payment_method
+
+    def set_penalty(self, other):
+        self.__penalty = other
 
     def set_insurance(self, other):
         self.__insurance = other
