@@ -1,5 +1,5 @@
 """
-Það á að vera stór stafur í clasa!! 
+Það á að vera stór stafur í clasa!!
 Þetta fer að verða pirrandi!
 """
 
@@ -43,7 +43,7 @@ class CustomerUi:
             print("3. List order history of customer")
             print("4. Edit customer")
             print("5. Delete customer")
-            print("Press q to quit")
+            print("Press q to go back\n")
 
             action = input("Choose an option: ").lower()
             print()
@@ -84,52 +84,59 @@ class CustomerUi:
                     self.__orderUi.print_completed_orders(orders)
 
             elif action == "4":
-                e_action = ''
-                self.print_customers()
-                customer_id = input("Chose which customer do you want to edit? (q to quit): ")
-                if customer_id.upper() == "Q":
-                    continue
+                if self.__customer_service.get_customers() != "No customers":
+                    e_action = ''
+                    self.print_customers()
+                    customer_id = input("Chose which customer do you want to edit? (q to quit): ")
+                    if customer_id.upper() == "Q":
+                        continue
+                    else:
+                        customer_id = int(customer_id)
+                        customer = self.__customer_service.get_customer_by_id(customer_id)
+                        self.__customer_service.print_customer(customer_id)
+                        new_customer = Customer(customer["Name"], customer["Passport number"], customer["Country"],
+                                                customer["Address"],
+                                                customer["Mail"], customer["Phone number"], customer["license"],
+                                                customer["Age"])
+
+                    while e_action != 'q':
+                        print("\n1. Passport number/kt\n2. Name\n3. Country\n4. Address\n5. Phone number\n6. E-mail"
+                              "\n7. Driver´s license\n8. Age\nq. Go back")
+
+                        e_action = input("What to you want to edit?: ").lower()
+
+                        if e_action == '1':
+                            new_customer.set_kt(input("Enter passport number/kt: ").translate(remove_punct_map))
+                        elif e_action == '2':
+                            new_customer.set_name(input("Enter name: ").translate(remove_punct_map))
+                        elif e_action == '3':
+                            new_customer.set_country(input("Enter country: ").translate(remove_punct_map))
+                        elif e_action == '4':
+                            new_customer.set_address(input("Enter address: ").translate(remove_punct_map))
+                        elif e_action == '5':
+                            new_customer.set_phone_number(input("Enter phone number: ").translate(remove_punct_map))
+                        elif e_action == '6':
+                            new_customer.set_mail(input("Enter mail: ").strip())
+                        elif e_action == '7':
+                            new_customer.set_license(input("Enter driver´s license: ").translate(remove_punct_map))
+                        elif e_action == '8':
+                            new_customer.set_age(input("Enter age: ").translate(remove_punct_map))
+
+                    self.__customer_service.add_customer(new_customer)
+                    self.__customer_service.remove_customer(customer_id)
                 else:
-                    customer_id = int(customer_id)
-                    customer = self.__customer_service.get_customer_by_id(customer_id)
-                    self.__customer_service.print_customer(customer_id)
-                    new_customer = Customer(customer["Name"], customer["Passport number"], customer["Country"],
-                                            customer["Address"],
-                                            customer["Mail"], customer["Phone number"], customer["license"],
-                                            customer["Age"])
-
-                while e_action != 'q':
-                    print("\n1. Passport number/kt\n2. Name\n3. Country\n4. Address\n5. Phone number\n6. E-mail"
-                          "\n7. Driver´s license\n8. Age\nq. Go back")
-
-                    e_action = input("What to you want to edit?: ").lower()
-
-                    if e_action == '1':
-                        new_customer.set_kt(input("Enter passport number/kt: ").translate(remove_punct_map))
-                    elif e_action == '2':
-                        new_customer.set_name(input("Enter name: ").translate(remove_punct_map))
-                    elif e_action == '3':
-                        new_customer.set_country(input("Enter country: ").translate(remove_punct_map))
-                    elif e_action == '4':
-                        new_customer.set_address(input("Enter address: ").translate(remove_punct_map))
-                    elif e_action == '5':
-                        new_customer.set_phone_number(input("Enter phone number: ").translate(remove_punct_map))
-                    elif e_action == '6':
-                        new_customer.set_mail(input("Enter mail: ").strip())
-                    elif e_action == '7':
-                        new_customer.set_license(input("Enter driver´s license: ").translate(remove_punct_map))
-                    elif e_action == '8':
-                        new_customer.set_age(input("Enter age: ").translate(remove_punct_map))
-
-                self.__customer_service.add_customer(new_customer)
-                self.__customer_service.remove_customer(customer_id)
+                    print("No customers to edit\n")
                 input("Press enter to continue")
+
             elif action == "5":
-                self.print_customers()
-                customer_to_delete = input("What customer would you like to delete? (q to quit) ")
-                if customer_to_delete.upper() == "Q":
-                    continue
+                if self.__customer_service.get_customers() != "No customers":
+                    self.print_customers()
+                    customer_to_delete = input("What customer would you like to delete? (q to quit) ")
+                    if customer_to_delete.upper() == "Q":
+                        continue
+                    else:
+                        customer_to_delete = int(customer_to_delete)
+                        self.__customer_service.remove_customer(customer_to_delete)
                 else:
-                    customer_to_delete = int(customer_to_delete)
-                    self.__customer_service.remove_customer(customer_to_delete)
+                    print("No customers to delete\n")
                 input("Press enter to continue")

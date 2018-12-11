@@ -46,48 +46,61 @@ class CarUi:
             print("6. Create new car")
             print("7. Edit car")
             print("8. Remove car")
-            print("Press q to quit")
+            print("Press q to go back")
 
-            action = input("Choose an option: ").lower()
+            action = input("\nChoose an option: ").lower()
             if action == "1":
                 try:
                     cars = self.__car_service.get_available_cars()
                     self.print_cars(cars)
-                    input("Press enter to continue")
                 except Exception:
-                    print("No available car exists")
+                    print("\nNo available car exists\n")
+                input("Press enter to continue")
+
             elif action == "2":
                 try:
                     cars = self.__car_service.get_not_available_cars()
                     self.print_cars(cars)
-                    input("Press enter to continue")
                 except Exception:
-                    print("No unavailable car exists")
+                    print("\nNo unavailable car exists\n")
+                input("Press enter to continue")
+
             elif action == "3":
-                try:
-                    from_date = self.__car_service.user_date("Enter date from (dd/mm/yy): ")
-                    to_date = self.__car_service.user_date("Enter date to (dd/mm/yy): ")
-                    cars = self.__car_service.get_available_date_cars(from_date, to_date)
-                    self.print_cars(cars)
-                    input("Press enter to continue")
-                except Exception as e:
-                    print("No available car exists at that time")
-                    print(e)
+                if self.__car_service.get_cars() == "Add some cars to start with":
+                    print("\nNo car exist\n")
+                else:
+                    try:
+                        from_date = self.__car_service.user_date("\nEnter date from (dd/mm/yy): ")
+                        to_date = self.__car_service.user_date("Enter date to (dd/mm/yy): ")
+                        cars = self.__car_service.get_available_date_cars(from_date, to_date)
+                        self.print_cars(cars)
+                    except Exception as e:
+                        print("\nNo available car exists at that time\n")
+                        print(e)
+                input("Press enter to continue")
+
             elif action == "4":
-                try:
-                    cars = self.__car_service.get_cars()
-                    self.print_cars(cars)
-                    input("Press enter to continue")
-                except Exception:
-                    print("No cars exists")
+                if self.__car_service.get_cars() == "Add some cars to start with":
+                    print("\nNo car exist\n")
+                else:
+                    try:
+                        cars = self.__car_service.get_cars()
+                        self.print_cars(cars)
+                    except Exception:
+                        print("\nNo car exists\n")
+                input("Press enter to continue")
+
             elif action == "5":
-                # Price list
-                try:
-                    cars = self.__car_service.get_cars()
-                    self.print_price(cars)
-                    input("Press enter to continue")
-                except Exception:
-                    print("Some thing went wrong")
+                if self.__car_service.get_cars() == "Add some cars to start with":
+                    print("\nNo car exist\n")
+                else:
+                    try:
+                        cars = self.__car_service.get_cars()
+                        self.print_price(cars)
+                    except Exception:
+                        print("\nSome thing went wrong\n")
+                input("Press enter to continue")
+
             elif action == "6":
                 try:
                     print("Creating car:")
@@ -114,54 +127,60 @@ class CarUi:
                             self.__car_service.add_car(new_car)
                             print("Car created!")
                         else:
-                            print("No car created.")
+                            print("\nNo car created.\n")
                 except Exception:
-                    print("No car with that license plate!")
+                    print("\nNo car with that license plate!\n")
                 input("Press enter to continue")
 
             elif action == "7":
-                try:
-                    cars = self.__car_service.get_cars()
-                    self.print_cars(cars)
-                    c_id = int(input("Select car by Id: "))
-                    car = self.__car_service.get_car_by_id(c_id)
-                    self.print_cars([car])
-                    car = Car(car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"], car["License"], int(car["Price"]), car["Status"])
+                if self.__car_service.get_cars() == "Add some cars to start with":
+                    print("\nNo car exist\n")
+                else:
+                    try:
+                        cars = self.__car_service.get_cars()
+                        self.print_cars(cars)
+                        c_id = int(input("Select car by Id: "))
+                        car = self.__car_service.get_car_by_id(c_id)
+                        self.print_cars([car])
+                        car = Car(car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"], car["License"], int(car["Price"]), car["Status"])
 
-                    choice = ""
-                    while choice != "q":
-                        print("\n1. Edit Brand\n2. Edit Type\n3. Edit Class\n4. Edit Seats\n5. Edit 4x4\n"
-                              "6. Edit Transmission\n7. Edit Status\npress q to quit")
-                        choice = input("Enter your choice: ").lower()
-                        if choice == "1":
-                            car.set_model(input("Enter new Brand: ").translate(remove_punct_map))
-                        elif choice == "2":
-                            car.set_type(input("Enter new Type: ").translate(remove_punct_map))
-                        elif choice == "3":
-                            car.set_class(input("Enter new Class: ").translate(remove_punct_map))
-                        elif choice == "4":
-                            car.set_seats(input("Enter Seats: ").translate(remove_punct_map))
-                        elif choice == "5":
-                            car.set_4x4(input("Enter new 4x4 (Y/N): ").upper().translate(remove_punct_map))
-                        elif choice == "6":
-                            car.set_transmission(input("Enter new Transmission (A/M): ").upper().translate(remove_punct_map))
-                        elif choice == "7":
-                            car.set_status(input("Enter new status: (T/F): ").upper().translate(remove_punct_map))
-                    self.__car_service.remove_car(c_id)
-                    self.__car_service.add_car(car)
-                    print(car)
-                    input("Press enter to continue")
-                except Exception:
-                    print("Something went wrong, please try again")
+                        choice = ""
+                        while choice != "q":
+                            print("\n1. Edit Brand\n2. Edit Type\n3. Edit Class\n4. Edit Seats\n5. Edit 4x4\n"
+                                  "6. Edit Transmission\n7. Edit Status\npress q to quit")
+                            choice = input("Enter your choice: ").lower()
+                            if choice == "1":
+                                car.set_model(input("Enter new Brand: ").translate(remove_punct_map))
+                            elif choice == "2":
+                                car.set_type(input("Enter new Type: ").translate(remove_punct_map))
+                            elif choice == "3":
+                                car.set_class(input("Enter new Class: ").translate(remove_punct_map))
+                            elif choice == "4":
+                                car.set_seats(input("Enter Seats: ").translate(remove_punct_map))
+                            elif choice == "5":
+                                car.set_4x4(input("Enter new 4x4 (Y/N): ").upper().translate(remove_punct_map))
+                            elif choice == "6":
+                                car.set_transmission(input("Enter new Transmission (A/M): ").upper().translate(remove_punct_map))
+                            elif choice == "7":
+                                car.set_status(input("Enter new status: (T/F): ").upper().translate(remove_punct_map))
+                        self.__car_service.remove_car(c_id)
+                        self.__car_service.add_car(car)
+                        print(car)
+                    except Exception:
+                        print("\nSomething went wrong, please try again\n")
+                input("Press enter to continue")
 
             elif action == "8":
-                try:
-                    cars = self.__car_service.get_cars()
-                    self.print_cars(cars)
-                    c_id = int(input("Select car by Id: "))
-                    car = self.__car_service.get_car_by_id(c_id)
-                    self.print_cars([car])
-                    self.__car_service.remove_car(c_id)
-                    input("Press enter to continue")
-                except Exception:
-                    print("Something went wrong, please try again")
+                if self.__car_service.get_cars() == "Add some cars to start with":
+                    print("\nNo car exist\n")
+                else:
+                    try:
+                        cars = self.__car_service.get_cars()
+                        self.print_cars(cars)
+                        c_id = int(input("Select car by Id: "))
+                        car = self.__car_service.get_car_by_id(c_id)
+                        self.print_cars([car])
+                        self.__car_service.remove_car(c_id)
+                    except Exception:
+                        print("\nSomething went wrong, please try again\n")
+                input("Press enter to continue")
