@@ -24,7 +24,7 @@ Verklegt námskeið 1
 | 16 	 | Breyta/uppfæra fyrri pöntun 																												|	 x  |
 | 17 	 | Villumeðhöndlun á innslætti á kennitölu, dagsetningum og öðrum lykilgildum 																|	x  |
 | 18 	 | Birta notkunarsögu einstaks bíls 																										|	x  |
-| 19 	 | Birta notkunarsögu einstaks viðskiptavinar 																								|	   |	
+| 19 	 | Birta notkunarsögu einstaks viðskiptavinar 																								|	 x  |	
 | 20 	 | Birta leigusamning / pöntunarstaðfestingu / reikning 																					|	   |	
 | 21 	 | Birta verðlista 																															|	x  |	
 | 22 	 | Birta skjáyfirlit yfir alla bíla í kerfinu. 																								|	x  |
