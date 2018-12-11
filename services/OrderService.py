@@ -38,3 +38,11 @@ class OrderService:
             if x["License"] == license:
                 order.append(x)
         return order
+
+    def get_available_order_customer(self, kt):
+        orders = self.__order_repo.get_completed_orders()
+        order = []
+        for x in orders:
+            if x["Kt"] == kt:
+                order.append(x)
+        return order

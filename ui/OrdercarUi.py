@@ -53,29 +53,42 @@ class OrdercarUi:
         customer = self.__customer_service.get_customer_by_kt(order["Kt"])
 
         receipt = """
-                            Customer
-                                Kt/Passport number: {i}
-                                              Name: {name} 
-                                            E-Mail: {mail}
-                                      Phone number: {phone} 
-                                   Driving license: {license} 
-                                               Age: {age}
-                                           Country: {country} 
-                                           Address: {address}
+Customer
 
-                            Car                                      Days
-                                    License plate: {car_license}
-                                            Model: {car_model}
-                                             Type: {car_type}
-                                            Class: {car_class}
-                                            Seats: {car_seats}
-                                              4x4: {car_fwd}
-                                     Transmission: {car_transmission}
-                                     Price of car: {car_price}                  {order_days}
-                                        Insurance: {order_insurance}                   {order_days}
-                                      Total price: ------------------------------------ {order_price} kr.
+    Kt/Passport number: {i:<30}
+                  Name: {name:<30} 
+                E-Mail: {mail:<30}
+          Phone number: {phone:<30} 
+       Driving license: {license:<30} 
+                   Age: {age:<30}
+               Country: {country:<30} 
+               Address: {address:<30}
+                                                                From day: {from_day:<8} 
+                                                                  To day: {to_day:<8}
+                                                                                            
+     Car                                |     Per day     |   Days   |     Total   
+  -----------------------------------------------------------------------------------   
+      
+         License plate: {car_license:<20}
+                 Model: {car_model:<20}
+                  Type: {car_type:<20}
+                 Class: {car_class:<20}
+                 Seats: {car_seats:<20}
+                   4x4: {car_fwd:<20}
+          Transmission: {car_transmission:<20}
+          Price of car: {car_price:<20}{car_price:>6} kr.{order_days:^20}{car_order_price} kr.
+             Insurance: {order_insurance:<20}{insurance_price:>6} kr.{order_days:^20}{insurance_order_price} kr.
+             
+           Total price: ------------------------------------------------- {order_price} kr.
 
                                         """
+        if order["Insurance"] == "No":
+            i_price = 0
+            t_price = 0
+        else:
+            i_price = int(car["Price"]) * 0.75
+            t_price = (int(car["Price"]) * 0.75) * int(order["Days"])
+
         output = receipt.format(i=customer["Passport number"], name=customer["Name"], mail=customer["Mail"],
                                 address=customer["Address"], country=customer["Country"],
                                 license=customer["license"],
@@ -83,8 +96,10 @@ class OrdercarUi:
                                 car_model=car["Model"], car_type=car["Type"], car_class=car["Class"],
                                 car_seats=car["Seats"], car_fwd=car["4x4"], car_transmission=car["Transmission"],
                                 car_price=car["Price"], price=order["Price"], order_insurance=order["Insurance"],
-                                order_days=order["Days"], order_price=order["Total price"])
-
+                                order_days=order["Days"], order_price=order["Total price"],
+                                car_order_price=(int(car["Price"]) * int(order["Days"])),
+                                insurance_order_price=t_price,
+                                insurance_price=i_price, from_day=order["From date"], to_day=order["To date"])
         print(output)
 
     @staticmethod
@@ -128,6 +143,7 @@ class OrdercarUi:
                 car_type = input("\tEnter type of car (q to quit): ").translate(remove_punct_map)
                 if car_type.upper() == "Q":
                     break
+
                 print("Available cars")
 
                 available_cars_type = self.__car_service.get_available_date_type(car_type, from_date, to_date)
@@ -195,12 +211,20 @@ class OrdercarUi:
                 print("\nNo orders\n")
             else:
                 self.print_current_orders(orders)
-                o_id = int(input("Select order by Id: "))
-                order = self.__order_service.get_order_by_id(o_id)
+                o_id = input("Select order by Id: ")
+                order = self.__order_service.get_order_by_id(int(o_id))
                 self.print_current_orders([order])
+                price = float(order["Total price"])
+                km_length = int(input("Enter the km driven: "))
+                days = order["Days"]
+                max_km = 100 * int(days)
+                if km_length > max_km:
+                    for x in range(km_length - max_km):
+                        price *= 1.01
+                print(price)
                 self.print_receipt(order)
-                self.__order_service.pay_order(order["Price"], order)
-                self.__order_service.remove_order(o_id)
+                self.__order_service.pay_order(round(price), order)
+                self.__order_service.remove_order(int(o_id))
                 print("Car Returned!")
         except Exception as e:
             print("Something went wrong, please try again", e)
