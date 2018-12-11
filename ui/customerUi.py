@@ -25,7 +25,7 @@ class CustomerUi:
         else:
             print("{:^6}|{:^18}|{:^17}|{:^11}|{:^17}|{:^22}|{:^14}|{:^18}|{:^5}|".format
                   ("ID", "Name", "Passport number", "Country", "Address", "E-mail", "Phone number", "Driver´s license", "Age"))
-            print("-" * 131)
+            print("-" * 137)
             for ix, customer in enumerate(self.__customer_service.get_customers()):
                 print("{:^8}{:<19}{:<18}{:<12}{:<18}{:<23}{:<15}{:<19}{:<7}".format(ix + 1, customer["Name"], customer[
                     "Passport number"], customer["Country"], customer["Address"], customer["Mail"],
