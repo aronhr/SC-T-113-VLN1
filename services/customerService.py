@@ -18,10 +18,6 @@ class CustomerService:
                 return x
         return 0
 
-    def edit_customer(self, customer_id, action):
-        pass
-       # return self.__customer_repo.edit_customer(customer_id, action)
-
     def remove_customer(self, customer_id):
         return self.__customer_repo.remove_customer(customer_id)
 

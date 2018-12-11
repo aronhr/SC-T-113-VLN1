@@ -191,12 +191,20 @@ class OrdercarUi:
                 print("\nNo orders")
             else:
                 self.print_current_orders(orders)
-                o_id = int(input("Select order by Id: "))
-                order = self.__order_service.get_order_by_id(o_id)
+                o_id = input("Select order by Id: ")
+                order = self.__order_service.get_order_by_id(int(o_id))
                 self.print_current_orders([order])
+                price = float(order["Total price"])
+                km_length = int(input("Enter the km driven: "))
+                days = order["Days"]
+                max_km = 100 * int(days)
+                if km_length > max_km:
+                    for x in range(km_length - max_km):
+                        price *= 1.01
+                print(price)
                 self.print_receipt(order)
-                self.__order_service.pay_order(order["Price"], order)
-                self.__order_service.remove_order(o_id)
+                self.__order_service.pay_order(round(price), order)
+                self.__order_service.remove_order(int(o_id))
                 print("Car Returned!")
         except Exception as e:
             print("Something went wrong, please try again", e)

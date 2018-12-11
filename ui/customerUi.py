@@ -5,6 +5,8 @@
 
 from services.customerService import CustomerService
 from modules.person.Customer import Customer
+from services.OrderService import OrderService
+from ui.OrdercarUi import OrdercarUi
 import os
 import string
 remove_punct_map = dict.fromkeys(map(ord, string.punctuation))
@@ -14,6 +16,8 @@ class CustomerUi:
 
     def __init__(self):
         self.__customer_service = CustomerService()
+        self.__order_service = OrderService()
+        self.__orderUi = OrdercarUi()
 
     def print_customers(self):
         if self.__customer_service.get_customers() == "No customers":
@@ -32,12 +36,13 @@ class CustomerUi:
         action = ""
         while action != 'q':
             os.system('cls')
-            print("Costumers:")
+            print("Customers:")
             print("You can do the following: ")
             print("1. Add a customer")
             print("2. List all customers")
-            print("3. Edit customer")
-            print("4. Delete customer")
+            print("3. List order history of customer")
+            print("4. Edit customer")
+            print("5. Delete customer")
             print("Press q to quit")
 
             action = input("Choose an option: ").lower()
@@ -72,7 +77,13 @@ class CustomerUi:
                     self.print_customers()
                 input("Press enter to continue")
 
-            elif action == "3":
+            elif action == '3':
+                kt = input("Enter passport number of the customer (q to go back): ").upper()
+                if kt != "Q":
+                    orders = self.__order_service.get_available_order_customer(kt)
+                    self.__orderUi.print_completed_orders(orders)
+
+            elif action == "4":
                 e_action = ''
                 self.print_customers()
                 customer_id = input("Chose which customer do you want to edit? (q to quit): ")
@@ -113,7 +124,7 @@ class CustomerUi:
                 self.__customer_service.add_customer(new_customer)
                 self.__customer_service.remove_customer(customer_id)
                 input("Press enter to continue")
-            elif action == "4":
+            elif action == "5":
                 self.print_customers()
                 customer_to_delete = input("What customer would you like to delete? (q to quit) ")
                 if customer_to_delete.upper() == "Q":
