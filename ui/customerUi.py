@@ -28,19 +28,22 @@ class CustomerUi:
     def add_customer(self):
         try:
             print("Creating customer:")
-            name = input("\tEnter name: ").translate(remove_punct_map)
             kt = input("\tEnter kt/passport number: ").translate(remove_punct_map)
-            country = input("\tEnter country: ").translate(remove_punct_map)
-            address = input("\tEnter address: ").translate(remove_punct_map)
-            mail = input("\tEnter mail: ").strip()
-            phone = input("\tEnter phone number: ").translate(remove_punct_map)
-            customer_license = input("\tEnter drivers license: ").translate(remove_punct_map)
-            age = int(input("\tEnter age: ").translate(remove_punct_map))
-            new_customer = Customer(name, kt, country, address, mail, phone, customer_license, age)
-            print(new_customer)
-            if input("Do you want create this customer? (Y/N)").upper() == "Y":
-                self.__customer_service.add_customer(new_customer)
-                print("\nCustomer created!\n")
+            if self.__order_service.check_kt(kt):
+                print("\nCustomer already exist!\n")
+            elif not self.__order_service.check_kt(kt):
+                name = input("\tEnter name: ").translate(remove_punct_map)
+                country = input("\tEnter country: ").translate(remove_punct_map)
+                address = input("\tEnter address: ").translate(remove_punct_map)
+                mail = input("\tEnter mail: ").strip()
+                phone = input("\tEnter phone number: ").translate(remove_punct_map)
+                customer_license = input("\tEnter drivers license: ").translate(remove_punct_map)
+                age = int(input("\tEnter age: ").translate(remove_punct_map))
+                new_customer = Customer(name, kt, country, address, mail, phone, customer_license, age)
+                print(new_customer)
+                if input("Do you want create this customer? (Y/N): ").upper() == "Y":
+                    self.__customer_service.add_customer(new_customer)
+                    print("\nCustomer created!\n")
             else:
                 print("\nNo customer created.\n")
         except Exception:
@@ -107,10 +110,10 @@ class CustomerUi:
         customers = self.__customer_service.get_customers()
         if customers:
             self.print_customers(customers)
-            customer_to_delete = input("What customer would you like to remove? (q to quit) ").lower()
+            customer_to_delete = input("What customer would you like to remove? (q to quit): ").lower()
             if customer_to_delete != "q":
                 try:
-                    are_you_sure = input("Are you sure you want to delete this customer? (Y/N) ").lower()
+                    are_you_sure = input("Are you sure you want to delete this customer? (Y/N): ").lower()
                     if are_you_sure == "y":
                         customer_to_delete = int(customer_to_delete)
                         print("\ncustomer number {} deleted\n".format(customer_to_delete))
