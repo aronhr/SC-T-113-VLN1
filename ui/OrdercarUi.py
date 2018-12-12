@@ -173,7 +173,7 @@ Customer
                 available_cars_type = self.__car_service.get_available_date_type(car_type, from_date, to_date)
 
                 if not available_cars_type:
-                    i = input("No cars available,(""\33[;31m" + "press q to quit" + "\33[;0m"+","+"\33[;32m" + "enter to select another date " + "\33[;0m"")")
+                    i = input("No cars available,(""\n\n""\33[;31mPress q to go back \33[;0m"+","+"\33[;32m" + "enter to select another date " + "\33[;0m"")")
                     if i == "q":
                         break
                 else:
@@ -290,7 +290,7 @@ Customer
                                  order["Price"], order["Insurance"], order["Total price"], order["Days"])
             a_choice = ''
             while a_choice != 'q':
-                print("1. Edit name\n2. Car-license\n3. From date\n4. To date\n5. Price\n6. Insurance\n7. Days\n""\33[;31m" + "Press q to go back " + "\33[;0m")
+                print("1. Edit name\n2. Car-license\n3. From date\n4. To date\n5. Price\n6. Insurance\n7. Days\n\n""\33[;31mPress q to go back \33[;0m")
                 a_choice = input("Choose an option: ").lower()
                 if a_choice == '1':
                     edited_order.set_renter(input("Enter new name: ").translate(remove_punct_map))
@@ -361,7 +361,7 @@ Customer
         input("\33[;32m" + "Press enter to continue " + "\33[;0m")
 
     def edit_order(self):
-        print("1. Edit current orders\n2. Edit completed orders\n""\33[;31m" + "Press q to go back " + "\33[;0m")
+        print("1. Edit current orders\n2. Edit completed orders\n\n""\33[;31mPress q to go back \33[;0m")
         e_action = input("\nChoose an option: ").upper()
         if e_action != "Q":
             if e_action == '1':
@@ -405,7 +405,7 @@ Customer
             print("6. Edit order")
             print("7. List order history of car")
             print("8. List order history of customer")
-            print("\33[;31m" + "Press q to go back" + "\33[;0m")
+            print("\n""\33[;31mPress q to go back \33[;0m")
 
             action = input("\nChoose an option: ")
             if action == '1':

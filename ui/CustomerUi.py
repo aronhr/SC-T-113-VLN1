@@ -128,7 +128,7 @@ class CustomerUi:
             os.system('cls')
             print("Customers:")
             print("You can do the following: \n1. Add a customer\n2. List all customers\n3. Edit customer"
-                  "\n4. Remove customer\nPress q to go back")
+                  "\n4. Remove customer\n\n""\33[;31mPress q to go back \33[;0m")
             action = input("\nChoose an option: ").lower()
             print()
             if action == "1":
