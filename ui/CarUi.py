@@ -166,7 +166,7 @@ class CarUi:
             c_id = input("Select car by Id (\33[;31mPress q to go back\33[;0m): ").lower()
             if c_id != "q":
                 try:
-                    are_you_sure = input("Are you sure you want to delete this customer? (\33[;32mY\33[;0m/\33[;31mN\33[;0m: ) ").lower()
+                    are_you_sure = input("Are you sure you want to delete this car? (\33[;32mY\33[;0m/\33[;31mN\33[;0m): ").lower()
                     if are_you_sure == "y":
                         car = self.__car_service.get_car_by_id(int(c_id))
                         self.print_cars([car])

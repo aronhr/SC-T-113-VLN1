@@ -164,7 +164,7 @@ Customer
                     print("\n\tNo available cars")
                     break
 
-                car_type = input("\tEnter type of car (\33[;31mq to quit\33[;0m): ").translate(remove_punct_map)
+                car_type = input("\tEnter type of car (\33[;31mq to quit\33[;0m): ").translate(remove_punct_map).capitalize()
                 if car_type.upper() == "Q":
                     break
 
