@@ -46,11 +46,11 @@ class EmployeeUI:
                     print(new_employee)
                     if input("Do you want to create this Employee? (Y/N) ").upper() == "Y":
                         self.__employee_service.add_employee(new_employee)
-                        print("Employee created!")
+                        print("\nEmployee created!\n")
                     else:
-                        print("No employee created.")
+                        print("\nNo employee created.\n")
                 except Exception:
-                    print("Something went wrong, no employee created.")
+                    print("\nSomething went wrong, no employee created.\n")
                 input("Press enter to continue")
 
             elif action == '2':
@@ -72,7 +72,7 @@ class EmployeeUI:
                                     self.print_employees([emp])
                                     self.__employee_service.remove_employee(employee_to_delete)
                             except Exception:
-                                print("Canceled")
+                                print("\nCanceled\n")
                 else:
                     print("\nNo employee to delete\n")
                 input("Press enter to continue")
@@ -114,7 +114,7 @@ class EmployeeUI:
                         self.__employee_service.add_employee(employee)
                         print(employee)
                     except Exception:
-                        print("Something went wrong!")
+                        print("\nSomething went wrong!\n")
                 else:
                     print("\nNo employee to edit\n")
                 input("Press enter to continue")
