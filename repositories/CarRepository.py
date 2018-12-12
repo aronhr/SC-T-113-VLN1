@@ -18,7 +18,7 @@ class CarRepository(object):
                     cars.append(line)
                 return cars
         except Exception:
-            return "{}".format("Add some cars to start with")
+            return False
 
     @staticmethod
     def add_car(car):
@@ -62,7 +62,7 @@ class CarRepository(object):
                         cars.append(line)
                 return cars
         except Exception:
-            self.get_car()
+            return False
 
     def get_car_id(self, id):
         car = self.get_car()
