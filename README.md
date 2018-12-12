@@ -7,7 +7,7 @@ Verklegt námskeið 1
 | Number | Name (and possibly a short description)                                                                                                  | Done |
 | :----: | :--------------------------------------------------------------------------------------------------------------------------------------: | :---:|
 | 1 	 | Leigan býður upp á allavega þrjá mismunandi flokka af bílum til leigu 																	|	 x  |
-| 2 	 | Hægt er að fá frekari tryggingu gegn auknu gjaldi 																						|	 X  |
+| 2 	 | Hægt er að fá frekari tryggingu gegn auknu gjaldi 																						|	 x  |
 | 3 	 | Lágmarksleiga er einn dagur 																												|	x  |
 | 4 	 | Greiða má með korti (kredit eða debit) eða reiðufé 																						|	x  |
 | 5 	 | Notandinn verður að geta birt alla lausa bíla 																							|	 x |
@@ -25,10 +25,10 @@ Verklegt námskeið 1
 | 17 	 | Villumeðhöndlun á innslætti á kennitölu, dagsetningum og öðrum lykilgildum 																|	x  |
 | 18 	 | Birta notkunarsögu einstaks bíls 																										|	x  |
 | 19 	 | Birta notkunarsögu einstaks viðskiptavinar 																								|	 x  |	
-| 20 	 | Birta leigusamning / pöntunarstaðfestingu / reikning 																					|	   |	
+| 20 	 | Birta leigusamning / pöntunarstaðfestingu / reikning 																					|	x  |	
 | 21 	 | Birta verðlista 																															|	x  |	
 | 22 	 | Birta skjáyfirlit yfir alla bíla í kerfinu. 																								|	x  |
-| 23 	 | Hafa breytilega verðskrá t.d. fast gjald og 100 km innifaldir per dag, gjald fyrir hvern umfram kílómetra er 1% af daggjaldi 			|	   |
+| 23 	 | Hafa breytilega verðskrá t.d. fast gjald og 100 km innifaldir per dag, gjald fyrir hvern umfram kílómetra er 1% af daggjaldi 			|	 x  |
 | 24 	 | Viðskiptavinur getur leigt bíl 																											|	x  |
 | 25 	 | Notandi getur skráð inn nýjan bíl. 																										|	 x |
 
