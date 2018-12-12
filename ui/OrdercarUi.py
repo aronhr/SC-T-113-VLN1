@@ -196,18 +196,18 @@ Customer
 
                             price_of_order_days = price_of_order * days     # Price for car multiplied with days
 
-                            print("Price of order: {} ISK".format(price_of_order_days))
-                            insurance = input("Would you like extra insurance for {} {}".format(int(price_of_order) * 0.75, "ISK per day? \33[;32m Y\33[;0m/\33[;31mN \33[;0m : ")).upper()    # Insurance (Yes or No)
+                            print("Price of order: {} ISK".format(int(price_of_order_days)))
+                            insurance = input("Would you like extra insurance for {} {}".format(int(price_of_order * 0.75), "ISK per day? \33[;32m Y\33[;0m/\33[;31mN \33[;0m : ")).upper()    # Insurance (Yes or No)
                             price_of_order_days_insurance = price_of_order_days
 
                             if insurance == 'Y':
                                 price_of_order_days_insurance = price_of_order_days * 1.75  # Price of order with extra insurance
-                                print("Price of order: {} ISK".format(price_of_order_days_insurance))
+                                print("Price of order: {} ISK".format(int(price_of_order_days_insurance)))
                                 deposit = price_of_order_days_insurance * 0.10
                             else:
                                 deposit = price_of_order_days * 0.10
 
-                            print("Your deposit of the order is {} ISK".format(deposit))
+                            print("Your deposit of the order is {} ISK".format(int(deposit)))
 
                             book = input("Order car? \33[;32mY\33[;0m/\33[;31mN\33[;0m: ").upper()
                             if book == 'Y':
