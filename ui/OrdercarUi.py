@@ -208,7 +208,7 @@ Customer
 
                             print("Your deposit of the order is {} ISK".format(deposit))
 
-                            book = input("Order car? \33[;32m" +"Y"+ "\33[;0m"+"/"+"\33[;31m" +"N"+"\33[;0m"": ").upper()
+                            book = input("Order car? \33[;32mY\33[;0m/\33[;31mN\33[;0m: ").upper()
                             if book == 'Y':
                                 if customer:
                                     name = customer["Name"]
@@ -224,7 +224,7 @@ Customer
             except Exception:
                 print("\nNo cars available\n")
                 break
-        input("\33[;32m" + "Press enter to continue " + "\33[;0m")
+        input("\33[;32mPress enter to continue \33[;0m")
 
     def return_car(self):
         #try:
@@ -265,12 +265,12 @@ Customer
                 print("\nNo orders\n")
             else:
                 self.print_current_orders(orders)
-                o_id = int(input("Select order by Id (""\33[;31m" + "q to quit" + "\33[;0m""): "))
+                o_id = int(input("Select order by Id (\33[;31mq to quit\33[;0m""): "))
                 order = self.__order_service.get_order_by_id(o_id)
                 self.print_current_orders([order])
                 total_price = float(order["Total price"])
                 print("Your deposit was {} ISK".format(int(total_price * 0.10)))
-                choice = input("Are you sure you want to revoke the order? ""\33[;32m" +"Y"+ "\33[;0m"+"/"+"\33[;31m" +"N"+"\33[;0m"": ").lower()
+                choice = input("Are you sure you want to revoke the order? \33[;32mY\33[;0m/\33[;31mN\33[;0m: ").lower()
                 if choice == 'y':
                     self.__order_service.remove_order(o_id)
                     print("Order revoked and deposit returned")
@@ -278,7 +278,7 @@ Customer
                     print("Revoke canceled")
         except Exception:
             print("Revoke Canceled")
-        input("\33[;32m" + "Press enter to continue " + "\33[;0m")
+        input("\33[;32mPress enter to continue \33[;0m")
 
     def edit_current_order(self):
         orders = self.__order_service.get_orders()
@@ -290,7 +290,7 @@ Customer
                                  order["Price"], order["Insurance"], order["Total price"], order["Days"])
             a_choice = ''
             while a_choice != 'q':
-                print("1. Edit name\n2. Car-license\n3. From date\n4. To date\n5. Price\n6. Insurance\n7. Days\n""\33[;31m" + "Press q to go back " + "\33[;0m")
+                print("1. Edit name\n2. Car-license\n3. From date\n4. To date\n5. Price\n6. Insurance\n7. Days\n\33[;31mPress q to go back \33[;0m")
                 a_choice = input("Choose an option: ").lower()
                 if a_choice == '1':
                     edited_order.set_renter(input("Enter new name: ").translate(remove_punct_map))
