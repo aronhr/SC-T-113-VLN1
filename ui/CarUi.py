@@ -19,25 +19,29 @@ class CarUi:
               ("Id", "Brand", "Type", "Class", "Seats", "4x4", "Transmission", "Available", "Price per day", "License"))
         print("-" * 112)
         for ix, car in enumerate(cars):
-            print("{:^8}{:<13}{:<14}{:<12}{:<6}{:<9}{:<14}{:<11}{:<17}{:<9}".format
+            print("{:^8}{:<13}{:<13}{:<12}{:<8}{:<7}{:<15}{:<12}{:<16}{:<9}".format
                   (ix + 1, car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"],
                    car["Status"], car["Price"] + " kr.", car["License"]))
         print()
 
     @staticmethod
     def print_price(cars):
-        print("{:^10}|{:^10}|{:^17}|{:^13}".format("Class", "Price", "Extra Insurance", "Total price"))
-        print("-" * 53)
+        print("{:^10}|{:^10}|{:^17}|{:^15}".format("Class", "Price", "Extra Insurance", "Total price"))
+        print("-" * 54)
         arr = []
         for car in cars:
             if car["Class"] not in arr:
-                print("{:<10} {:>4} {:<3} {:>14} {:<3} {:>10} {:<3}".format(car["Class"], car["Price"], "kr.",
-                                                                            (int(car["Price"]) * 0.75), "kr.",
-                                                                            (int(car["Price"]) * 1.75), "kr."))
+                print("{:<9} {:>6} {:<2} {:>14} {:<3} {:>10} {:<2}".format(car["Class"], car["Price"], "kr.",
+                                                                            (int(int(car["Price"]) * 0.75)), "kr.",
+                                                                            (int(int(car["Price"]) * 1.75)), "kr."))
                 arr.append(car["Class"])
         print()
 
     def list_available_cars(self):
+        print("-" * 50)
+        print("|{:^48}|".format("Available cars"))
+        print("-" * 50)
+        print()
         cars = self.__car_service.get_available_cars()
         if cars:
             self.print_cars(cars)
@@ -46,6 +50,10 @@ class CarUi:
         input("\33[;32mPress enter to continue \33[;0m")
 
     def list_cars_in_rent(self):
+        print("-" * 50)
+        print("|{:^48}|".format("Cars in rent"))
+        print("-" * 50)
+        print()
         cars = self.__car_service.get_not_available_cars()
         if cars:
             self.print_cars(cars)
@@ -54,6 +62,10 @@ class CarUi:
         input("\33[;32mPress enter to continue \33[;0m")
 
     def cars_within_date(self):
+        print("-" * 50)
+        print("|{:^48}|".format("Available cars within date"))
+        print("-" * 50)
+        print()
         from_date = self.__car_service.user_date("\nEnter date from (dd/mm/yy): ")
         to_date = self.__car_service.user_date("Enter date to (dd/mm/yy): ")
         cars = self.__car_service.get_available_date_cars(from_date, to_date)
@@ -64,6 +76,10 @@ class CarUi:
         input("\33[;32mPress enter to continue \33[;0m")
 
     def list_all_cars(self):
+        print("-" * 50)
+        print("|{:^48}|".format("All cars"))
+        print("-" * 50)
+        print()
         cars = self.__car_service.get_cars()
         if cars:
             self.print_cars(cars)
@@ -72,6 +88,10 @@ class CarUi:
         input("\33[;32mPress enter to continue \33[;0m")
 
     def price_list(self):
+        print("-" * 50)
+        print("|{:^48}|".format("Price list"))
+        print("-" * 50)
+        print()
         cars = self.__car_service.get_cars()
         if cars:
             self.print_price(cars)
@@ -80,6 +100,10 @@ class CarUi:
         input("\33[;32mPress enter to continue \33[;0m")
 
     def create_new_car(self):
+        print("-" * 50)
+        print("|{:^48}|".format("Create new car"))
+        print("-" * 50)
+        print()
         try:
             print("Creating car:")
             go = "N"
@@ -119,6 +143,10 @@ class CarUi:
         input("\33[;32mPress enter to continue \33[;0m")
 
     def edit_car(self):
+        print("-" * 50)
+        print("|{:^48}|".format("Edit car"))
+        print("-" * 50)
+        print()
         cars = self.__car_service.get_cars()
         if cars:
             self.print_cars(cars)
@@ -160,6 +188,10 @@ class CarUi:
         input("\33[;32mPress enter to continue \33[;0m")
 
     def remove_car(self):
+        print("-" * 50)
+        print("|{:^48}|".format("Remove car"))
+        print("-" * 50)
+        print()
         cars = self.__car_service.get_cars()
         if cars:
             self.print_cars(cars)
@@ -181,7 +213,10 @@ class CarUi:
         action = ""
         while action != "q":
             os.system('cls')
-            print("Cars:")
+            print("-" * 50)
+            print("|{:^48}|".format("Cars"))
+            print("-" * 50)
+            print()
             print("You can do the following: \n1. Available cars\n2. Unavailable cars\n3. Available cars within date"
                   "\n4. All cars\n5. Price list\n6. Create new car\n7. Edit car\n8. Remove car\n\n""\33[;31mPress q to go back \33[;0m")
 
