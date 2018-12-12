@@ -14,7 +14,8 @@ class CustomerUi:
         self.__order_service = OrderService()
         self.__orderUi = OrdercarUi()
 
-    def print_customers(self, customers):
+    @staticmethod
+    def print_customers(customers):
         print("{:^6}|{:^18}|{:^17}|{:^11}|{:^17}|{:^22}|{:^14}|{:^18}|{:^5}|".format
               ("ID", "Name", "Passport number", "Country", "Address", "E-mail", "Phone number", "Driver´s license", "Age"))
         print("-" * 137)
@@ -31,7 +32,7 @@ class CustomerUi:
             print("Customers:")
             print("You can do the following: \n1. Add a customer\n2. List all customers\n3. Edit customer"
                   "\n4. Remove customer\nPress q to go back")
-            action = input("Choose an option: ").lower()
+            action = input("\nChoose an option: ").lower()
             print()
             if action == "1":
                 try:
