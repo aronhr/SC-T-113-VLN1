@@ -28,19 +28,22 @@ class CustomerUi:
     def add_customer(self):
         try:
             print("Creating customer:")
-            name = input("\tEnter name: ").translate(remove_punct_map)
             kt = input("\tEnter kt/passport number: ").translate(remove_punct_map)
-            country = input("\tEnter country: ").translate(remove_punct_map)
-            address = input("\tEnter address: ").translate(remove_punct_map)
-            mail = input("\tEnter mail: ").strip()
-            phone = input("\tEnter phone number: ").translate(remove_punct_map)
-            customer_license = input("\tEnter drivers license: ").translate(remove_punct_map)
-            age = int(input("\tEnter age: ").translate(remove_punct_map))
-            new_customer = Customer(name, kt, country, address, mail, phone, customer_license, age)
-            print(new_customer)
-            if input("Do you want create this customer? (Y/N)").upper() == "Y":
-                self.__customer_service.add_customer(new_customer)
-                print("\nCustomer created!\n")
+            if self.__order_service.check_kt(kt):
+                print("\nCustomer already exist!\n")
+            elif not self.__order_service.check_kt(kt):
+                name = input("\tEnter name: ").translate(remove_punct_map)
+                country = input("\tEnter country: ").translate(remove_punct_map)
+                address = input("\tEnter address: ").translate(remove_punct_map)
+                mail = input("\tEnter mail: ").strip()
+                phone = input("\tEnter phone number: ").translate(remove_punct_map)
+                customer_license = input("\tEnter drivers license: ").translate(remove_punct_map)
+                age = int(input("\tEnter age: ").translate(remove_punct_map))
+                new_customer = Customer(name, kt, country, address, mail, phone, customer_license, age)
+                print(new_customer)
+                if input("Do you want create this customer? (Y/N): ").upper() == "Y":
+                    self.__customer_service.add_customer(new_customer)
+                    print("\nCustomer created!\n")
             else:
                 print("\nNo customer created.\n")
         except Exception:
