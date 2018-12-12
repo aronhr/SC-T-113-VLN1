@@ -150,87 +150,93 @@ Customer
 
     def rent_car(self):
         self.header("Rent car")
-
-        kt = input("\tEnter Kt/Passport number: ").translate(remove_punct_map)
-        customer = self.__order_service.check_kt(kt)
-
-        if customer:
-            self.print_customer(customer)
-        else:
-            name = self.create_customer(kt)
-
-        approved = False
-        while not approved:
-            try:
-                from_date = self.__car_service.user_date("\tEnter start date for rent (dd/mm/yy): ")
-                to_date = self.__car_service.user_date("\tEnter end date for rent (dd/mm/yy): ")
-
-                if not self.print_car_types():
-                    print("\n\tNo available cars")
-                    break
-
-                car_type = input("\tEnter type of car (\33[;31mq to quit\33[;0m): ").translate(remove_punct_map).capitalize()
-                if car_type.upper() == "Q":
-                    break
-
-                print("Available cars\n")
-                # TODO: If no cars are available all cars that are not available gets printed out!
-                available_cars_type = self.__car_service.get_available_date_type(car_type, from_date, to_date)
-
-                if not available_cars_type:
-
-                    i = input("No cars available,(\n\n""\33[;31mpress q to quit\33[;0m,\33[;32m enter to select another date\33[;0m)")
-                    if i == "q":
-                        break
-                else:
-                    while not approved:
-                        self.__car_ui.print_cars(available_cars_type)
-                        try:
-                            c_id = input("\nSelect car by Id (\33[;31mq to quit\33[;0m): ").upper()
-                            if c_id == "Q":
-                                approved = True
-                                break
-
-                            c_id = int(c_id)
-                            self.__car_ui.print_cars([available_cars_type[c_id - 1]])
-
-                            chosen_car_plate = available_cars_type[c_id - 1]["License"]
-                            price_of_order = int(available_cars_type[c_id - 1]["Price"])
-
-                            days = self.calculate_days(from_date, to_date)
-
-                            price_of_order_days = price_of_order * days     # Price for car multiplied with days
-
-                            print("Price of order: {} ISK".format(int(price_of_order_days)))
-                            insurance = input("Would you like extra insurance for {} {}".format(int(price_of_order * 0.75), "ISK per day? \33[;32m Y\33[;0m/\33[;31mN \33[;0m : ")).upper()    # Insurance (Yes or No)
-                            price_of_order_days_insurance = price_of_order_days
-
-                            if insurance == 'Y':
-                                price_of_order_days_insurance = price_of_order_days * 1.75  # Price of order with extra insurance
-                                print("Price of order: {} ISK".format(int(price_of_order_days_insurance)))
-                                deposit = price_of_order_days_insurance * 0.10
-                            else:
-                                deposit = price_of_order_days * 0.10
-
-                            print("Your deposit of the order is {} ISK".format(int(deposit)))
-
-                            book = input("Order car? \33[;32mY\33[;0m/\33[;31mN\33[;0m: ").upper()
-                            if book == 'Y':
-                                if customer:
-                                    name = customer["Name"]
-
-                                new_order = Order(kt, name, chosen_car_plate, from_date, to_date, price_of_order_days, insurance, price_of_order_days_insurance, days)
-                                self.__order_service.add_order(new_order, False)
-                                print("\nOrder successful!\n")
-                                approved = True
-                            else:
-                                print("\nOrder canceled!\n")
-                        except IndexError:
-                            print("ID not available")
-            except Exception:
-                print("\nNo cars available\n")
+        while True:
+            kt = input("\tEnter Kt/Passport number (\33[;31mq to go back\33[;0m): ").lower().translate(remove_punct_map)
+            if kt == "q":
                 break
-        input("\33[;32mPress enter to continue \33[;0m")
+            elif input("\tSelect this Kt/Passport number? (\33[;32mY\33[;0m/\33[;31mN\33[;0m): ").lower() == "y":
+
+                customer = self.__order_service.check_kt(kt)
+
+                if customer:
+                    self.print_customer(customer)
+                else:
+                    name = self.create_customer(kt)
+
+                approved = False
+                while not approved:
+                    try:
+                        from_date = self.__car_service.user_date("\tEnter start date for rent (dd/mm/yy): ")
+                        to_date = self.__car_service.user_date("\tEnter end date for rent (dd/mm/yy): ")
+
+                        if not self.print_car_types():
+                            print("\n\tNo available cars")
+                            break
+
+                        car_type = input("\tEnter type of car (\33[;31mq to quit\33[;0m): ").translate(remove_punct_map).capitalize()
+                        if car_type.upper() == "Q":
+                            break
+
+                        print("Available cars\n")
+                        # TODO: If no cars are available all cars that are not available gets printed out!
+                        available_cars_type = self.__car_service.get_available_date_type(car_type, from_date, to_date)
+
+                        if not available_cars_type:
+
+                            i = input("No cars available,(\33[;31mpress q to quit\33[;0m,\33[;32m enter to select another date\33[;0m)")
+                            if i == "q":
+                                break
+                        else:
+                            while not approved:
+                                self.__car_ui.print_cars(available_cars_type)
+                                try:
+                                    c_id = input("\nSelect car by Id (\33[;31mq to quit\33[;0m): ").upper()
+                                    if c_id == "Q":
+                                        approved = True
+                                        break
+
+                                    c_id = int(c_id)
+                                    self.__car_ui.print_cars([available_cars_type[c_id - 1]])
+
+                                    chosen_car_plate = available_cars_type[c_id - 1]["License"]
+                                    price_of_order = int(available_cars_type[c_id - 1]["Price"])
+
+                                    days = self.calculate_days(from_date, to_date)
+
+                                    price_of_order_days = price_of_order * days     # Price for car multiplied with days
+
+                                    print("Price of order: {} ISK".format(int(price_of_order_days)))
+                                    insurance = input("Would you like extra insurance for {} {}".format(int(price_of_order * 0.75), "ISK per day? (\33[;32mY\33[;0m/\33[;31mN\33[;0m): ")).upper()    # Insurance (Yes or No)
+                                    price_of_order_days_insurance = price_of_order_days
+
+                                    if insurance == 'Y':
+                                        price_of_order_days_insurance = price_of_order_days * 1.75  # Price of order with extra insurance
+                                        print("Price of order: {} ISK".format(int(price_of_order_days_insurance)))
+                                        deposit = price_of_order_days_insurance * 0.10
+                                    else:
+                                        deposit = price_of_order_days * 0.10
+
+                                    print("Your deposit of the order is {} ISK".format(int(deposit)))
+
+                                    book = input("Order car? (\33[;32mY\33[;0m/\33[;31mN\33[;0m): ").upper()
+                                    if book == 'Y':
+                                        if customer:
+                                            name = customer["Name"]
+
+                                        new_order = Order(kt, name, chosen_car_plate, from_date, to_date, price_of_order_days, insurance, price_of_order_days_insurance, days)
+                                        self.__order_service.add_order(new_order, False)
+                                        print("\nOrder successful!\n")
+                                        approved = True
+                                        break
+                                    else:
+                                        print("\nOrder canceled!\n")
+                                        break
+                                except IndexError:
+                                    print("ID not available")
+                    except Exception:
+                        print("\nNo cars available\n")
+                        break
+                input("\33[;32mPress enter to continue \33[;0m")
 
     def return_car(self):
         self.header("Return car")
