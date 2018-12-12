@@ -47,7 +47,7 @@ class CustomerUi:
             else:
                 print("\nNo customer created.\n")
         except Exception:
-            print("\nSomething went wrong, no customer created.\n")
+            print("\n\33[;31mSomething went wrong, please try again!\33[;0m\n")
         input("\33[;32mPress enter to continue \33[;0m")
 
     def list_all_customers(self):
@@ -63,7 +63,7 @@ class CustomerUi:
         if customers:
             e_action = ''
             self.print_customers(customers)
-            customer_id = input("Chose which customer do you want to edit? (q to quit): ").lower()
+            customer_id = input("Chose which customer do you want to edit? (\33[;31mq to quit\33[;0m): ").lower()
             if customer_id != "q":
                 try:
                     customer_id = int(customer_id)
@@ -77,7 +77,7 @@ class CustomerUi:
 
                     while e_action != 'q':
                         print("\n1. Passport number/kt\n2. Name\n3. Country\n4. Address\n5. Phone number"
-                              "\n6. E-mail\n7. Driver´s license\n8. Age\nq. Go back")
+                              "\n6. E-mail\n7. Driver´s license\n8. Age\n\33[;31mPress q to go back\33[;0m")
 
                         e_action = input("Choose an option: ").lower()
 
@@ -101,7 +101,7 @@ class CustomerUi:
                     self.__customer_service.add_customer(new_customer)
                     self.__customer_service.remove_customer(customer_id)
                 except Exception:
-                    print("\nWrong input, try again!\n")
+                    print("\n\33[;31mWrong input, try again!\33[;0m\n")
         else:
             print("\nNo customers to edit\n")
         input("\33[;32mPress enter to continue \33[;0m")
@@ -110,19 +110,19 @@ class CustomerUi:
         customers = self.__customer_service.get_customers()
         if customers:
             self.print_customers(customers)
-            customer_to_delete = input("What customer would you like to remove? (q to quit): ").lower()
+            customer_to_delete = input("What customer would you like to remove? (\33[;31mq to quit\33[;0m): ").lower()
             if customer_to_delete != "q":
                 try:
-                    are_you_sure = input("Are you sure you want to delete this customer? (Y/N): ").lower()
+                    are_you_sure = input("Are you sure you want to delete this customer? (\33[;32mY\33[;0m/\33[;31mN\33[;0m): ").lower()
                     if are_you_sure == "y":
                         customer_to_delete = int(customer_to_delete)
                         print("\ncustomer number {} deleted\n".format(customer_to_delete))
                         self.__customer_service.remove_customer(customer_to_delete)
 
                 except Exception:
-                    print("\nWrong input, try again!\n")
+                    print("\n\33[;31mWrong input, try again!\33[;0m")
         else:
-            print("\nNo customers to delete\n")
+            print("\n\33[;31mNo customers to delete!\33[;0m\n")
         input("\33[;32mPress enter to continue \33[;0m")
 
     def main_menu(self):
