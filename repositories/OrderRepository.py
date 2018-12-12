@@ -22,7 +22,7 @@ class OrderRepository(object):
                     orders.append(line)
                 return orders
         except Exception:
-            return ""
+            return False
 
     @staticmethod
     def add_order(new_order, edit=False):
@@ -49,15 +49,15 @@ class OrderRepository(object):
 
                 file.write("\n{},{},{},{},{},{},{},{},{},{}".format(kt, name, car, from_date, to_date, price, insurance,
                                                                  total_price, days, penalty))
-            except Exception as e:
-                print(e)
+            except Exception:
+                print("Error, Adding order to file")
 
     def get_order_id(self, o_id):
         try:
             order = self.get_orders()
             return order[o_id]
         except IndexError:
-            print("ID not available!")
+            return False
 
     # noinspection PyTypeChecker
     def remove_order_id(self, o_id):
@@ -74,8 +74,8 @@ class OrderRepository(object):
                                       datetime.datetime.strptime(x["To date"], "%d/%m/%y"), x["Price"], x["Insurance"],
                                       x["Total price"], x["Days"], x["Penalty"])
                     self.add_order(new_order)
-        except Exception as e:
-            print("Error:", e)
+        except Exception:
+            print("Error, remove order from file")
 
     def pay_order(self, price, order):
         action = ''
@@ -108,7 +108,7 @@ class OrderRepository(object):
                                                              price, payment_method, order["Insurance"],
                                                              order["Total price"], order["Days"], order["Penalty"]))
             except Exception as e:
-                print(e)
+                print("Error, Adding complete order to file")
 
     @staticmethod
     def get_completed_orders():
@@ -120,11 +120,11 @@ class OrderRepository(object):
                     orders.append(line)
                 return orders
         except FileNotFoundError:
-            return "{}".format("No orders")
+            return False
 
     def get_completed_order_id(self, o_id):
         try:
             order = self.get_completed_orders()
             return order[o_id]
         except IndexError:
-            print("ID not available!")
+            return False
