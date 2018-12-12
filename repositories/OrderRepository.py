@@ -75,7 +75,7 @@ class OrderRepository(object):
                                       x["Total price"], x["Days"], x["Penalty"])
                     self.add_order(new_order)
         except Exception:
-            print("Error, remove order from file")
+            print("Error removing order from file")
 
     def pay_order(self, price, order):
         action = ''
@@ -108,7 +108,7 @@ class OrderRepository(object):
                                                              price, payment_method, order["Insurance"],
                                                              order["Total price"], order["Days"], order["Penalty"]))
             except Exception as e:
-                print("Error, Adding complete order to file")
+                print("Error adding complete order to file")
 
     @staticmethod
     def get_completed_orders():
