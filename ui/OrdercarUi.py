@@ -261,9 +261,7 @@ Customer
     def revoke_order(self):
         try:
             orders = self.__order_service.get_orders()
-            if len(orders) == 0:
-                print("\nNo orders\n")
-            else:
+            if orders:
                 self.print_current_orders(orders)
                 o_id = int(input("Select order by Id (\33[;31mq to quit\33[;0m""): "))
                 order = self.__order_service.get_order_by_id(o_id)
@@ -276,13 +274,15 @@ Customer
                     print("Order revoked and deposit returned")
                 elif choice == 'n':
                     print("Revoke canceled")
+            else:
+                print("\nNo orders\n")
         except Exception:
             print("Revoke Canceled")
         input("\33[;32mPress enter to continue \33[;0m")
 
     def edit_current_order(self):
         orders = self.__order_service.get_orders()
-        if orders != '':
+        if orders:
             self.print_current_orders(orders)
             o_id = int(input("Select order by Id: "))
             order = self.__order_service.get_order_by_id(o_id)
