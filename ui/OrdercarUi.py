@@ -340,20 +340,6 @@ Customer
             self.print_completed_orders(orders)
         input("\33[;32mPress enter to continue \33[;0m")
 
-    def edit_order(self):
-        print("-" * 50)
-        print("|{:^48}|".format("Edit order"))
-        print("-" * 50)
-        print()
-        print("1. Edit current orders\n2. Edit completed orders\n\n""\33[;31mPress q to go back \33[;0m")
-        e_action = input("\nChoose an option: ").upper()
-        if e_action != "Q":
-            if e_action == '1':
-                self.edit_current_order()
-            elif e_action == '2':
-                self.edit_completed_order()
-        input("\33[;32mPress enter to continue \33[;0m")
-        
     def history_of_car(self):
         print("-" * 50)
         print("|{:^48}|".format("Order history of car"))
@@ -372,18 +358,18 @@ Customer
         print()
        
         try:
-          completed_orders = self.__order_service.get_completed_orders()
-          if completed_orders:
-              self.print_completed_orders(completed_orders)
-              o_id = input("Select the order you want to view (\33[;31mq to go back\33[;0m): ")
-              if o_id.isdigit():
-                  os.system('cls')
-                  order = self.__order_service.get_completed_order_id(int(o_id))
-                  self.print_receipt(order)
-              else:
-                  print("\nCanceled\n")
-          else:
-              print("\nNo orders are complete\n")
+            completed_orders = self.__order_service.get_completed_orders()
+            if completed_orders:
+                self.print_completed_orders(completed_orders)
+                o_id = input("Select the order you want to view (\33[;31mq to go back\33[;0m): ")
+                if o_id.isdigit():
+                    os.system('cls')
+                    order = self.__order_service.get_completed_order_id(int(o_id))
+                    self.print_receipt(order)
+                else:
+                    print("\nCanceled\n")
+            else:
+                print("\nNo orders are complete\n")
         except Exception:
             print("Something went wrong")
         input("\33[;32mPress enter to continue\33[;0m")
