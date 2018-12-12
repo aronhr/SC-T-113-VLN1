@@ -27,7 +27,7 @@ class EmployeeUI:
             os.system('cls')
             print("Employees:")
             print("You can do the following: ")
-            print("1. Add a employee\n2. List all employees\n3. Remove employee\n4. Edit employee\nPress q to go back")
+            print("1. Add a employee\n2. List all employees\n3. Remove employee\n4. Edit employee\n\n""\33[;31mPress q to go back \33[;0m")
 
             action = input("\nChoose an option: ").lower()
 

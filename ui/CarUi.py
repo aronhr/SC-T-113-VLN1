@@ -183,7 +183,7 @@ class CarUi:
             os.system('cls')
             print("Cars:")
             print("You can do the following: \n1. Available cars\n2. Unavailable cars\n3. Available cars within date"
-                  "\n4. All cars\n5. Price list\n6. Create new car\n7. Edit car\n8. Remove car\n""\33[;31m" + "Press q to go back" + "\33[;0m")
+                  "\n4. All cars\n5. Price list\n6. Create new car\n7. Edit car\n8. Remove car\n\n""\33[;31mPress q to go back \33[;0m")
 
             action = input("\nChoose an option: ").lower()
 
