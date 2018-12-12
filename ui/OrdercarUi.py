@@ -167,7 +167,14 @@ Customer
                 while not approved:
                     try:
                         from_date = self.__car_service.user_date("\tEnter start date for rent (dd/mm/yy): ")
-                        to_date = self.__car_service.user_date("\tEnter end date for rent (dd/mm/yy): ")
+
+                        is_valid = False
+                        while not is_valid:
+                            to_date = self.__car_service.user_date("\tEnter end date for rent (dd/mm/yy): ")
+                            if from_date <= to_date:
+                                is_valid = True
+                            else:
+                                print("\tTime traveling?")
 
                         if not self.print_car_types():
                             print("\n\tNo available cars")
