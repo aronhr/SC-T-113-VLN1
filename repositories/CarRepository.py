@@ -43,11 +43,14 @@ class CarRepository(object):
     # noinspection PyTypeChecker
     def get_available_car(self, t):  # t stendur fyrir annaðhvort True eða False
         car = self.get_car()
-        cars = []
-        for x in car:
-            if x["Status"] == t:
-                cars.append(x)
-        return cars
+        if car:
+            cars = []
+            for x in car:
+                if x["Status"] == t:
+                    cars.append(x)
+            return cars
+        else:
+            return False
 
     def get_available_date_car(self, from_date, to_date):
         try:

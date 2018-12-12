@@ -22,9 +22,12 @@ class CustomerRepository:
 
     def check_if_kt_exist(self, kt):
         data = self.get_customer()
-        for x in data:
-            if x["Passport number"] == kt:
-                return x
+        if data:
+            for x in data:
+                if x["Passport number"] == kt:
+                    return x
+            else:
+                return False
         else:
             return False
 

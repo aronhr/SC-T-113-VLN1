@@ -295,31 +295,34 @@ Customer
             self.print_current_orders(orders)
             o_id = int(input("Select order by Id: "))
             order = self.__order_service.get_order_by_id(o_id)
-            edited_order = Order(order["Kt"], order["Name"], order["License"], order["From date"], order["To date"],
-                                 order["Price"], order["Insurance"], order["Total price"], order["Days"])
-            a_choice = ''
-            while a_choice != 'q':
-                print("1. Edit name\n2. Car-license\n3. From date\n4. To date\n5. Price\n6. Insurance\n7. Days\n\n""\33[;31mPress q to go back \33[;0m")
-                a_choice = input("Choose an option: ").lower()
-                if a_choice == '1':
-                    edited_order.set_renter(input("Enter new name: ").translate(remove_punct_map))
-                elif a_choice == '2':
-                    edited_order.set_car(input("Enter new license: ").translate(remove_punct_map))
-                elif a_choice == '3':
-                    edited_order.set_from_date(
-                        datetime.datetime.strftime(self.__car_service.user_date("Enter new from date: "), "%d/%m/%y"))
-                elif a_choice == '4':
-                    edited_order.set_to_date(
-                        datetime.datetime.strftime(self.__car_service.user_date("Enter new to date: "), "%d/%m/%y"))
-                elif a_choice == '5':
-                    edited_order.set_price(input("Enter new price: ").translate(remove_punct_map))
-                elif a_choice == '6':
-                    edited_order.set_insurance(input("Enter new insurance \33[;32mY\33[;0m/\33[;31mN\33[;0m: ").translate(remove_punct_map))
-                elif a_choice == '7':
-                    edited_order.set_days(input("Enter number of days: ").translate(remove_punct_map))
-            self.__order_service.remove_order(o_id)
-            self.__order_service.add_order(edited_order, True)
-            print("\nOrder edited\n")
+            if order:
+                edited_order = Order(order["Kt"], order["Name"], order["License"], order["From date"], order["To date"],
+                                     order["Price"], order["Insurance"], order["Total price"], order["Days"])
+                a_choice = ''
+                while a_choice != 'q':
+                    print("1. Edit name\n2. Car-license\n3. From date\n4. To date\n5. Price\n6. Insurance\n7. Days\n\n""\33[;31mPress q to go back \33[;0m")
+                    a_choice = input("Choose an option: ").lower()
+                    if a_choice == '1':
+                        edited_order.set_renter(input("Enter new name: ").translate(remove_punct_map))
+                    elif a_choice == '2':
+                        edited_order.set_car(input("Enter new license: ").translate(remove_punct_map))
+                    elif a_choice == '3':
+                        edited_order.set_from_date(
+                            datetime.datetime.strftime(self.__car_service.user_date("Enter new from date: "), "%d/%m/%y"))
+                    elif a_choice == '4':
+                        edited_order.set_to_date(
+                            datetime.datetime.strftime(self.__car_service.user_date("Enter new to date: "), "%d/%m/%y"))
+                    elif a_choice == '5':
+                        edited_order.set_price(input("Enter new price: ").translate(remove_punct_map))
+                    elif a_choice == '6':
+                        edited_order.set_insurance(input("Enter new insurance \33[;32mY\33[;0m/\33[;31mN\33[;0m: ").translate(remove_punct_map))
+                    elif a_choice == '7':
+                        edited_order.set_days(input("Enter number of days: ").translate(remove_punct_map))
+                self.__order_service.remove_order(o_id)
+                self.__order_service.add_order(edited_order, True)
+                print("\nOrder edited\n")
+            else:
+                print("\n\33[;31mWrong input try again\33[;0m\n")
         else:
             print("\nNo orders to edit\n")
 
