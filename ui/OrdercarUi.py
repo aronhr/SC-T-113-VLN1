@@ -180,7 +180,7 @@ Customer
                     while not approved:
                         self.__car_ui.print_cars(available_cars_type)
                         try:
-                            c_id = input("\nSelect car by Id (""\33[;31m" + " q to quit" + "\33[;0m""):").upper()
+                            c_id = input("Select car by Id (""\33[;31m" + " q to quit" + "\33[;0m""):").upper()
                             if c_id == "Q":
                                 approved = True
                                 break
@@ -227,36 +227,36 @@ Customer
         input("\33[;32m" + "Press enter to continue " + "\33[;0m")
 
     def return_car(self):
-        #try:
-        orders = self.__order_service.get_orders()
-        if orders:
-            self.print_current_orders(orders)
-            o_id = input("Select order by Id: ")
-            order = self.__order_service.get_order_by_id(int(o_id))
-            current_order = Order(order["Kt"], order["Name"], order["License"], order["From date"], order["To date"], order["Price"], order["Insurance"], order["Total price"], order["Days"])
-            self.print_current_orders([order])
-            price = float(order["Total price"])
-            km_length = int(input("Enter the km driven: "))
-            max_km = 100 * int(order["Days"])
-            penalty = 0
-            if km_length > max_km:
-                for x in range(km_length - max_km):
-                    penalty += price * 0.01
-            current_order.set_price_insurance(price+penalty)
-            current_order.set_penalty(penalty)
-            self.__order_service.remove_order(o_id)
-            self.__order_service.add_order(current_order, True)
-            order = self.__order_service.get_order_by_id(int(o_id))
-            self.print_receipt(order)
-            if self.__order_service.pay_order(round(price), order):
-                self.__order_service.remove_order(int(o_id))
-                print("Car Returned!")
+        try:
+            orders = self.__order_service.get_orders()
+            if orders:
+                self.print_current_orders(orders)
+                o_id = input("Select order by Id: ")
+                order = self.__order_service.get_order_by_id(int(o_id))
+                current_order = Order(order["Kt"], order["Name"], order["License"], order["From date"], order["To date"], order["Price"], order["Insurance"], order["Total price"], order["Days"])
+                self.print_current_orders([order])
+                price = float(order["Total price"])
+                km_length = int(input("Enter the km driven: "))
+                max_km = 100 * int(order["Days"])
+                penalty = 0
+                if km_length > max_km:
+                    for x in range(km_length - max_km):
+                        penalty += price * 0.01
+                current_order.set_price_insurance(price+penalty)
+                current_order.set_penalty(penalty)
+                self.__order_service.remove_order(o_id)
+                self.__order_service.add_order(current_order, True)
+                order = self.__order_service.get_order_by_id(int(o_id))
+                self.print_receipt(order)
+                if self.__order_service.pay_order(round(price), order):
+                    self.__order_service.remove_order(int(o_id))
+                    print("\nCar Returned!\n")
+                else:
+                    print("\nCar payment not accepted!\n")
             else:
-                print("Car payment not accepted!")
-        else:
-            print("\nNo cars in rent\n")
-        #except Exception:
-        #    print("Something went wrong, please try again")
+                print("\nNo cars in rent\n")
+        except Exception:
+            print("Something went wrong, please try again")
 
     def revoke_order(self):
         try:

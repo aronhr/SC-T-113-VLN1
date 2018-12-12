@@ -40,11 +40,11 @@ class CustomerUi:
             print(new_customer)
             if input("Do you want create this customer? (Y/N)").upper() == "Y":
                 self.__customer_service.add_customer(new_customer)
-                print("Customer created!")
+                print("\nCustomer created!\n")
             else:
-                print("No customer created.")
+                print("\nNo customer created.\n")
         except Exception:
-            print("Something went wrong, no customer created.")
+            print("\nSomething went wrong, no customer created.\n")
         input("Press enter to continue")
 
     def list_all_customers(self):
@@ -98,9 +98,9 @@ class CustomerUi:
                     self.__customer_service.add_customer(new_customer)
                     self.__customer_service.remove_customer(customer_id)
                 except Exception:
-                    print("Wrong input, try again!")
+                    print("\nWrong input, try again!\n")
         else:
-            print("No customers to edit\n")
+            print("\nNo customers to edit\n")
         input("Press enter to continue")
 
     def remove_customer(self):
@@ -113,13 +113,13 @@ class CustomerUi:
                     are_you_sure = input("Are you sure you want to delete this customer? (Y/N) ").lower()
                     if are_you_sure == "y":
                         customer_to_delete = int(customer_to_delete)
-                        print("customer number {} deleted".format(customer_to_delete))
+                        print("\ncustomer number {} deleted\n".format(customer_to_delete))
                         self.__customer_service.remove_customer(customer_to_delete)
 
                 except Exception:
-                    print("Wrong input, try again!")
+                    print("\nWrong input, try again!\n")
         else:
-            print("No customers to delete\n")
+            print("\nNo customers to delete\n")
         input("Press enter to continue")
 
     def main_menu(self):

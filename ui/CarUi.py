@@ -4,6 +4,7 @@ import string
 import os
 import urllib.request
 import json
+
 remove_punct_map = dict.fromkeys(map(ord, string.punctuation))
 
 
@@ -12,7 +13,8 @@ class CarUi:
     def __init__(self):
         self.__car_service = CarService()
 
-    def print_cars(self, cars):
+    @staticmethod
+    def print_cars(cars):
         print("{:^6}|{:^12}|{:^12}|{:^10}|{:^7}|{:^7}|{:^14}|{:^11}|{:^15}|{:^9}".format
               ("Id", "Brand", "Type", "Class", "Seats", "4x4", "Transmission", "Available", "Price per day", "License"))
         print("-" * 112)
@@ -20,15 +22,20 @@ class CarUi:
             print("{:^8}{:<13}{:<14}{:<12}{:<6}{:<9}{:<14}{:<11}{:<17}{:<9}".format
                   (ix + 1, car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"],
                    car["Status"], car["Price"] + " kr.", car["License"]))
+        print()
 
-    def print_price(self, cars):
+    @staticmethod
+    def print_price(cars):
         print("{:^10}|{:^10}|{:^17}|{:^13}".format("Class", "Price", "Extra Insurance", "Total price"))
-        print("-"*53)
+        print("-" * 53)
         arr = []
         for car in cars:
             if car["Class"] not in arr:
-                print("{:<10} {:>4} {:<3} {:>14} {:<3} {:>10} {:<3}".format(car["Class"], car["Price"], "kr.", (int(car["Price"]) * 0.75), "kr.", (int(car["Price"]) * 1.75), "kr."))
+                print("{:<10} {:>4} {:<3} {:>14} {:<3} {:>10} {:<3}".format(car["Class"], car["Price"], "kr.",
+                                                                            (int(car["Price"]) * 0.75), "kr.",
+                                                                            (int(car["Price"]) * 1.75), "kr."))
                 arr.append(car["Class"])
+        print()
 
     def list_available_cars(self):
         cars = self.__car_service.get_available_cars()
@@ -95,13 +102,16 @@ class CarUi:
             if go == "Y":
                 carclass = input("\tClass: ").translate(remove_punct_map)
                 seats = input("\tHow many seats: ").translate(remove_punct_map)
-                fwd = input("\t4x4 (""\33[;32m" +"Y"+ "\33[;0m"+"/"+"\33[;31m" +"N"+"\33[;0m"")").upper().translate(remove_punct_map)
+                fwd = input(
+                    "\t4x4 (""\33[;32m" + "Y" + "\33[;0m" + "/" + "\33[;31m" + "N" + "\33[;0m"")").upper().translate(
+                    remove_punct_map)
                 transmission = input("\tTransmission (A/M): ").upper().translate(remove_punct_map)
                 new_car = Car(model, subtype, carclass, seats, fwd, transmission, car["number"])
                 print(new_car)
-                if input("Do you want to create this car? (""\33[;32m" +"Y"+ "\33[;0m"+"/"+"\33[;31m" +"N"+"\33[;0m").upper() == "Y":
+                if input(
+                        "Do you want to create this car? (""\33[;32m" + "Y" + "\33[;0m" + "/" + "\33[;31m" + "N" + "\33[;0m").upper() == "Y":
                     self.__car_service.add_car(new_car)
-                    print("Car created!")
+                    print("\nCar created!\n")
                 else:
                     print("\nNo car created.\n")
         except Exception:
@@ -166,6 +176,7 @@ class CarUi:
         else:
             print("\nNo cars exists\n")
         input("\33[;32m" + "Press enter to continue " + "\33[;0m")
+
     def main_menu(self):
         action = ""
         while action != "q":
