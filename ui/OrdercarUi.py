@@ -22,31 +22,25 @@ class OrdercarUi:
 
     @staticmethod
     def print_current_orders(orders):
-        if len(orders) == 0:
-            print("\nNo orders\n")
-        else:
-            print("{:^6}|{:^12}|{:^20}|{:^17}|{:^21}|{:^21}|{:^12}|{:^11}|{:^13}|{:^6}".format
-                  ("ID", "Kt", "Name", "Car-license", "From date", "To date", "Price", "Insurance", "Total price", "Days"))
-            print("-" * 149)
-            for ix, order in enumerate(orders):
-                print("{:^8} {:^12} {:<20} {:<19} {:<24} {:<18} {:<12} {:<11} {:<13} {:<6}".format
-                      (ix + 1, order["Kt"], order["Name"], order["License"], order["From date"], order["To date"],
-                       order["Price"], order["Insurance"], order["Total price"], order["Days"]))
+        print("{:^6}|{:^12}|{:^20}|{:^17}|{:^21}|{:^21}|{:^12}|{:^11}|{:^13}|{:^6}".format
+              ("ID", "Kt", "Name", "Car-license", "From date", "To date", "Price", "Insurance", "Total price", "Days"))
+        print("-" * 149)
+        for ix, order in enumerate(orders):
+            print("{:^8} {:^12} {:<20} {:<19} {:<24} {:<18} {:<12} {:<11} {:<13} {:<6}".format
+                  (ix + 1, order["Kt"], order["Name"], order["License"], order["From date"], order["To date"],
+                   order["Price"], order["Insurance"], order["Total price"], order["Days"]))
 
     @staticmethod
     def print_completed_orders(completed_orders):
-        if completed_orders == "No orders":
-            print("\nNo orders\n")
-        else:
-            print("{:^6}|{:^12}|{:^20}|{:^17}|{:^21}|{:^21}|{:^20}|{:^21}|{:^11}|{:^13}|{:^6}".format
-                  ("ID", "Kt", "Name", "License", "From date", "To date", "Price", "Payment method", "Insurance",
-                   "Total price", "Days"))
+        print("{:^6}|{:^12}|{:^20}|{:^17}|{:^21}|{:^21}|{:^20}|{:^21}|{:^11}|{:^13}|{:^6}".format
+              ("ID", "Kt", "Name", "License", "From date", "To date", "Price", "Payment method", "Insurance",
+               "Total price", "Days"))
 
-            print("-" * 180)
-            for ix, order in enumerate(completed_orders):
-                print("{:^6}  {:<12}  {:<20}  {:<17}  {:<21}  {:<21}  {:<20}  {:<21} {:<11} {:<13} {:<6}".format
-                      (ix + 1, order["Kt"], order["Name"], order["License"], order["From date"], order["To date"],
-                       order["Price"], order["Payment method"], order["Insurance"], order["Total price"], order["Days"]))
+        print("-" * 180)
+        for ix, order in enumerate(completed_orders):
+            print("{:^6}  {:<12}  {:<20}  {:<17}  {:<21}  {:<21}  {:<20}  {:<21} {:<11} {:<13} {:<6}".format
+                  (ix + 1, order["Kt"], order["Name"], order["License"], order["From date"], order["To date"],
+                   order["Price"], order["Payment method"], order["Insurance"], order["Total price"], order["Days"]))
 
     def print_receipt(self, order):
         car = self.__car_service.get_car_by_license(order["License"])
@@ -115,42 +109,67 @@ Customer
         print("\tDriver´s license: {}".format(customer["license"]))
         print("\tAge: {}".format(customer["Age"]))
 
+    def calculate_days(self, from_date, to_date):
+        # Calculate how long the order is in days
+        from_date = datetime.datetime.date(from_date)
+        to_date = datetime.datetime.date(to_date)
+        delta = to_date - from_date
+        return delta.days  # how many days the rental is
+
+    def create_customer(self, kt):
+        name = input("\tEnter name: ").translate(remove_punct_map)
+        country = input("\tEnter country: ").translate(remove_punct_map)
+        address = input("\tEnter address: ").translate(remove_punct_map)
+        mail = input("\tEnter mail: ").strip()
+        phone = input("\tEnter phone number: ").translate(remove_punct_map)
+        customer_license = input("\tEnter drivers license: ").translate(remove_punct_map)
+        age = int(input("\tEnter age: "))
+        new_customer = Customer(name, kt, country, address, mail, phone, customer_license, age)
+        self.__customer_service.add_customer(new_customer)
+
+    def print_car_types(self):
+        cars = self.__car_service.get_car_class()
+        if cars:
+            print("\n\t", end="")
+            for x in cars:
+                print(str(x), end=' ')
+            print()
+            return True
+        else:
+            return False
+
     def rent_car(self):
         print("-" * 50)
         print("|{:^48}|".format("Rent car"))
         print("-" * 50)
+
         kt = input("\tEnter Kt/Passport number: ").translate(remove_punct_map)
         customer = self.__order_service.check_kt(kt)
+
         if customer:
             self.print_customer(customer)
         else:
-            name = input("\tEnter name: ").translate(remove_punct_map)
-            country = input("\tEnter country: ").translate(remove_punct_map)
-            address = input("\tEnter address: ").translate(remove_punct_map)
-            mail = input("\tEnter mail: ").strip()
-            phone = input("\tEnter phone number: ").translate(remove_punct_map)
-            customer_license = input("\tEnter drivers license: ").translate(remove_punct_map)
-            age = int(input("\tEnter age: "))
-            new_customer = Customer(name, kt, country, address, mail, phone, customer_license, age)
-            self.__customer_service.add_customer(new_customer)
+            self.create_customer(kt)
 
         approved = False
         while not approved:
             try:
                 from_date = self.__car_service.user_date("\tEnter start date for rent (dd/mm/yy): ")
                 to_date = self.__car_service.user_date("\tEnter end date for rent (dd/mm/yy): ")
-                for x in self.__car_service.get_car_class():
-                    print(str(x), end=' ')
-                print()
+
+                if not self.print_car_types():
+                    print("\n\tNo available cars")
+                    break
+
                 car_type = input("\tEnter type of car (q to quit): ").translate(remove_punct_map)
                 if car_type.upper() == "Q":
                     break
 
-                print("Available cars")
-
+                print("Available cars\n")
+                # TODO: If no cars are available all cars that are not available gets printed out!
                 available_cars_type = self.__car_service.get_available_date_type(car_type, from_date, to_date)
 
-                if len(available_cars_type) == 0:
+                if not available_cars_type:
                     i = input("No cars available,(Press q to quit, enter to select another date)")
                     if i == "q":
                         break
@@ -162,44 +181,41 @@ Customer
                             if c_id == "Q":
                                 approved = True
                                 break
+
                             c_id = int(c_id)
                             self.__car_ui.print_cars([available_cars_type[c_id - 1]])
 
                             chosen_car_plate = available_cars_type[c_id - 1]["License"]
                             price_of_order = int(available_cars_type[c_id - 1]["Price"])
 
-                            # Calculate how long the order is in days
-                            from_date = datetime.datetime.date(from_date)
-                            to_date = datetime.datetime.date(to_date)
-                            delta = to_date - from_date
-                            days = delta.days   # how many days the rental is
+                            days = self.calculate_days(from_date, to_date)
 
                             price_of_order_days = price_of_order * days     # Price for car multiplied with days
+
                             print("Price of order: {} ISK".format(price_of_order_days))
-                            insurance = input("Would you like extra insurance for {} ISK per day? Y/N: ".format(
-                                int(price_of_order) * 0.75)).upper()    # Insurance (Yes or No)
+                            insurance = input("Would you like extra insurance for {} ISK per day? Y/N: ".format(int(price_of_order) * 0.75)).upper()    # Insurance (Yes or No)
                             price_of_order_days_insurance = price_of_order_days
+
                             if insurance == 'Y':
                                 price_of_order_days_insurance = price_of_order_days * 1.75  # Price of order with extra insurance
                                 print("Price of order: {} ISK".format(price_of_order_days_insurance))
                                 deposit = price_of_order_days_insurance * 0.10
-                                print("Your deposit of the order is {} ISK".format(deposit))
                             else:
                                 deposit = price_of_order_days * 0.10
-                                print("Your deposit of the order is {} ISK".format(deposit))
+
+                            print("Your deposit of the order is {} ISK".format(deposit))
 
                             book = input("Order car? Y/N: ").upper()
                             if book == 'Y':
                                 if customer:
                                     name = customer["Name"]
 
-                                new_order = Order(kt, name, chosen_car_plate, from_date, to_date, price_of_order_days,
-                                                  insurance, price_of_order_days_insurance, days)
+                                new_order = Order(kt, name, chosen_car_plate, from_date, to_date, price_of_order_days, insurance, price_of_order_days_insurance, days)
                                 self.__order_service.add_order(new_order, False)
                                 print("\nOrder successful!\n")
                                 approved = True
                             else:
-                                continue
+                                print("\nOrder canceled!\n")
                         except IndexError:
                             print("ID not available")
             except Exception:

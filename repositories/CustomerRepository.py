@@ -18,7 +18,7 @@ class CustomerRepository:
                     arr.append(line)
                 return arr
         except Exception:
-            return "{}".format("No customers")
+            return False
 
     def check_if_kt_exist(self, kt):
         data = self.get_customer()
@@ -48,7 +48,7 @@ class CustomerRepository:
                 file.write("\n{},{},{},{},{},{},{},{}".format(name, kt, country, address, mail, phone_number,
                                                               d_license, age))
             except Exception:
-                print("Error")
+                print("Error adding customer to file")
 
     def get_customer_id(self, c_id):
         customer = self.get_customer()
