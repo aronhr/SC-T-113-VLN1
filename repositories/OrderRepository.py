@@ -50,7 +50,7 @@ class OrderRepository(object):
                 file.write("\n{},{},{},{},{},{},{},{},{},{}".format(kt, name, car, from_date, to_date, price, insurance,
                                                                  total_price, days, penalty))
             except Exception:
-                print("Error, Adding order to file")
+                print("Error adding order to file")
 
     def get_order_id(self, o_id):
         try:
