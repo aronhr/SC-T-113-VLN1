@@ -196,7 +196,7 @@ Customer
                             price_of_order_days = price_of_order * days     # Price for car multiplied with days
 
                             print("Price of order: {} ISK".format(price_of_order_days))
-                            insurance = input("Would you like extra insurance for {} ISK per day? Y/N: ".format(int(price_of_order) * 0.75)).upper()    # Insurance (Yes or No)
+                            insurance = input("Would you like extra insurance for {} ISK per day? ""\33[;32m" +"Y"+ "\33[;0m"+"/"+"\33[;31m" +"N"+"\33[;0m".format(int(price_of_order) * 0.75)).upper()    # Insurance (Yes or No)
                             price_of_order_days_insurance = price_of_order_days
 
                             if insurance == 'Y':
@@ -208,7 +208,7 @@ Customer
 
                             print("Your deposit of the order is {} ISK".format(deposit))
 
-                            book = input("Order car? Y/N: ").upper()
+                            book = input("Order car? \33[;32m" +"Y"+ "\33[;0m"+"/"+"\33[;31m" +"N"+"\33[;0m").upper()
                             if book == 'Y':
                                 if customer:
                                     name = customer["Name"]
@@ -224,7 +224,7 @@ Customer
             except Exception:
                 print("\nNo cars available\n")
                 break
-        input("Press enter to continue")
+        input("\33[;32m" + "Press enter to continue " + "\33[;0m")
 
     def return_car(self):
         #try:
