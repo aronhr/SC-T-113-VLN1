@@ -15,11 +15,11 @@ class CustomerUi:
         self.__orderUi = OrdercarUi()
 
     def print_customers(self, customers):
-        print("{:^6}|{:^18}|{:^17}|{:^11}|{:^17}|{:^22}|{:^14}|{:^18}|{:^5}|".format
+        print("{:^6}|{:^18}|{:^17}|{:^11}|{:^17}|{:^30}|{:^14}|{:^18}|{:^5}|".format
               ("ID", "Name", "Passport number", "Country", "Address", "E-mail", "Phone number", "Driver´s license", "Age"))
         print("-" * 137)
         for ix, customer in enumerate(customers):
-            print("{:^8}{:<19}{:<18}{:<12}{:<18}{:<23}{:<15}{:<19}{:<7}".format(ix + 1, customer["Name"], customer[
+            print("{:^8}{:<19}{:<18}{:<12}{:<18}{:<31}{:<15}{:<19}{:<7}".format(ix + 1, customer["Name"], customer[
                 "Passport number"], customer["Country"], customer["Address"], customer["Mail"],
                  customer["Phone number"], customer["license"], customer["Age"]))
         print()
@@ -118,8 +118,12 @@ class CustomerUi:
                     customer_to_delete = input("What customer would you like to remove? (q to quit) ").lower()
                     if customer_to_delete != "q":
                         try:
-                            customer_to_delete = int(customer_to_delete)
-                            self.__customer_service.remove_customer(customer_to_delete)
+                            are_you_sure = input("Are you sure you want to delete this customer? (Y/N) ").lower()
+                            if are_you_sure == "y":
+                                customer_to_delete = int(customer_to_delete)
+                                print("customer number {} deleted".format(customer_to_delete))
+                                self.__customer_service.remove_customer(customer_to_delete)
+
                         except Exception:
                             print("Wrong input, try again!")
                 else:
