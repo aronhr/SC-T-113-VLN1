@@ -35,9 +35,9 @@ class OrderRepository(object):
             from_date = datetime.datetime.strftime(from_date, "%d/%m/%y")
             to_date = datetime.datetime.strftime(to_date, "%d/%m/%y")
 
-        price = new_order.get_price()
+        price = int(new_order.get_price())
         insurance = new_order.get_insurance()
-        total_price = new_order.get_price_insurance()
+        total_price = int(new_order.get_price_insurance())
         days = new_order.get_days()
         penalty = new_order.get_penalty()
         with open("./data/order.csv", "a+", encoding='utf-8') as file:
@@ -45,10 +45,10 @@ class OrderRepository(object):
                 if os.stat("./data/order.csv").st_size == 0:
                     file.write(
                         "{},{},{},{},{},{},{},{},{},{}".format("Kt", "Name", "License", "From date", "To date", "Price",
-                                                            "Insurance", "Total price", "Days", "Penalty"))
+                                                               "Insurance", "Total price", "Days", "Penalty"))
 
                 file.write("\n{},{},{},{},{},{},{},{},{},{}".format(kt, name, car, from_date, to_date, price, insurance,
-                                                                 total_price, days, penalty))
+                                                                    total_price, days, penalty))
             except Exception:
                 print("Error adding order to file")
 
@@ -63,7 +63,7 @@ class OrderRepository(object):
     def remove_order_id(self, o_id):
         try:
             orders = self.get_orders()
-            selected_order = orders[int(o_id)-1]
+            selected_order = orders[int(o_id) - 1]
             os.remove("./data/order.csv")
             for x in orders:
                 if x == selected_order:
@@ -97,21 +97,23 @@ class OrderRepository(object):
             except Exception:
                 return False
 
-
     @staticmethod
     def add_complete_order_to_file(order, price, payment_method):
         with open("./data/completed_orders.csv", "a+", encoding='utf-8') as file:
             try:
                 if os.stat("./data/completed_orders.csv").st_size == 0:
                     file.write(
-                        "{},{},{},{},{},{},{},{},{},{},{}".format("Kt", "Name", "License", "From date", "To date", "Price",
-                                                               "Payment method", "Insurance", "Total price", "Days", "Penalty"))
+                        "{},{},{},{},{},{},{},{},{},{},{}".format("Kt", "Name", "License", "From date", "To date",
+                                                                  "Price",
+                                                                  "Payment method", "Insurance", "Total price", "Days",
+                                                                  "Penalty"))
 
                 file.write(
                     "\n{},{},{},{},{},{},{},{},{},{},{}".format(order["Kt"], order["Name"], order["License"],
-                                                             order["From date"], order["To date"],
-                                                             price, payment_method, order["Insurance"],
-                                                             order["Total price"], order["Days"], order["Penalty"]))
+                                                                order["From date"], order["To date"],
+                                                                int(price), payment_method, order["Insurance"],
+                                                                int(order["Total price"]), order["Days"],
+                                                                order["Penalty"]))
             except Exception as e:
                 print("Error adding complete order to file")
 
