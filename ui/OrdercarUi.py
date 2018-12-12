@@ -161,7 +161,7 @@ Customer
                     print("\n\tNo available cars")
                     break
 
-                car_type = input("\tEnter type of car (""\33[;32m" + " q to quit" + "\33[;0m""):").translate(remove_punct_map)
+                car_type = input("\tEnter type of car (""\33[;31m" + " q to quit" + "\33[;0m""):").translate(remove_punct_map)
                 if car_type.upper() == "Q":
                     break
 
@@ -170,14 +170,14 @@ Customer
                 available_cars_type = self.__car_service.get_available_date_type(car_type, from_date, to_date)
 
                 if not available_cars_type:
-                    i = input("No cars available,(""\33[;32m" + "press q to quit" + "\33[;0m"+","+"\33[;32m" + "enter to select another date " + "\33[;0m"")")
+                    i = input("No cars available,(""\33[;31m" + "press q to quit" + "\33[;0m"+","+"\33[;32m" + "enter to select another date " + "\33[;0m"")")
                     if i == "q":
                         break
                 else:
                     while not approved:
                         self.__car_ui.print_cars(available_cars_type)
                         try:
-                            c_id = input("\nSelect car by Id (""\33[;32m" + " q to quit" + "\33[;0m""):").upper()
+                            c_id = input("\nSelect car by Id (""\33[;31m" + " q to quit" + "\33[;0m""):").upper()
                             if c_id == "Q":
                                 approved = True
                                 break
@@ -260,7 +260,7 @@ Customer
                 print("\nNo orders\n")
             else:
                 self.print_current_orders(orders)
-                o_id = int(input("Select order by Id (""\33[;32m" + " q to quit" + "\33[;0m""):"))
+                o_id = int(input("Select order by Id (""\33[;31m" + " q to quit" + "\33[;0m""):"))
                 order = self.__order_service.get_order_by_id(o_id)
                 self.print_current_orders([order])
                 price = float(order["Price"])
@@ -342,7 +342,7 @@ Customer
         input("\33[;32m" + "Press enter to continue " + "\33[;0m")
 
     def get_order_history_of_customer(self):
-        kt = input("Enter passport number of the customer(""\33[;32m" + " q to go back" + "\33[;0m""):").upper()
+        kt = input("Enter passport number of the customer(""\33[;31m" + " q to go back" + "\33[;0m""):").upper()
         if kt != "Q":
             orders = self.__order_service.get_available_order_customer(kt)
             self.print_completed_orders(orders)
@@ -359,7 +359,7 @@ Customer
         input("\33[;32m" + "Press enter to continue " + "\33[;0m")
 
     def history_of_car(self):
-        license = input("Enter car license plate (""\33[;32m" + " q to go quit" + "\33[;0m""):").upper()
+        license = input("Enter car license plate (""\33[;31m" + " q to go back" + "\33[;0m""):").upper()
         if license != "Q":
             orders = self.__order_service.get_available_orders(license)
             self.print_completed_orders(orders)
@@ -371,7 +371,7 @@ Customer
             if self.print_completed_orders(completed_orders) == "No orders":
                 o_id = ''
                 while o_id != 'q':
-                    o_id = input("Select the order you want to view (""\33[;32m" + " q to go quit" + "\33[;0m""):")
+                    o_id = input("Select the order you want to view (""\33[;31m" + " q to go back" + "\33[;0m""):")
                     os.system('cls')
                     order = self.__order_service.get_completed_order_id(int(o_id))
                     self.print_receipt(order)
