@@ -319,10 +319,9 @@ Customer
                 elif a_choice == '5':
                     edited_order.set_price(input("Enter new price: ").translate(remove_punct_map))
                 elif a_choice == '6':
-                    edited_order.set_insurance(input("Enter new insurance  YES/NO: ").translate(remove_punct_map))
+                    edited_order.set_insurance(input("Enter new insurance \33[;32mY\33[;0m/\33[;31mN\33[;0m: ").translate(remove_punct_map))
                 elif a_choice == '7':
                     edited_order.set_days(input("Enter number of days: ").translate(remove_punct_map))
-            print(edited_order)
             self.__order_service.remove_order(o_id)
             self.__order_service.add_order(edited_order, True)
             print("\nOrder edited\n")
@@ -335,9 +334,13 @@ Customer
         print("-" * 50)
         print()
         kt = input("Enter passport number of the customer(\33[;31mq to go back\33[;0m): ").upper()
-        if kt != "Q":
+        if kt == 'Q':
+            pass
+        elif self.__order_service.check_kt(kt):
             orders = self.__order_service.get_available_order_customer(kt)
             self.print_completed_orders(orders)
+        else:
+            print("\nCustomer does not exist\n")
         input("\33[;32mPress enter to continue \33[;0m")
 
     def history_of_car(self):
@@ -345,10 +348,17 @@ Customer
         print("|{:^48}|".format("Order history of car"))
         print("-" * 50)
         print()
-        license = input("Enter car license plate (\33[;31mq to go back\33[;0m): ").upper()
-        if license != "Q":
-            orders = self.__order_service.get_available_orders(license)
-            self.print_completed_orders(orders)
+        car_license = input("Enter car license plate (\33[;31mq to go back\33[;0m): ").upper()
+        car_orders = self.__order_service.get_available_orders(car_license)
+        car = self.__car_service.get_car_by_license(car_license)
+        if car_license == 'Q':
+            pass
+        elif car and car_orders:
+            self.print_completed_orders(car_orders)
+        elif not car:
+            print("\nCar does not exist\n")
+        elif not car_orders:
+            print("\nThe car has not been rented\n")
         input("\33[;32mPress enter to continue \33[;0m")
 
     def completed_orders(self):
