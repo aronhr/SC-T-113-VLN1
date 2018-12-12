@@ -19,7 +19,7 @@ class EmployeeRepository(object):
                     employees.append(line)
                 return employees
         except Exception:
-            return "{}".format("Add some employee")
+            return False
 
     @staticmethod
     def add_employee(customer):
@@ -41,11 +41,11 @@ class EmployeeRepository(object):
                 file.write("\n{},{},{},{},{},{},{},{}".format(name, kt, country, address, mail, phone_number,
                                                               d_license, age))
             except Exception:
-                print("Somthing is wrong")
+                print("Error, Adding employee to file")
 
     def get_employee_id(self, id):
-        car = self.get_employee()
-        return car[id]
+        emp = self.get_employee()
+        return emp[id]
 
     def remove_employee_id(self, id):
         try:
