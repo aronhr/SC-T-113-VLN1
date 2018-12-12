@@ -135,6 +135,7 @@ Customer
         age = int(input("\tEnter age: "))
         new_customer = Customer(name, kt, country, address, mail, phone, customer_license, age)
         self.__customer_service.add_customer(new_customer)
+        return name
 
     def print_car_types(self):
         cars = self.__car_service.get_car_class()
@@ -156,7 +157,7 @@ Customer
         if customer:
             self.print_customer(customer)
         else:
-            self.create_customer(kt)
+            name = self.create_customer(kt)
 
         approved = False
         while not approved:
