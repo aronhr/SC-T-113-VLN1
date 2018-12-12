@@ -46,7 +46,7 @@ class EmployeeUI:
                     address = input("\tEnter address: ").translate(remove_punct_map)
                     mail = input("\tEnter mail: ").strip()
                     phone = input("\tEnter phone number: ").translate(remove_punct_map)
-                    customer_license = input("\tEnter drivers license: ").translate(remove_punct_map)
+                    customer_license = int(input("\tEnter drivers license: "))
                     age = int(input("\tEnter age: "))
                     new_employee = Employee(name, kt, country, address, mail, phone, customer_license, age)
                     print(new_employee)
@@ -124,6 +124,7 @@ class EmployeeUI:
                         self.__employee_service.add_employee(employee)
                         print(employee)
                     except Exception:
-                        print("Canceled")
+                        print("Something went wrong!")
+
                 input("Press enter to continue")
 
