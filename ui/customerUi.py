@@ -45,7 +45,7 @@ class CustomerUi:
                 print("\nNo customer created.\n")
         except Exception:
             print("\nSomething went wrong, no customer created.\n")
-        input("Press enter to continue")
+        input("\33[;32mPress enter to continue \33[;0m")
 
     def list_all_customers(self):
         customers = self.__customer_service.get_customers()
@@ -53,7 +53,7 @@ class CustomerUi:
             self.print_customers(customers)
         else:
             print("\nNo customers\n")
-        input("Press enter to continue")
+        input("\33[;32mPress enter to continue \33[;0m")
 
     def edit_customer(self):
         customers = self.__customer_service.get_customers()
@@ -101,7 +101,7 @@ class CustomerUi:
                     print("\nWrong input, try again!\n")
         else:
             print("\nNo customers to edit\n")
-        input("Press enter to continue")
+        input("\33[;32mPress enter to continue \33[;0m")
 
     def remove_customer(self):
         customers = self.__customer_service.get_customers()
@@ -120,7 +120,7 @@ class CustomerUi:
                     print("\nWrong input, try again!\n")
         else:
             print("\nNo customers to delete\n")
-        input("Press enter to continue")
+        input("\33[;32mPress enter to continue \33[;0m")
 
     def main_menu(self):
         action = ""
