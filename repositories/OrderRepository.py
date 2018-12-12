@@ -84,14 +84,19 @@ class OrderRepository(object):
             print("1. Card")
             print("2. Cash")
             print("Press q to quit\n")
-            action = input("Choose an option: ")
-
+            action = input("Choose an option: ").lower()
+            if action == 'q':
+                break
             if action == '1':
                 payment_method = input('Debit or credit? ')
-            else:
+            elif action == '2':
                 payment_method = "Cash"
-            self.add_complete_order_to_file(order, price, payment_method)
-            return payment_method
+            try:
+                self.add_complete_order_to_file(order, price, payment_method)
+                return payment_method
+            except Exception:
+                return False
+
 
     @staticmethod
     def add_complete_order_to_file(order, price, payment_method):
