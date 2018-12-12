@@ -156,9 +156,11 @@ class CarUi:
             c_id = input("Select car by Id (q to go back): ").lower()
             if c_id != "q":
                 try:
-                    car = self.__car_service.get_car_by_id(int(c_id))
-                    self.print_cars([car])
-                    self.__car_service.remove_car(int(c_id))
+                    are_you_sure = input("Are you sure you want to delete this customer? (Y/N) ").lower()
+                    if are_you_sure == "y":
+                        car = self.__car_service.get_car_by_id(int(c_id))
+                        self.print_cars([car])
+                        self.__car_service.remove_car(int(c_id))
                 except Exception:
                     print("Wrong input, try again")
         else:

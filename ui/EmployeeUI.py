@@ -62,14 +62,17 @@ class EmployeeUI:
 
             elif action == "3":
                 if employees:
-                    try:
                         self.print_employees(employees)
-                        c_id = int(input("Select employee by Id (q to quit): "))
-                        emp = self.__employee_service.get_employee_by_id(c_id)
-                        self.print_employees([emp])
-                        self.__employee_service.remove_employee(c_id)
-                    except Exception:
-                        print("Canceled")
+                        employee_to_delete = int(input("Select employee by Id (q to quit): "))
+                        if employee_to_delete !="q":
+                            try:
+                                are_you_sure = input("Are you sure you want to delete this employee? (Y/N) ").lower()
+                                if are_you_sure == "y":
+                                    emp = self.__employee_service.get_employee_by_id(employee_to_delete)
+                                    self.print_employees([emp])
+                                    self.__employee_service.remove_employee(employee_to_delete)
+                            except Exception:
+                                print("Canceled")
                 else:
                     print("\nNo employee to delete\n")
                 input("Press enter to continue")
