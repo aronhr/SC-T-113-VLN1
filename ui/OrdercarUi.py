@@ -164,7 +164,7 @@ Customer
                     print("\n\tNo available cars")
                     break
 
-                car_type = input("\tEnter type of car (""\33[;31m" + " q to quit" + "\33[;0m""):").translate(remove_punct_map)
+                car_type = input("\tEnter type of car (""\33[;31m" + "q to quit" + "\33[;0m""): ").translate(remove_punct_map)
                 if car_type.upper() == "Q":
                     break
 
@@ -173,14 +173,14 @@ Customer
                 available_cars_type = self.__car_service.get_available_date_type(car_type, from_date, to_date)
 
                 if not available_cars_type:
-                    i = input("No cars available,(""\33[;31m" + "press q to quit" + "\33[;0m"+","+"\33[;32m" + "enter to select another date " + "\33[;0m"")")
+                    i = input("No cars available,(""\33[;31m" + "press q to quit" + "\33[;0m"+","+"\33[;32m" + " enter to select another date" + "\33[;0m"")")
                     if i == "q":
                         break
                 else:
                     while not approved:
                         self.__car_ui.print_cars(available_cars_type)
                         try:
-                            c_id = input("\nSelect car by Id (""\33[;31m" + " q to quit" + "\33[;0m""):").upper()
+                            c_id = input("\nSelect car by Id (""\33[;31m" + "q to quit" + "\33[;0m""): ").upper()
                             if c_id == "Q":
                                 approved = True
                                 break
@@ -196,7 +196,7 @@ Customer
                             price_of_order_days = price_of_order * days     # Price for car multiplied with days
 
                             print("Price of order: {} ISK".format(price_of_order_days))
-                            insurance = input("Would you like extra insurance for {} ISK per day? ""\33[;32m" + "Y" + "\33[;0m"+"/"+"\33[;31m" +"N"+"\33[;0m"": ".format(int(price_of_order) * 0.75)).upper()    # Insurance (Yes or No)
+                            insurance = input("Would you like extra insurance for {} {}".format(int(price_of_order) * 0.75, "ISK per day? \33[;32m Y\33[;0m/\33[;31mN \33[;0m : ")).upper()    # Insurance (Yes or No)
                             price_of_order_days_insurance = price_of_order_days
 
                             if insurance == 'Y':
@@ -265,7 +265,7 @@ Customer
                 print("\nNo orders\n")
             else:
                 self.print_current_orders(orders)
-                o_id = int(input("Select order by Id (""\33[;31m" + " q to quit" + "\33[;0m""):"))
+                o_id = int(input("Select order by Id (""\33[;31m" + "q to quit" + "\33[;0m""): "))
                 order = self.__order_service.get_order_by_id(o_id)
                 self.print_current_orders([order])
                 total_price = float(order["Total price"])
@@ -342,7 +342,7 @@ Customer
             elif choice == '6':
                 edited_order.set_payment_method(input("Enter new payment method: ").translate(remove_punct_map))
             elif choice == '7':
-                edited_order.set_insurance(input("Enter new insurance YES/NO: ").translate(remove_punct_map))
+                edited_order.set_insurance(input("Enter new insurance ""\33[;32m" +"YES"+ "\33[;0m"+"/"+"\33[;31m" +"NO"+"\33[;0m"": ".translate(remove_punct_map)))
             elif choice == '8':
                 edited_order.set_days(input("Enter the number of days: ").translate(remove_punct_map))
 
@@ -368,7 +368,7 @@ Customer
         input("\33[;32m" + "Press enter to continue " + "\33[;0m")
 
     def history_of_car(self):
-        license = input("Enter car license plate (""\33[;31m" + "q to go back" + "\33[;0m""):").upper()
+        license = input("Enter car license plate (""\33[;31m" + "q to go back" + "\33[;0m""): ").upper()
         if license != "Q":
             orders = self.__order_service.get_available_orders(license)
             self.print_completed_orders(orders)
@@ -380,7 +380,7 @@ Customer
             if self.print_completed_orders(completed_orders) == "No orders":
                 o_id = ''
                 while o_id != 'q':
-                    o_id = input("Select the order you want to view (""\33[;31m" + "q to go back" + "\33[;0m""):")
+                    o_id = input("Select the order you want to view (""\33[;31m" + "q to go back" + "\33[;0m""): ")
                     os.system('cls')
                     order = self.__order_service.get_completed_order_id(int(o_id))
                     self.print_receipt(order)
