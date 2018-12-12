@@ -48,7 +48,7 @@ class CustomerRepository:
                 file.write("\n{},{},{},{},{},{},{},{}".format(name, kt, country, address, mail, phone_number,
                                                               d_license, age))
             except Exception:
-                print("Error, Adding customer to file")
+                print("Error adding customer to file")
 
     def get_customer_id(self, c_id):
         customer = self.get_customer()
