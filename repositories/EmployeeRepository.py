@@ -41,7 +41,7 @@ class EmployeeRepository(object):
                 file.write("\n{},{},{},{},{},{},{},{}".format(name, kt, country, address, mail, phone_number,
                                                               d_license, age))
             except Exception:
-                print("Error, Adding employee to file")
+                print("Error adding employee to file")
 
     def get_employee_id(self, id):
         emp = self.get_employee()
