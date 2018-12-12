@@ -50,7 +50,7 @@ def main():
         print("-"*50)
         print("|{:^48}|".format("Bílaleiga Guðfinns"))
         print("-"*50)
-        print("Main menu\n1. Orders\n2. Customers\n3. Cars\n4. Employee\n\n""\33[;31mPress q to go to quit the program \33[;0m")
+        print("Main menu\n1. Orders\n2. Customers\n3. Cars\n4. Employee\n\n""\33[;31mPress q to quit the program \33[;0m")
         val = input("\nChoose an option: ").lower()
         print()
         if val == "1":

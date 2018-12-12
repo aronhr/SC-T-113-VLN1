@@ -353,7 +353,7 @@ Customer
             elif e_action == '2':
                 self.edit_completed_order()
         input("\33[;32mPress enter to continue \33[;0m")
-
+        
     def history_of_car(self):
         print("-" * 50)
         print("|{:^48}|".format("Order history of car"))
@@ -370,15 +370,20 @@ Customer
         print("|{:^48}|".format("Completed orders"))
         print("-" * 50)
         print()
+       
         try:
-            completed_orders = self.__order_service.get_completed_orders()
-            if self.print_completed_orders(completed_orders) == "No orders":
-                o_id = ''
-                while o_id != 'q':
-                    o_id = input("Select the order you want to view (\33[;31mq to go back\33[;0m): ")
-                    os.system('cls')
-                    order = self.__order_service.get_completed_order_id(int(o_id))
-                    self.print_receipt(order)
+          completed_orders = self.__order_service.get_completed_orders()
+          if completed_orders:
+              self.print_completed_orders(completed_orders)
+              o_id = input("Select the order you want to view (\33[;31mq to go back\33[;0m): ")
+              if o_id.isdigit():
+                  os.system('cls')
+                  order = self.__order_service.get_completed_order_id(int(o_id))
+                  self.print_receipt(order)
+              else:
+                  print("\nCanceled\n")
+          else:
+              print("\nNo orders are complete\n")
         except Exception:
             print("Something went wrong")
         input("\33[;32mPress enter to continue\33[;0m")
@@ -422,7 +427,8 @@ Customer
                 self.revoke_order()
 
             elif action == '6':
-                self.edit_order()
+                self.edit_current_order()
+                input("\33[;32mPress enter to continue \33[;0m")
 
             elif action == "7":
                 self.history_of_car()

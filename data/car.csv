@@ -1,9 +1,8 @@
 Model,Type,Class,Seats,4x4,Transmission,Status,Price,License
-Skoda,Octavia,Family,5,No,Manual,True,5000,SL883
 Mercedes,C,Luxury,5,No,Automatic,True,8500,SN722
 Honda,Jazz,Small car,5,No,Manual,False,4000,UN934
-Subaru,Legacy,Sport,5,No,Manual,True,5000,DT034
 Isuzu,Trooper,Jeep,7,Yes,Manual,True,8000,UA339
 Citroen,C4 picasso,Family,7,No,Automatic,True,5000,MYB18
 Volkswagen,Golf,Family,5,No,Manual,True,5000,ME245
 Hyundai,Coupe,Sport,4,No,Manual,True,5000,BJ669
+Kia,Rio,Small car,5,No,Manual,True,4000,DGX48
