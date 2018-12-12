@@ -316,56 +316,11 @@ Customer
         else:
             print("\nNo orders to edit\n")
 
-    def edit_completed_order(self):
-        orders = self.__order_service.get_completed_orders()
-        self.print_completed_orders(orders)
-        o_id = int(input("Select order by Id: "))
-        order = self.__order_service.get_order_by_id(o_id)
-        edited_order = Order(order["Kt"], order["Name"], order["License"], order["From date"], order["To date"],
-                             order["Price"], order["Payment method"], order["Insurance"], order["Total price"], order["Days"], )
-        choice = ''
-        while choice != 'q':
-            choice = input(
-                "What do you want to edit?\n1. Name\n2. License\n3. From Date\n4. To date\n5. Price\n6. "
-                "Payment method\n\33[;31mPress q to go back\33[;0m").lower()
-            if choice == '1':
-                edited_order.set_renter(input("Enter new name: ").translate(remove_punct_map))
-            elif choice == '2':
-                edited_order.set_car(input("Enter new license: ").translate(remove_punct_map))
-            elif choice == '3':
-                edited_order.set_from_date(
-                    datetime.datetime.strftime(self.__car_service.user_date("Enter new from date: "), "%d/%m/%y"))
-            elif choice == '4':
-                edited_order.set_to_date(
-                    datetime.datetime.strftime(self.__car_service.user_date("Enter new to date: "), "%d/%m/%y"))
-            elif choice == '5':
-                edited_order.set_price(input("Enter new price: ").translate(remove_punct_map))
-            elif choice == '6':
-                edited_order.set_payment_method(input("Enter new payment method: ").translate(remove_punct_map))
-            elif choice == '7':
-                edited_order.set_insurance(input("Enter new insurance \33[;32mYES\33[;0m/\33[;31mNO\33[;0m: ".translate(remove_punct_map)))
-            elif choice == '8':
-                edited_order.set_days(input("Enter the number of days: ").translate(remove_punct_map))
-
-        self.__order_service.remove_order(o_id)
-        self.__order_service.add_order(edited_order, True)
-        input("\33[;32mPress enter to continue \33[;0m")
-
     def get_order_history_of_customer(self):
         kt = input("Enter passport number of the customer(\33[;31mq to go back\33[;0m): ").upper()
         if kt != "Q":
             orders = self.__order_service.get_available_order_customer(kt)
             self.print_completed_orders(orders)
-        input("\33[;32mPress enter to continue \33[;0m")
-
-    def edit_order(self):
-        print("1. Edit current orders\n2. Edit completed orders\n\n""\33[;31mPress q to go back \33[;0m")
-        e_action = input("\nChoose an option: ").upper()
-        if e_action != "Q":
-            if e_action == '1':
-                self.edit_current_order()
-            elif e_action == '2':
-                self.edit_completed_order()
         input("\33[;32mPress enter to continue \33[;0m")
 
     def history_of_car(self):
@@ -376,17 +331,21 @@ Customer
         input("\33[;32mPress enter to continue \33[;0m")
 
     def completed_orders(self):
-        try:
-            completed_orders = self.__order_service.get_completed_orders()
-            if self.print_completed_orders(completed_orders) == "No orders":
-                o_id = ''
-                while o_id != 'q':
-                    o_id = input("Select the order you want to view (\33[;31mq to go back\33[;0m): ")
-                    os.system('cls')
-                    order = self.__order_service.get_completed_order_id(int(o_id))
-                    self.print_receipt(order)
-        except Exception:
-            print("Something went wrong")
+        #try:
+        completed_orders = self.__order_service.get_completed_orders()
+        if completed_orders:
+            self.print_completed_orders(completed_orders)
+            o_id = input("Select the order you want to view (\33[;31mq to go back\33[;0m): ")
+            if o_id.isdigit():
+                os.system('cls')
+                order = self.__order_service.get_completed_order_id(int(o_id))
+                self.print_receipt(order)
+            else:
+                print("\nCanceled\n")
+        else:
+            print("\nNo orders are complete\n")
+        #except Exception:
+        #    print("Something went wrong")
         input("\33[;32mPress enter to continue\33[;0m")
 
     def main_menu(self):
@@ -425,7 +384,8 @@ Customer
                 self.revoke_order()
 
             elif action == '6':
-                self.edit_order()
+                self.edit_current_order()
+                input("\33[;32mPress enter to continue \33[;0m")
 
             elif action == "7":
                 self.history_of_car()
