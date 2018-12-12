@@ -33,16 +33,22 @@ class OrderService:
 
     def get_available_orders(self, license):
         orders = self.__order_repo.get_completed_orders()
-        order = []
-        for x in orders:
-            if x["License"] == license:
-                order.append(x)
-        return order
+        if orders:
+            order = []
+            for x in orders:
+                if x["License"] == license:
+                    order.append(x)
+            return order
+        else:
+            return False
 
     def get_available_order_customer(self, kt):
         orders = self.__order_repo.get_completed_orders()
-        order = []
-        for x in orders:
-            if x["Kt"] == kt:
-                order.append(x)
-        return order
+        if orders:
+            order = []
+            for x in orders:
+                if x["Kt"] == kt:
+                    order.append(x)
+            return order
+        else:
+            return False
