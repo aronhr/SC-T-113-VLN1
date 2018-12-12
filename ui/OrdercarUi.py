@@ -164,7 +164,7 @@ Customer
                     print("\n\tNo available cars")
                     break
 
-                car_type = input("\tEnter type of car (""\33[;31m" + " q to quit" + "\33[;0m""):").translate(remove_punct_map)
+                car_type = input("\tEnter type of car (\33[;31mq to quit\33[;0m): ").translate(remove_punct_map)
                 if car_type.upper() == "Q":
                     break
 
@@ -173,14 +173,15 @@ Customer
                 available_cars_type = self.__car_service.get_available_date_type(car_type, from_date, to_date)
 
                 if not available_cars_type:
-                    i = input("No cars available,(""\n\n""\33[;31mPress q to go back \33[;0m"+","+"\33[;32m" + "enter to select another date " + "\33[;0m"")")
+
+                    i = input("No cars available,(\n\n""\33[;31mpress q to quit\33[;0m,\33[;32m enter to select another date\33[;0m)")
                     if i == "q":
                         break
                 else:
                     while not approved:
                         self.__car_ui.print_cars(available_cars_type)
                         try:
-                            c_id = input("\nSelect car by Id (""\33[;31m" + " q to quit" + "\33[;0m""):").upper()
+                            c_id = input("\nSelect car by Id (\33[;31mq to quit\33[;0m): ").upper()
                             if c_id == "Q":
                                 approved = True
                                 break
@@ -196,7 +197,7 @@ Customer
                             price_of_order_days = price_of_order * days     # Price for car multiplied with days
 
                             print("Price of order: {} ISK".format(price_of_order_days))
-                            insurance = input("Would you like extra insurance for {} ISK per day? ""\33[;32m" +"Y"+ "\33[;0m"+"/"+"\33[;31m" +"N"+"\33[;0m".format(int(price_of_order) * 0.75)).upper()    # Insurance (Yes or No)
+                            insurance = input("Would you like extra insurance for {} {}".format(int(price_of_order) * 0.75, "ISK per day? \33[;32m Y\33[;0m/\33[;31mN \33[;0m : ")).upper()    # Insurance (Yes or No)
                             price_of_order_days_insurance = price_of_order_days
 
                             if insurance == 'Y':
@@ -208,7 +209,7 @@ Customer
 
                             print("Your deposit of the order is {} ISK".format(deposit))
 
-                            book = input("Order car? \33[;32m" +"Y"+ "\33[;0m"+"/"+"\33[;31m" +"N"+"\33[;0m").upper()
+                            book = input("Order car? \33[;32mY\33[;0m/\33[;31mN\33[;0m: ").upper()
                             if book == 'Y':
                                 if customer:
                                     name = customer["Name"]
@@ -224,7 +225,7 @@ Customer
             except Exception:
                 print("\nNo cars available\n")
                 break
-        input("\33[;32m" + "Press enter to continue " + "\33[;0m")
+        input("\33[;32mPress enter to continue \33[;0m")
 
     def return_car(self):
         #try:
@@ -263,12 +264,12 @@ Customer
             orders = self.__order_service.get_orders()
             if orders:
                 self.print_current_orders(orders)
-                o_id = int(input("Select order by Id (""\33[;31m" + " q to quit" + "\33[;0m""):"))
+                o_id = int(input("Select order by Id (\33[;31mq to quit\33[;0m""): "))
                 order = self.__order_service.get_order_by_id(o_id)
                 self.print_current_orders([order])
                 total_price = float(order["Total price"])
                 print("Your deposit was {} ISK".format(int(total_price * 0.10)))
-                choice = input("Are you sure you want to revoke the order? ""\33[;32m" +"Y"+ "\33[;0m"+"/"+"\33[;31m" +"N"+"\33[;0m").lower()
+                choice = input("Are you sure you want to revoke the order? \33[;32mY\33[;0m/\33[;31mN\33[;0m: ").lower()
                 if choice == 'y':
                     self.__order_service.remove_order(o_id)
                     print("Order revoked and deposit returned")
@@ -278,7 +279,7 @@ Customer
                 print("\nNo orders\n")
         except Exception:
             print("Revoke Canceled")
-        input("\33[;32m" + "Press enter to continue " + "\33[;0m")
+        input("\33[;32mPress enter to continue \33[;0m")
 
     def edit_current_order(self):
         orders = self.__order_service.get_orders()
@@ -317,48 +318,45 @@ Customer
 
     def edit_completed_order(self):
         orders = self.__order_service.get_completed_orders()
-        if orders:
-            self.print_completed_orders(orders)
-            o_id = int(input("Select order by Id: "))
-            order = self.__order_service.get_order_by_id(o_id)
-            edited_order = Order(order["Kt"], order["Name"], order["License"], order["From date"], order["To date"],
-                                 order["Price"], order["Payment method"], order["Insurance"], order["Total price"], order["Days"], )
-            choice = ''
-            while choice != 'q':
-                choice = input(
-                    "What do you want to edit?\n1. Name\n2. License\n3. From Date\n4. To date\n5. Price\n6. "
-                    "Payment method\n""\33[;31m" + "Press q to go back " + "\33[;0m").lower()
-                if choice == '1':
-                    edited_order.set_renter(input("Enter new name: ").translate(remove_punct_map))
-                elif choice == '2':
-                    edited_order.set_car(input("Enter new license: ").translate(remove_punct_map))
-                elif choice == '3':
-                    edited_order.set_from_date(
-                        datetime.datetime.strftime(self.__car_service.user_date("Enter new from date: "), "%d/%m/%y"))
-                elif choice == '4':
-                    edited_order.set_to_date(
-                        datetime.datetime.strftime(self.__car_service.user_date("Enter new to date: "), "%d/%m/%y"))
-                elif choice == '5':
-                    edited_order.set_price(input("Enter new price: ").translate(remove_punct_map))
-                elif choice == '6':
-                    edited_order.set_payment_method(input("Enter new payment method: ").translate(remove_punct_map))
-                elif choice == '7':
-                    edited_order.set_insurance(input("Enter new insurance YES/NO: ").translate(remove_punct_map))
-                elif choice == '8':
-                    edited_order.set_days(input("Enter the number of days: ").translate(remove_punct_map))
+        self.print_completed_orders(orders)
+        o_id = int(input("Select order by Id: "))
+        order = self.__order_service.get_order_by_id(o_id)
+        edited_order = Order(order["Kt"], order["Name"], order["License"], order["From date"], order["To date"],
+                             order["Price"], order["Payment method"], order["Insurance"], order["Total price"], order["Days"], )
+        choice = ''
+        while choice != 'q':
+            choice = input(
+                "What do you want to edit?\n1. Name\n2. License\n3. From Date\n4. To date\n5. Price\n6. "
+                "Payment method\n\33[;31mPress q to go back\33[;0m").lower()
+            if choice == '1':
+                edited_order.set_renter(input("Enter new name: ").translate(remove_punct_map))
+            elif choice == '2':
+                edited_order.set_car(input("Enter new license: ").translate(remove_punct_map))
+            elif choice == '3':
+                edited_order.set_from_date(
+                    datetime.datetime.strftime(self.__car_service.user_date("Enter new from date: "), "%d/%m/%y"))
+            elif choice == '4':
+                edited_order.set_to_date(
+                    datetime.datetime.strftime(self.__car_service.user_date("Enter new to date: "), "%d/%m/%y"))
+            elif choice == '5':
+                edited_order.set_price(input("Enter new price: ").translate(remove_punct_map))
+            elif choice == '6':
+                edited_order.set_payment_method(input("Enter new payment method: ").translate(remove_punct_map))
+            elif choice == '7':
+                edited_order.set_insurance(input("Enter new insurance \33[;32mYES\33[;0m/\33[;31mNO\33[;0m: ".translate(remove_punct_map)))
+            elif choice == '8':
+                edited_order.set_days(input("Enter the number of days: ").translate(remove_punct_map))
 
-            self.__order_service.remove_order(o_id)
-            self.__order_service.add_order(edited_order, True)
-        else:
-            print("\nNo orders\n")
-        input("\33[;32m" + "Press enter to continue " + "\33[;0m")
+        self.__order_service.remove_order(o_id)
+        self.__order_service.add_order(edited_order, True)
+        input("\33[;32mPress enter to continue \33[;0m")
 
     def get_order_history_of_customer(self):
-        kt = input("Enter passport number of the customer(""\33[;31m" + " q to go back" + "\33[;0m""):").upper()
+        kt = input("Enter passport number of the customer(\33[;31mq to go back\33[;0m): ").upper()
         if kt != "Q":
             orders = self.__order_service.get_available_order_customer(kt)
             self.print_completed_orders(orders)
-        input("\33[;32m" + "Press enter to continue " + "\33[;0m")
+        input("\33[;32mPress enter to continue \33[;0m")
 
     def edit_order(self):
         print("1. Edit current orders\n2. Edit completed orders\n\n""\33[;31mPress q to go back \33[;0m")
@@ -368,14 +366,14 @@ Customer
                 self.edit_current_order()
             elif e_action == '2':
                 self.edit_completed_order()
-        input("\33[;32m" + "Press enter to continue " + "\33[;0m")
+        input("\33[;32mPress enter to continue \33[;0m")
 
     def history_of_car(self):
-        license = input("Enter car license plate (""\33[;31m" + " q to go back" + "\33[;0m""):").upper()
+        license = input("Enter car license plate (\33[;31mq to go back\33[;0m): ").upper()
         if license != "Q":
             orders = self.__order_service.get_available_orders(license)
             self.print_completed_orders(orders)
-        input("\33[;32m" + "Press enter to continue " + "\33[;0m")
+        input("\33[;32mPress enter to continue \33[;0m")
 
     def completed_orders(self):
         try:
@@ -383,13 +381,13 @@ Customer
             if self.print_completed_orders(completed_orders) == "No orders":
                 o_id = ''
                 while o_id != 'q':
-                    o_id = input("Select the order you want to view (""\33[;31m" + " q to go back" + "\33[;0m""):")
+                    o_id = input("Select the order you want to view (\33[;31mq to go back\33[;0m): ")
                     os.system('cls')
                     order = self.__order_service.get_completed_order_id(int(o_id))
                     self.print_receipt(order)
         except Exception:
             print("Something went wrong")
-        input("\33[;32m" + "Press enter to continue " + "\33[;0m")
+        input("\33[;32mPress enter to continue\33[;0m")
 
     def main_menu(self):
         action = ''
@@ -413,12 +411,12 @@ Customer
 
             elif action == '2':
                 self.return_car()
-                input("\33[;32m" + "Press enter to continue " + "\33[;0m")
+                input("\33[;32mPress enter to continue \33[;0m")
 
             elif action == '3':
                 orders = self.__order_service.get_orders()
                 self.print_current_orders(orders)
-                input("\33[;32m" + "Press enter to continue " + "\33[;0m")
+                input("\33[;32mPress enter to continue \33[;0m")
 
             elif action == '4':
                 self.completed_orders()
