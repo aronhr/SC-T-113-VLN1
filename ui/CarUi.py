@@ -36,7 +36,7 @@ class CarUi:
             self.print_cars(cars)
         else:
             print("\nNo available car exists\n")
-        input("Press enter to continue")
+        input("\33[;32m" + "Press enter to continue " + "\33[;0m")
 
     def list_cars_in_rent(self):
         cars = self.__car_service.get_not_available_cars()
@@ -44,7 +44,7 @@ class CarUi:
             self.print_cars(cars)
         else:
             print("\nNo unavailable cars exists\n")
-        input("Press enter to continue")
+        input("\33[;32m" + "Press enter to continue " + "\33[;0m")
 
     def cars_within_date(self):
         from_date = self.__car_service.user_date("\nEnter date from (dd/mm/yy): ")
@@ -54,7 +54,7 @@ class CarUi:
             self.print_cars(cars)
         else:
             print("\nNo available cars exists at that time\n")
-        input("Press enter to continue")
+        input("\33[;32m" + "Press enter to continue " + "\33[;0m")
 
     def list_all_cars(self):
         cars = self.__car_service.get_cars()
@@ -62,7 +62,7 @@ class CarUi:
             self.print_cars(cars)
         else:
             print("\nNo cars exists\n")
-        input("Press enter to continue")
+        input("\33[;32m" + "Press enter to continue " + "\33[;0m")
 
     def price_list(self):
         cars = self.__car_service.get_cars()
@@ -70,7 +70,7 @@ class CarUi:
             self.print_price(cars)
         else:
             print("\nAdd some cars to create price list\n")
-        input("Press enter to continue")
+        input("\33[;32m" + "Press enter to continue " + "\33[;0m")
 
     def create_new_car(self):
         try:
@@ -78,7 +78,7 @@ class CarUi:
             go = "N"
             while go != "Y":
                 try:
-                    license_plate = input("Enter license plate (q to quit): ").lower()
+                    license_plate = input("Enter license plate ((""\33[;31m" + " q to quit" + "\33[;0m""):").lower()
                     if license_plate == "q":
                         break
                     with urllib.request.urlopen("http://apis.is/car?number=" + license_plate) as url:
@@ -95,24 +95,24 @@ class CarUi:
             if go == "Y":
                 carclass = input("\tClass: ").translate(remove_punct_map)
                 seats = input("\tHow many seats: ").translate(remove_punct_map)
-                fwd = input("\t4x4 (Y/N): ").upper().translate(remove_punct_map)
+                fwd = input("\t4x4 (""\33[;32m" +"Y"+ "\33[;0m"+"/"+"\33[;31m" +"N"+"\33[;0m"")").upper().translate(remove_punct_map)
                 transmission = input("\tTransmission (A/M): ").upper().translate(remove_punct_map)
                 new_car = Car(model, subtype, carclass, seats, fwd, transmission, car["number"])
                 print(new_car)
-                if input("Do you want to create this car? (Y/N): ").upper() == "Y":
+                if input("Do you want to create this car? (""\33[;32m" +"Y"+ "\33[;0m"+"/"+"\33[;31m" +"N"+"\33[;0m").upper() == "Y":
                     self.__car_service.add_car(new_car)
                     print("Car created!")
                 else:
                     print("\nNo car created.\n")
         except Exception:
             print("\nSomething went wrong, please try again!\n")
-        input("Press enter to continue")
+        input("\33[;32m" + "Press enter to continue " + "\33[;0m")
 
     def edit_car(self):
         cars = self.__car_service.get_cars()
         if cars:
             self.print_cars(cars)
-            c_id = input("Select car by Id (q to go back): ").lower()
+            c_id = input("Select car by Id (""\33[;31m" + " q to go back" + "\33[;0m""):").lower()
             if c_id != "q":
                 try:
                     car = self.__car_service.get_car_by_id(int(c_id))
@@ -123,7 +123,7 @@ class CarUi:
                     choice = ""
                     while choice != "q":
                         print("\n1. Edit Brand\n2. Edit Type\n3. Edit Class\n4. Edit Seats\n5. Edit 4x4\n"
-                              "6. Edit Transmission\n7. Edit Status\npress q to quit")
+                              "6. Edit Transmission\n7. Edit Status\n""\33[;31m" + "press q to go quit" + "\33[;0m")
                         choice = input("Enter your choice: ").lower()
                         if choice == "1":
                             car.set_model(input("Enter new Brand: ").translate(remove_punct_map))
@@ -147,7 +147,7 @@ class CarUi:
                     print("Wrong input, try again")
         else:
             print("\nNo cars exists\n")
-        input("Press enter to continue")
+        input("\33[;32m" + "Press enter to continue " + "\33[;0m")
 
     def remove_car(self):
         cars = self.__car_service.get_cars()
@@ -163,15 +163,14 @@ class CarUi:
                     print("Wrong input, try again")
         else:
             print("\nNo cars exists\n")
-        input("Press enter to continue")
-
+        input("\33[;32m" + "Press enter to continue " + "\33[;0m")
     def main_menu(self):
         action = ""
         while action != "q":
             os.system('cls')
             print("Cars:")
             print("You can do the following: \n1. Available cars\n2. Unavailable cars\n3. Available cars within date"
-                  "\n4. All cars\n5. Price list\n6. Create new car\n7. Edit car\n8. Remove car\nPress q to go back")
+                  "\n4. All cars\n5. Price list\n6. Create new car\n7. Edit car\n8. Remove car\n""\33[;31m" + "Press q to go back" + "\33[;0m")
 
             action = input("\nChoose an option: ").lower()
 
