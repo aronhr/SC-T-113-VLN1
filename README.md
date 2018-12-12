@@ -31,3 +31,14 @@ Verklegt námskeið 1
 | 23 	 | Hafa breytilega verðskrá t.d. fast gjald og 100 km innifaldir per dag, gjald fyrir hvern umfram kílómetra er 1% af daggjaldi 			|	   |
 | 24 	 | Viðskiptavinur getur leigt bíl 																											|	x  |
 | 25 	 | Notandi getur skráð inn nýjan bíl. 																										|	 x |
+
+
+grænn: "\33[;32mPress enter to continue \33[;0m"
+rauður: "\33[;31mPress q to go back\33[;0m"
+
+(\33[;31mq to quit\33[;0m): ")
+
+
+
+
+Y/N = "\33[;32mY\33[;0m/\33[;31mN\33[;0m: "
