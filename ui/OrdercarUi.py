@@ -196,7 +196,7 @@ Customer
                             price_of_order_days = price_of_order * days     # Price for car multiplied with days
 
                             print("Price of order: {} ISK".format(price_of_order_days))
-                            insurance = input("Would you like extra insurance for {} ISK per day? ""\33[;32m" +"Y"+ "\33[;0m"+"/"+"\33[;31m" +"N"+"\33[;0m".format(int(price_of_order) * 0.75)).upper()    # Insurance (Yes or No)
+                            insurance = input("Would you like extra insurance for {} ISK per day? ""\33[;32m" + "Y" + "\33[;0m"+"/"+"\33[;31m" +"N"+"\33[;0m"": ".format(int(price_of_order) * 0.75)).upper()    # Insurance (Yes or No)
                             price_of_order_days_insurance = price_of_order_days
 
                             if insurance == 'Y':
@@ -208,7 +208,7 @@ Customer
 
                             print("Your deposit of the order is {} ISK".format(deposit))
 
-                            book = input("Order car? \33[;32m" +"Y"+ "\33[;0m"+"/"+"\33[;31m" +"N"+"\33[;0m").upper()
+                            book = input("Order car? \33[;32m" +"Y"+ "\33[;0m"+"/"+"\33[;31m" +"N"+"\33[;0m"": ").upper()
                             if book == 'Y':
                                 if customer:
                                     name = customer["Name"]
@@ -270,7 +270,7 @@ Customer
                 self.print_current_orders([order])
                 total_price = float(order["Total price"])
                 print("Your deposit was {} ISK".format(int(total_price * 0.10)))
-                choice = input("Are you sure you want to revoke the order? ""\33[;32m" +"Y"+ "\33[;0m"+"/"+"\33[;31m" +"N"+"\33[;0m").lower()
+                choice = input("Are you sure you want to revoke the order? ""\33[;32m" +"Y"+ "\33[;0m"+"/"+"\33[;31m" +"N"+"\33[;0m"": ").lower()
                 if choice == 'y':
                     self.__order_service.remove_order(o_id)
                     print("Order revoked and deposit returned")
@@ -351,7 +351,7 @@ Customer
         input("\33[;32m" + "Press enter to continue " + "\33[;0m")
 
     def get_order_history_of_customer(self):
-        kt = input("Enter passport number of the customer(""\33[;31m" + " q to go back" + "\33[;0m""):").upper()
+        kt = input("Enter passport number of the customer(""\33[;31m" + "q to go back" + "\33[;0m""): ").upper()
         if kt != "Q":
             orders = self.__order_service.get_available_order_customer(kt)
             self.print_completed_orders(orders)
@@ -368,7 +368,7 @@ Customer
         input("\33[;32m" + "Press enter to continue " + "\33[;0m")
 
     def history_of_car(self):
-        license = input("Enter car license plate (""\33[;31m" + " q to go back" + "\33[;0m""):").upper()
+        license = input("Enter car license plate (""\33[;31m" + "q to go back" + "\33[;0m""):").upper()
         if license != "Q":
             orders = self.__order_service.get_available_orders(license)
             self.print_completed_orders(orders)
@@ -380,7 +380,7 @@ Customer
             if self.print_completed_orders(completed_orders) == "No orders":
                 o_id = ''
                 while o_id != 'q':
-                    o_id = input("Select the order you want to view (""\33[;31m" + " q to go back" + "\33[;0m""):")
+                    o_id = input("Select the order you want to view (""\33[;31m" + "q to go back" + "\33[;0m""):")
                     os.system('cls')
                     order = self.__order_service.get_completed_order_id(int(o_id))
                     self.print_receipt(order)
