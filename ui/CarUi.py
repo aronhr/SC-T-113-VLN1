@@ -97,7 +97,7 @@ class CarUi:
             go = "N"
             while go != "Y":
                 try:
-                    license_plate = input("Enter license plate ((\33[;31mq to quit\33[;0m):").lower()
+                    license_plate = input("Enter license plate (\33[;31mq to quit\33[;0m):").lower()
                     if license_plate == "q":
                         break
                     with urllib.request.urlopen("http://apis.is/car?number=" + license_plate) as url:
