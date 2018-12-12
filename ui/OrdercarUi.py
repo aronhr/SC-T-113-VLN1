@@ -20,6 +20,12 @@ class OrdercarUi:
         self.__customer_service = CustomerService()
         self.__customer_repo = CustomerRepository()
 
+    def header(self, i):
+        print("-" * 50)
+        print("|{:^48}|".format(i))
+        print("-" * 50)
+        print()
+
     @staticmethod
     def print_current_orders(orders):
         print("{:^6}|{:^12}|{:^20}|{:^17}|{:^21}|{:^21}|{:^12}|{:^11}|{:^13}|{:^6}".format
@@ -129,6 +135,7 @@ Customer
         age = int(input("\tEnter age: "))
         new_customer = Customer(name, kt, country, address, mail, phone, customer_license, age)
         self.__customer_service.add_customer(new_customer)
+        return name
 
     def print_car_types(self):
         cars = self.__car_service.get_car_class()
@@ -142,10 +149,7 @@ Customer
             return False
 
     def rent_car(self):
-        print("-" * 50)
-        print("|{:^48}|".format("Rent car"))
-        print("-" * 50)
-        print()
+        self.header("Rent car")
 
         kt = input("\tEnter Kt/Passport number: ").translate(remove_punct_map)
         customer = self.__order_service.check_kt(kt)
@@ -153,7 +157,7 @@ Customer
         if customer:
             self.print_customer(customer)
         else:
-            self.create_customer(kt)
+            name = self.create_customer(kt)
 
         approved = False
         while not approved:
@@ -229,10 +233,7 @@ Customer
         input("\33[;32mPress enter to continue \33[;0m")
 
     def return_car(self):
-        print("-" * 50)
-        print("|{:^48}|".format("Return car"))
-        print("-" * 50)
-        print()
+        self.header("Return car")
         try:
             orders = self.__order_service.get_orders()
             if orders:
@@ -265,10 +266,7 @@ Customer
             print("Something went wrong, please try again")
 
     def revoke_order(self):
-        print("-" * 50)
-        print("|{:^48}|".format("Revoke order"))
-        print("-" * 50)
-        print()
+        self.header("Revoke order")
         try:
             orders = self.__order_service.get_orders()
             if orders:
@@ -291,10 +289,7 @@ Customer
         input("\33[;32mPress enter to continue \33[;0m")
 
     def edit_current_order(self):
-        print("-" * 50)
-        print("|{:^48}|".format("Edit order"))
-        print("-" * 50)
-        print()
+        self.header("Edit order")
         orders = self.__order_service.get_orders()
         if orders:
             self.print_current_orders(orders)
@@ -344,10 +339,7 @@ Customer
         input("\33[;32mPress enter to continue \33[;0m")
 
     def history_of_car(self):
-        print("-" * 50)
-        print("|{:^48}|".format("Order history of car"))
-        print("-" * 50)
-        print()
+        self.header("Order history of car")
         car_license = input("Enter car license plate (\33[;31mq to go back\33[;0m): ").upper()
         car_orders = self.__order_service.get_available_orders(car_license)
         car = self.__car_service.get_car_by_license(car_license)
@@ -362,10 +354,7 @@ Customer
         input("\33[;32mPress enter to continue \33[;0m")
 
     def completed_orders(self):
-        print("-" * 50)
-        print("|{:^48}|".format("Completed orders"))
-        print("-" * 50)
-        print()
+        self.header("Completed orders")
        
         try:
             completed_orders = self.__order_service.get_completed_orders()
@@ -388,10 +377,7 @@ Customer
         action = ''
         while action != 'q':
             os.system('cls')
-            print("-" * 50)
-            print("|{:^48}|".format("Orders"))
-            print("-" * 50)
-            print()
+            self.header("Orders")
             print("You can do the following: ")
             print("1. Rent a car")
             print("2. Return car")

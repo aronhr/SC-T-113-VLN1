@@ -14,6 +14,12 @@ class CustomerUi:
         self.__order_service = OrderService()
         self.__orderUi = OrdercarUi()
 
+    def header(self, i):
+        print("-" * 50)
+        print("|{:^48}|".format(i))
+        print("-" * 50)
+        print()
+
     @staticmethod
     def print_customers(customers):
         print("{:^6}|{:^18}|{:^17}|{:^11}|{:^17}|{:^30}|{:^14}|{:^18}|{:^5}|".format
@@ -26,10 +32,7 @@ class CustomerUi:
         print()
 
     def add_customer(self):
-        print("-" * 50)
-        print("|{:^48}|".format("Add customer"))
-        print("-" * 50)
-        print()
+        self.header("Add customer")
         try:
             print("Creating customer:")
             kt = input("\tEnter kt/passport number: ").translate(remove_punct_map)
@@ -55,10 +58,7 @@ class CustomerUi:
         input("\33[;32mPress enter to continue \33[;0m")
 
     def list_all_customers(self):
-        print("-" * 50)
-        print("|{:^48}|".format("All customers"))
-        print("-" * 50)
-        print()
+        self.header("All customers")
         customers = self.__customer_service.get_customers()
         if customers:
             self.print_customers(customers)
@@ -67,10 +67,7 @@ class CustomerUi:
         input("\33[;32mPress enter to continue \33[;0m")
 
     def edit_customer(self):
-        print("-" * 50)
-        print("|{:^48}|".format("Edit customer"))
-        print("-" * 50)
-        print()
+        self.header("Edit customer")
         customers = self.__customer_service.get_customers()
         if customers:
             e_action = ''
@@ -119,10 +116,7 @@ class CustomerUi:
         input("\33[;32mPress enter to continue \33[;0m")
 
     def remove_customer(self):
-        print("-" * 50)
-        print("|{:^48}|".format("Remove customer"))
-        print("-" * 50)
-        print()
+        self.header("Remove customer")
         customers = self.__customer_service.get_customers()
         if customers:
             self.print_customers(customers)
@@ -145,10 +139,7 @@ class CustomerUi:
         action = ""
         while action != 'q':
             os.system('cls')
-            print("-" * 50)
-            print("|{:^48}|".format("Customers"))
-            print("-" * 50)
-            print()
+            self.header("Remove customer")
             print("You can do the following: \n1. Add a customer\n2. List all customers\n3. Edit customer"
                   "\n4. Remove customer\n\n""\33[;31mPress q to go back \33[;0m")
             action = input("\nChoose an option: ").lower()

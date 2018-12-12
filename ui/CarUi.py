@@ -13,6 +13,12 @@ class CarUi:
     def __init__(self):
         self.__car_service = CarService()
 
+    def header(self, i):
+        print("-" * 50)
+        print("|{:^48}|".format(i))
+        print("-" * 50)
+        print()
+
     @staticmethod
     def print_cars(cars):
         print("{:^6}|{:^12}|{:^12}|{:^10}|{:^7}|{:^7}|{:^14}|{:^11}|{:^15}|{:^9}".format
@@ -38,10 +44,7 @@ class CarUi:
         print()
 
     def list_available_cars(self):
-        print("-" * 50)
-        print("|{:^48}|".format("Available cars"))
-        print("-" * 50)
-        print()
+        self.header("Available cars")
         cars = self.__car_service.get_available_cars()
         if cars:
             self.print_cars(cars)
@@ -50,10 +53,7 @@ class CarUi:
         input("\33[;32mPress enter to continue \33[;0m")
 
     def list_cars_in_rent(self):
-        print("-" * 50)
-        print("|{:^48}|".format("Cars in rent"))
-        print("-" * 50)
-        print()
+        self.header("Cars in rent")
         cars = self.__car_service.get_not_available_cars()
         if cars:
             self.print_cars(cars)
@@ -62,10 +62,7 @@ class CarUi:
         input("\33[;32mPress enter to continue \33[;0m")
 
     def cars_within_date(self):
-        print("-" * 50)
-        print("|{:^48}|".format("Available cars within date"))
-        print("-" * 50)
-        print()
+        self.header("Available cars within date")
         from_date = self.__car_service.user_date("\nEnter date from (dd/mm/yy): ")
         to_date = self.__car_service.user_date("Enter date to (dd/mm/yy): ")
         cars = self.__car_service.get_available_date_cars(from_date, to_date)
@@ -76,10 +73,7 @@ class CarUi:
         input("\33[;32mPress enter to continue \33[;0m")
 
     def list_all_cars(self):
-        print("-" * 50)
-        print("|{:^48}|".format("All cars"))
-        print("-" * 50)
-        print()
+        self.header("All cars")
         cars = self.__car_service.get_cars()
         if cars:
             self.print_cars(cars)
@@ -88,10 +82,7 @@ class CarUi:
         input("\33[;32mPress enter to continue \33[;0m")
 
     def price_list(self):
-        print("-" * 50)
-        print("|{:^48}|".format("Price list"))
-        print("-" * 50)
-        print()
+        self.header("Price list")
         cars = self.__car_service.get_cars()
         if cars:
             self.print_price(cars)
@@ -100,16 +91,13 @@ class CarUi:
         input("\33[;32mPress enter to continue \33[;0m")
 
     def create_new_car(self):
-        print("-" * 50)
-        print("|{:^48}|".format("Create new car"))
-        print("-" * 50)
-        print()
+        self.header("Create new car")
         try:
             print("Creating car:")
             go = "N"
             while go != "Y":
                 try:
-                    license_plate = input("Enter license plate ((\33[;31mq to quit\33[;0m):").lower()
+                    license_plate = input("Enter license plate (\33[;31mq to quit\33[;0m):").lower()
                     if license_plate == "q":
                         break
                     with urllib.request.urlopen("http://apis.is/car?number=" + license_plate) as url:
@@ -143,10 +131,7 @@ class CarUi:
         input("\33[;32mPress enter to continue \33[;0m")
 
     def edit_car(self):
-        print("-" * 50)
-        print("|{:^48}|".format("Edit car"))
-        print("-" * 50)
-        print()
+        self.header("Edit car")
         cars = self.__car_service.get_cars()
         if cars:
             self.print_cars(cars)
@@ -190,10 +175,7 @@ class CarUi:
         input("\33[;32mPress enter to continue \33[;0m")
 
     def remove_car(self):
-        print("-" * 50)
-        print("|{:^48}|".format("Remove car"))
-        print("-" * 50)
-        print()
+        self.header("Remove car")
         cars = self.__car_service.get_cars()
         if cars:
             self.print_cars(cars)
@@ -216,10 +198,7 @@ class CarUi:
         action = ""
         while action != "q":
             os.system('cls')
-            print("-" * 50)
-            print("|{:^48}|".format("Cars"))
-            print("-" * 50)
-            print()
+            self.header("Cars")
             print("You can do the following: \n1. Available cars\n2. Unavailable cars\n3. Available cars within date"
                   "\n4. All cars\n5. Price list\n6. Create new car\n7. Edit car\n8. Remove car\n\n""\33[;31mPress q to go back \33[;0m")
 
