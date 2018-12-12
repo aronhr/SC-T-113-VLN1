@@ -44,27 +44,28 @@ class EmployeeUI:
                     age = int(input("\tEnter age: "))
                     new_employee = Employee(name, kt, country, address, mail, phone, customer_license, age)
                     print(new_employee)
-                    if input("Do you want to create this Employee? (Y/N) ").upper() == "Y":
+                    if input("Do you want to create this Employee? \33[;32mY\33[;0m/\33[;31mN\33[;0m: ").upper() == "Y":
                         self.__employee_service.add_employee(new_employee)
                         print("\nEmployee created!\n")
                     else:
                         print("\nNo employee created.\n")
                 except Exception:
                     print("\nSomething went wrong, no employee created.\n")
-                input("Press enter to continue")
+                input("\33[;32mPress enter to continue \33[;0m")
+
 
             elif action == '2':
                 if employees:
                     self.print_employees(employees)
                 else:
                     print("\nNo employees\n")
-                input("Press enter to continue")
+                input("\33[;32mPress enter to continue \33[;0m")
 
             elif action == "3":
                 if employees:
                         self.print_employees(employees)
-                        employee_to_delete = int(input("Select employee by Id (q to quit): "))
-                        if employee_to_delete !="q":
+                        employee_to_delete = input("Select employee by Id (\33[;31mq to quit\33[;0m): ")
+                        if employee_to_delete != "q":
                             try:
                                 are_you_sure = input("Are you sure you want to delete this employee? (Y/N) ").lower()
                                 if are_you_sure == "y":
@@ -75,23 +76,23 @@ class EmployeeUI:
                                 print("\nCanceled\n")
                 else:
                     print("\nNo employee to delete\n")
-                input("Press enter to continue")
+                input("\33[;32mPress enter to continue \33[;0m")
 
             elif action == "4":
                 if employees:
-                    try:
-                        self.print_employees(employees)
-                        c_id = int(input("Select employee by Id (q to quit): "))
-
+                    self.print_employees(employees)
+                    c_id = input("Select employee by Id (\33[;31mq to quit\33[;0m): ")
+                    if c_id.isdigit():
+                        c_id = int(c_id)
                         employee = self.__employee_service.get_employee_by_id(c_id)
                         self.print_employees([employee])
                         employee = Employee(employee["Name"], employee["Passport number"], employee["Country"], employee["Address"], employee["Mail"], employee["Phone number"],
-                                  int(employee["license"]), employee["Age"])
+                                int(employee["license"]), employee["Age"])
 
                         choice = ""
                         while choice != "q":
                             print("\n1. Edit Name\n2. Edit Passport\n3. Edit country\n4. Edit Address\n5. Edit mail\n"
-                                  "6. Edit Phone number\n7. Edit license\n8. Edit Age\npress q to quit")
+                                  "6. Edit Phone number\n7. Edit license\n8. Edit Age\n\n\33[;31mPress q to go back\33[;0m\n")
                             choice = input("Enter your choice: ").lower()
                             if choice == "1":
                                 employee.set_name(input("Enter new Name: ").translate(remove_punct_map))
@@ -113,8 +114,7 @@ class EmployeeUI:
                         self.__employee_service.remove_employee(c_id)
                         self.__employee_service.add_employee(employee)
                         print(employee)
-                    except Exception:
-                        print("\nSomething went wrong!\n")
+
                 else:
-                    print("\nNo employee to edit\n")
-                input("Press enter to continue")
+                    print("\n\33[;31mNo employee to edit\33[;0m\n")
+                input("\33[;32mPress enter to continue \33[;0m")
