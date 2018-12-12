@@ -10,6 +10,12 @@ class EmployeeUI:
     def __init__(self):
         self.__employee_service = EmployeeService()
 
+    def header(self, i):
+        print("-" * 50)
+        print("|{:^48}|".format(i))
+        print("-" * 50)
+        print()
+
     @staticmethod
     def print_employees(emp):
         print(
@@ -24,10 +30,7 @@ class EmployeeUI:
         print()
 
     def add_employee(self):
-        print("-" * 50)
-        print("|{:^48}|".format("Add employee"))
-        print("-" * 50)
-        print()
+        self.header("Add employee")
         try:
             print("Creating Employee:")
             name = input("\tEnter name: ").translate(remove_punct_map)
@@ -50,10 +53,7 @@ class EmployeeUI:
         input("Press enter to continue")
 
     def list_employees(self, employees):
-        print("-" * 50)
-        print("|{:^48}|".format("Employees"))
-        print("-" * 50)
-        print()
+        self.header("Employees")
         if employees:
             self.print_employees(employees)
         else:
@@ -61,10 +61,7 @@ class EmployeeUI:
         input("Press enter to continue")
 
     def remove_employee(self, employees):
-        print("-" * 50)
-        print("|{:^48}|".format("Remove employee"))
-        print("-" * 50)
-        print()
+        self.header("Remove employee")
         if employees:
             self.print_employees(employees)
             employee_to_delete = int(input("Select employee by Id (q to quit): "))
@@ -82,10 +79,7 @@ class EmployeeUI:
         input("Press enter to continue")
 
     def edit_employee(self, employees):
-        print("-" * 50)
-        print("|{:^48}|".format("Edit employee"))
-        print("-" * 50)
-        print()
+        self.header("Edit employee")
         if employees:
             try:
                 self.print_employees(employees)
@@ -133,9 +127,7 @@ class EmployeeUI:
         while action != 'q':
             employees = self.__employee_service.get_employees()
             os.system('cls')
-            print("-" * 50)
-            print("|{:^48}|".format("Employees"))
-            print("-" * 50)
+            self.header("Employees")
             print("You can do the following: ")
             print(
                 "1. Add a employee\n2. List all employees\n3. Remove employee\n4. Edit employee\n\n""\33[;31mPress q to go back \33[;0m")
