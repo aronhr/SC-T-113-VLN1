@@ -152,7 +152,9 @@ class CarUi:
                             car.set_status(input("Enter new status: (T/F): ").upper().translate(remove_punct_map))
                     self.__car_service.remove_car(int(c_id))
                     self.__car_service.add_car(car)
+                    print("\nThe car has been edited\n")
                     print(car)
+
                 except Exception:
                     print("Wrong input, try again")
         else:
@@ -170,6 +172,7 @@ class CarUi:
                     if are_you_sure == "y":
                         car = self.__car_service.get_car_by_id(int(c_id))
                         self.print_cars([car])
+                        print("Car number {} has been deleted".format(c_id))
                         self.__car_service.remove_car(int(c_id))
                 except Exception:
                     print("Wrong input, try again")
