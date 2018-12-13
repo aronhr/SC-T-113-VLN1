@@ -46,15 +46,15 @@ class EmployeeUI:
                 age = int(input("\tEnter age: "))
                 new_employee = Employee(name, kt, country, address, mail, phone, customer_license, age)
                 print(new_employee)
-                if input("Do you want to create this Employee? (Y/N) ").upper() == "Y":
+                if input("Do you want to create this Employee? (\33[;32mY\33[;0m/\33[;31mN\33[;0m: ) ").upper() == "Y":
                     self.__employee_service.add_employee(new_employee)
                     print("\nEmployee created!\n")
                 else:
                     print("\nNo employee created.\n")
 
         except Exception:
-            print("\nSomething went wrong, no employee created.\n")
-        input("Press enter to continue")
+            print("\n\33[;31mSomething went wrong, no employee created.\33[;0m\n")
+        input("\33[;32mPress enter to continue \33[;0m")
 
     def list_employees(self, employees):
         self.header("Employees")
@@ -62,7 +62,7 @@ class EmployeeUI:
             self.print_employees(employees)
         else:
             print("\nNo employees\n")
-        input("Press enter to continue")
+        input("\33[;32mPress enter to continue \33[;0m")
 
     def remove_employee(self, employees):
         self.header("Remove employee")
@@ -70,24 +70,24 @@ class EmployeeUI:
             removing = True
             while removing:
                 self.print_employees(employees)
-                employee_to_delete = input("Select employee by Id (q to quit): ")
+                employee_to_delete = input("Select employee by Id (\33[;31mq to quit\33[;0m): ")
                 if employee_to_delete.isdigit():
                     try:
-                        are_you_sure = input("Are you sure you want to delete this employee? (Y/N) ").lower()
+                        are_you_sure = input("Are you sure you want to delete this employee? (\33[;32mY\33[;0m/\33[;31mN\33[;0m): ").lower()
                         if are_you_sure == "y":
                             emp = self.__employee_service.get_employee_by_id(int(employee_to_delete))
                             self.print_employees([emp])
                             self.__employee_service.remove_employee(int(employee_to_delete))
                             removing = False
                     except Exception:
-                        print("\nCanceled\n")
+                        print("\n\33[;31mCanceled\33[;0m\n")
                 elif employee_to_delete.lower() == 'q':
                     break
                 else:
                     print("\nPlease enter a correct input\n")
         else:
             print("\nNo employee to delete\n")
-        input("Press enter to continue")
+        input("\33[;32mPress enter to continue \33[;0m")
 
     def edit_employee(self, employees):
         self.header("Edit employee")
@@ -96,7 +96,7 @@ class EmployeeUI:
                 editing = True
                 while editing:
                     self.print_employees(employees)
-                    c_id = input("Select employee by Id (q to quit): ")
+                    c_id = input("Select employee by Id (\33[;31mq to quit\33[;0m): ")
                     if c_id.isdigit():
                         employee = self.__employee_service.get_employee_by_id(int(c_id))
                         self.print_employees([employee])
@@ -107,7 +107,7 @@ class EmployeeUI:
                         choice = ""
                         while choice != "q":
                             print("\n1. Edit Name\n2. Edit Passport\n3. Edit country\n4. Edit Address\n5. Edit mail\n"
-                                  "6. Edit Phone number\n7. Edit license\n8. Edit Age\npress q to quit")
+                                  "6. Edit Phone number\n7. Edit license\n8. Edit Age\n\33[;31mPress q to quit\33[;0m")
                             choice = input("Enter your choice: ").lower()
                             if choice == "1":
                                 employee.set_name(input("Enter new Name: ").translate(remove_punct_map))
@@ -135,7 +135,7 @@ class EmployeeUI:
                     else:
                         print("\nPlease enter a correct input\n")
             except Exception:
-                print("\nSomething went wrong!\n")
+                print("\n\33[;31mSomething went wrong!\33[;0m\n")
         else:
             print("\nNo employee to edit\n")
         input("Press enter to continue")
