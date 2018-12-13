@@ -98,7 +98,7 @@ class CarUi:
             go = "N"
             while go != "Y":
                 try:
-                    license_plate = input("Enter license plate (\33[;31mq to quit\33[;0m):").lower()
+                    license_plate = input("Enter license plate (\33[;31mq to quit\33[;0m): ").lower()
                     if license_plate == "q":
                         break
                     with urllib.request.urlopen("http://apis.is/car?number=" + license_plate) as url:
@@ -121,8 +121,7 @@ class CarUi:
                 transmission = input("\tTransmission (A/M): ").upper().translate(remove_punct_map)
                 new_car = Car(model, subtype, carclass, seats, fwd, transmission, car["number"])
                 print(new_car)
-                if input(
-                        "Do you want to create this car? (\33[;32mY\33[;0m/\33[;31mN\33[;0m): ").upper() == "Y":
+                if input("Do you want to create this car? (\33[;32mY\33[;0m/\33[;31mN\33[;0m): ").upper() == "Y":
                     self.__car_service.add_car(new_car)
                     print("\nCar created!\n")
                 else:
