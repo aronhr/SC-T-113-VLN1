@@ -14,7 +14,8 @@ class CustomerUi:
         self.__order_service = OrderService()
         self.__orderUi = OrdercarUi()
 
-    def header(self, i):
+    @staticmethod
+    def header(i):
         print("-" * 50)
         print("|{:^48}|".format(i))
         print("-" * 50)
@@ -63,76 +64,90 @@ class CustomerUi:
         if customers:
             self.print_customers(customers)
         else:
-            print("\nNo customers\n")
+            print("No customers\n")
         input("\33[;32mPress enter to continue\33[;0m")
 
     def edit_customer(self):
         self.header("Edit customer")
         customers = self.__customer_service.get_customers()
         if customers:
-            e_action = ''
-            self.print_customers(customers)
-            customer_id = input("Which customer do you want to edit? (\33[;31mq to quit\33[;0m): ").lower()
-            if customer_id != "q":
-                try:
-                    customer_id = int(customer_id)
+            editing_customer = True
+            while editing_customer:
+                e_action = ''
+                self.print_customers(customers)
+                customer_id = input("Which customer do you want to edit? (\33[;31mq to quit\33[;0m): ").lower()
+                if customer_id.isdigit() and int(customer_id) <= len(customers):
+                    try:
+                        customer_id = int(customer_id)
 
-                    customer = self.__customer_service.get_customer_by_id(customer_id)
-                    self.__customer_service.print_customer(customer_id)
-                    new_customer = Customer(customer["Name"], customer["Passport number"], customer["Country"],
-                                            customer["Address"],
-                                            customer["Mail"], customer["Phone number"], customer["license"],
-                                            customer["Age"])
+                        customer = self.__customer_service.get_customer_by_id(customer_id)
+                        self.__customer_service.print_customer(customer_id)
+                        new_customer = Customer(customer["Name"], customer["Passport number"], customer["Country"],
+                                                customer["Address"],
+                                                customer["Mail"], customer["Phone number"], customer["license"],
+                                                customer["Age"])
 
-                    while e_action != 'q':
-                        print("\n1. Passport number/kt.\n2. Name\n3. Country\n4. Address\n5. Phone number"
-                              "\n6. E-mail\n7. Driving license\n8. Age\n\33[;31mPress q to go back\33[;0m")
+                        while e_action != 'q':
+                            print("\n1. Passport number/kt.\n2. Name\n3. Country\n4. Address\n5. Phone number"
+                                  "\n6. E-mail\n7. Driving license\n8. Age\n\n\33[;31mPress q to go back\33[;0m\n")
 
-                        e_action = input("Choose an option: ").lower()
+                            e_action = input("Choose an option: ").lower()
 
-                        if e_action == '1':
-                            new_customer.set_kt(input("Enter passport number/kt: ").translate(remove_punct_map))
-                        elif e_action == '2':
-                            new_customer.set_name(input("Enter name: ").translate(remove_punct_map))
-                        elif e_action == '3':
-                            new_customer.set_country(input("Enter country: ").translate(remove_punct_map))
-                        elif e_action == '4':
-                            new_customer.set_address(input("Enter address: ").translate(remove_punct_map))
-                        elif e_action == '5':
-                            new_customer.set_phone_number(input("Enter phone number: ").translate(remove_punct_map))
-                        elif e_action == '6':
-                            new_customer.set_mail(input("Enter mail: ").strip())
-                        elif e_action == '7':
-                            new_customer.set_license(input("Enter driving license: ").translate(remove_punct_map))
-                        elif e_action == '8':
-                            new_customer.set_age(input("Enter age: ").translate(remove_punct_map))
+                            if e_action == '1':
+                                new_customer.set_kt(input("Enter passport number/kt: ").translate(remove_punct_map))
+                            elif e_action == '2':
+                                new_customer.set_name(input("Enter name: ").translate(remove_punct_map))
+                            elif e_action == '3':
+                                new_customer.set_country(input("Enter country: ").translate(remove_punct_map))
+                            elif e_action == '4':
+                                new_customer.set_address(input("Enter address: ").translate(remove_punct_map))
+                            elif e_action == '5':
+                                new_customer.set_phone_number(input("Enter phone number: ").translate(remove_punct_map))
+                            elif e_action == '6':
+                                new_customer.set_mail(input("Enter mail: ").strip())
+                            elif e_action == '7':
+                                new_customer.set_license(input("Enter driving license: ").translate(remove_punct_map))
+                            elif e_action == '8':
+                                new_customer.set_age(input("Enter age: ").translate(remove_punct_map))
 
-                    self.__customer_service.add_customer(new_customer)
-                    self.__customer_service.remove_customer(customer_id)
-                except Exception:
+                        self.__customer_service.remove_customer(customer_id)
+                        self.__customer_service.add_customer(new_customer)
+                        print("\nCustomer edited\n")
+                        editing_customer = False
+                        break
+                    except Exception:
+                        print("\n\33[;31mWrong input, try again!\33[;0m\n")
+                else:
                     print("\n\33[;31mWrong input, try again!\33[;0m\n")
         else:
-            print("\nNo customers to edit\n")
+            print("No customers to edit\n")
         input("\33[;32mPress enter to continue \33[;0m")
 
     def remove_customer(self):
         self.header("Remove customer")
         customers = self.__customer_service.get_customers()
         if customers:
-            self.print_customers(customers)
-            customer_to_delete = input("What customer would you like to remove? (\33[;31mq to quit\33[;0m): ").lower()
-            if customer_to_delete != "q":
-                try:
-                    are_you_sure = input("Are you sure you want to remove this customer? (\33[;32mY\33[;0m/\33[;31mN\33[;0m): ").lower()
-                    if are_you_sure == "y":
-                        customer_to_delete = int(customer_to_delete)
-                        print("\nCustomer number {} removed\n".format(customer_to_delete))
-                        self.__customer_service.remove_customer(customer_to_delete)
-
-                except Exception:
-                    print("\n\33[;31mWrong input, try again!\33[;0m")
+            removing_customer = True
+            while removing_customer:
+                self.print_customers(customers)
+                customer_to_delete = input("What customer would you like to remove? (\33[;31mq to quit\33[;0m): ").lower()
+                if customer_to_delete.isdigit() and int(customer_to_delete) <= len(customers) + 1:
+                    try:
+                        are_you_sure = input("Are you sure you want to remove this customer? (\33[;32mY\33[;0m/\33[;31mN\33[;0m): ").lower()
+                        if are_you_sure == "y":
+                            customer_to_delete = int(customer_to_delete)
+                            print("\nCustomer number {} removed\n".format(customer_to_delete))
+                            self.__customer_service.remove_customer(customer_to_delete)
+                            removing_customer = False
+                    except Exception:
+                        print("\n\33[;31mWrong input, try again!\33[;0m")
+                elif customer_to_delete.lower() == 'q':
+                    removing_customer = False
+                    break
+                else:
+                    print("\n\33[;31mWrong input, try again!\33[;0m\n")
         else:
-            print("\n\33[;31mNo customers to delete!\33[;0m\n")
+            print("\33[;31mNo customers to delete!\33[;0m\n")
         input("\33[;32mPress enter to continue \33[;0m")
 
     def main_menu(self):
