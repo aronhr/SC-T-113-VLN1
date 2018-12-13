@@ -101,9 +101,9 @@ Customer
                                 car_price=car["Price"], price=order["Price"], order_insurance=order["Insurance"],
                                 order_days=order["Days"], order_price=order["Total price"],
                                 car_order_price=(int(car["Price"]) * int(order["Days"])),
-                                insurance_order_price=t_price,
-                                insurance_price=i_price, from_day=order["From date"], to_day=order["To date"],
-                                order_penalty=order["Penalty"])
+                                insurance_order_price=round(t_price),
+                                insurance_price=round(i_price), from_day=order["From date"], to_day=order["To date"],
+                                order_penalty=round(float(order["Penalty"])))
         print(output)
 
     @staticmethod
@@ -266,13 +266,14 @@ Customer
                         self.print_current_orders([order])
                         price = float(order["Total price"])
                         while correct_km:
+                            current_order.set_penalty(0)
                             km_length = input("Enter the km driven: ")
                             if km_length.isdigit():
                                 max_km = 100 * int(order["Days"])
                                 penalty = 0
                                 if int(km_length) > max_km:
                                     for x in range(int(km_length) - max_km):
-                                        penalty += price * 0.01
+                                        penalty += int(order["Price"]) / int(order["Days"]) * 0.01
                                 current_order.set_price_insurance(price+penalty)
                                 current_order.set_penalty(penalty)
                                 self.__order_service.remove_order(o_id)
@@ -287,6 +288,7 @@ Customer
                                     correct_km = False
                                 else:
                                     print("\nCar payment not accepted!\n")
+                                break
                             else:
                                 print("\nPlease enter a correct input\n")
 
