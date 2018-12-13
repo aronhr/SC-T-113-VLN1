@@ -127,18 +127,16 @@ class EmployeeUI:
                                 elif choice == "8":
                                     new_employee.set_age(input("Enter new Age: ").replace(string.punctuation, ""))
 
-                            if self.__employee_service.remove_employee(int(c_id)):
-                                self.__employee_service.add_employee(new_employee)
-                                print(new_employee)
-                                editing = False
-                            else:
-                                print("\nPlease enter a correct input\n")
+                            self.__employee_service.remove_employee(int(c_id))
+                            self.__employee_service.add_employee(new_employee)
+                            print(new_employee)
+                            editing = False
                     elif c_id.lower() == 'q':
                         break
                     else:
-                        print("\nPlease enter a correct input\n")
-            except Exception as e:
-                print("\n\33[;31mSomething went wrong!\33[;0m\n", e)
+                        print("\n\33[;31mPlease enter a correct input\33[;0m\n")
+            except Exception:
+                print("\n\33[;31mSomething went wrong!\33[;0m\n")
         else:
             print("No employee to edit\n")
         input("\33[;32mPress enter to continue \33[;0m")
