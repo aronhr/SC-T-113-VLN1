@@ -184,17 +184,15 @@ Customer
                         car_type = input("\tEnter type of car (\33[;31mq to quit\33[;0m): ").translate(remove_punct_map).capitalize()
                         if car_type.upper() == "Q":
                             break
-
+                            
                         car_class = self.__car_service.get_car_class()
                         available_cars_type = self.__car_service.get_available_date_type(car_type, from_date, to_date)
 
                         if car_type not in car_class:
                             print("\nNo such class of car available\n")
 
-                        # TODO: If no cars are available all cars that are not available gets printed out!
-
                         if not available_cars_type:
-                            i = input("No cars available,(\33[;31mpress q to quit\33[;0m,\33[;32m enter to select another date\33[;0m)")
+                            i = input("\tNo cars available,(\33[;31mpress q to quit\33[;0m,\33[;32m enter to select another date\33[;0m)")
                             if i == "q":
                                 break
                         if car_type in car_class and available_cars_type:
@@ -468,7 +466,10 @@ Customer
 
             elif action == '3':
                 orders = self.__order_service.get_orders()
-                self.print_current_orders(orders)
+                if orders:
+                    self.print_current_orders(orders)
+                else:
+                    print("\nNo orders\n")
                 input("\33[;32mPress enter to continue \33[;0m")
 
             elif action == '4':
