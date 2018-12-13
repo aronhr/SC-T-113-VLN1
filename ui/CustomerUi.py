@@ -48,14 +48,14 @@ class CustomerUi:
                 age = int(input("\tEnter age: ").translate(remove_punct_map))
                 new_customer = Customer(name, kt, country, address, mail, phone, customer_license, age)
                 print(new_customer)
-                if input("Do you want create this customer? (Y/N): ").upper() == "Y":
+                if input("Do you want create this customer? (\33[;32mY\33[;0m/\33[;31mN\33[;0m): ").upper() == "Y":
                     self.__customer_service.add_customer(new_customer)
                     print("\nCustomer created!\n")
             else:
                 print("\nNo customer created.\n")
         except Exception:
             print("\n\33[;31mSomething went wrong, please try again!\33[;0m\n")
-        input("\33[;32mPress enter to continue \33[;0m")
+        input("\33[;32mPress enter to continue\33[;0m")
 
     def list_all_customers(self):
         self.header("All customers")
@@ -64,7 +64,7 @@ class CustomerUi:
             self.print_customers(customers)
         else:
             print("\nNo customers\n")
-        input("\33[;32mPress enter to continue \33[;0m")
+        input("\33[;32mPress enter to continue\33[;0m")
 
     def edit_customer(self):
         self.header("Edit customer")
@@ -123,10 +123,10 @@ class CustomerUi:
             customer_to_delete = input("What customer would you like to remove? (\33[;31mq to quit\33[;0m): ").lower()
             if customer_to_delete != "q":
                 try:
-                    are_you_sure = input("Are you sure you want to delete this customer? (\33[;32mY\33[;0m/\33[;31mN\33[;0m): ").lower()
+                    are_you_sure = input("Are you sure you want to remove this customer? (\33[;32mY\33[;0m/\33[;31mN\33[;0m): ").lower()
                     if are_you_sure == "y":
                         customer_to_delete = int(customer_to_delete)
-                        print("\ncustomer number {} deleted\n".format(customer_to_delete))
+                        print("\nCustomer number {} removed\n".format(customer_to_delete))
                         self.__customer_service.remove_customer(customer_to_delete)
 
                 except Exception:
@@ -141,7 +141,7 @@ class CustomerUi:
             os.system('cls')
             self.header("Customer")
             print("You can do the following: \n1. Add a customer\n2. List all customers\n3. Edit customer"
-                  "\n4. Remove customer\n\n""\33[;31mPress q to go back \33[;0m")
+                  "\n4. Remove customer\n\n""\33[;31mPress q to go back\33[;0m")
             action = input("\nChoose an option: ").lower()
             print()
             if action == "1":
