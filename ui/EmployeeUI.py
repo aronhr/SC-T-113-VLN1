@@ -97,43 +97,44 @@ class EmployeeUI:
                 while editing:
                     self.print_employees(employees)
                     c_id = input("Select employee by Id (\33[;31mq to quit\33[;0m): ")
-                    if c_id.isdigit():
+                    if c_id.isdigit() and int(c_id) <= len(employees):
                         employee = self.__employee_service.get_employee_by_id(int(c_id))
-                        self.print_employees([employee])
-                        employee = Employee(employee["Name"], employee["Passport number"], employee["Country"],
-                                            employee["Address"], employee["Mail"], employee["Phone number"],
-                                            int(employee["license"]), employee["Age"])
+                        if employee:
+                            self.print_employees([employee])
+                            new_employee = Employee(employee["Name"], employee["Passport number"], employee["Country"],
+                                                employee["Address"], employee["Mail"], employee["Phone number"],
+                                                int(employee["license"]), employee["Age"])
 
-                        choice = ""
-                        while choice != "q":
-                            print("\n1. Edit Name\n2. Edit Passport\n3. Edit country\n4. Edit Address\n5. Edit mail\n"
-                                  "6. Edit Phone number\n7. Edit license\n8. Edit Age\n\33[;31mPress q to quit\33[;0m")
-                            choice = input("Enter your choice: ").lower()
-                            if choice == "1":
-                                employee.set_name(input("Enter new Name: ").translate(remove_punct_map))
-                            elif choice == "2":
-                                employee.set_kt(input("Enter new Passport: ").translate(remove_punct_map))
-                            elif choice == "3":
-                                employee.set_country(input("Enter new Country: ").translate(remove_punct_map))
-                            elif choice == "4":
-                                employee.set_address(input("Enter Address: ").translate(remove_punct_map))
-                            elif choice == "5":
-                                employee.set_mail(input("Enter new Mail: "))
-                            elif choice == "6":
-                                employee.set_phone_number(input("Enter new Phone number: ").translate(remove_punct_map))
-                            elif choice == "7":
-                                employee.set_license(input("Enter new License: ").translate(remove_punct_map))
-                            elif choice == "8":
-                                employee.set_age(input("Enter new Age: ").replace(string.punctuation, ""))
+                            choice = ""
+                            while choice != "q":
+                                print("\n1. Edit Name\n2. Edit Passport\n3. Edit country\n4. Edit Address\n5. Edit mail\n"
+                                      "6. Edit Phone number\n7. Edit license\n8. Edit Age\n\n\33[;31mPress q to quit\33[;0m\n")
+                                choice = input("Enter your choice: ").lower()
+                                if choice == "1":
+                                    new_employee.set_name(input("Enter new Name: ").translate(remove_punct_map))
+                                elif choice == "2":
+                                    new_employee.set_kt(input("Enter new Passport: ").translate(remove_punct_map))
+                                elif choice == "3":
+                                    new_employee.set_country(input("Enter new Country: ").translate(remove_punct_map))
+                                elif choice == "4":
+                                    new_employee.set_address(input("Enter Address: ").translate(remove_punct_map))
+                                elif choice == "5":
+                                    new_employee.set_mail(input("Enter new Mail: "))
+                                elif choice == "6":
+                                    new_employee.set_phone_number(input("Enter new Phone number: ").translate(remove_punct_map))
+                                elif choice == "7":
+                                    new_employee.set_license(input("Enter new License: ").translate(remove_punct_map))
+                                elif choice == "8":
+                                    new_employee.set_age(input("Enter new Age: ").replace(string.punctuation, ""))
 
-                        self.__employee_service.remove_employee(c_id)
-                        self.__employee_service.add_employee(employee)
-                        print(employee)
-                        editing = False
+                            self.__employee_service.remove_employee(int(c_id))
+                            self.__employee_service.add_employee(new_employee)
+                            print(new_employee)
+                            editing = False
                     elif c_id.lower() == 'q':
                         break
                     else:
-                        print("\nPlease enter a correct input\n")
+                        print("\n\33[;31mPlease enter a correct input\33[;0m\n")
             except Exception:
                 print("\n\33[;31mSomething went wrong!\33[;0m\n")
         else:
