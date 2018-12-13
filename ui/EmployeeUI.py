@@ -20,7 +20,7 @@ class EmployeeUI:
     def print_employees(emp):
         print(
             "{:^6}|{:^18}|{:^17}|{:^11}|{:^17}|{:^22}|{:^14}|{:^18}|{:^5}|".format
-            ("ID", "Name", "Passport number", "Country", "Address", "E-mail", "Phone number", "Driver´s license",
+            ("ID", "Name", "Passport number", "Country", "Address", "E-mail", "Phone number", "Driving license",
              "Age"))
         print("-" * 137)
         for ix, customer in enumerate(emp):
@@ -140,6 +140,7 @@ class EmployeeUI:
             print("\nNo employee to edit\n")
         input("Press enter to continue")
 
+
     def main_menu(self):
         action = ""
         while action != 'q':
@@ -148,7 +149,7 @@ class EmployeeUI:
             self.header("Employees")
             print("You can do the following: ")
             print(
-                "1. Add a employee\n2. List all employees\n3. Remove employee\n4. Edit employee\n\n""\33[;31mPress q to go back \33[;0m")
+                "1. Add a employee\n2. List all employees\n3. Remove employee\n4. Edit employee\n\33[;31mPress q to go back \33[;0m")
 
             action = input("\nChoose an option: ").lower()
 
