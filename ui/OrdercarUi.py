@@ -150,12 +150,13 @@ Customer
 
     def rent_car(self):
         self.header("Rent car")
-        while True:
+        con = True
+        while con:
             kt = input("\tEnter Kt/Passport number (\33[;31mq to go back\33[;0m): ").lower().translate(remove_punct_map)
             if kt == "q":
                 break
             elif input("\tSelect this Kt/Passport number? (\33[;32mY\33[;0m/\33[;31mN\33[;0m): ").lower() == "y":
-
+                con = False
                 customer = self.__order_service.check_kt(kt)
 
                 if customer:
@@ -209,7 +210,8 @@ Customer
                                     price_of_order = int(available_cars_type[c_id - 1]["Price"])
 
                                     days = self.calculate_days(from_date, to_date)
-
+                                    if days == 0:
+                                        days = 1
                                     price_of_order_days = price_of_order * days     # Price for car multiplied with days
 
                                     print("Price of order: {} ISK".format(int(price_of_order_days)))
@@ -234,10 +236,8 @@ Customer
                                         self.__order_service.add_order(new_order, False)
                                         print("\nOrder successful!\n")
                                         approved = True
-                                        break
                                     else:
                                         print("\nOrder canceled!\n")
-                                        break
                                 except IndexError:
                                     print("ID not available")
                     except Exception:
