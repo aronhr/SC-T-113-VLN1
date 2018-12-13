@@ -139,7 +139,7 @@ class CustomerUi:
         action = ""
         while action != 'q':
             os.system('cls')
-            self.header("Remove customer")
+            self.header("Customer")
             print("You can do the following: \n1. Add a customer\n2. List all customers\n3. Edit customer"
                   "\n4. Remove customer\n\n""\33[;31mPress q to go back \33[;0m")
             action = input("\nChoose an option: ").lower()
