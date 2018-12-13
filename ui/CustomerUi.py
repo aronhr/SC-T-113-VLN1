@@ -23,7 +23,7 @@ class CustomerUi:
     @staticmethod
     def print_customers(customers):
         print("{:^6}|{:^18}|{:^17}|{:^11}|{:^17}|{:^30}|{:^14}|{:^18}|{:^5}|".format
-              ("ID", "Name", "Passport number", "Country", "Address", "E-mail", "Phone number", "Driver´s license", "Age"))
+              ("ID", "Name", "Passport number", "Country", "Address", "E-mail", "Phone number", "Driving license", "Age"))
         print("-" * 145)
         for ix, customer in enumerate(customers):
             print("{:^8}{:<19}{:<18}{:<12}{:<18}{:<31}{:<15}{:<19}{:<7}".format(ix + 1, customer["Name"], customer[
@@ -37,14 +37,14 @@ class CustomerUi:
             print("Creating customer:")
             kt = input("\tEnter kt/passport number: ").translate(remove_punct_map)
             if self.__order_service.check_kt(kt):
-                print("\nCustomer already exist!\n")
+                print("\nCustomer already exists!\n")
             elif not self.__order_service.check_kt(kt):
                 name = input("\tEnter name: ").translate(remove_punct_map)
                 country = input("\tEnter country: ").translate(remove_punct_map)
                 address = input("\tEnter address: ").translate(remove_punct_map)
                 mail = input("\tEnter mail: ").strip()
                 phone = input("\tEnter phone number: ").translate(remove_punct_map)
-                customer_license = input("\tEnter drivers license: ").translate(remove_punct_map)
+                customer_license = input("\tEnter driving license: ").translate(remove_punct_map)
                 age = int(input("\tEnter age: ").translate(remove_punct_map))
                 new_customer = Customer(name, kt, country, address, mail, phone, customer_license, age)
                 print(new_customer)
@@ -72,7 +72,7 @@ class CustomerUi:
         if customers:
             e_action = ''
             self.print_customers(customers)
-            customer_id = input("Chose which customer do you want to edit? (\33[;31mq to quit\33[;0m): ").lower()
+            customer_id = input("Which customer do you want to edit? (\33[;31mq to quit\33[;0m): ").lower()
             if customer_id != "q":
                 try:
                     customer_id = int(customer_id)
@@ -85,8 +85,8 @@ class CustomerUi:
                                             customer["Age"])
 
                     while e_action != 'q':
-                        print("\n1. Passport number/kt\n2. Name\n3. Country\n4. Address\n5. Phone number"
-                              "\n6. E-mail\n7. Driver´s license\n8. Age\n\33[;31mPress q to go back\33[;0m")
+                        print("\n1. Passport number/kt.\n2. Name\n3. Country\n4. Address\n5. Phone number"
+                              "\n6. E-mail\n7. Driving license\n8. Age\n\33[;31mPress q to go back\33[;0m")
 
                         e_action = input("Choose an option: ").lower()
 
@@ -103,7 +103,7 @@ class CustomerUi:
                         elif e_action == '6':
                             new_customer.set_mail(input("Enter mail: ").strip())
                         elif e_action == '7':
-                            new_customer.set_license(input("Enter driver´s license: ").translate(remove_punct_map))
+                            new_customer.set_license(input("Enter driving license: ").translate(remove_punct_map))
                         elif e_action == '8':
                             new_customer.set_age(input("Enter age: ").translate(remove_punct_map))
 

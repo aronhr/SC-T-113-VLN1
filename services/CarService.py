@@ -67,9 +67,7 @@ class CarService:
         try:
             for x in car:
                 for y in available_cars:
-                    if x["License"] == y["License"]:
-                        pass
-                    else:
+                    if x["License"] != y["License"]:
                         cars.append(x)
             if not cars:
                 for x in car:
