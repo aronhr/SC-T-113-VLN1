@@ -113,7 +113,7 @@ class CarUi:
                     print("\nNo car with that license plate!\n")
 
             if go == "Y":
-                carclass = input("\tClass: ").capitalize().translate(remove_punct_map)
+                carclass = input("\tClass\33[;37m(Luxury/Sport/Off-road/Sedan/Economy)\33[;0m: ").capitalize().translate(remove_punct_map)
                 seats = input("\tHow many seats: ").translate(remove_punct_map)
                 fwd = input(
                     "\t4x4 (""\33[;32mY\33[;0m/\33[;31mN\33[;0m""): ").upper().translate(
@@ -152,7 +152,7 @@ class CarUi:
                         elif choice == "2":
                             car.set_type(input("Enter new Type: ").translate(remove_punct_map))
                         elif choice == "3":
-                            car.set_class(input("Enter new Class: ").capitalize().translate(remove_punct_map))
+                            car.set_class(input("Enter new Class\33[;37m(Luxury/Sport/Off-road/Sedan/Economy)\33[;0m: ").capitalize())
                         elif choice == "4":
                             car.set_seats(input("Enter Seats: ").translate(remove_punct_map))
                         elif choice == "5":
@@ -168,7 +168,7 @@ class CarUi:
                     print(car)
 
                 except Exception:
-                    print("\33[;31mWrong input, try again!\33[;0m")
+                    print("\33[;31mNo car with that ID, try again!\33[;0m")
         else:
             print("No cars exists\n")
         input("\33[;32mPress enter to continue \33[;0m")
