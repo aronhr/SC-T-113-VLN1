@@ -18,6 +18,8 @@ class CarService:
         for x in car:
             if x["License"] == license:
                 return x
+        else:
+            return False
 
     def get_cars_by_type(self, genre):
         cars = self.get_available_cars()
@@ -61,7 +63,7 @@ class CarService:
 
     def get_available_date_cars(self, from_date, to_date):
         available_cars = self.__car_repo.get_available_date_car(from_date, to_date)
-        car = self.__car_repo.get_car()
+        car = self.get_available_cars()
         cars = []
         # Cars that are unavailable
         try:

@@ -107,17 +107,20 @@ class CarUi:
             go = "N"
             while go != "Y":
                 try:
-                    license_plate = input("Enter license plate (\33[;31mq to quit\33[;0m): ").lower()
-                    if license_plate == "q":
+                    license_plate = input("Enter license plate (\33[;31mq to quit\33[;0m): ").upper()
+                    if license_plate == "Q":
                         break
-                    with urllib.request.urlopen("http://apis.is/car?number=" + license_plate) as url:
-                        car = json.loads(url.read())
-                        car = car["results"][0]
-                        model = car["type"].split()[0].capitalize()
-                        subtype = car["subType"].capitalize()
+                    if self.__car_service.get_car_by_license(license_plate):
+                        print("Car already exists")
+                    else:
+                        with urllib.request.urlopen("http://apis.is/car?number=" + license_plate) as url:
+                            car = json.loads(url.read())
+                            car = car["results"][0]
+                            model = car["type"].split()[0].capitalize()
+                            subtype = car["subType"].capitalize()
 
-                        print("{}\tSelected car Type: {}, SubType: {}{}".format("\33[;92m", model, subtype, "\33[;0m"))
-                        go = input("\tDo you want to select this car (\33[;32mY\33[;0m/\33[;31mN\33[;0m): ").upper()
+                            print("{}\tSelected car Type: {}, SubType: {}{}".format("\33[;92m", model, subtype, "\33[;0m"))
+                            go = input("\tDo you want to select this car (\33[;32mY\33[;0m/\33[;31mN\33[;0m): ").upper()
                 except Exception:
                     print("\nNo car with that license plate!\n")
 
