@@ -23,7 +23,3 @@ class CustomerService:
 
     def get_customer_by_id(self, c_id):
         return self.__customer_repo.get_customer_id(c_id - 1)
-
-    def print_customer(self, c_id):
-        return self.__customer_repo.print_customer(c_id)
-
