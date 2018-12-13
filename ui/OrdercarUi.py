@@ -184,7 +184,9 @@ Customer
                         car_type = input("\tEnter type of car (\33[;31mq to quit\33[;0m): ").translate(remove_punct_map).capitalize()
                         if car_type.upper() == "Q":
                             break
-
+                        
+                        print("Available cars\n")
+                        
                         car_class = self.__car_service.get_car_class()
                         available_cars_type = self.__car_service.get_available_date_type(car_type, from_date, to_date)
 
