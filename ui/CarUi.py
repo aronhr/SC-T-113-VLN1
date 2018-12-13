@@ -162,7 +162,7 @@ class CarUi:
                             car.set_transmission(
                                 input("Enter new Transmission (A/M): ").upper().translate(remove_punct_map))
                         elif choice == "7":
-                            car.set_status(input("Enter new status: (\33[;32mY\33[;0m/\33[;31mN\33[;0m): ").upper().translate(remove_punct_map))
+                            car.set_status(input("Enter new status: (\33[;32mT\33[;0m/\33[;31mF\33[;0m): ").upper().translate(remove_punct_map))
                     self.__car_service.remove_car(int(c_id))
                     self.__car_service.add_car(car)
                     print("\nThe car has been edited\n")
