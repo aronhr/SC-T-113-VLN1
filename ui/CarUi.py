@@ -113,7 +113,7 @@ class CarUi:
                     print("\nNo car with that license plate!\n")
 
             if go == "Y":
-                carclass = input("\tClass\33[;37m(Luxury/Sport/Off-road/Sedan/Economy)\33[;0m: ").capitalize().translate(remove_punct_map)
+                carclass = input("\tClass\33[;36m(Luxury/Sport/Off-road/Sedan/Economy)\33[;0m: ").capitalize().translate(remove_punct_map)
                 seats = input("\tHow many seats: ").translate(remove_punct_map)
                 fwd = input(
                     "\t4x4 (""\33[;32mY\33[;0m/\33[;31mN\33[;0m""): ").upper().translate(
@@ -145,14 +145,15 @@ class CarUi:
 
                     choice = ""
                     while choice != "q":
-                        print("\n1. Edit Brand\n2. Edit Type\n3. Edit Class\n4. Edit Seats\n5. Edit 4x4\n6. Edit Transmission\n7. Edit Status\n\n\33[;31mpress q to go back\33[;0m\n")
+                        print("\n1. Edit Brand\n2. Edit Type\n3. Edit Class\n4. Edit Seats\n5. Edit 4x4\n"
+                              "6. Edit Transmission\n7. Edit Status\n\n\33[;31mpress q to go back\33[;0m\n")
                         choice = input("Enter your choice: ").lower()
                         if choice == "1":
                             car.set_model(input("Enter new Brand: ").translate(remove_punct_map))
                         elif choice == "2":
                             car.set_type(input("Enter new Type: ").translate(remove_punct_map))
                         elif choice == "3":
-                            car.set_class(input("Enter new Class\33[;37m(Luxury/Sport/Off-road/Sedan/Economy)\33[;0m: ").capitalize())
+                            car.set_class(input("Enter new Class\33[;36m(Luxury/Sport/Off-road/Sedan/Economy)\33[;0m: ").capitalize())
                         elif choice == "4":
                             car.set_seats(input("Enter Seats: ").translate(remove_punct_map))
                         elif choice == "5":
