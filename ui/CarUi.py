@@ -107,7 +107,7 @@ class CarUi:
                         subtype = car["subType"].capitalize()
 
                         print("{}\tSelected car Type: {}, SubType: {}{}".format("\33[;92m", model, subtype, "\33[;0m"))
-                        go = input("\tDo you want to select this car (Y/N): ").upper()
+                        go = input("\tDo you want to select this car (\33[;32mY\33[;0m/\33[;31mN\33[;0m): ").upper()
                 except Exception:
                     print("\nNo car with that license plate!\n")
 
@@ -135,7 +135,7 @@ class CarUi:
         cars = self.__car_service.get_cars()
         if cars:
             self.print_cars(cars)
-            c_id = input("Select car by Id (\33[;31mq to go back\33[;0m): ").lower()
+            c_id = input("Select car by ID (\33[;31mq to go back\33[;0m): ").lower()
             if c_id != "q":
                 try:
                     car = self.__car_service.get_car_by_id(int(c_id))
