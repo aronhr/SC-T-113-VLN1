@@ -199,8 +199,9 @@ class CarUi:
         while action != "q":
             os.system('cls')
             self.header("Cars")
-            print("You can do the following: \n1. Available cars\n2. Unavailable cars\n3. Available cars within date"
-                  "\n4. All cars\n5. Price list\n6. Create new car\n7. Edit car\n8. Remove car\n\n""\33[;31mPress q to go back \33[;0m")
+            print("You can do the following: \n1. Available cars\n2. Unavailable cars\n"
+                  "3. Available cars within date range""\n4. All cars\n5. Price list\n6. Create new car\n"
+                  "7. Edit car\n8. Remove car\n\n""\33[;31mPress q to go back \33[;0m")
 
             action = input("\nChoose an option: ").lower()
 
