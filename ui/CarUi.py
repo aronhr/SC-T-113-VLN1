@@ -121,7 +121,7 @@ class CarUi:
                 new_car = Car(model, subtype, carclass, seats, fwd, transmission, car["number"])
                 print(new_car)
                 if input(
-                        "Do you want to create this car? (\33[;32mY\33[;0m/\33[;31mN\33[;0m").upper() == "Y":
+                        "Do you want to create this car? (\33[;32mY\33[;0m/\33[;31mN\33[;0m)").upper() == "Y":
                     self.__car_service.add_car(new_car)
                     print("\nCar created!\n")
                 else:
