@@ -145,8 +145,7 @@ class CarUi:
 
                     choice = ""
                     while choice != "q":
-                        print("\n1. Edit Brand\n2. Edit Type\n3. Edit Class\n4. Edit Seats\n5. Edit 4x4\n"
-                              "6. Edit Transmission\n7. Edit Status\n\33[;31mpress q to go back\33[;0m")
+                        print("\n1. Edit Brand\n2. Edit Type\n3. Edit Class\n4. Edit Seats\n5. Edit 4x4\n6. Edit Transmission\n7. Edit Status\n\33[;31mpress q to go back\33[;0m")
                         choice = input("Enter your choice: ").lower()
                         if choice == "1":
                             car.set_model(input("Enter new Brand: ").translate(remove_punct_map))
