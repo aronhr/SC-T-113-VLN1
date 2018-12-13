@@ -389,6 +389,8 @@ Customer
                     print("\n\33[;31mWrong input try again\33[;0m\n")
             else:
                 print("No orders to edit\n")
+                input("\33[;32mPress enter to continue \33[;0m")
+                break
 
     def get_order_history_of_customer(self):
         self.header("Order history of customer")
@@ -441,8 +443,9 @@ Customer
                         order = self.__order_service.get_completed_order_id(int(o_id))
                         self.print_receipt(order)
                         correct_id = False
-                    elif o_id.lower() == 'y':
+                    elif o_id.lower() == 'q':
                         correct_id = False
+                        break
                     else:
                         print("\nPlease enter a correct input\n")
                 else:
@@ -491,7 +494,6 @@ Customer
 
             elif action == '6':
                 self.edit_current_order()
-                input("\33[;32mPress enter to continue \33[;0m")
 
             elif action == "7":
                 self.history_of_car()
