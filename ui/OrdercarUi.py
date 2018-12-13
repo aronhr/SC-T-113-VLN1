@@ -178,7 +178,7 @@ Customer
                                 print("\tTime traveling?")
 
                         if not self.print_car_types():
-                            print("\n\tNo available cars")
+                            print("\n\tNo available cars\n")
                             break
 
                         car_type = input("\tEnter type of car (\33[;31mq to quit\33[;0m): ").translate(remove_punct_map).capitalize()
@@ -292,6 +292,7 @@ Customer
 
                     elif o_id.lower() == 'q':
                         print("\nReturning order canceled\n")
+                        input("\33[;32mPress enter to continue\33[;0m")
                         break
                     else:
                         print("\nPlease enter a correct input\n")
@@ -351,7 +352,7 @@ Customer
                                              order["Price"], order["Insurance"], order["Total price"], order["Days"])
                         a_choice = ''
                         while a_choice != 'q':
-                            print("1. Edit name\n2. Car-license\n3. From date\n4. To date\n5. Price\n6. Insurance\n7. Days\n\n""\33[;31mPress q to go back \33[;0m")
+                            print("1. Edit name\n2. Car-license\n3. From date\n4. To date\n5. Price\n6. Insurance\n7. Days\n\n""\33[;31mPress q to go back \33[;0m\n")
                             a_choice = input("Choose an option: ").lower()
                             if a_choice == '1':
                                 edited_order.set_renter(input("Enter new name: ").translate(remove_punct_map))
@@ -369,6 +370,8 @@ Customer
                                 edited_order.set_insurance(input("Enter new insurance \33[;32mY\33[;0m/\33[;31mN\33[;0m: ").translate(remove_punct_map))
                             elif a_choice == '7':
                                 edited_order.set_days(input("Enter number of days: ").translate(remove_punct_map))
+                            else:
+                                print("\n\33[;31mWrong input try again\33[;0m\n")
                         self.__order_service.remove_order(o_id)
                         self.__order_service.add_order(edited_order, True)
                         print("\nOrder edited\n")
@@ -436,7 +439,8 @@ Customer
                     else:
                         print("\nPlease enter a correct input\n")
                 else:
-                    print("\nNo orders are complete\n")
+                    print("No orders are complete\n")
+                    correct_id = False
         except Exception:
             print("Something went wrong")
         input("\33[;32mPress enter to continue\33[;0m")
