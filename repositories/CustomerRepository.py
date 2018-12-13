@@ -68,15 +68,3 @@ class CustomerRepository:
             else:
                 new_customer = Customer(x["Name"], x["Passport number"], x["Country"], x["Address"], x["Mail"], x["Phone number"], x["license"], x["Age"])
                 self.add_customer(new_customer)
-
-    # noinspection PyTypeChecker
-    def print_customer(self, customer_id):
-        print("\nPassport number: {}".format(self.get_customer()[customer_id - 1]["Passport number"]))
-        print("Name: {}".format(self.get_customer()[customer_id - 1]["Name"]))
-        print("Country: {}".format(self.get_customer()[customer_id - 1]["Country"]))
-        print("Address: {}".format(self.get_customer()[customer_id - 1]["Address"]))
-        print("Phone number: {}".format(self.get_customer()[customer_id - 1]["Phone number"]))
-        print("E-mail: {}".format(self.get_customer()[customer_id - 1]["Mail"]))
-        print("Driver´s license: {}".format(self.get_customer()[customer_id - 1]["license"]))
-        print("Age: {}".format(self.get_customer()[customer_id - 1]["Age"]))
-        print("-" * 35)

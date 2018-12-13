@@ -21,6 +21,18 @@ class CustomerUi:
         print("-" * 50)
         print()
 
+    # noinspection PyTypeChecker
+    def print_customer(self, customer):
+        print("\nPassport number: {}".format(customer["Passport number"]))
+        print("Name: {}".format(customer["Name"]))
+        print("Country: {}".format(customer["Country"]))
+        print("Address: {}".format(customer["Address"]))
+        print("Phone number: {}".format(customer["Phone number"]))
+        print("E-mail: {}".format(customer["Mail"]))
+        print("Driver´s license: {}".format(customer["license"]))
+        print("Age: {}".format(customer["Age"]))
+        print("-" * 35)
+
     @staticmethod
     def print_customers(customers):
         print("{:^6}|{:^18}|{:^17}|{:^11}|{:^17}|{:^30}|{:^14}|{:^18}|{:^5}|".format
@@ -81,7 +93,7 @@ class CustomerUi:
                         customer_id = int(customer_id)
 
                         customer = self.__customer_service.get_customer_by_id(customer_id)
-                        self.__customer_service.print_customer(customer_id)
+                        self.print_customer(customer)
                         new_customer = Customer(customer["Name"], customer["Passport number"], customer["Country"],
                                                 customer["Address"],
                                                 customer["Mail"], customer["Phone number"], customer["license"],
@@ -150,13 +162,23 @@ class CustomerUi:
             print("\33[;31mNo customers to delete!\33[;0m\n")
         input("\33[;32mPress enter to continue \33[;0m")
 
+    def see_customer(self):
+        self.header("See customer")
+        kt = input("Enter kt/passport number of the customer(\33[;31mq to go back\33[;0m): ").upper()
+        customer = self.__order_service.check_kt(kt)
+        if customer:
+            self.print_customer(customer)
+        elif not customer:
+            print("\nCustomer does not exist\n")
+        input("\33[;32mPress enter to continue \33[;0m")
+
     def main_menu(self):
         action = ""
         while action != 'q':
             os.system('cls')
             self.header("Customer")
             print("You can do the following: \n1. Add a customer\n2. List all customers\n3. Edit customer"
-                  "\n4. Remove customer\n\n""\33[;31mPress q to go back\33[;0m")
+                  "\n4. Remove customer\n5. See customer\n\n""\33[;31mPress q to go back\33[;0m")
             action = input("\nChoose an option: ").lower()
             print()
             if action == "1":
@@ -170,3 +192,6 @@ class CustomerUi:
 
             elif action == "4":
                 self.remove_customer()
+
+            elif action == "5":
+                self.see_customer()
