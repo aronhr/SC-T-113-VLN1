@@ -16,3 +16,6 @@ class EmployeeService:
 
     def remove_employee(self, id):
         return self.__employee_repo.remove_employee_id(id)
+
+    def check_kt(self, kt):
+        return self.__employee_repo.check_if_kt_exist(kt)

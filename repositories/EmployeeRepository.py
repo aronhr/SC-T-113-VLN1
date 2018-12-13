@@ -7,12 +7,22 @@ class EmployeeRepository(object):
     def __init__(self):
         pass
 
+    def check_if_kt_exist(self, kt):
+        data = self.get_employee()
+        if data:
+            for x in data:
+                if x["Passport number"] == kt:
+                    return x
+            else:
+                return False
+        else:
+            return False
+
     @staticmethod
     def get_employee():
         try:
             with open("./data/employees.csv", encoding="utf-8") as file:
                 csv_reader = csv.DictReader(file)
-
                 # next(csv_reader)
                 employees = []
                 for line in csv_reader:

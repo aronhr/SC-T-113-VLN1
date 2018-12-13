@@ -33,21 +33,25 @@ class EmployeeUI:
         self.header("Add employee")
         try:
             print("Creating Employee:")
-            name = input("\tEnter name: ").translate(remove_punct_map)
             kt = input("\tEnter passport number: ").translate(remove_punct_map)
-            country = input("\tEnter country: ").translate(remove_punct_map)
-            address = input("\tEnter address: ").translate(remove_punct_map)
-            mail = input("\tEnter mail: ").strip()
-            phone = input("\tEnter phone number: ").translate(remove_punct_map)
-            customer_license = int(input("\tEnter drivers license: "))
-            age = int(input("\tEnter age: "))
-            new_employee = Employee(name, kt, country, address, mail, phone, customer_license, age)
-            print(new_employee)
-            if input("Do you want to create this Employee? (Y/N) ").upper() == "Y":
-                self.__employee_service.add_employee(new_employee)
-                print("\nEmployee created!\n")
+            if self.__employee_service.check_kt(kt):
+                print("\nCustomer already exists\n")
             else:
-                print("\nNo employee created.\n")
+                name = input("\tEnter name: ").translate(remove_punct_map)
+                country = input("\tEnter country: ").translate(remove_punct_map)
+                address = input("\tEnter address: ").translate(remove_punct_map)
+                mail = input("\tEnter mail: ").strip()
+                phone = input("\tEnter phone number: ").translate(remove_punct_map)
+                customer_license = int(input("\tEnter drivers license: "))
+                age = int(input("\tEnter age: "))
+                new_employee = Employee(name, kt, country, address, mail, phone, customer_license, age)
+                print(new_employee)
+                if input("Do you want to create this Employee? (Y/N) ").upper() == "Y":
+                    self.__employee_service.add_employee(new_employee)
+                    print("\nEmployee created!\n")
+                else:
+                    print("\nNo employee created.\n")
+
         except Exception:
             print("\nSomething went wrong, no employee created.\n")
         input("Press enter to continue")
@@ -63,17 +67,24 @@ class EmployeeUI:
     def remove_employee(self, employees):
         self.header("Remove employee")
         if employees:
-            self.print_employees(employees)
-            employee_to_delete = int(input("Select employee by Id (q to quit): "))
-            if employee_to_delete != "q":
-                try:
-                    are_you_sure = input("Are you sure you want to delete this employee? (Y/N) ").lower()
-                    if are_you_sure == "y":
-                        emp = self.__employee_service.get_employee_by_id(employee_to_delete)
-                        self.print_employees([emp])
-                        self.__employee_service.remove_employee(employee_to_delete)
-                except Exception:
-                    print("\nCanceled\n")
+            removing = True
+            while removing:
+                self.print_employees(employees)
+                employee_to_delete = input("Select employee by Id (q to quit): ")
+                if employee_to_delete.isdigit():
+                    try:
+                        are_you_sure = input("Are you sure you want to delete this employee? (Y/N) ").lower()
+                        if are_you_sure == "y":
+                            emp = self.__employee_service.get_employee_by_id(int(employee_to_delete))
+                            self.print_employees([emp])
+                            self.__employee_service.remove_employee(int(employee_to_delete))
+                            removing = False
+                    except Exception:
+                        print("\nCanceled\n")
+                elif employee_to_delete.lower() == 'q':
+                    break
+                else:
+                    print("\nPlease enter a correct input\n")
         else:
             print("\nNo employee to delete\n")
         input("Press enter to continue")
@@ -82,40 +93,47 @@ class EmployeeUI:
         self.header("Edit employee")
         if employees:
             try:
-                self.print_employees(employees)
-                c_id = int(input("Select employee by Id (q to quit): "))
+                editing = True
+                while editing:
+                    self.print_employees(employees)
+                    c_id = input("Select employee by Id (q to quit): ")
+                    if c_id.isdigit():
+                        employee = self.__employee_service.get_employee_by_id(int(c_id))
+                        self.print_employees([employee])
+                        employee = Employee(employee["Name"], employee["Passport number"], employee["Country"],
+                                            employee["Address"], employee["Mail"], employee["Phone number"],
+                                            int(employee["license"]), employee["Age"])
 
-                employee = self.__employee_service.get_employee_by_id(c_id)
-                self.print_employees([employee])
-                employee = Employee(employee["Name"], employee["Passport number"], employee["Country"],
-                                    employee["Address"], employee["Mail"], employee["Phone number"],
-                                    int(employee["license"]), employee["Age"])
+                        choice = ""
+                        while choice != "q":
+                            print("\n1. Edit Name\n2. Edit Passport\n3. Edit country\n4. Edit Address\n5. Edit mail\n"
+                                  "6. Edit Phone number\n7. Edit license\n8. Edit Age\npress q to quit")
+                            choice = input("Enter your choice: ").lower()
+                            if choice == "1":
+                                employee.set_name(input("Enter new Name: ").translate(remove_punct_map))
+                            elif choice == "2":
+                                employee.set_kt(input("Enter new Passport: ").translate(remove_punct_map))
+                            elif choice == "3":
+                                employee.set_country(input("Enter new Country: ").translate(remove_punct_map))
+                            elif choice == "4":
+                                employee.set_address(input("Enter Address: ").translate(remove_punct_map))
+                            elif choice == "5":
+                                employee.set_mail(input("Enter new Mail: "))
+                            elif choice == "6":
+                                employee.set_phone_number(input("Enter new Phone number: ").translate(remove_punct_map))
+                            elif choice == "7":
+                                employee.set_license(input("Enter new License: ").translate(remove_punct_map))
+                            elif choice == "8":
+                                employee.set_age(input("Enter new Age: ").replace(string.punctuation, ""))
 
-                choice = ""
-                while choice != "q":
-                    print("\n1. Edit Name\n2. Edit Passport\n3. Edit country\n4. Edit Address\n5. Edit mail\n"
-                          "6. Edit Phone number\n7. Edit license\n8. Edit Age\npress q to quit")
-                    choice = input("Enter your choice: ").lower()
-                    if choice == "1":
-                        employee.set_name(input("Enter new Name: ").translate(remove_punct_map))
-                    elif choice == "2":
-                        employee.set_kt(input("Enter new Passport: ").translate(remove_punct_map))
-                    elif choice == "3":
-                        employee.set_country(input("Enter new Country: ").translate(remove_punct_map))
-                    elif choice == "4":
-                        employee.set_address(input("Enter Address: ").translate(remove_punct_map))
-                    elif choice == "5":
-                        employee.set_mail(input("Enter new Mail: "))
-                    elif choice == "6":
-                        employee.set_phone_number(input("Enter new Phone number: ").translate(remove_punct_map))
-                    elif choice == "7":
-                        employee.set_license(input("Enter new License: ").translate(remove_punct_map))
-                    elif choice == "8":
-                        employee.set_age(input("Enter new Age: ").replace(string.punctuation, ""))
-
-                self.__employee_service.remove_employee(c_id)
-                self.__employee_service.add_employee(employee)
-                print(employee)
+                        self.__employee_service.remove_employee(c_id)
+                        self.__employee_service.add_employee(employee)
+                        print(employee)
+                        editing = False
+                    elif c_id.lower() == 'q':
+                        break
+                    else:
+                        print("\nPlease enter a correct input\n")
             except Exception:
                 print("\nSomething went wrong!\n")
         else:
