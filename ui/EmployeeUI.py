@@ -33,7 +33,7 @@ class EmployeeUI:
         self.header("Add employee")
         try:
             print("Creating Employee:")
-            kt = input("\tEnter passport number: ").translate(remove_punct_map)
+            kt = input("\tEnter Kt/passport number: ").translate(remove_punct_map)
             if self.__employee_service.check_kt(kt):
                 print("\nCustomer already exists\n")
             else:
@@ -46,7 +46,7 @@ class EmployeeUI:
                 age = int(input("\tEnter age: "))
                 new_employee = Employee(name, kt, country, address, mail, phone, customer_license, age)
                 print(new_employee)
-                if input("Do you want to create this Employee? (\33[;32mY\33[;0m/\33[;31mN\33[;0m: ) ").upper() == "Y":
+                if input("Do you want to create this Employee? (\33[;32mY\33[;0m/\33[;31mN\33[;0m): ").upper() == "Y":
                     self.__employee_service.add_employee(new_employee)
                     print("\nEmployee created!\n")
                 else:
@@ -138,8 +138,7 @@ class EmployeeUI:
                 print("\n\33[;31mSomething went wrong!\33[;0m\n")
         else:
             print("No employee to edit\n")
-        input("Press enter to continue")
-
+        input("\33[;32mPress enter to continue \33[;0m")
 
     def main_menu(self):
         action = ""
@@ -148,8 +147,7 @@ class EmployeeUI:
             os.system('cls')
             self.header("Employees")
             print("You can do the following: ")
-            print(
-                "1. Add a employee\n2. List all employees\n3. Remove employee\n4. Edit employee\n\33[;31mPress q to go back \33[;0m")
+            print("1. Add a employee\n2. List all employees\n3. Remove employee\n4. Edit employee\n\33[;31mPress q to go back \33[;0m")
 
             action = input("\nChoose an option: ").lower()
 
