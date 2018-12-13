@@ -91,6 +91,15 @@ class CarUi:
             print("Add some cars to create price list\n")
         input("\33[;32mPress enter to continue \33[;0m")
 
+    def transmission(self, i, e):
+        while True:
+            transmission = input(i).upper().translate(remove_punct_map)
+            if transmission == "A" or transmission == "M":
+                break
+            else:
+                print(e)
+        return transmission
+
     def create_new_car(self):
         self.header("Create new car")
         try:
@@ -118,7 +127,7 @@ class CarUi:
                 fwd = input(
                     "\t4x4 (""\33[;32mY\33[;0m/\33[;31mN\33[;0m""): ").upper().translate(
                     remove_punct_map)
-                transmission = input("\tTransmission (A/M): ").upper().translate(remove_punct_map)
+                transmission = self.transmission("\tTransmission (A/M): ", "\tInvalid input")
                 new_car = Car(model, subtype, carclass, seats, fwd, transmission, car["number"])
                 print(new_car)
                 if input("Do you want to create this car? (\33[;32mY\33[;0m/\33[;31mN\33[;0m): ").upper() == "Y":
@@ -159,8 +168,7 @@ class CarUi:
                         elif choice == "5":
                             car.set_4x4(input("Enter new 4x4 (Y/N): ").upper().translate(remove_punct_map))
                         elif choice == "6":
-                            car.set_transmission(
-                                input("Enter new Transmission (A/M): ").upper().translate(remove_punct_map))
+                            car.set_transmission(self.transmission("Enter new Transmission (A/M): ", "Invalid input"))
                         elif choice == "7":
                             car.set_status(input("Enter new status: (\33[;32mT\33[;0m/\33[;31mF\33[;0m): ").upper().translate(remove_punct_map))
                     self.__car_service.remove_car(int(c_id))
