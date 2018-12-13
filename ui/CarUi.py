@@ -127,7 +127,7 @@ class CarUi:
                 else:
                     print("\nNo car created.\n")
         except Exception:
-            print("\nSomething went wrong, please try again!\n")
+            print("\n\33[;31mSomething went wrong, please try again!\33[;0m\n")
         input("\33[;32mPress enter to continue \33[;0m")
 
     def edit_car(self):
@@ -162,14 +162,14 @@ class CarUi:
                             car.set_transmission(
                                 input("Enter new Transmission (A/M): ").upper().translate(remove_punct_map))
                         elif choice == "7":
-                            car.set_status(input("Enter new status: (T/F): ").upper().translate(remove_punct_map))
+                            car.set_status(input("Enter new status: (\33[;32mY\33[;0m/\33[;31mN\33[;0m): ").upper().translate(remove_punct_map))
                     self.__car_service.remove_car(int(c_id))
                     self.__car_service.add_car(car)
                     print("\nThe car has been edited\n")
                     print(car)
 
                 except Exception:
-                    print("Wrong input, try again")
+                    print("\33[;31mWrong input, try again!\33[;0m")
         else:
             print("\nNo cars exists\n")
         input("\33[;32mPress enter to continue \33[;0m")
@@ -189,7 +189,7 @@ class CarUi:
                         print("Car number {} has been deleted".format(c_id))
                         self.__car_service.remove_car(int(c_id))
                 except Exception:
-                    print("Wrong input, try again")
+                    print("\33[;31mWrong input, try again!\33[;0m")
         else:
             print("\nNo cars exists\n")
         input("\33[;32mPress enter to continue \33[;0m")
