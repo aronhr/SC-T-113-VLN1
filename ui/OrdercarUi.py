@@ -300,8 +300,8 @@ Customer
                     input("\33[;32mPress enter to continue \33[;0m")
                     break
 
-            except Exception as e:
-                print("\nPlease enter a correct input\n", e)
+            except Exception:
+                print("\nPlease enter a correct input\n")
 
     def revoke_order(self):
         self.header("Revoke order")
@@ -318,10 +318,10 @@ Customer
                             self.print_current_orders([order])
                             total_price = float(order["Total price"])
                             print("Your deposit was {} ISK".format(int(total_price * 0.10)))
-                            choice = input("Are you sure you want to revoke the order? \33[;32mY\33[;0m/\33[;31mN\33[;0m: ").lower()
+                            choice = input("Are you sure you want to revoke the order? (\33[;32mY\33[;0m/\33[;31mN\33[;0m): ").lower()
                             if choice == 'y':
                                 self.__order_service.remove_order(o_id)
-                                print("Order revoked and deposit returned")
+                                print("\nOrder revoked and deposit returned\n")
                                 revoking = False
                             else:
                                 print("\nRevoke canceled\n")
@@ -333,7 +333,7 @@ Customer
             else:
                 print("\nNo orders\n")
         except Exception:
-            print("Revoke failed")
+            print("\nRevoke failed\n")
         input("\33[;32mPress enter to continue \33[;0m")
 
     def edit_current_order(self):
