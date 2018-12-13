@@ -344,7 +344,10 @@ Customer
         while editing_order:
             if orders:
                 self.print_current_orders(orders)
-                o_id = input("Select order by Id: ")
+                o_id = input("Select order by Id (\33[;31mq to quit\33[;0m""): ")
+                if o_id.lower() == 'q':
+                    editing_order = False
+                    break
                 if o_id.isdigit():
                     order = self.__order_service.get_order_by_id(int(o_id))
                     if order:
@@ -354,7 +357,9 @@ Customer
                         while a_choice != 'q':
                             print("1. Edit name\n2. Car-license\n3. From date\n4. To date\n5. Price\n6. Insurance\n7. Days\n\n""\33[;31mPress q to go back \33[;0m\n")
                             a_choice = input("Choose an option: ").lower()
-                            if a_choice == '1':
+                            if a_choice.lower() == 'q':
+                                break
+                            elif a_choice == '1':
                                 edited_order.set_renter(input("Enter new name: ").translate(remove_punct_map))
                             elif a_choice == '2':
                                 edited_order.set_car(input("Enter new license: ").translate(remove_punct_map))
