@@ -145,8 +145,7 @@ class CarUi:
 
                     choice = ""
                     while choice != "q":
-                        print("\n1. Edit Brand\n2. Edit Type\n3. Edit Class\n4. Edit Seats\n5. Edit 4x4\n"
-                              "6. Edit Transmission\n7. Edit Status\n\n\33[;31mpress q to go back\33[;0m\n")
+                        print("\n1. Edit Brand\n2. Edit Type\n3. Edit Class\n4. Edit Seats\n5. Edit 4x4\n6. Edit Transmission\n7. Edit Status\n\33[;31mpress q to go back\33[;0m")
                         choice = input("Enter your choice: ").lower()
                         if choice == "1":
                             car.set_model(input("Enter new Brand: ").translate(remove_punct_map))
@@ -199,8 +198,9 @@ class CarUi:
         while action != "q":
             os.system('cls')
             self.header("Cars")
-            print("You can do the following: \n1. Available cars\n2. Unavailable cars\n3. Available cars within date"
-                  "\n4. All cars\n5. Price list\n6. Create new car\n7. Edit car\n8. Remove car\n\n""\33[;31mPress q to go back \33[;0m")
+            print("You can do the following: \n1. Available cars\n2. Unavailable cars\n"
+                  "3. Available cars within date range""\n4. All cars\n5. Price list\n6. Create new car\n"
+                  "7. Edit car\n8. Remove car\n\n""\33[;31mPress q to go back \33[;0m")
 
             action = input("\nChoose an option: ").lower()
 
