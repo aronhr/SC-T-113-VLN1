@@ -340,10 +340,7 @@ Customer
             print("\nNo orders to edit\n")
 
     def get_order_history_of_customer(self):
-        print("-" * 50)
-        print("|{:^48}|".format("Order history of customer"))
-        print("-" * 50)
-        print()
+        self.header("Order history of customer")
         kt = input("Enter passport number of the customer(\33[;31mq to go back\33[;0m): ").upper()
         if kt == 'Q':
             pass
