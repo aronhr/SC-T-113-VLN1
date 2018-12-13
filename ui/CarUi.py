@@ -49,7 +49,7 @@ class CarUi:
         if cars:
             self.print_cars(cars)
         else:
-            print("\nNo available car exists\n")
+            print("No available car exists\n")
         input("\33[;32mPress enter to continue \33[;0m")
 
     def list_cars_in_rent(self):
@@ -58,13 +58,14 @@ class CarUi:
         if cars:
             self.print_cars(cars)
         else:
-            print("\nNo unavailable cars exists\n")
+            print("No unavailable cars exists\n")
         input("\33[;32mPress enter to continue \33[;0m")
 
     def cars_within_date(self):
         self.header("Available cars within date")
         from_date = self.__car_service.user_date("\nEnter date from (dd/mm/yy): ")
         to_date = self.__car_service.user_date("Enter date to (dd/mm/yy): ")
+        print()
         cars = self.__car_service.get_available_date_cars(from_date, to_date)
         if cars:
             self.print_cars(cars)
@@ -78,7 +79,7 @@ class CarUi:
         if cars:
             self.print_cars(cars)
         else:
-            print("\nNo cars exists\n")
+            print("No cars exists\n")
         input("\33[;32mPress enter to continue \33[;0m")
 
     def price_list(self):
@@ -87,7 +88,7 @@ class CarUi:
         if cars:
             self.print_price(cars)
         else:
-            print("\nAdd some cars to create price list\n")
+            print("Add some cars to create price list\n")
         input("\33[;32mPress enter to continue \33[;0m")
 
     def create_new_car(self):
@@ -115,13 +116,13 @@ class CarUi:
                 carclass = input("\tClass: ").capitalize().translate(remove_punct_map)
                 seats = input("\tHow many seats: ").translate(remove_punct_map)
                 fwd = input(
-                    "\t4x4 (""\33[;32mY\33[;0m/\33[;31mN\33[;0m"")").upper().translate(
+                    "\t4x4 (""\33[;32mY\33[;0m/\33[;31mN\33[;0m""): ").upper().translate(
                     remove_punct_map)
                 transmission = input("\tTransmission (A/M): ").upper().translate(remove_punct_map)
                 new_car = Car(model, subtype, carclass, seats, fwd, transmission, car["number"])
                 print(new_car)
                 if input(
-                        "Do you want to create this car? (\33[;32mY\33[;0m/\33[;31mN\33[;0m)").upper() == "Y":
+                        "Do you want to create this car? (\33[;32mY\33[;0m/\33[;31mN\33[;0m): ").upper() == "Y":
                     self.__car_service.add_car(new_car)
                     print("\nCar created!\n")
                 else:
@@ -145,7 +146,7 @@ class CarUi:
 
                     choice = ""
                     while choice != "q":
-                        print("\n1. Edit Brand\n2. Edit Type\n3. Edit Class\n4. Edit Seats\n5. Edit 4x4\n6. Edit Transmission\n7. Edit Status\n\33[;31mpress q to go back\33[;0m")
+                        print("\n1. Edit Brand\n2. Edit Type\n3. Edit Class\n4. Edit Seats\n5. Edit 4x4\n6. Edit Transmission\n7. Edit Status\n\n\33[;31mpress q to go back\33[;0m\n")
                         choice = input("Enter your choice: ").lower()
                         if choice == "1":
                             car.set_model(input("Enter new Brand: ").translate(remove_punct_map))
@@ -170,7 +171,7 @@ class CarUi:
                 except Exception:
                     print("\33[;31mWrong input, try again!\33[;0m")
         else:
-            print("\nNo cars exists\n")
+            print("No cars exists\n")
         input("\33[;32mPress enter to continue \33[;0m")
 
     def remove_car(self):
@@ -185,12 +186,12 @@ class CarUi:
                     if are_you_sure == "y":
                         car = self.__car_service.get_car_by_id(int(c_id))
                         self.print_cars([car])
-                        print("Car number {} has been deleted".format(c_id))
+                        print("Car number {} has been deleted\n".format(c_id))
                         self.__car_service.remove_car(int(c_id))
                 except Exception:
                     print("\33[;31mWrong input, try again!\33[;0m")
         else:
-            print("\nNo cars exists\n")
+            print("No cars exists\n")
         input("\33[;32mPress enter to continue \33[;0m")
 
     def main_menu(self):
