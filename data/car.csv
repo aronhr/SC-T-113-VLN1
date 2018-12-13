@@ -9,7 +9,6 @@ Isuzu,Trooper,Sedan,7,Yes,Manual,True,5500,UA339
 Hyundai,Coupe,Sedan,4,No,Manual,True,5500,BJ669
 Kia,Rio,Economy,5,No,Manual,True,4000,DGX48
 Toyota,Corolla gli,Sedan,4,No,Manual,True,5500,KN230
-Toyota,Yaris,Economy,5,Yes,Automatic,True,4000,OI035
 Fiat,Stilo,Economy,5,No,Manual,True,4000,NM243
 Mitsubishi,Outlander,Off-road,5,Yes,Automatic,True,7000,UMH78
 Jeep,Willys,Sedan,4,Yes,Manual,True,5500,AG962
@@ -22,3 +21,4 @@ Citroen,C4 picasso,Sedan,7,No,Automatic,True,5500,MYB18
 Volkswagen,Golf,Economy,5,No,Manual,True,4000,ME245
 Citroen,Bx 16 tzs,Luxury,4,Yes,Automatic,True,8500,RO899
 Toyota,Avensis,Sedan,4,Yes,Manual,True,5500,PN940
+Toyota,Yaris,Economy,5,Yes,Automatic,True,4000,OI035
