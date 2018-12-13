@@ -61,7 +61,7 @@ class EmployeeUI:
         if employees:
             self.print_employees(employees)
         else:
-            print("\nNo employees\n")
+            print("No employees\n")
         input("\33[;32mPress enter to continue \33[;0m")
 
     def remove_employee(self, employees):
@@ -86,7 +86,7 @@ class EmployeeUI:
                 else:
                     print("\nPlease enter a correct input\n")
         else:
-            print("\nNo employee to delete\n")
+            print("No employee to delete\n")
         input("\33[;32mPress enter to continue \33[;0m")
 
     def edit_employee(self, employees):
@@ -137,7 +137,7 @@ class EmployeeUI:
             except Exception:
                 print("\n\33[;31mSomething went wrong!\33[;0m\n")
         else:
-            print("\nNo employee to edit\n")
+            print("No employee to edit\n")
         input("Press enter to continue")
 
 
