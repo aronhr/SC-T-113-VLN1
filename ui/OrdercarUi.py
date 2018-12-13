@@ -185,20 +185,24 @@ Customer
                         if car_type.upper() == "Q":
                             break
 
-                        print("Available cars\n")
-                        # TODO: If no cars are available all cars that are not available gets printed out!
+                        car_class = self.__car_service.get_car_class()
                         available_cars_type = self.__car_service.get_available_date_type(car_type, from_date, to_date)
 
-                        if not available_cars_type:
+                        if car_type not in car_class:
+                            print("\nNo such class of car available\n")
 
+                        # TODO: If no cars are available all cars that are not available gets printed out!
+
+                        if not available_cars_type:
                             i = input("No cars available,(\33[;31mpress q to quit\33[;0m,\33[;32m enter to select another date\33[;0m)")
                             if i == "q":
                                 break
-                        else:
+                        if car_type in car_class and available_cars_type:
                             while not approved:
+                                print("\nAvailable cars\n")
                                 self.__car_ui.print_cars(available_cars_type)
                                 try:
-                                    c_id = input("\nSelect car by Id (\33[;31mq to quit\33[;0m): ").upper()
+                                    c_id = input("Select car by Id (\33[;31mq to quit\33[;0m): ").upper()
                                     if c_id == "Q":
                                         approved = True
                                         break
