@@ -54,8 +54,11 @@ class EmployeeRepository(object):
                 print("Error adding employee to file")
 
     def get_employee_id(self, id):
-        emp = self.get_employee()
-        return emp[id]
+        try:
+            emp = self.get_employee()
+            return emp[id]
+        except Exception:
+            return False
 
     def remove_employee_id(self, id):
         try:
@@ -71,5 +74,5 @@ class EmployeeRepository(object):
                                   int(x["license"]), x["Age"])
                     self.add_employee(new_employee)
         except Exception:
-            print("Something went wrong")
+            return False
 
