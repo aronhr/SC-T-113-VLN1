@@ -76,11 +76,11 @@ class Car(object):
     def set_price(self):
         if self.__class == "Luxury":
             self.__price = 8500
-        elif self.__class == "Jeep":
+        elif self.__class == "Suv":
             self.__price = 8000
         elif self.__class == "Family":
             self.__price = 5000
-        elif self.__class == "Small car":
+        elif self.__class == "Small":
             self.__price = 4000
         else:
             self.__price = 5000
