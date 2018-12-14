@@ -21,6 +21,18 @@ class CarService:
         else:
             return False
 
+    @staticmethod
+    def next_list(stop):
+        start = stop
+        stop = start * 2
+        return start, stop, start + 1
+    
+    @staticmethod
+    def prev_list(start):
+        stop = start
+        start = stop - 10
+        return start, stop, start + 1
+
     def get_cars_by_type(self, type):
         cars = self.get_available_cars()
         arr = []
