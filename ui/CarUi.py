@@ -33,8 +33,10 @@ class CarUi:
                       (ix + count, car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"],
                        car["Status"], car["Price"] + " kr.", car["License"]))
             print()
-            y_n = input("Next / Previous / Quit (N/P/Q): ").lower()
-            if y_n == "n":
+            y_n = input("Next / Previous / Quit (N/P/Q) or ID to chose a car: ").lower()
+            if y_n.isdigit():
+                return y_n
+            elif y_n == "n":
                 start, stop, count = self.__car_service.next_list(stop)
             elif y_n == "p" and count != 1:
                 start, stop, count = self.__car_service.prev_list(start)
@@ -42,7 +44,7 @@ class CarUi:
                 print("\nCant go back while on the first page\n")
                 continue
             elif y_n == 'q':
-                break
+                return y_n
             else:
                 print("\n\33[;31mWrong input, try again!\33[;0m\n")
                 continue
@@ -94,7 +96,9 @@ class CarUi:
         self.header("All cars")
         cars = self.__car_service.get_cars()
         if cars:
-            self.print_cars(cars)
+            car_id = self.print_cars(cars)
+            selected_car = self.__car_service.get_car_by_id(int(car_id))
+            self.print_cars([selected_car])
         else:
             print("No cars exists\n")
         input("\33[;32mPress enter to continue \33[;0m")
