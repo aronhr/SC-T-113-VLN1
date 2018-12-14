@@ -33,12 +33,17 @@ Verklegt námskeið 1
 | 25 	 | Notandi getur skráð inn nýjan bíl. 																										|	 x |
 
 
-grænn: \33[;32mPress enter to continue \33[;0m
-rauður: \33[;31mPress q to go back\33[;0m
-
-(\33[;31mq to quit\33[;0m): )
-
-
-
-
-Y/N = \33[;32mY\33[;0m/\33[;31mN\33[;0m: 
+# Litir
+## Grænn
+```python
+  input("\33[;32mPress enter to continue \33[;0m")
+```
+## Rauður
+```python
+  input("\33[;31mPress q to go back\33[;0m")
+  input("\33[;31mq to quit\33[;0m): ")
+```
+# (Y/N)
+```python
+  input("(\33[;32mY\33[;0m/\33[;31mN\33[;0m): ")
+```
