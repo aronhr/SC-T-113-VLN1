@@ -158,13 +158,16 @@ Customer
 
                 approved = False
                 while not approved:
-                    from_date = self.__car_service.user_date("Enter start date for rent (dd/mm/yy): ")
+                    from_date = self.__car_service.user_date("Enter start date for rent (dd/mm/yy)(\33[;31mq to quit\33[;0m): ")
 
                     is_valid = False
                     while not is_valid:
-                        to_date = self.__car_service.user_date("Enter end date for rent (dd/mm/yy): ")
+
+                        to_date = self.__car_service.user_date("Enter end date for rent (dd/mm/yy)(\33[;31mq to quit\33[;0m): ")
+
                         if from_date <= to_date:
                             is_valid = True
+
                         else:
                             print("Time traveling?")
                     # car_type = ""

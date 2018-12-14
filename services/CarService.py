@@ -61,7 +61,7 @@ class CarService:
     def user_date(self, i):
         is_valid = False
         while not is_valid:
-            user_in = input(i).replace(string.punctuation,  "")
+            user_in = input(i).lower().replace(string.punctuation,  "")
             try:
                 d = datetime.datetime.strptime(user_in, "%d/%m/%y")
                 yesterday = datetime.datetime.today() - datetime.timedelta(days=1)
