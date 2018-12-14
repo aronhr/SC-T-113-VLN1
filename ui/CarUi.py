@@ -4,6 +4,7 @@ import string
 import os
 import urllib.request
 import json
+import math
 
 remove_punct_map = dict.fromkeys(map(ord, string.punctuation))
 
@@ -13,13 +14,17 @@ class CarUi:
     def __init__(self):
         self.__car_service = CarService()
 
-    def selecting_car_in_print(self, cars):
+    def selecting_car_in_print(self, cars, stat="All"):
         while True:
             car_id = self.print_cars(cars)
             if car_id == 'q':
                 break
-            selected_car = self.__car_service.get_car_by_id(int(car_id))
-            print("\n", selected_car["License"])
+            car_id = int(car_id)
+            try:
+                selected_car = self.__car_service.get_car_by_id(car_id, stat)
+                print("\n", selected_car["License"])
+            except Exception:
+                print("\nNo car with that id")
             input("\n\33[;32mPress enter to continue \33[;0m")
 
     @staticmethod
@@ -45,8 +50,10 @@ class CarUi:
             y_n = input("Next / Previous / Quit (N/P/Q) or ID to chose a car: ").lower()
             if y_n.isdigit():
                 return y_n
-            elif y_n == "n":
+            elif y_n == "n" and count <= math.ceil(len(cars) / 2):
                 start, stop, count = self.__car_service.next_list(stop)
+            elif y_n == "n" and count > math.ceil(len(cars) / 2):
+                print("\nCant go forwards while on the last page\n")
             elif y_n == "p" and count != 1:
                 start, stop, count = self.__car_service.prev_list(start)
             elif y_n == 'p' and count == 1:
@@ -75,7 +82,7 @@ class CarUi:
         self.header("Available cars")
         cars = self.__car_service.get_available_cars()
         if cars:
-            self.selecting_car_in_print(cars)
+            self.selecting_car_in_print(cars, "True")
         else:
             print("No available car exists\n")
         input("\33[;32mPress enter to continue \33[;0m")
@@ -84,7 +91,7 @@ class CarUi:
         self.header("Unavalible cars")
         cars = self.__car_service.get_not_available_cars()
         if cars:
-            self.selecting_car_in_print(cars)
+            self.selecting_car_in_print(cars, "False")
         else:
             print("No unavailable cars exists\n")
         input("\33[;32mPress enter to continue \33[;0m")
@@ -169,7 +176,6 @@ class CarUi:
             if c_id != "q":
                 try:
                     car = self.__car_service.get_car_by_id(int(c_id))
-                    print(car)
                     car = Car(car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"],
                               car["License"], int(car["Price"]), car["Status"])
 

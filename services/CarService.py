@@ -81,8 +81,9 @@ class CarService:
         try:
             for x in car:
                 for y in available_cars:
-                    if x["License"] != y["License"]:
+                    if x["License"] == y["License"]:
                         cars.append(x)
+                        break
             if not cars:
                 for x in car:
                     cars.append(x)
@@ -92,17 +93,23 @@ class CarService:
 
     def get_available_date_type(self, genre, from_date, to_date):
         cars = self.get_available_date_cars(from_date, to_date)
+        all_cars = self.get_available_cars()
         if cars:
             arr = []
-            for x in cars:
+            for x in all_cars:
                 if x["Class"] == genre:
-                    arr.append(x)
+                    if x not in cars:
+                        arr.append(x)
+            if not arr:
+                for x in all_cars:
+                    if x["Class"] == genre:
+                        arr.append(x)
             return arr
         else:
             return False
 
-    def get_car_by_id(self, id):
-        return self.__car_repo.get_car_id(id-1)
+    def get_car_by_id(self, id, stat="All"):
+        return self.__car_repo.get_car_id(id - 1, stat)
 
     def remove_car(self, id):
         return self.__car_repo.remove_car_id(id)
