@@ -23,29 +23,32 @@ class CustomerUi:
 
     def add_customer(self):
         self.header("Add customer")
-        try:
-            print("Creating customer:")
-            kt = input("\tEnter PPN/Kt: ").translate(remove_punct_map)
-            if self.__order_service.check_kt(kt):
-                print("\nCustomer already exists!\n")
-            elif not self.__order_service.check_kt(kt):
-                name = input("\tEnter name: ").translate(remove_punct_map)
-                country = input("\tEnter country: ").translate(remove_punct_map)
-                address = input("\tEnter address: ").translate(remove_punct_map)
-                mail = input("\tEnter mail: ").strip()
-                phone = input("\tEnter phone number: ").translate(remove_punct_map)
-                customer_license = input("\tEnter driving license: ").translate(remove_punct_map)
-                age = int(input("\tEnter age: ").translate(remove_punct_map))
-                new_customer = Customer(name, kt, country, address, mail, phone, customer_license, age)
-                print(new_customer)
-                if input("Do you want create this customer? (\33[;32mY\33[;0m/\33[;31mN\33[;0m): ").upper() == "Y":
-                    self.__customer_service.add_customer(new_customer)
-                    print("\nCustomer created!\n")
-            else:
-                print("\nNo customer created.\n")
-        except Exception:
-            print("\n\33[;31mSomething went wrong, please try again!\33[;0m\n")
-        input("\33[;32mPress enter to continue\33[;0m")
+        con = True
+        while con:
+            try:
+                kt = input("\tEnter PPN/Kt (\33[;31mq to go back\33[;0m): ").lower().translate(remove_punct_map)
+                if self.__order_service.check_kt(kt):
+                    print("\nCustomer already exists!\n")
+                elif kt =="q":
+                    break
+                elif not self.__order_service.check_kt(kt):
+                    name = input("\tEnter name: ").translate(remove_punct_map)
+                    country = input("\tEnter country: ").translate(remove_punct_map)
+                    address = input("\tEnter address: ").translate(remove_punct_map)
+                    mail = input("\tEnter mail: ").strip()
+                    phone = input("\tEnter phone number: ").translate(remove_punct_map)
+                    customer_license = input("\tEnter driving license: ").translate(remove_punct_map)
+                    age = int(input("\tEnter age: ").translate(remove_punct_map))
+                    new_customer = Customer(name, kt, country, address, mail, phone, customer_license, age)
+                    print(new_customer)
+                    if input("Do you want create this customer? (\33[;32mY\33[;0m/\33[;31mN\33[;0m): ").upper() == "Y":
+                        self.__customer_service.add_customer(new_customer)
+                        print("\nCustomer created!\n")
+                else:
+                    print("\nNo customer created.\n")
+            except Exception:
+                print("\n\33[;31mSomething went wrong, please try again!\33[;0m\n")
+            input("\33[;32mPress enter to continue\33[;0m")
 
     def list_all_customers(self):
         self.header("All customers")
@@ -101,6 +104,7 @@ class CustomerUi:
                         editing_customer = False
                         break
                     except Exception:
+                        print("\n\33[;31mWrong input, try again!\33[;0m\n")
                         print("\n\33[;31mWrong input, try again!\33[;0m\n")
                 else:
                     print("\n\33[;31mWrong input, try again!\33[;0m\n")
