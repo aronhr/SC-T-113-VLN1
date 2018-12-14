@@ -35,9 +35,9 @@ class OrdercarUi:
         """
         print("{:^6}|{:^12}|{:^23}|{:^13}|{:^15}|{:^15}|{:^13}|{:^11}|{:^13}|{:^6}".format
               ("ID", "PPN/Kt", "Name", "License", "From date", "To date", "Price", "Insurance", "Total price", "Days"))
-        print("-" * 133)
+        print("-" * 136)
         for ix, order in enumerate(orders):
-            print("{:^8}{:<13}{:<23}{:<16}{:<16}{:<14}{:<14}{:<12}{:<14}{:<6}".format
+            print("{:^8}{:<13}{:<23}{:<16}{:<16}{:<14}{:<14}{:<12}{:<15}{:<6}".format
                   (ix + 1, order["Kt"], order["Name"], order["License"], order["From date"], order["To date"],
                    order["Price"]+" kr.", order["Insurance"], order["Total price"]+" kr.", order["Days"]))
         print()
@@ -53,9 +53,9 @@ class OrdercarUi:
               ("ID", "PPN/Kt", "Name", "License", "From date", "To date", "Price", "Insurance",
                "Total price", "Payment method", "Days"))
 
-        print("-" * 150)
+        print("-" * 152)
         for ix, order in enumerate(completed_orders):
-            print("{:^8}{:<13}{:<23}{:<16}{:<16}{:<14}{:<14}{:<12}{:<14}{:<16}{:<6}".format
+            print("{:^8}{:<13}{:<23}{:<16}{:<16}{:<14}{:<14}{:<12}{:<14}{:<17}{:<6}".format
                   (ix + 1, order["Kt"], order["Name"], order["License"], order["From date"], order["To date"],
                    order["Price"]+" kr.", order["Insurance"], order["Total price"]+" kr.", order["Payment method"],order["Days"]))
         print()
