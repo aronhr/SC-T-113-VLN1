@@ -345,7 +345,7 @@ Customer
                         a_choice = ''
                         while a_choice != 'q':
                             print("1. Edit name\n2. Car-license\n3. From date\n4. To date\n5. Price\n6. Insurance\n"
-                                  "7. Days\n\n""\33[;31mPress q to go back \33[;0m\n")
+                                  "7. Days\n8. PPN/kt\n\n""\33[;31mPress q to go back \33[;0m\n")
                             a_choice = input("Choose an option: ").lower()
                             if a_choice.lower() == 'q':
                                 break
@@ -366,6 +366,8 @@ Customer
                                                                  "[;0m: ").translate(remove_punct_map))
                             elif a_choice == '7':
                                 edited_order.set_days(input("Enter number of days: ").translate(remove_punct_map))
+                            elif a_choice == "8":
+                                edited_order.set_kt(input("Enter new Kt: ").translate(remove_punct_map))
                             else:
                                 print("\n\33[;31mWrong input try again\33[;0m\n")
                         self.__order_service.remove_order(o_id)
