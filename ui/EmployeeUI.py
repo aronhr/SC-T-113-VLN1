@@ -19,12 +19,12 @@ class EmployeeUI:
     @staticmethod
     def print_employees(emp):
         print(
-            "{:^6}|{:^18}|{:^17}|{:^11}|{:^17}|{:^22}|{:^14}|{:^18}|{:^5}|".format
+            "{:^6}|{:^18}|{:^17}|{:^11}|{:^17}|{:^32}|{:^14}|{:^18}|{:^5}|".format
             ("ID", "Name", "Passport number", "Country", "Address", "E-mail", "Phone number", "Driving license",
              "Age"))
         print("-" * 137)
         for ix, customer in enumerate(emp):
-            print("{:^8}{:<19}{:<18}{:<12}{:<18}{:<23}{:<15}{:<19}{:<7}".format
+            print("{:^8}{:<19}{:<18}{:<12}{:<18}{:<33}{:<15}{:<19}{:<7}".format
                   (ix + 1, customer["Name"], customer["Passport number"], customer["Country"], customer["Address"],
                    customer["Mail"], customer["Phone number"], customer["license"], customer["Age"]))
         print()
