@@ -116,7 +116,7 @@ class CarUi:
                     print("\nNo car with that license plate!\n")
 
             if go == "Y":
-                carclass = self.__car_service.check_car_class("\tClass: \n\t\t\33[;36m1. Luxury\n\t\t2. Sport\n\t\t3. Off-road\n\t\t4. Sedan\n\t\t5. Economy\n\t\t6. Family\33[;0m\n\tSelect class: ", "\tInvalid input")
+                carclass = self.__car_service.check_car_class("\tClass: \n\t\t\33[;36m1. Luxury\n\t\t2. Sport\n\t\t3. Off-road\n\t\t4. Sedan\n\t\t5. Economy\33[;0m\n\tSelect class: ", "\tInvalid input")
                 seats = input("\tHow many seats: ").translate(remove_punct_map)
                 fwd = input(
                     "\t4x4 (""\33[;32mY\33[;0m/\33[;31mN\33[;0m""): ").upper().translate(
@@ -156,7 +156,7 @@ class CarUi:
                         elif choice == "2":
                             car.set_type(input("Enter new Type: ").translate(remove_punct_map))
                         elif choice == "3":
-                            car.set_class(self.__car_service.check_car_class("Enter new class: \n\t\33[;36m1. Luxury\n\t2. Sport\n\t3. Off-road\n\t4. Sedan\n\t5. Economy\n\t6. Family\33[;0m\nSelect class: ", "Invalid input"))
+                            car.set_class(self.__car_service.check_car_class("Enter new class: \n\t\33[;36m1. Luxury\n\t2. Sport\n\t3. Off-road\n\t4. Sedan\n\t5. Economy\33[;0m\nSelect class: ", "Invalid input"))
                         elif choice == "4":
                             car.set_seats(input("Enter Seats: ").translate(remove_punct_map))
                         elif choice == "5":

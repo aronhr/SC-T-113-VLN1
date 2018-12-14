@@ -111,8 +111,6 @@ class CarService:
                     c_class = "Sedan"
                 elif car_class == "5":
                     c_class = "Economy"
-                elif car_class == "6":
-                    c_class = "Family"
                 else:
                     print(e)
             else:

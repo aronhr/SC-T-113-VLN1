@@ -83,8 +83,6 @@ class Car(object):
         elif self.__class == "Sedan":
             self.__price = 5500
         elif self.__class == "Economy":
-            self.__price = 4000
-        elif self.__class == "Family":
             self.__price = 5000
         return self.__price
 
