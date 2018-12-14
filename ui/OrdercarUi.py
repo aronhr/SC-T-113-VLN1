@@ -344,30 +344,30 @@ Customer
                                              order["Price"], order["Insurance"], order["Total price"], order["Days"])
                         a_choice = ''
                         while a_choice != 'q':
-                            print("1. Edit name\n2. Car-license\n3. From date\n4. To date\n5. Price\n6. Insurance\n"
-                                  "7. Days\n8. PPN/kt\n\n""\33[;31mPress q to go back \33[;0m\n")
+                            print("1. Edit PPN/Kt\n2. Edit name\n3. Car-license\n4. From date\n5. To date\n6. Price\n7. Insurance\n"
+                                  "8. Days\n\n""\33[;31mPress q to go back \33[;0m\n")
                             a_choice = input("Choose an option: ").lower()
                             if a_choice.lower() == 'q':
                                 break
-                            elif a_choice == '1':
-                                edited_order.set_renter(input("Enter new name: ").translate(remove_punct_map))
+                            elif a_choice == "1":
+                                edited_order.set_kt(input("Enter new Kt: ").translate(remove_punct_map))
                             elif a_choice == '2':
-                                edited_order.set_car(input("Enter new license: ").translate(remove_punct_map))
+                                edited_order.set_renter(input("Enter new name: ").translate(remove_punct_map))
                             elif a_choice == '3':
+                                edited_order.set_car(input("Enter new license: ").translate(remove_punct_map))
+                            elif a_choice == '4':
                                 edited_order.set_from_date(
                                     datetime.datetime.strftime(self.__car_service.user_date("Enter new from date: "), "%d/%m/%y"))
-                            elif a_choice == '4':
+                            elif a_choice == '5':
                                 edited_order.set_to_date(
                                     datetime.datetime.strftime(self.__car_service.user_date("Enter new to date: "), "%d/%m/%y"))
-                            elif a_choice == '5':
-                                edited_order.set_price(input("Enter new price: ").translate(remove_punct_map))
                             elif a_choice == '6':
+                                edited_order.set_price(input("Enter new price: ").translate(remove_punct_map))
+                            elif a_choice == '7':
                                 edited_order.set_insurance(input("Enter new insurance \33[;32mY\33[;0m/\33[;31mN\33"
                                                                  "[;0m: ").translate(remove_punct_map))
-                            elif a_choice == '7':
+                            elif a_choice == '8':
                                 edited_order.set_days(input("Enter number of days: ").translate(remove_punct_map))
-                            elif a_choice == "8":
-                                edited_order.set_kt(input("Enter new Kt: ").translate(remove_punct_map))
                             else:
                                 print("\n\33[;31mWrong input try again\33[;0m\n")
                         self.__order_service.remove_order(o_id)
