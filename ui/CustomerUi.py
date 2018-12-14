@@ -21,34 +21,11 @@ class CustomerUi:
         print("-" * 50)
         print()
 
-    # noinspection PyTypeChecker
-    def print_customer(self, customer):
-        print("\nPassport number: {}".format(customer["Passport number"]))
-        print("Name: {}".format(customer["Name"]))
-        print("Country: {}".format(customer["Country"]))
-        print("Address: {}".format(customer["Address"]))
-        print("Phone number: {}".format(customer["Phone number"]))
-        print("E-mail: {}".format(customer["Mail"]))
-        print("Driver´s license: {}".format(customer["license"]))
-        print("Age: {}".format(customer["Age"]))
-        print("-" * 35)
-
-    @staticmethod
-    def print_customers(customers):
-        print("{:^6}|{:^18}|{:^17}|{:^11}|{:^17}|{:^30}|{:^14}|{:^18}|{:^5}|".format
-              ("ID", "Name", "Passport number", "Country", "Address", "E-mail", "Phone number", "Driving license", "Age"))
-        print("-" * 145)
-        for ix, customer in enumerate(customers):
-            print("{:^8}{:<19}{:<18}{:<12}{:<18}{:<31}{:<15}{:<19}{:<7}".format(ix + 1, customer["Name"], customer[
-                "Passport number"], customer["Country"], customer["Address"], customer["Mail"],
-                 customer["Phone number"], customer["license"], customer["Age"]))
-        print()
-
     def add_customer(self):
         self.header("Add customer")
         try:
             print("Creating customer:")
-            kt = input("\tEnter kt/passport number: ").translate(remove_punct_map)
+            kt = input("\tEnter PPN/Kt: ").translate(remove_punct_map)
             if self.__order_service.check_kt(kt):
                 print("\nCustomer already exists!\n")
             elif not self.__order_service.check_kt(kt):
@@ -72,11 +49,7 @@ class CustomerUi:
 
     def list_all_customers(self):
         self.header("All customers")
-        customers = self.__customer_service.get_customers()
-        if customers:
-            self.print_customers(customers)
-        else:
-            print("No customers\n")
+        self.__customer_service.list_all_customers()
         input("\33[;32mPress enter to continue\33[;0m")
 
     def edit_customer(self):
@@ -86,14 +59,14 @@ class CustomerUi:
             editing_customer = True
             while editing_customer:
                 e_action = ''
-                self.print_customers(customers)
+                self.__customer_service.print_customers(customers)
                 customer_id = input("Which customer do you want to edit? (\33[;31mq to quit\33[;0m): ").lower()
                 if customer_id.isdigit() and int(customer_id) <= len(customers):
                     try:
                         customer_id = int(customer_id)
 
                         customer = self.__customer_service.get_customer_by_id(customer_id)
-                        self.print_customer(customer)
+                        self.__customer_service.print_customer(customer)
                         new_customer = Customer(customer["Name"], customer["Passport number"], customer["Country"],
                                                 customer["Address"],
                                                 customer["Mail"], customer["Phone number"], customer["license"],
@@ -141,7 +114,7 @@ class CustomerUi:
         if customers:
             removing_customer = True
             while removing_customer:
-                self.print_customers(customers)
+                self.__customer_service.print_customers(customers)
                 customer_to_delete = input("What customer would you like to remove? (\33[;31mq to quit\33[;0m): ").lower()
                 if customer_to_delete.isdigit() and int(customer_to_delete) <= len(customers) + 1:
                     try:
@@ -164,10 +137,10 @@ class CustomerUi:
 
     def see_customer(self):
         self.header("See customer")
-        kt = input("Enter kt/passport number of the customer(\33[;31mq to go back\33[;0m): ").upper()
+        kt = input("Enter PPN/Kt of the customer(\33[;31mq to go back\33[;0m): ").upper()
         customer = self.__order_service.check_kt(kt)
         if customer:
-            self.print_customer(customer)
+            self.__customer_service.print_customer(customer)
         elif not customer:
             print("\nCustomer does not exist\n")
         input("\33[;32mPress enter to continue \33[;0m")

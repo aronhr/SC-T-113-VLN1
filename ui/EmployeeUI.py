@@ -33,7 +33,7 @@ class EmployeeUI:
         self.header("Add employee")
         try:
             print("Creating Employee:")
-            kt = input("\tEnter Kt/passport number: ").translate(remove_punct_map)
+            kt = input("\tEnter PPN/Kt number: ").translate(remove_punct_map)
             if self.__employee_service.check_kt(kt):
                 print("\nCustomer already exists\n")
             else:
@@ -113,7 +113,7 @@ class EmployeeUI:
                                 if choice == "1":
                                     new_employee.set_name(input("Enter new Name: ").translate(remove_punct_map))
                                 elif choice == "2":
-                                    new_employee.set_kt(input("Enter new Passport: ").translate(remove_punct_map))
+                                    new_employee.set_kt(input("Enter new PPN/Kt: ").translate(remove_punct_map))
                                 elif choice == "3":
                                     new_employee.set_country(input("Enter new Country: ").translate(remove_punct_map))
                                 elif choice == "4":
