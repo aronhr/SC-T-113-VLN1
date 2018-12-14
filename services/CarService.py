@@ -94,3 +94,35 @@ class CarService:
 
     def remove_car(self, id):
         return self.__car_repo.remove_car_id(id)
+
+    @staticmethod
+    def check_car_class(i, e):
+        c_class = ""
+        while c_class == "":
+            car_class = input(i).capitalize()
+            if car_class.isdigit():
+                if car_class == "1":
+                    c_class = "Luxury"
+                elif car_class == "2":
+                    c_class = "Sport"
+                elif car_class == "3":
+                    c_class = "Off-road"
+                elif car_class == "4":
+                    c_class = "Sedan"
+                elif car_class == "5":
+                    c_class = "Economy"
+                else:
+                    print(e)
+            else:
+                print(e)
+        return c_class
+
+    @staticmethod
+    def transmission(i, e):
+        while True:
+            transmission = input(i).upper()
+            if transmission == "A" or transmission == "M":
+                break
+            else:
+                print(e)
+        return transmission
