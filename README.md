@@ -43,7 +43,7 @@ Verklegt námskeið 1
   input("\33[;31mPress q to go back\33[;0m")
   input("\33[;31mq to quit\33[;0m): ")
 ```
-# (Y/N)
+## (Y/N)
 ```python
   input("(\33[;32mY\33[;0m/\33[;31mN\33[;0m): ")
 ```
