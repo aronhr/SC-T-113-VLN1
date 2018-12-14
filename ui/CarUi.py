@@ -19,16 +19,26 @@ class CarUi:
         print("-" * 50)
         print()
 
-    @staticmethod
-    def print_cars(cars):
-        print("{:^6}|{:^12}|{:^12}|{:^10}|{:^7}|{:^7}|{:^14}|{:^11}|{:^15}|{:^9}".format
-              ("Id", "Brand", "Type", "Class", "Seats", "4x4", "Transmission", "Available", "Price per day", "License"))
-        print("-" * 112)
-        for ix, car in enumerate(cars):
-            print("{:^8}{:<13}{:<13}{:<12}{:<8}{:<7}{:<15}{:<12}{:<16}{:<9}".format
-                  (ix + 1, car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"],
-                   car["Status"], car["Price"] + " kr.", car["License"]))
-        print()
+    def print_cars(self, cars):
+        start = 0
+        stop = 10
+        count = 1
+        while True:
+            print("{:^6}|{:^12}|{:^12}|{:^10}|{:^7}|{:^7}|{:^14}|{:^11}|{:^15}|{:^9}".format
+                  ("Id", "Brand", "Type", "Class", "Seats", "4x4", "Transmission", "Available", "Price per day", "License"))
+            print("-" * 112)
+            for ix, car in enumerate(cars[start:stop]):
+                print("{:^8}{:<13}{:<13}{:<12}{:<8}{:<7}{:<15}{:<12}{:<16}{:<9}".format
+                      (ix + count, car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"],
+                       car["Status"], car["Price"] + " kr.", car["License"]))
+            print()
+            y_n = input("Next / Previous / Quit (N/P/Q): ").lower()
+            if y_n == "n":
+                start, stop, count = self.__car_service.next_list(stop)
+            elif y_n == "p":
+                start, stop, count = self.__car_service.prev_list(start)
+            else:
+                break
 
     @staticmethod
     def print_price(cars):
