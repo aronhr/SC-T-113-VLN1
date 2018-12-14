@@ -83,14 +83,22 @@ class CarRepository(object):
         except Exception:
             return False
 
-    def get_car_id(self, id):
+    def get_car_id(self, id, stat="All"):
         """
         Get car with id, and returns the car with the id.
         :param id:
         :return:
         """
-        car = self.get_car()
-        return car[id]
+        try:
+            if stat == "True":
+                car = self.get_available_car("True")
+            elif stat == "False":
+                car = self.get_available_car("False")
+            else:
+                car = self.get_car()
+            return car[id]
+        except Exception:
+            return False
 
     # noinspection PyTypeChecker
     def remove_car_id(self, id):

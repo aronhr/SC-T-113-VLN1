@@ -31,7 +31,7 @@ class CarService:
         start = stop
         stop = start * 2
         return start, stop, start + 1
-    
+
     @staticmethod
     def prev_list(start):
         """
@@ -146,13 +146,13 @@ class CarService:
         else:
             return False
 
-    def get_car_by_id(self, id):
+    def get_car_by_id(self, id, stat="All"):
         """
         Call the function get car id to get the specific car.
         :param id:
         :return:
         """
-        return self.__car_repo.get_car_id(id-1)
+        return self.__car_repo.get_car_id(id - 1, stat)
 
     def remove_car(self, id):
         """

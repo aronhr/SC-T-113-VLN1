@@ -88,7 +88,8 @@ class Order(object):
         self.__payment_method = other
 
     def __repr__(self):
-        return "{},{},{},{},{},{},{}".format(self.get_kt(), self.get_renter(), self.get_car(), self.get_from_date(), self.get_to_date(), self.get_price(), self.get_payment_method())
+        return "{},{},{},{},{},{},{}".format(self.get_kt(), self.get_renter(), self.get_car(), self.get_from_date(),
+                                             self.get_to_date(), self.get_price(), self.get_payment_method())
 
 
 

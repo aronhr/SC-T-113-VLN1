@@ -4,6 +4,7 @@ import string
 import os
 import urllib.request
 import json
+import math
 
 remove_punct_map = dict.fromkeys(map(ord, string.punctuation))
 
@@ -12,6 +13,19 @@ class CarUi:
 
     def __init__(self):
         self.__car_service = CarService()
+
+    def selecting_car_in_print(self, cars, stat="All"):
+        while True:
+            car_id = self.print_cars(cars)
+            if car_id == 'q':
+                break
+            car_id = int(car_id)
+            try:
+                selected_car = self.__car_service.get_car_by_id(car_id, stat)
+                print("\n", selected_car["License"])
+            except Exception:
+                print("\nNo car with that id")
+            input("\n\33[;32mPress enter to continue \33[;0m")
 
     @staticmethod
     def header(i):
@@ -47,8 +61,10 @@ class CarUi:
             y_n = input("Next / Previous / Quit (N/P/Q) or ID to chose a car: ").lower()
             if y_n.isdigit():
                 return y_n
-            elif y_n == "n":
+            elif y_n == "n" and count <= math.ceil(len(cars) / 2):
                 start, stop, count = self.__car_service.next_list(stop)
+            elif y_n == "n" and count > math.ceil(len(cars) / 2):
+                print("\nCant go forwards while on the last page\n")
             elif y_n == "p" and count != 1:
                 start, stop, count = self.__car_service.prev_list(start)
             elif y_n == 'p' and count == 1:
@@ -86,7 +102,7 @@ class CarUi:
         self.header("Available cars")
         cars = self.__car_service.get_available_cars()
         if cars:
-            self.print_cars(cars)
+            self.selecting_car_in_print(cars, "True")
         else:
             print("No available car exists\n")
         input("\33[;32mPress enter to continue \33[;0m")
@@ -96,10 +112,10 @@ class CarUi:
         List all the cars that are in rental at this moment.
         :return:
         """
-        self.header("Cars in rent")
+        self.header("Unavalible cars")
         cars = self.__car_service.get_not_available_cars()
         if cars:
-            self.print_cars(cars)
+            self.selecting_car_in_print(cars, "False")
         else:
             print("No unavailable cars exists\n")
         input("\33[;32mPress enter to continue \33[;0m")
@@ -116,10 +132,10 @@ class CarUi:
         print()
         cars = self.__car_service.get_available_date_cars(from_date, to_date)
         if cars:
-            self.print_cars(cars)
+            self.selecting_car_in_print(cars)
         else:
             print("\nNo available cars exists at that time\n")
-        input("\33[;32mPress enter to continue \33[;0m")
+        input("\33[;32mPress enter to continue\33[;0m")
 
     def list_all_cars(self):
         """
@@ -129,9 +145,7 @@ class CarUi:
         self.header("All cars")
         cars = self.__car_service.get_cars()
         if cars:
-            car_id = self.print_cars(cars)
-            selected_car = self.__car_service.get_car_by_id(int(car_id))
-            self.print_cars([selected_car])
+            self.selecting_car_in_print(cars)
         else:
             print("No cars exists\n")
         input("\33[;32mPress enter to continue \33[;0m")
@@ -207,12 +221,10 @@ class CarUi:
         self.header("Edit car")
         cars = self.__car_service.get_cars()
         if cars:
-            self.print_cars(cars)
-            c_id = input("Select car by ID (\33[;31mq to go back\33[;0m): ").lower()
+            c_id = self.print_cars(cars)
             if c_id != "q":
                 try:
                     car = self.__car_service.get_car_by_id(int(c_id))
-                    self.print_cars([car])
                     car = Car(car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"],
                               car["License"], int(car["Price"]), car["Status"])
 
@@ -256,8 +268,7 @@ class CarUi:
         self.header("Remove car")
         cars = self.__car_service.get_cars()
         if cars:
-            self.print_cars(cars)
-            c_id = input("Select car by Id (\33[;31mPress q to go back\33[;0m): ").lower()
+            c_id = self.print_cars(cars)
             if c_id != "q":
                 try:
                     are_you_sure = input("Are you sure you want to delete this car? (\33[;32mY\33[;0m/\33[;31mN\33[;0m): ").lower()
