@@ -5,6 +5,18 @@ class EmployeeService:
     def __init__(self):
         self.__employee_repo = EmployeeRepository()
 
+    @staticmethod
+    def next_list(stop):
+        start = stop
+        stop = start * 2
+        return start, stop, start + 1
+
+    @staticmethod
+    def prev_list(start):
+        stop = start
+        start = stop - 10
+        return start, stop, start + 1
+
     def add_employee(self, customer):
         return self.__employee_repo.add_employee(customer)
 

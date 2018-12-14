@@ -2,6 +2,7 @@ from services.EmployeeService import EmployeeService
 from modules.person.Employee import Employee
 import string
 import os
+import math
 
 remove_punct_map = dict.fromkeys(map(ord, string.punctuation))
 
@@ -16,18 +17,36 @@ class EmployeeUI:
         print("-" * 50)
         print()
 
-    @staticmethod
-    def print_employees(emp):
-        print(
-            "{:^6}|{:^18}|{:^17}|{:^11}|{:^17}|{:^32}|{:^14}|{:^18}|{:^5}|".format
-            ("ID", "Name", "Passport number", "Country", "Address", "E-mail", "Phone number", "Driving license",
-             "Age"))
-        print("-" * 137)
-        for ix, customer in enumerate(emp):
-            print("{:^8}{:<19}{:<18}{:<12}{:<18}{:<33}{:<15}{:<19}{:<7}".format
-                  (ix + 1, customer["Name"], customer["Passport number"], customer["Country"], customer["Address"],
-                   customer["Mail"], customer["Phone number"], customer["license"], customer["Age"]))
-        print()
+    def print_employees(self, emp):
+        start = 0
+        stop = 10
+        count = 1
+        while True:
+            print(
+                "{:^6}|{:^18}|{:^17}|{:^11}|{:^17}|{:^32}|{:^14}|{:^18}|{:^5}|".format
+                ("ID", "Name", "Passport number", "Country", "Address", "E-mail", "Phone number", "Driving license",
+                 "Age"))
+            print("-" * 137)
+            for ix, customer in enumerate(emp[start:stop]):
+                print("{:^8}{:<19}{:<18}{:<12}{:<18}{:<33}{:<15}{:<19}{:<7}".format
+                      (ix + count, customer["Name"], customer["Passport number"], customer["Country"], customer["Address"],
+                       customer["Mail"], customer["Phone number"], customer["license"], customer["Age"]))
+            print()
+            y_n = input("Next / Previous / Quit searching (N/P/Q): ").lower()
+            if y_n == "n" and count <= math.ceil(len(emp) / 2):
+                start, stop, count = self.__employee_service.next_list(stop)
+            elif y_n == "n" and count > math.ceil(len(emp) / 2):
+                print("\nCant go forwards while on the last page\n")
+            elif y_n == "p" and count != 1:
+                start, stop, count = self.__employee_service.prev_list(start)
+            elif y_n == 'p' and count == 1:
+                print("\nCant go back while on the first page\n")
+                continue
+            elif y_n == 'q':
+                return y_n
+            else:
+                print("\n\33[;31mWrong input, try again!\33[;0m\n")
+                continue
 
     def add_employee(self):
         self.header("Add employee")
@@ -76,7 +95,7 @@ class EmployeeUI:
                         are_you_sure = input("Are you sure you want to delete this employee? (\33[;32mY\33[;0m/\33[;31mN\33[;0m): ").lower()
                         if are_you_sure == "y":
                             emp = self.__employee_service.get_employee_by_id(int(employee_to_delete))
-                            self.print_employees([emp])
+                            print(emp["Name"])
                             self.__employee_service.remove_employee(int(employee_to_delete))
                             removing = False
                     except Exception:
@@ -100,7 +119,7 @@ class EmployeeUI:
                     if c_id.isdigit() and int(c_id) <= len(employees):
                         employee = self.__employee_service.get_employee_by_id(int(c_id))
                         if employee:
-                            self.print_employees([employee])
+                            print(employee["Name"])
                             new_employee = Employee(employee["Name"], employee["Passport number"], employee["Country"],
                                                 employee["Address"], employee["Mail"], employee["Phone number"],
                                                 int(employee["license"]), employee["Age"])
