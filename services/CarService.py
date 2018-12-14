@@ -111,7 +111,7 @@ class CarService:
     def check_car_class(i, e):
         c_class = ""
         while c_class == "":
-            car_class = input(i).capitalize()
+            car_class = input(i).lower()
             if car_class.isdigit():
                 if car_class == "1":
                     c_class = "Luxury"
@@ -123,6 +123,8 @@ class CarService:
                     c_class = "Sedan"
                 elif car_class == "5":
                     c_class = "Economy"
+                elif car_class == "q":
+                    break
                 else:
                     print(e)
             else:
