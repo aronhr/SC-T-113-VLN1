@@ -1,6 +1,6 @@
 class Person(object):
     def __init__(self, name='', kt='', country='', address='', mail='', phone='', d_license='', age=0):
-        self.__name = name
+        self.__name = self.set_name(name)
         self.__kt = kt
         self.__country = country
         self.__address = address
@@ -33,8 +33,17 @@ class Person(object):
     def get_age(self):
         return self.__age
 
-    def set_name(self, other):
-        self.__name = other
+    def set_name(self, name):
+        name = name.split()
+        if len(name) >= 3:
+            new_name = name[0].capitalize() + " " + name[1][0].capitalize() + ". " + name[-1].capitalize()
+            self.__name = new_name
+        else:
+            new_name = ""
+            for x in name:
+                new_name += x.capitalize() + " "
+            self.__name = new_name
+        return self.__name
 
     def set_kt(self, other):
         self.__kt = other
