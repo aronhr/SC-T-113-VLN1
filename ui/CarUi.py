@@ -19,7 +19,7 @@ class CarUi:
             if car_id == 'q':
                 break
             selected_car = self.__car_service.get_car_by_id(int(car_id))
-            print("\n", selected_car["License"])
+            self.print_cars()
             input("\n\33[;32mPress enter to continue \33[;0m")
 
     @staticmethod
