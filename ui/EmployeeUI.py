@@ -44,9 +44,9 @@ class EmployeeUI:
                        customer["Mail"], customer["Phone number"], customer["license"], customer["Age"]))
             print()
             y_n = input("Next / Previous / Quit searching (N/P/Q): ").lower()
-            if y_n == "n" and count <= math.ceil(len(emp) / 2):
+            if y_n == "n" and count + 10 < len(emp):
                 start, stop, count = self.__employee_service.next_list(stop)
-            elif y_n == "n" and count > math.ceil(len(emp) / 2):
+            elif y_n == "n" and count + 10 >= len(emp):
                 print("\nCant go forwards while on the last page\n")
             elif y_n == "p" and count != 1:
                 start, stop, count = self.__employee_service.prev_list(start)

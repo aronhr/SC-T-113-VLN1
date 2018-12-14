@@ -90,9 +90,9 @@ class OrderService:
                        order["Price"]+" kr.", order["Insurance"], order["Total price"]+" kr.", order["Days"]))
             print()
             y_n = input("Next / Previous / Quit searching (N/P/Q): ").lower()
-            if y_n == "n" and count <= math.ceil(len(orders) / 2):
+            if y_n == "n" and count + 10 < len(orders):
                 start, stop, count = self.next_list(stop)
-            elif y_n == "n" and count > math.ceil(len(orders) / 2):
+            elif y_n == "n" and count + 10 >= len(orders):
                 print("\nCant go forwards while on the last page\n")
             elif y_n == "p" and count != 1:
                 start, stop, count = self.prev_list(start)
@@ -126,9 +126,9 @@ class OrderService:
                        order["Price"]+" kr.", order["Insurance"], order["Total price"]+" kr.", order["Payment method"],order["Days"]))
             print()
             y_n = input("Next / Previous / Quit searching (N/P/Q): ").lower()
-            if y_n == "n" and count <= math.ceil(len(completed_orders) / 2):
+            if y_n == "n" and count + 10 < len(completed_orders):
                 start, stop, count = self.next_list(stop)
-            elif y_n == "n" and count > math.ceil(len(completed_orders) / 2):
+            elif y_n == "n" and count + 10 >= len(completed_orders):
                 print("\nCant go forwards while on the last page\n")
             elif y_n == "p" and count != 1:
                 start, stop, count = self.prev_list(start)
