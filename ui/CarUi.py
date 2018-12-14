@@ -15,12 +15,23 @@ class CarUi:
 
     @staticmethod
     def header(i):
+        """
+        This the the header that we user in the functions in the file
+        :param i:
+        :return:
+        """
         print("-" * 50)
         print("|{:^48}|".format(i))
         print("-" * 50)
         print()
 
     def print_cars(self, cars):
+        """
+        Prints the first 10 cars, and then the system will ask you if you want to find more or less customer.
+        if the list are bigger than 10
+        :param cars:
+        :return:
+        """
         start = 0
         stop = 10
         count = 1
@@ -51,6 +62,11 @@ class CarUi:
 
     @staticmethod
     def print_price(cars):
+        """
+        Prints the price list
+        :param cars:
+        :return:
+        """
         print("{:^10}|{:^10}|{:^17}|{:^15}".format("Class", "Price", "Extra Insurance", "Total price"))
         print("-" * 54)
         arr = []
@@ -63,6 +79,10 @@ class CarUi:
         print()
 
     def list_available_cars(self):
+        """
+        Lists all the available cars, and cast a message if there is no cars.
+        :return:
+        """
         self.header("Available cars")
         cars = self.__car_service.get_available_cars()
         if cars:
@@ -72,6 +92,10 @@ class CarUi:
         input("\33[;32mPress enter to continue \33[;0m")
 
     def list_cars_in_rent(self):
+        """
+        List all the cars that are in rental at this moment.
+        :return:
+        """
         self.header("Cars in rent")
         cars = self.__car_service.get_not_available_cars()
         if cars:
@@ -81,6 +105,11 @@ class CarUi:
         input("\33[;32mPress enter to continue \33[;0m")
 
     def cars_within_date(self):
+        """
+        Find available cars within date, and prints out the Available cars,
+        or messages you that there is not a car available
+        :return:
+        """
         self.header("Available cars within date")
         from_date = self.__car_service.user_date("\nEnter date from (dd/mm/yy): ")
         to_date = self.__car_service.user_date("Enter date to (dd/mm/yy): ")
@@ -93,6 +122,10 @@ class CarUi:
         input("\33[;32mPress enter to continue \33[;0m")
 
     def list_all_cars(self):
+        """
+        Lists all cars by the the "ID", and message you if there is no car to see.
+        :return:
+        """
         self.header("All cars")
         cars = self.__car_service.get_cars()
         if cars:
@@ -104,6 +137,10 @@ class CarUi:
         input("\33[;32mPress enter to continue \33[;0m")
 
     def price_list(self):
+        """
+        This will add a car to create a price list.
+        :return:
+        """
         self.header("Price list")
         cars = self.__car_service.get_cars()
         if cars:
@@ -113,6 +150,12 @@ class CarUi:
         input("\33[;32mPress enter to continue \33[;0m")
 
     def create_new_car(self):
+        """
+        Makes a new car, if you enter a actual car plate that exist we call an api to get the Type and the Subtype
+        and asks the customer for more details about the car.
+        or it will message you that there is no car with this car plate.
+        :return:
+        """
         self.header("Create new car")
         try:
             print("Creating car:")
@@ -155,6 +198,12 @@ class CarUi:
         input("\33[;32mPress enter to continue \33[;0m")
 
     def edit_car(self):
+        """
+        Offer you yo edit an specific car by id.
+        then you can edit a specific thing about the car (e. Type).
+        or tells you that the id of the car is not in the csv file.
+        :return:
+        """
         self.header("Edit car")
         cars = self.__car_service.get_cars()
         if cars:
@@ -199,6 +248,11 @@ class CarUi:
         input("\33[;32mPress enter to continue \33[;0m")
 
     def remove_car(self):
+        """
+        Asks the customer for an id and deletes the csv file, and return the csv file like it was before without the
+        car that the customer selected by id
+        :return:
+        """
         self.header("Remove car")
         cars = self.__car_service.get_cars()
         if cars:
@@ -219,6 +273,10 @@ class CarUi:
         input("\33[;32mPress enter to continue \33[;0m")
 
     def main_menu(self):
+        """
+        This the main menu for the Car user interface. it offer you to (e. list all the cars in rental)
+        :return:
+        """
         action = ""
         while action != "q":
             os.system('cls')

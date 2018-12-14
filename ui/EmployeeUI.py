@@ -11,6 +11,12 @@ class EmployeeUI:
         self.__employee_service = EmployeeService()
 
     def header(self, i):
+        """
+        This the header on the employee user interface
+        we use it here in the functions down below
+        :param i:
+        :return:
+        """
         print("-" * 50)
         print("|{:^48}|".format(i))
         print("-" * 50)
@@ -18,6 +24,11 @@ class EmployeeUI:
 
     @staticmethod
     def print_employees(emp):
+        """
+        Prints out all style up and prints out the employees
+        :param emp:
+        :return:
+        """
         print(
             "{:^6}|{:^18}|{:^17}|{:^11}|{:^17}|{:^32}|{:^14}|{:^18}|{:^5}|".format
             ("ID", "Name", "Passport number", "Country", "Address", "E-mail", "Phone number", "Driving license",
@@ -30,6 +41,10 @@ class EmployeeUI:
         print()
 
     def add_employee(self):
+        """
+        this give you the chance to create an employee. by asking you details about the customer.
+        :return:
+        """
         self.header("Add employee")
         try:
             print("Creating Employee:")
@@ -57,6 +72,12 @@ class EmployeeUI:
         input("\33[;32mPress enter to continue \33[;0m")
 
     def list_employees(self, employees):
+        """
+        This calls the print_employees function and list the employees, or tells you
+        that there are no employees in the csv file.
+        :param employees:
+        :return:
+        """
         self.header("Employees")
         if employees:
             self.print_employees(employees)
@@ -65,6 +86,12 @@ class EmployeeUI:
         input("\33[;32mPress enter to continue \33[;0m")
 
     def remove_employee(self, employees):
+        """
+        Remove an employee from the csv file.. by delete all employees, and all all the employee back without
+        the specific employee that you chose by the ID
+        :param employees:
+        :return:
+        """
         self.header("Remove employee")
         if employees:
             removing = True
@@ -90,6 +117,11 @@ class EmployeeUI:
         input("\33[;32mPress enter to continue \33[;0m")
 
     def edit_employee(self, employees):
+        """
+        offers you you change details about the employee (e. Edit name)
+        :param employees:
+        :return:
+        """
         self.header("Edit employee")
         if employees:
             try:
@@ -142,6 +174,10 @@ class EmployeeUI:
         input("\33[;32mPress enter to continue \33[;0m")
 
     def main_menu(self):
+        """
+        This is the main menu for the employees user interface.. offers you to press (e. 1. list all the employees.
+        :return:
+        """
         action = ""
         while action != 'q':
             employees = self.__employee_service.get_employees()

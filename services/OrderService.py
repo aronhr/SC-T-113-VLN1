@@ -43,6 +43,11 @@ class OrderService:
             return False
 
     def get_available_order_customer(self, kt):
+        """
+        Gets available order by "kt"
+        :param kt:
+        :return:
+        """
         orders = self.__order_repo.get_completed_orders()
         if orders:
             order = []

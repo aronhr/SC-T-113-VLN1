@@ -14,6 +14,11 @@ class OrderRepository(object):
 
     @staticmethod
     def get_orders():
+        """
+        Get all orders from the csv file, "order.csv"
+
+        :return:
+        """
         try:
             with open("./data/order.csv", encoding='utf-8') as file:
                 csv_reader = csv.DictReader(file)
@@ -26,6 +31,12 @@ class OrderRepository(object):
 
     @staticmethod
     def add_order(new_order, edit=False):
+        """
+        Here we create an order and we add it in to the csv file.
+        :param new_order:
+        :param edit:
+        :return:
+        """
         kt = new_order.get_kt()
         name = new_order.get_renter()
         car = new_order.get_car()
@@ -53,6 +64,11 @@ class OrderRepository(object):
                 print("Error adding order to file")
 
     def get_order_id(self, o_id):
+        """
+        We get specific orders by id, we use the get orders to help us. the we get the order by ID.
+        :param o_id:
+        :return:
+        """
         try:
             order = self.get_orders()
             return order[o_id]
@@ -61,6 +77,12 @@ class OrderRepository(object):
 
     # noinspection PyTypeChecker
     def remove_order_id(self, o_id):
+        """
+        Here we get all orders, we remove a specific order with id, the csv content deleted
+        then the content will appear again without the specific order
+        :param o_id:
+        :return:
+        """
         try:
             orders = self.get_orders()
             selected_order = orders[int(o_id) - 1]
@@ -78,6 +100,12 @@ class OrderRepository(object):
             print("Error removing order from file")
 
     def pay_order(self, price, order):
+        """
+        takes in how to will pay, and calls the add_complete_order_to_file and add the order in to the csv file.
+        :param price:
+        :param order:
+        :return:
+        """
         action = ''
         while action != 'q':
             print("How do you want to pay?")
@@ -99,6 +127,13 @@ class OrderRepository(object):
 
     @staticmethod
     def add_complete_order_to_file(order, price, payment_method):
+        """
+        appends the order in to the csv file.
+        :param order:
+        :param price:
+        :param payment_method:
+        :return:
+        """
         with open("./data/completed_orders.csv", "a+", encoding='utf-8') as file:
             try:
                 if os.stat("./data/completed_orders.csv").st_size == 0:
@@ -119,6 +154,10 @@ class OrderRepository(object):
 
     @staticmethod
     def get_completed_orders():
+        """
+        Gets all the orders that have been used(completed),in the csv file.
+        :return:
+        """
         try:
             with open("./data/completed_orders.csv", encoding='utf-8') as file:
                 csv_reader = csv.DictReader(file)
@@ -130,6 +169,12 @@ class OrderRepository(object):
             return False
 
     def get_completed_order_id(self, o_id):
+        """
+        Gets all the completed order by the id,
+        we user the completed order to help us with is function
+        :param o_id:
+        :return:
+        """
         try:
             order = self.get_completed_orders()
             return order[o_id]

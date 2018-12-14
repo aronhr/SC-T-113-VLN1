@@ -16,12 +16,21 @@ class CustomerUi:
 
     @staticmethod
     def header(i):
+        """
+        This is the header on the user interface. we user this format in the functions down below
+        :param i:
+        :return:
+        """
         print("-" * 50)
         print("|{:^48}|".format(i))
         print("-" * 50)
         print()
 
     def add_customer(self):
+        """
+        Adds an customer by asking the customer for a few details
+        :return:
+        """
         self.header("Add customer")
         con = True
         while con:
@@ -51,11 +60,19 @@ class CustomerUi:
             input("\33[;32mPress enter to continue\33[;0m")
 
     def list_all_customers(self):
+        """
+        List all of the customers
+        :return:
+        """
         self.header("All customers")
         self.__customer_service.list_all_customers()
         input("\33[;32mPress enter to continue\33[;0m")
 
     def edit_customer(self):
+        """
+        Offer you to edit an customer by id.
+        :return:
+        """
         self.header("Edit customer")
         customers = self.__customer_service.get_customers()
         if customers:
@@ -63,7 +80,7 @@ class CustomerUi:
             while editing_customer:
                 e_action = ''
                 self.__customer_service.print_customers(customers)
-                customer_id = input("Which customer do you want to edit? (\33[;31mq to quit\33[;0m): ").lower()
+                customer_id = input("Which customer do you want to edit?(\33[;31mq to quit\33[;0m): ").lower()
                 if customer_id.isdigit() and int(customer_id) <= len(customers):
                     try:
                         customer_id = int(customer_id)
@@ -113,6 +130,10 @@ class CustomerUi:
         input("\33[;32mPress enter to continue \33[;0m")
 
     def remove_customer(self):
+        """
+        Remove a specific customer, removes the content in the csv file and appears it without the removed customer
+        :return:
+        """
         self.header("Remove customer")
         customers = self.__customer_service.get_customers()
         if customers:
@@ -140,6 +161,10 @@ class CustomerUi:
         input("\33[;32mPress enter to continue \33[;0m")
 
     def see_customer(self):
+        """
+        offers you to see a specific customer with "PPN/kt"
+        :return:
+        """
         self.header("See customer")
         kt = input("Enter PPN/Kt of the customer(\33[;31mq to go back\33[;0m): ").upper()
         customer = self.__order_service.check_kt(kt)
@@ -150,6 +175,10 @@ class CustomerUi:
         input("\33[;32mPress enter to continue \33[;0m")
 
     def main_menu(self):
+        """
+        This is the main menu for the customer user interface. you can (e. add customer)
+        :return:
+        """
         action = ""
         while action != 'q':
             os.system('cls')
