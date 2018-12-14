@@ -13,6 +13,15 @@ class CarUi:
     def __init__(self):
         self.__car_service = CarService()
 
+    def selecting_car_in_print(self, cars):
+        while True:
+            car_id = self.print_cars(cars)
+            if car_id == 'q':
+                break
+            selected_car = self.__car_service.get_car_by_id(int(car_id))
+            print("\n", selected_car["License"])
+            input("\n\33[;32mPress enter to continue \33[;0m")
+
     @staticmethod
     def header(i):
         print("-" * 50)
@@ -66,7 +75,7 @@ class CarUi:
         self.header("Available cars")
         cars = self.__car_service.get_available_cars()
         if cars:
-            self.print_cars(cars)
+            self.selecting_car_in_print(cars)
         else:
             print("No available car exists\n")
         input("\33[;32mPress enter to continue \33[;0m")
@@ -75,7 +84,7 @@ class CarUi:
         self.header("Cars in rent")
         cars = self.__car_service.get_not_available_cars()
         if cars:
-            self.print_cars(cars)
+            self.selecting_car_in_print(cars)
         else:
             print("No unavailable cars exists\n")
         input("\33[;32mPress enter to continue \33[;0m")
@@ -87,18 +96,16 @@ class CarUi:
         print()
         cars = self.__car_service.get_available_date_cars(from_date, to_date)
         if cars:
-            self.print_cars(cars)
+            self.selecting_car_in_print(cars)
         else:
             print("\nNo available cars exists at that time\n")
-        input("\33[;32mPress enter to continue \33[;0m")
+        input("\33[;32mPress enter to continue\33[;0m")
 
     def list_all_cars(self):
         self.header("All cars")
         cars = self.__car_service.get_cars()
         if cars:
-            car_id = self.print_cars(cars)
-            selected_car = self.__car_service.get_car_by_id(int(car_id))
-            self.print_cars([selected_car])
+            self.selecting_car_in_print(cars)
         else:
             print("No cars exists\n")
         input("\33[;32mPress enter to continue \33[;0m")
@@ -158,12 +165,11 @@ class CarUi:
         self.header("Edit car")
         cars = self.__car_service.get_cars()
         if cars:
-            self.print_cars(cars)
-            c_id = input("Select car by ID (\33[;31mq to go back\33[;0m): ").lower()
+            c_id = self.print_cars(cars)
             if c_id != "q":
                 try:
                     car = self.__car_service.get_car_by_id(int(c_id))
-                    self.print_cars([car])
+                    print(car)
                     car = Car(car["Model"], car["Type"], car["Class"], car["Seats"], car["4x4"], car["Transmission"],
                               car["License"], int(car["Price"]), car["Status"])
 
@@ -202,8 +208,7 @@ class CarUi:
         self.header("Remove car")
         cars = self.__car_service.get_cars()
         if cars:
-            self.print_cars(cars)
-            c_id = input("Select car by Id (\33[;31mPress q to go back\33[;0m): ").lower()
+            c_id = self.print_cars(cars)
             if c_id != "q":
                 try:
                     are_you_sure = input("Are you sure you want to delete this car? (\33[;32mY\33[;0m/\33[;31mN\33[;0m): ").lower()
