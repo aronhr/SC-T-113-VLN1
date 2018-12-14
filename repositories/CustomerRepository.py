@@ -10,6 +10,10 @@ class CustomerRepository:
 
     @staticmethod
     def get_customer():
+        """
+        Gets the customer from the csv file. and returns the array with the specific customer
+        :return:
+        """
         try:
             with open("./data/customers.csv", encoding='utf-8') as file:
                 csv_reader = csv.DictReader(file)
@@ -21,6 +25,11 @@ class CustomerRepository:
             return False
 
     def check_if_kt_exist(self, kt):
+        """
+        Checks is the kt is in (get customer) and returns a "false" or "true"
+        :param kt:
+        :return:
+        """
         data = self.get_customer()
         if data:
             for x in data:
@@ -33,6 +42,11 @@ class CustomerRepository:
 
     @staticmethod
     def add_customer(customer):
+        """
+        adds a customer in to the csv file.
+        :param customer:
+        :return:
+        """
         name = customer.get_name()
         kt = customer.get_kt()
         country = customer.get_country()
@@ -54,11 +68,21 @@ class CustomerRepository:
                 print("Error adding customer to file")
 
     def get_customer_id(self, c_id):
+        """
+        Gets customer by id, and return the specific customer.
+        :param c_id:
+        :return:
+        """
         customer = self.get_customer()
         return customer[c_id]
 
     # noinspection PyTypeChecker
     def remove_customer(self, customer_id):
+        """
+        Gets the customer by id, then if the customer exist the specific customer will be removed
+        :param customer_id:
+        :return:
+        """
         customer = self.get_customer()
         selected_customer = customer[customer_id - 1]
         os.remove("./data/customers.csv")

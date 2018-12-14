@@ -28,6 +28,11 @@ class OrdercarUi:
 
     @staticmethod
     def print_current_orders(orders):
+        """
+        Prints out the currents order
+        :param orders:
+        :return:
+        """
         print("{:^6}|{:^12}|{:^20}|{:^13}|{:^15}|{:^15}|{:^13}|{:^11}|{:^13}|{:^6}".format
               ("ID", "PPN/Kt", "Name", "License", "From date", "To date", "Price", "Insurance", "Total price", "Days"))
         print("-" * 133)
@@ -39,6 +44,11 @@ class OrdercarUi:
 
     @staticmethod
     def print_completed_orders(completed_orders):
+        """
+        Prints out orders that are completed.
+        :param completed_orders:
+        :return:
+        """
         print("{:^6}|{:^12}|{:^20}|{:^13}|{:^15}|{:^15}|{:^13}|{:^11}|{:^13}|{:^16}|{:^6}".format
               ("ID", "PPN/Kt", "Name", "License", "From date", "To date", "Price", "Insurance",
                "Total price", "Payment method", "Days"))
@@ -51,6 +61,11 @@ class OrdercarUi:
         print()
 
     def print_receipt(self, order):
+        """
+        Prints out the receipt for a customer and shows a few details (e. price)
+        :param order:
+        :return:
+        """
         car = self.__car_service.get_car_by_license(order["License"])
         customer = self.__customer_service.get_customer_by_kt(order["Kt"])
 
@@ -108,6 +123,12 @@ Customer
 
     @staticmethod
     def calculate_days(from_date, to_date):
+        """
+        Calulates how many days the customer have used the car. from and to
+        :param from_date:
+        :param to_date:
+        :return:
+        """
         # Calculate how long the order is in days
         from_date = datetime.datetime.date(from_date)
         to_date = datetime.datetime.date(to_date)
@@ -115,6 +136,12 @@ Customer
         return delta.days  # how many days the rental is
 
     def create_customer(self, kt):
+        """
+        This asks you for information about customer (e. Enter country)
+
+        :param kt:
+        :return:
+        """
         name = input("\tEnter name: ").translate(remove_punct_map)
         country = input("\tEnter country: ").translate(remove_punct_map)
         address = input("\tEnter address: ").translate(remove_punct_map)
@@ -127,6 +154,10 @@ Customer
         return name
 
     def print_car_types(self):
+        """
+        Prints out the type of the car, we user the get car class to help us with this function
+        :return:
+        """
         cars = self.__car_service.get_car_class()
         if cars:
             print("\n\t", end="")
@@ -138,6 +169,10 @@ Customer
             return False
 
     def rent_car(self):
+        """
+        This rents a car and ask the customer for a few details.
+        :return:
+        """
         self.header("Rent car")
         con = True
         while con:
@@ -160,9 +195,12 @@ Customer
 
                     is_valid = False
                     while not is_valid:
+
                         to_date = self.__car_service.user_date("Enter end date for rent (dd/mm/yy): ")
+
                         if from_date <= to_date:
                             is_valid = True
+
                         else:
                             print("Time traveling?")
 
@@ -231,6 +269,10 @@ Customer
                 input("\33[;32mPress enter to continue \33[;0m")
 
     def return_car(self):
+        """
+        Here will the car be returned.
+        :return:
+        """
         self.header("Return car")
         returning = True
         correct_km = True
@@ -289,6 +331,10 @@ Customer
                 print("\nPlease enter a correct input\n")
 
     def revoke_order(self):
+        """
+        Here the order will be revoked.
+        :return:
+        """
         self.header("Revoke order")
         try:
             orders = self.__order_service.get_orders()
@@ -325,6 +371,10 @@ Customer
         input("\33[;32mPress enter to continue \33[;0m")
 
     def edit_current_order(self):
+        """
+        Here you cant edit a specific order by id (e. edit name)
+        :return:
+        """
         self.header("Edit order")
         orders = self.__order_service.get_orders()
         editing_order = True
@@ -383,6 +433,10 @@ Customer
         input("\33[;32mPress enter to continue \33[;0m")
 
     def get_order_history_of_customer(self):
+        """
+        Gets order history of customer. and messages you if you have no orders
+        :return:
+        """
         self.header("Order history of customer")
         history = True
         while history:
@@ -405,7 +459,7 @@ Customer
         history = True
         while history:
             cars = self.__car_service.get_cars()
-            # TODO : ekki hægt að velja bíl rip
+
             car_id = self.__car_ui.print_cars(cars)
             if car_id.isdigit():
                 car = self.__car_service.get_car_by_id(int(car_id))
@@ -423,6 +477,10 @@ Customer
         input("\33[;32mPress enter to continue \33[;0m")
 
     def completed_orders(self):
+        """
+        Here you can find a specific completed order
+        :return:
+        """
         self.header("Completed orders")
         try:
             completed_orders = self.__order_service.get_completed_orders()
@@ -449,6 +507,11 @@ Customer
         input("\33[;32mPress enter to continue\33[;0m")
 
     def main_menu(self):
+        """
+        This is the main menu for the Order car interface, this will offer you to choose (e. 1. Rent a car)
+        
+        :return:
+        """
         action = ''
         while action != 'q':
             os.system('cls')

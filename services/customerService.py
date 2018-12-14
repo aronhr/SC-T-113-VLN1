@@ -19,6 +19,11 @@ class CustomerService:
         return start, stop, start + 1
 
     def print_customers(self, customers):
+        """
+        Prints all the customers that we have.
+        :param customers:
+        :return:
+        """
         start = 0
         stop = 10
         count = 1
@@ -50,6 +55,11 @@ class CustomerService:
                 continue
 
     def list_all_customers(self):
+        """
+        List all the customers by using the get_customer(),
+         and returns a message if there is no customers
+        :return:
+        """
         customers = self.get_customers()
         if customers:
             self.print_customers(customers)
@@ -59,6 +69,11 @@ class CustomerService:
     # noinspection PyTypeChecker
     @staticmethod
     def print_customer(customer):
+        """
+        Prints a specific customer.
+        :param customer:
+        :return:
+        """
         print("\tPPN/Kt: {}".format(customer["Passport number"]))
         print("\tName: {}".format(customer["Name"]))
         print("\tCountry: {}".format(customer["Country"]))
@@ -69,12 +84,18 @@ class CustomerService:
         print("\tAge: {}".format(customer["Age"]))
 
     def add_customer(self, customer):
+
         self.__customer_repo.add_customer(customer)
 
     def get_customers(self):
         return self.__customer_repo.get_customer()
 
     def get_customer_by_kt(self, kt):
+        """
+        Get a customer by the Passport Number or kt
+        :param kt:
+        :return:
+        """
         customers = self.get_customers()
         for x in customers:
             if x["Passport number"] == kt:
@@ -82,6 +103,7 @@ class CustomerService:
         return 0
 
     def remove_customer(self, customer_id):
+
         return self.__customer_repo.remove_customer(customer_id)
 
     def get_customer_by_id(self, c_id):

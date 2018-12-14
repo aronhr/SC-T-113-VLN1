@@ -8,6 +8,11 @@ class EmployeeRepository(object):
         pass
 
     def check_if_kt_exist(self, kt):
+        """
+        Checks is the kt is in (get employee) and returns a "false" or "true"
+        :param kt:
+        :return:
+        """
         data = self.get_employee()
         if data:
             for x in data:
@@ -20,6 +25,10 @@ class EmployeeRepository(object):
 
     @staticmethod
     def get_employee():
+        """
+        gets all employees, and appends it in to a lists and returns it.
+        :return:
+        """
         try:
             with open("./data/employees.csv", encoding="utf-8") as file:
                 csv_reader = csv.DictReader(file)
@@ -33,6 +42,11 @@ class EmployeeRepository(object):
 
     @staticmethod
     def add_employee(customer):
+        """
+        adds an employee, and appends that specific employee that the customer created.
+        :param customer:
+        :return:
+        """
         name = customer.get_name()
         kt = customer.get_kt()
         country = customer.get_country()
@@ -54,6 +68,11 @@ class EmployeeRepository(object):
                 print("Error adding employee to file")
 
     def get_employee_id(self, id):
+        """
+        Gets the employee by id, and the returns the specific employee.
+        :param id:
+        :return:
+        """
         try:
             emp = self.get_employee()
             return emp[id]
@@ -61,6 +80,12 @@ class EmployeeRepository(object):
             return False
 
     def remove_employee_id(self, id):
+        """
+        Removes the employee by id, we use the get_employee() function to help us getting the employee
+        then we delete the employee csv file, then we build the csv file again without the deleted employee.
+        :param id:
+        :return:
+        """
         try:
             emp = self.get_employee()
             selected_emp = emp[id - 1]

@@ -22,6 +22,11 @@ class CarRepository(object):
 
     @staticmethod
     def add_car(car):
+        """
+        add car in csv file
+        :param car:
+        :return:
+        """
         model = car.get_model()
         cartype = car.get_type()
         carclass = car.get_class()
@@ -42,6 +47,11 @@ class CarRepository(object):
 
     # noinspection PyTypeChecker
     def get_available_car(self, t):  # t stendur fyrir annaðhvort True eða False
+        """
+        gets car and appends to [cars]
+        :param t:
+        :return:
+        """
         car = self.get_car()
         if car:
             cars = []
@@ -53,6 +63,12 @@ class CarRepository(object):
             return False
 
     def get_available_date_car(self, from_date, to_date):
+        """
+        Gets car from csv file, and check if its available.
+        :param from_date:
+        :param to_date:
+        :return:
+        """
         try:
             with open("./data/order.csv") as file:
                 csv_reader = csv.DictReader(file)
@@ -68,6 +84,11 @@ class CarRepository(object):
             return False
 
     def get_car_id(self, id, stat="All"):
+        """
+        Get car with id, and returns the car with the id.
+        :param id:
+        :return:
+        """
         try:
             if stat == "True":
                 car = self.get_available_car("True")
@@ -81,6 +102,12 @@ class CarRepository(object):
 
     # noinspection PyTypeChecker
     def remove_car_id(self, id):
+        """
+        Gets the car and removes the csv file, and adds the original csv file,
+        except the car that the customer deleted.
+        :param id:
+        :return:
+        """
         car = self.get_car()
         selected_car = car[id - 1]
         os.remove("./data/car.csv")
