@@ -16,7 +16,6 @@ class OrderRepository(object):
     def get_orders():
         """
         Get all orders from the csv file, "order.csv"
-
         :return:
         """
         try:

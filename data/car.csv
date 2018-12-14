@@ -3,12 +3,11 @@ Hyundai,I30,Luxury,5,No,Automatic,True,8500,RUN46
 Volvo,Xc60,Sport,4,Yes,Manual,True,7500,AKY08
 Mercedes,Actros,Luxury,6,Yes,Automatic,True,8500,SJ353
 Bmw,3,Sport,5,Yes,Automatic,True,7500,TM943
-Honda,Jazz,Economy,5,No,Manual,False,4000,UN934
+Honda,Jazz,Economy,5,No,Manual,False,5000,UN934
 Isuzu,Trooper,Sedan,7,Yes,Manual,True,5500,UA339
 Hyundai,Coupe,Sedan,4,No,Manual,True,5500,BJ669
-Kia,Rio,Economy,5,No,Manual,True,4000,DGX48
+Kia,Rio,Economy,5,No,Manual,True,5000,DGX48
 Toyota,Corolla gli,Sedan,4,No,Manual,True,5500,KN230
-Fiat,Stilo,Economy,5,No,Manual,True,4000,NM243
 Mitsubishi,Outlander,Off-road,5,Yes,Automatic,True,7000,UMH78
 Jeep,Willys,Sedan,4,Yes,Manual,True,5500,AG962
 Volvo,Xc90,Luxury,4,Yes,Automatic,True,8500,HMY49
@@ -19,7 +18,7 @@ Bmw,5,Luxury,5,Yes,Manual,True,8500,EOH14
 Citroen,C4 picasso,Sedan,7,No,Automatic,True,5500,MYB18
 Citroen,Bx 16 tzs,Luxury,4,Yes,Automatic,True,8500,RO899
 Toyota,Avensis,Sedan,4,Yes,Manual,True,5500,PN940
-Toyota,Yaris,Economy,5,Yes,Automatic,True,4000,OI035
+Toyota,Yaris,Economy,5,Yes,Automatic,True,5000,OI035
 Volkswagen,Golf,Sedan,5,No,Manual,True,5500,ME245
 Mercedes,C,Luxury,5,No,Automatic,False,8500,SN722
 Ford,F150,Off-road,5,Yes,Automatic,True,7000,VS776

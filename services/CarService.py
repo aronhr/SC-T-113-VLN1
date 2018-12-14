@@ -29,7 +29,7 @@ class CarService:
         :return:
         """
         start = stop
-        stop = start * 2
+        stop = start + 10
         return start, stop, start + 1
 
     @staticmethod
@@ -120,6 +120,30 @@ class CarService:
             for x in car:
                 for y in available_cars:
                     if x["License"] == y["License"]:
+                        cars.append(x)
+                        break
+            if not cars:
+                for x in car:
+                    cars.append(x)
+            return cars
+        except Exception:
+            return car
+
+    def get_available_date_cars_UI(self, from_date, to_date):
+        """
+        gets the available cars the available date
+        :param from_date:
+        :param to_date:
+        :return:
+        """
+        available_cars = self.__car_repo.get_available_date_car(from_date, to_date)
+        car = self.get_available_cars()
+        cars = []
+        # Cars that are unavailable
+        try:
+            for x in car:
+                for y in available_cars:
+                    if x["License"] != y["License"]:
                         cars.append(x)
                         break
             if not cars:
