@@ -360,8 +360,8 @@ Customer
                                              order["Price"], order["Insurance"], order["Total price"], order["Days"])
                         a_choice = ''
                         while a_choice != 'q':
-                            print("1. Edit PPN/Kt\n2. Edit name\n3. Car-license\n4. From date\n5. To date\n6. Price\n7. Insurance\n"
-                                  "8. Days\n\n""\33[;31mPress q to go back \33[;0m\n")
+                            print("1. Edit PPN/Kt\n2. Edit name\n3. Car-license\n4. From date\n5. To date\n6. Price\n"
+                                  "7. Insurance\n8. Days\n\n""\33[;31mPress q to go back \33[;0m\n")
                             a_choice = input("Choose an option: ").lower()
                             if a_choice.lower() == 'q':
                                 break

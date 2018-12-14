@@ -34,12 +34,12 @@ class EmployeeUI:
         count = 1
         while True:
             print(
-                "{:^6}|{:^18}|{:^17}|{:^11}|{:^17}|{:^32}|{:^14}|{:^18}|{:^5}|".format
+                "{:^6}|{:^22}|{:^17}|{:^11}|{:^17}|{:^32}|{:^14}|{:^18}|{:^5}|".format
                 ("ID", "Name", "Passport number", "Country", "Address", "E-mail", "Phone number", "Driving license",
                  "Age"))
-            print("-" * 137)
+            print("-" * 153)
             for ix, customer in enumerate(emp[start:stop]):
-                print("{:^8}{:<19}{:<18}{:<12}{:<18}{:<33}{:<15}{:<19}{:<7}".format
+                print("{:^8}{:<23}{:<18}{:<12}{:<18}{:<33}{:<15}{:<19}{:<7}".format
                       (ix + count, customer["Name"], customer["Passport number"], customer["Country"], customer["Address"],
                        customer["Mail"], customer["Phone number"], customer["license"], customer["Age"]))
             print()
@@ -76,7 +76,7 @@ class EmployeeUI:
                 address = input("\tEnter address: ").translate(remove_punct_map)
                 mail = input("\tEnter mail: ").strip()
                 phone = input("\tEnter phone number: ").translate(remove_punct_map)
-                customer_license = int(input("\tEnter drivers license: "))
+                customer_license = input("\tEnter drivers license: ")
                 age = int(input("\tEnter age: "))
                 new_employee = Employee(name, kt, country, address, mail, phone, customer_license, age)
                 print(new_employee)
@@ -203,7 +203,7 @@ class EmployeeUI:
             os.system('cls')
             self.header("Employees")
             print("You can do the following: ")
-            print("1. Add a employee\n2. List all employees\n3. Remove employee\n4. Edit employee\n\33[;31mPress q to go back \33[;0m")
+            print("1. Add an employee\n2. List all employees\n3. Remove employee\n4. Edit employee\n\33[;31mPress q to go back \33[;0m")
 
             action = input("\nChoose an option: ").lower()
 

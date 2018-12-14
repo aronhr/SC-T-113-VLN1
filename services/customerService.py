@@ -28,12 +28,12 @@ class CustomerService:
         stop = 10
         count = 1
         while True:
-            print("{:^6}|{:^18}|{:^17}|{:^11}|{:^17}|{:^30}|{:^14}|{:^18}|{:^5}|".format
+            print("{:^6}|{:^22}|{:^17}|{:^11}|{:^17}|{:^30}|{:^14}|{:^18}|{:^5}|".format
                   ("ID", "Name", "Passport number", "Country", "Address", "E-mail", "Phone number", "Driving license",
                    "Age"))
-            print("-" * 145)
+            print("-" * 150)
             for ix, customer in enumerate(customers[start:stop]):
-                print("{:^8}{:<19}{:<18}{:<12}{:<18}{:<31}{:<15}{:<19}{:<7}".format(ix + count, customer["Name"], customer[
+                print("{:^8}{:<23}{:<18}{:<12}{:<18}{:<31}{:<15}{:<19}{:<7}".format(ix + count, customer["Name"], customer[
                     "Passport number"], customer["Country"], customer["Address"], customer["Mail"],
                                                                                     customer["Phone number"],
                                                                                     customer["license"], customer["Age"]))
