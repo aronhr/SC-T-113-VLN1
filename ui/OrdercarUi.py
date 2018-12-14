@@ -8,6 +8,7 @@ from modules.order.order import Order
 import datetime
 import os
 import string
+import math
 
 remove_punct_map = dict.fromkeys(map(ord, string.punctuation))
 
@@ -24,40 +25,6 @@ class OrdercarUi:
         print("-" * 50)
         print("|{:^48}|".format(i))
         print("-" * 50)
-        print()
-
-    @staticmethod
-    def print_current_orders(orders):
-        """
-        Prints out the currents order
-        :param orders:
-        :return:
-        """
-        print("{:^6}|{:^12}|{:^20}|{:^13}|{:^15}|{:^15}|{:^13}|{:^11}|{:^13}|{:^6}".format
-              ("ID", "PPN/Kt", "Name", "License", "From date", "To date", "Price", "Insurance", "Total price", "Days"))
-        print("-" * 133)
-        for ix, order in enumerate(orders):
-            print("{:^8}{:<13}{:<21}{:<16}{:<16}{:<14}{:<14}{:<12}{:<14}{:<6}".format
-                  (ix + 1, order["Kt"], order["Name"], order["License"], order["From date"], order["To date"],
-                   order["Price"]+" kr.", order["Insurance"], order["Total price"]+" kr.", order["Days"]))
-        print()
-
-    @staticmethod
-    def print_completed_orders(completed_orders):
-        """
-        Prints out orders that are completed.
-        :param completed_orders:
-        :return:
-        """
-        print("{:^6}|{:^12}|{:^20}|{:^13}|{:^15}|{:^15}|{:^13}|{:^11}|{:^13}|{:^16}|{:^6}".format
-              ("ID", "PPN/Kt", "Name", "License", "From date", "To date", "Price", "Insurance",
-               "Total price", "Payment method", "Days"))
-
-        print("-" * 150)
-        for ix, order in enumerate(completed_orders):
-            print("{:^8}{:<13}{:<21}{:<16}{:<16}{:<14}{:<14}{:<12}{:<14}{:<16}{:<6}".format
-                  (ix + 1, order["Kt"], order["Name"], order["License"], order["From date"], order["To date"],
-                   order["Price"]+" kr.", order["Insurance"], order["Total price"]+" kr.", order["Payment method"],order["Days"]))
         print()
 
     def print_receipt(self, order):
@@ -280,14 +247,14 @@ Customer
             try:
                 orders = self.__order_service.get_orders()
                 if orders:
-                    self.print_current_orders(orders)
+                    self.__order_service.print_current_orders(orders)
                     o_id = input("Select order by Id (\33[;31mq to go back\33[;0m): ")
                     if o_id.isdigit():
                         order = self.__order_service.get_order_by_id(int(o_id))
                         current_order = Order(order["Kt"], order["Name"], order["License"], order["From date"],
                                               order["To date"], order["Price"], order["Insurance"],
                                               order["Total price"], order["Days"])
-                        self.print_current_orders([order])
+                        print(current_order)
                         price = float(order["Total price"])
                         while correct_km:
                             current_order.set_penalty(0)
@@ -341,12 +308,13 @@ Customer
             if orders:
                 revoking = True
                 while revoking:
-                    self.print_current_orders(orders)
+                    self.__order_service.print_current_orders(orders)
                     o_id = input("Select order by Id (\33[;31mq to quit\33[;0m""): ")
                     if o_id.isdigit():
                         order = self.__order_service.get_order_by_id(int(o_id))
                         if order:
-                            self.print_current_orders([order])
+                            print("Name: {} License of car: {} Total Price: {}".format(order["Name"], order["License"],
+                                                                                       order["Total price"]))
                             total_price = float(order["Total price"])
                             print("Your deposit was {} ISK".format(int(total_price * 0.10)))
                             choice = input("Are you sure you want to revoke the order? (\33[;32mY\33[;0m/\33[;31mN\33[;0m): ").lower()
@@ -380,7 +348,7 @@ Customer
         editing_order = True
         while editing_order:
             if orders:
-                self.print_current_orders(orders)
+                self.__order_service.print_current_orders(orders)
                 o_id = input("Select order by Id (\33[;31mq to quit\33[;0m""): ")
                 if o_id.lower() == 'q':
                     editing_order = False
@@ -446,7 +414,7 @@ Customer
             if kt == 'Q':
                 history = False
             elif check_kt and orders:
-                self.print_completed_orders(orders)
+                self.__order_service.print_completed_orders(orders)
                 history = False
             elif not check_kt:
                 print("\nCustomer does not exist\n")
@@ -465,7 +433,7 @@ Customer
                 car = self.__car_service.get_car_by_id(int(car_id))
                 car_orders = self.__order_service.get_available_orders(car["License"])
                 if car and car_orders:
-                    self.print_completed_orders(car_orders)
+                    self.__order_service.print_completed_orders(car_orders)
                     history = False
                 elif not car:
                     print("\nCar does not exist\n")
@@ -487,7 +455,7 @@ Customer
             correct_id = True
             while correct_id:
                 if completed_orders:
-                    self.print_completed_orders(completed_orders)
+                    self.__order_service.print_completed_orders(completed_orders)
                     o_id = input("Select the order you want to view (\33[;31mq to go back\33[;0m): ")
                     if o_id.isdigit():
                         os.system('cls')
@@ -538,7 +506,7 @@ Customer
                 self.header("Current orders")
                 orders = self.__order_service.get_orders()
                 if orders:
-                    self.print_current_orders(orders)
+                    self.__order_service.print_current_orders(orders)
                 else:
                     print("\nNo orders\n")
                 input("\33[;32mPress enter to continue \33[;0m")
