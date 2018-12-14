@@ -67,9 +67,17 @@ class CarRepository(object):
         except Exception:
             return False
 
-    def get_car_id(self, id):
-        car = self.get_car()
-        return car[id]
+    def get_car_id(self, id, stat="All"):
+        try:
+            if stat == "True":
+                car = self.get_available_car("True")
+            elif stat == "False":
+                car = self.get_available_car("False")
+            else:
+                car = self.get_car()
+            return car[id]
+        except Exception:
+            return False
 
     # noinspection PyTypeChecker
     def remove_car_id(self, id):
