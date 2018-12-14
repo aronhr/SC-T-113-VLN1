@@ -33,11 +33,11 @@ class OrdercarUi:
         :param orders:
         :return:
         """
-        print("{:^6}|{:^12}|{:^20}|{:^13}|{:^15}|{:^15}|{:^13}|{:^11}|{:^13}|{:^6}".format
+        print("{:^6}|{:^12}|{:^23}|{:^13}|{:^15}|{:^15}|{:^13}|{:^11}|{:^13}|{:^6}".format
               ("ID", "PPN/Kt", "Name", "License", "From date", "To date", "Price", "Insurance", "Total price", "Days"))
         print("-" * 133)
         for ix, order in enumerate(orders):
-            print("{:^8}{:<13}{:<21}{:<16}{:<16}{:<14}{:<14}{:<12}{:<14}{:<6}".format
+            print("{:^8}{:<13}{:<23}{:<16}{:<16}{:<14}{:<14}{:<12}{:<14}{:<6}".format
                   (ix + 1, order["Kt"], order["Name"], order["License"], order["From date"], order["To date"],
                    order["Price"]+" kr.", order["Insurance"], order["Total price"]+" kr.", order["Days"]))
         print()
@@ -49,13 +49,13 @@ class OrdercarUi:
         :param completed_orders:
         :return:
         """
-        print("{:^6}|{:^12}|{:^20}|{:^13}|{:^15}|{:^15}|{:^13}|{:^11}|{:^13}|{:^16}|{:^6}".format
+        print("{:^6}|{:^12}|{:^22}|{:^13}|{:^15}|{:^15}|{:^13}|{:^11}|{:^13}|{:^16}|{:^6}".format
               ("ID", "PPN/Kt", "Name", "License", "From date", "To date", "Price", "Insurance",
                "Total price", "Payment method", "Days"))
 
         print("-" * 150)
         for ix, order in enumerate(completed_orders):
-            print("{:^8}{:<13}{:<21}{:<16}{:<16}{:<14}{:<14}{:<12}{:<14}{:<16}{:<6}".format
+            print("{:^8}{:<13}{:<23}{:<16}{:<16}{:<14}{:<14}{:<12}{:<14}{:<16}{:<6}".format
                   (ix + 1, order["Kt"], order["Name"], order["License"], order["From date"], order["To date"],
                    order["Price"]+" kr.", order["Insurance"], order["Total price"]+" kr.", order["Payment method"],order["Days"]))
         print()
@@ -392,8 +392,8 @@ Customer
                                              order["Price"], order["Insurance"], order["Total price"], order["Days"])
                         a_choice = ''
                         while a_choice != 'q':
-                            print("1. Edit PPN/Kt\n2. Edit name\n3. Car-license\n4. From date\n5. To date\n6. Price\n7. Insurance\n"
-                                  "8. Days\n\n""\33[;31mPress q to go back \33[;0m\n")
+                            print("1. Edit PPN/Kt\n2. Edit name\n3. Car-license\n4. From date\n5. To date\n6. Price\n"
+                                  "7. Insurance\n8. Days\n\n""\33[;31mPress q to go back \33[;0m\n")
                             a_choice = input("Choose an option: ").lower()
                             if a_choice.lower() == 'q':
                                 break
