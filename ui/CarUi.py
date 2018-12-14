@@ -72,7 +72,7 @@ class CarUi:
         input("\33[;32mPress enter to continue \33[;0m")
 
     def list_cars_in_rent(self):
-        self.header("Cars in rent")
+        self.header("Unavalible cars")
         cars = self.__car_service.get_not_available_cars()
         if cars:
             self.print_cars(cars)
