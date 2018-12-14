@@ -101,8 +101,8 @@ class CarService:
         else:
             return False
 
-    def get_car_by_id(self, id):
-        return self.__car_repo.get_car_id(id-1)
+    def get_car_by_id(self, id, stat="All"):
+        return self.__car_repo.get_car_id(id - 1, stat)
 
     def remove_car(self, id):
         return self.__car_repo.remove_car_id(id)
