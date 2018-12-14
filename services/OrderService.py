@@ -1,5 +1,6 @@
 from repositories.OrderRepository import OrderRepository
 from repositories.CustomerRepository import CustomerRepository
+import math
 
 
 class OrderService:
@@ -57,3 +58,85 @@ class OrderService:
             return order
         else:
             return False
+
+    @staticmethod
+    def next_list(stop):
+        start = stop
+        stop = start + 10
+        return start, stop, start + 1
+
+    @staticmethod
+    def prev_list(start):
+        stop = start
+        start = stop - 10
+        return start, stop, start + 1
+
+    def print_current_orders(self, orders):
+        """
+        Prints out the currents order
+        :param orders:
+        :return:
+        """
+        start = 0
+        stop = 10
+        count = 1
+        while True:
+            print("{:^6}|{:^12}|{:^20}|{:^13}|{:^15}|{:^15}|{:^13}|{:^11}|{:^13}|{:^6}".format
+                  ("ID", "PPN/Kt", "Name", "License", "From date", "To date", "Price", "Insurance", "Total price", "Days"))
+            print("-" * 133)
+            for ix, order in enumerate(orders[start:stop]):
+                print("{:^8}{:<13}{:<21}{:<16}{:<16}{:<14}{:<14}{:<12}{:<14}{:<6}".format
+                      (ix + count, order["Kt"], order["Name"], order["License"], order["From date"], order["To date"],
+                       order["Price"]+" kr.", order["Insurance"], order["Total price"]+" kr.", order["Days"]))
+            print()
+            y_n = input("Next / Previous / Quit searching (N/P/Q): ").lower()
+            if y_n == "n" and count <= math.ceil(len(orders) / 2):
+                start, stop, count = self.next_list(stop)
+            elif y_n == "n" and count > math.ceil(len(orders) / 2):
+                print("\nCant go forwards while on the last page\n")
+            elif y_n == "p" and count != 1:
+                start, stop, count = self.prev_list(start)
+            elif y_n == 'p' and count == 1:
+                print("\nCant go back while on the first page\n")
+                continue
+            elif y_n == 'q':
+                return y_n
+            else:
+                print("\n\33[;31mWrong input, try again!\33[;0m\n")
+                continue
+
+    def print_completed_orders(self, completed_orders):
+        """
+        Prints out orders that are completed.
+        :param completed_orders:
+        :return:
+        """
+        start = 0
+        stop = 10
+        count = 1
+        while True:
+            print("{:^6}|{:^12}|{:^20}|{:^13}|{:^15}|{:^15}|{:^13}|{:^11}|{:^13}|{:^16}|{:^6}".format
+                  ("ID", "PPN/Kt", "Name", "License", "From date", "To date", "Price", "Insurance",
+                   "Total price", "Payment method", "Days"))
+
+            print("-" * 150)
+            for ix, order in enumerate(completed_orders[start:stop]):
+                print("{:^8}{:<13}{:<21}{:<16}{:<16}{:<14}{:<14}{:<12}{:<14}{:<16}{:<6}".format
+                      (ix + count, order["Kt"], order["Name"], order["License"], order["From date"], order["To date"],
+                       order["Price"]+" kr.", order["Insurance"], order["Total price"]+" kr.", order["Payment method"],order["Days"]))
+            print()
+            y_n = input("Next / Previous / Quit searching (N/P/Q): ").lower()
+            if y_n == "n" and count <= math.ceil(len(completed_orders) / 2):
+                start, stop, count = self.next_list(stop)
+            elif y_n == "n" and count > math.ceil(len(completed_orders) / 2):
+                print("\nCant go forwards while on the last page\n")
+            elif y_n == "p" and count != 1:
+                start, stop, count = self.prev_list(start)
+            elif y_n == 'p' and count == 1:
+                print("\nCant go back while on the first page\n")
+                continue
+            elif y_n == 'q':
+                return y_n
+            else:
+                print("\n\33[;31mWrong input, try again!\33[;0m\n")
+                continue

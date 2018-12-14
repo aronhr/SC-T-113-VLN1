@@ -29,7 +29,7 @@ class CarService:
         :return:
         """
         start = stop
-        stop = start * 2
+        stop = start + 10
         return start, stop, start + 1
 
     @staticmethod
