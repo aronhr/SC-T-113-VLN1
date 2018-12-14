@@ -29,25 +29,25 @@ class OrdercarUi:
     @staticmethod
     def print_current_orders(orders):
         print("{:^6}|{:^12}|{:^20}|{:^13}|{:^15}|{:^15}|{:^13}|{:^11}|{:^13}|{:^6}".format
-              ("ID", "Kt", "Name", "License", "From date", "To date", "Price", "Insurance", "Total price", "Days"))
+              ("ID", "PPN/Kt", "Name", "License", "From date", "To date", "Price", "Insurance", "Total price", "Days"))
         print("-" * 133)
         for ix, order in enumerate(orders):
             print("{:^8}{:<13}{:<21}{:<16}{:<16}{:<14}{:<14}{:<12}{:<14}{:<6}".format
                   (ix + 1, order["Kt"], order["Name"], order["License"], order["From date"], order["To date"],
-                   order["Price"], order["Insurance"], order["Total price"], order["Days"]))
+                   order["Price"]+" kr.", order["Insurance"], order["Total price"]+" kr.", order["Days"]))
         print()
 
     @staticmethod
     def print_completed_orders(completed_orders):
         print("{:^6}|{:^12}|{:^20}|{:^13}|{:^15}|{:^15}|{:^13}|{:^11}|{:^13}|{:^16}|{:^6}".format
-              ("ID", "Kt", "Name", "License", "From date", "To date", "Price", "Insurance",
+              ("ID", "PPN/Kt", "Name", "License", "From date", "To date", "Price", "Insurance",
                "Total price", "Payment method", "Days"))
 
         print("-" * 150)
         for ix, order in enumerate(completed_orders):
             print("{:^8}{:<13}{:<21}{:<16}{:<16}{:<14}{:<14}{:<12}{:<14}{:<16}{:<6}".format
                   (ix + 1, order["Kt"], order["Name"], order["License"], order["From date"], order["To date"],
-                   order["Price"], order["Insurance"], order["Total price"], order["Payment method"],order["Days"]))
+                   order["Price"]+" kr.", order["Insurance"], order["Total price"]+" kr.", order["Payment method"],order["Days"]))
         print()
 
     def print_receipt(self, order):
@@ -57,7 +57,7 @@ class OrdercarUi:
         receipt = """
 Customer
 
-    Kt/Passport number: {i:<30}
+                PPN/Kt: {i:<30}
                   Name: {name:<30} 
                 E-Mail: {mail:<30}
           Phone number: {phone:<30} 
@@ -107,17 +107,6 @@ Customer
         print(output)
 
     @staticmethod
-    def print_customer(customer):
-        print("\tPassport number: {}".format(customer["Passport number"]))
-        print("\tName: {}".format(customer["Name"]))
-        print("\tCountry: {}".format(customer["Country"]))
-        print("\tAddress: {}".format(customer["Address"]))
-        print("\tPhone number: {}".format(customer["Phone number"]))
-        print("\tE-mail: {}".format(customer["Mail"]))
-        print("\tDriver´s license: {}".format(customer["license"]))
-        print("\tAge: {}".format(customer["Age"]))
-
-    @staticmethod
     def calculate_days(from_date, to_date):
         # Calculate how long the order is in days
         from_date = datetime.datetime.date(from_date)
@@ -152,15 +141,18 @@ Customer
         self.header("Rent car")
         con = True
         while con:
-            kt = input("Enter Kt/Passport number (\33[;31mq to go back\33[;0m): ").lower().translate(remove_punct_map)
+            # self.__customer_service.list_all_customers()
+            kt = input("Enter PPN/Kt(\33[;31mq to go back\33[;0m): ").lower().translate(remove_punct_map)
             if kt == "q":
                 break
-            elif input("Select this Kt/Passport number? (\33[;32mY\33[;0m/\33[;31mN\33[;0m): ").lower() == "y":
+            elif input("Select this PPN/Kt(\33[;32mY\33[;0m/\33[;31mN\33[;0m): ").format(kt).lower() == "y":
                 con = False
                 customer = self.__order_service.check_kt(kt)
+               # print(customer)
 
                 if customer:
-                    self.print_customer(customer)
+                    self.__customer_service.print_customer(customer)
+                    #self.__customer_service.print_customer(kt)
                 else:
                     name = self.create_customer(kt)
 
@@ -176,27 +168,16 @@ Customer
                                 is_valid = True
                             else:
                                 print("Time traveling?")
-
-                        if not self.print_car_types():
-                            print("\nNo available cars\n")
-                            break
-
-                        car_type = input("Enter type of car (\33[;31mq to quit\33[;0m): ").translate(remove_punct_map).capitalize()
-                        if car_type.upper() == "Q":
-                            break
-                            
-                        car_class = self.__car_service.get_car_class()
+                        # car_type = ""
+                        # while car_type.lower() != "q":
+                        car_type = self.__car_service.check_car_class("Enter class: \n\t\33[;36m1. Luxury\n\t2. Sport\n\t3. Off-road\n\t4. Sedan\n\t5. Economy\33[;0m\nSelect class: ", "Invalid input")
                         available_cars_type = self.__car_service.get_available_date_type(car_type, from_date, to_date)
-
-                        if car_type not in car_class:
-                            print("\nNo such class of car available\n")
-
                         if not available_cars_type:
                             i = input("No cars available,(\33[;31mpress q to quit\33[;0m,\33[;32m"
                                       " enter to select another date\33[;0m)")
                             if i == "q":
                                 break
-                        if car_type in car_class and available_cars_type:
+                        if car_type and available_cars_type:
                             while not approved:
                                 print("\nAvailable cars\n")
                                 self.__car_ui.print_cars(available_cars_type)
@@ -404,7 +385,7 @@ Customer
         self.header("Order history of customer")
         history = True
         while history:
-            kt = input("Enter passport number of the customer(\33[;31mq to go back\33[;0m): ").upper()
+            kt = input("Enter PPN/Kt of the customer(\33[;31mq to go back\33[;0m): ").upper()
             orders = self.__order_service.get_available_order_customer(kt)
             check_kt = self.__order_service.check_kt(kt)
             if kt == 'Q':

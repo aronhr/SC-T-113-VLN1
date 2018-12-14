@@ -60,7 +60,7 @@ def main():
         os.system('cls')
         car()
         print("-"*50)
-        print("|{:^58}|".format("\33[95mQuick Fix Bílaleigan \33[;0m"))
+        print("|{:^58}|".format("\33[95m Bílaleigan  \33[;0m"))
         print("-"*50)
         print("Main menu\n1. Orders\n2. Customers\n3. Cars\n4. Employee\n\n""\33[;31mPress q to quit the program \33[;0m")
 
