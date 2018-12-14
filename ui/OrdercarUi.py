@@ -89,8 +89,8 @@ Customer
             i_price = 0
             t_price = 0
         else:
-            i_price = int(car["Price"]) * 0.75
-            t_price = (int(car["Price"]) * 0.75) * int(order["Days"])
+            i_price = int(car["Price"]) * 0.25
+            t_price = (int(car["Price"]) * 0.25) * int(order["Days"])
 
         output = receipt.format(i=customer["Passport number"], name=customer["Name"], mail=customer["Mail"],
                                 address=customer["Address"], country=customer["Country"],
@@ -148,11 +148,9 @@ Customer
             elif input("Select this PPN/Kt(\33[;32mY\33[;0m/\33[;31mN\33[;0m): ").format(kt).lower() == "y":
                 con = False
                 customer = self.__order_service.check_kt(kt)
-               # print(customer)
 
                 if customer:
                     self.__customer_service.print_customer(customer)
-                    #self.__customer_service.print_customer(kt)
                 else:
                     name = self.create_customer(kt)
 
@@ -167,9 +165,10 @@ Customer
                             is_valid = True
                         else:
                             print("Time traveling?")
-                    # car_type = ""
-                    # while car_type.lower() != "q":
-                    car_type = self.__car_service.check_car_class("Enter class: \n\t\33[;36m1. Luxury\n\t2. Sport\n\t3. Off-road\n\t4. Sedan\n\t5. Economy\33[;0m\nSelect class: ", "Invalid input")
+
+                    car_type = self.__car_service.check_car_class("Enter class: \n\t\33[;36m1. Luxury\n\t2. Sport\n\t"
+                                                                  "3. Off-road\n\t4. Sedan\n\t5. Economy\33[;0m\n"
+                                                                  "Select class: ", "Invalid input")
                     available_cars_type = self.__car_service.get_available_date_type(car_type, from_date, to_date)
 
                     if not available_cars_type:
@@ -200,12 +199,12 @@ Customer
 
                                     print("Price of order: {} ISK".format(int(price_of_order_days)))
                                     insurance = input("Would you like extra insurance for {} {}".format  # Insurance (Yes or No)
-                                                      (int(price_of_order * 0.75), "ISK per day? (\33[;32mY\33[;0m/"
+                                                      (int(price_of_order * 0.25), "ISK per day? (\33[;32mY\33[;0m/"
                                                                                    "\33[;31mN\33[;0m): ")).upper()
                                     price_of_order_days_insurance = price_of_order_days
 
                                     if insurance == 'Y':
-                                        price_of_order_days_insurance = price_of_order_days * 1.75  # Price of order with extra insurance
+                                        price_of_order_days_insurance = price_of_order_days * 1.25  # Price of order with extra insurance
                                         print("Price of order: {} ISK".format(int(price_of_order_days_insurance)))
                                         deposit = price_of_order_days_insurance * 0.10
                                     else:
