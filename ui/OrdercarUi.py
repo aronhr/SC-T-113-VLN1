@@ -473,6 +473,7 @@ Customer
                 self.return_car()
 
             elif action == '3':
+                self.header("Current orders")
                 orders = self.__order_service.get_orders()
                 if orders:
                     self.print_current_orders(orders)
