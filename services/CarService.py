@@ -21,11 +21,11 @@ class CarService:
         else:
             return False
 
-    def get_cars_by_type(self, genre):
+    def get_cars_by_type(self, type):
         cars = self.get_available_cars()
         arr = []
         for x in cars:
-            if x["Class"] == genre:
+            if x["Class"] == type:
                 arr.append(x)
         return arr
 
