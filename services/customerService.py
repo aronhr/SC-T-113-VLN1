@@ -39,9 +39,9 @@ class CustomerService:
                                                                                     customer["license"], customer["Age"]))
             print()
             y_n = input("Next / Previous / Quit searching (N/P/Q): ").lower()
-            if y_n == "n" and count <= math.ceil(len(customers) / 2):
+            if y_n == "n" and count + 10 < len(customers):
                 start, stop, count = self.next_list(stop)
-            elif y_n == "n" and count > math.ceil(len(customers) / 2):
+            elif y_n == "n" and count + 10 >= len(customers):
                 print("\nCant go forwards while on the last page\n")
             elif y_n == "p" and count != 1:
                 start, stop, count = self.prev_list(start)

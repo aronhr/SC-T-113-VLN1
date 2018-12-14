@@ -4,7 +4,6 @@ import string
 import os
 import urllib.request
 import json
-import math
 
 remove_punct_map = dict.fromkeys(map(ord, string.punctuation))
 
@@ -61,9 +60,9 @@ class CarUi:
             y_n = input("Next / Previous / Quit (N/P/Q) or ID to chose a car: ").lower()
             if y_n.isdigit():
                 return y_n
-            elif y_n == "n" and count <= math.ceil(len(cars) / 2):
+            elif y_n == "n" and count + 10 <= len(cars):
                 start, stop, count = self.__car_service.next_list(stop)
-            elif y_n == "n" and count > math.ceil(len(cars) / 2):
+            elif y_n == "n" and count + 10 > len(cars):
                 print("\nCant go forwards while on the last page\n")
             elif y_n == "p" and count != 1:
                 start, stop, count = self.__car_service.prev_list(start)
