@@ -130,7 +130,7 @@ class CarUi:
         from_date = self.__car_service.user_date("\nEnter date from (dd/mm/yy): ")
         to_date = self.__car_service.user_date("Enter date to (dd/mm/yy): ")
         print()
-        cars = self.__car_service.get_available_date_cars(from_date, to_date)
+        cars = self.__car_service.get_available_date_cars_UI(from_date, to_date)
         if cars:
             self.selecting_car_in_print(cars)
         else:
