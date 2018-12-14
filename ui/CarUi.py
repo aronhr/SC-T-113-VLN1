@@ -13,7 +13,8 @@ class CarUi:
     def __init__(self):
         self.__car_service = CarService()
 
-    def header(self, i):
+    @staticmethod
+    def header(i):
         print("-" * 50)
         print("|{:^48}|".format(i))
         print("-" * 50)
@@ -35,10 +36,16 @@ class CarUi:
             y_n = input("Next / Previous / Quit (N/P/Q): ").lower()
             if y_n == "n":
                 start, stop, count = self.__car_service.next_list(stop)
-            elif y_n == "p":
+            elif y_n == "p" and count != 1:
                 start, stop, count = self.__car_service.prev_list(start)
-            else:
+            elif y_n == 'p' and count == 1:
+                print("\nCant go back while on the first page\n")
+                continue
+            elif y_n == 'q':
                 break
+            else:
+                print("\n\33[;31mWrong input, try again!\33[;0m\n")
+                continue
 
     @staticmethod
     def print_price(cars):
